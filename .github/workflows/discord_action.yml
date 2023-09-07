@@ -1,8 +1,5 @@
 name: 'New PR Notification'
-on:
-  pull_request: 
-    types: [push]
-
+on: [push]
 jobs:
   notify:
     runs-on: ubuntu-latest
