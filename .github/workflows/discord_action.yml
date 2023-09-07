@@ -9,7 +9,7 @@ jobs:
         with:
           webhook_url: ${{ secrets.WEBHOOK_URL }}
           title: New PR opened
-          message: "MESSAGE INCOMING... ${{ GITHUB_ACTION }} SAYS... The project ${{ EVENT_PAYLOAD.repository.full_name }} has been deployed by ${{ GITHUB.ACTOR }}. ...I showed you my commit. Please respond."
+          message: "MESSAGE INCOMING... The project ${{ EVENT_PAYLOAD.repository.full_name }} has been deployed by ${{ GITHUB.ACTOR }}. ...I showed you my commit. Please respond."
           include_image: true
           avatar_url: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
           username: GitHub Push Notifier
