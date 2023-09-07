@@ -11,4 +11,6 @@ jobs:
       with:
         webhook_id: ${{ secrets.WEBHOOK_ID }}
         webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
-        args: 'MESSAGE INCOMING... {{ GITHUB_ACTION }} SAYS... The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed. ...I showed you my commit. Please respond.'
+        args: 'Test'
+        # args: 'MESSAGE INCOMING... {{ GITHUB_ACTION }} SAYS... The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed. ...I showed you my commit. Please respond.'
+         
