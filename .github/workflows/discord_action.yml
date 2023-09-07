@@ -1,0 +1,17 @@
+name: 'New PR Notification'
+on: 
+  pull_request: 
+    types: [opened, reopened]
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord notification
+        uses: stegzilla/discord-notify@v2
+        with:
+          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          title: New PR opened
+          message: "MESSAGE INCOMING... The project has a new PR or a previous one has been reopened. Go check it out."
+          include_image: true
+          avatar_url: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+          username: GitHub Push Notifier
