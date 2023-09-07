@@ -1,16 +1,21 @@
-name: Discord Commit Notification
-on: [push]
+name: 'New PR Notification'
+on:
+  pull_request: 
+    types: [push]
+
 jobs:
-  build:
-    name: Build
+  notify:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: send custom message with args
-      uses: appleboy/discord-action@master
-      with:
-        webhook_id: ${{ secrets.WEBHOOK_ID }}
-        webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
-        args: 'Test'
-        # args: 'MESSAGE INCOMING... {{ GITHUB_ACTION }} SAYS... The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed. ...I showed you my commit. Please respond.'
+      - name: Send Discord notification
+        uses: stegzilla/discord-notify@v2
+        with:
+          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          title: New PR opened
+          message: "Test"
+          include_image: true
+          avatar_url: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+          username: GitHub PR Notifier
+
+       
          
