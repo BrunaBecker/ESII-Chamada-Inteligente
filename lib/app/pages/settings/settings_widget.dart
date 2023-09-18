@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/widgets/bottom_nav_bar.dart';
+
 class SettingsWidget extends StatelessWidget {
   const SettingsWidget({super.key});
 
@@ -10,6 +12,7 @@ class SettingsWidget extends StatelessWidget {
         alignment: Alignment.center,
         child: const Text("Página das preferências"),
       ),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

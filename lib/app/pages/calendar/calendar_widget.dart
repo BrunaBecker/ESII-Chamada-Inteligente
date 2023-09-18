@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/widgets/bottom_nav_bar.dart';
+
 class CalendarWidget extends StatelessWidget {
   const CalendarWidget({super.key});
 
@@ -10,6 +12,7 @@ class CalendarWidget extends StatelessWidget {
         alignment: Alignment.center,
         child: const Text("Página do calendário"),
       ),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

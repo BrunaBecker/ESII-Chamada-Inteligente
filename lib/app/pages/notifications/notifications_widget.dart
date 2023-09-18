@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/widgets/bottom_nav_bar.dart';
+
 class NotificationsWidget extends StatelessWidget {
   const NotificationsWidget({super.key});
 
@@ -10,6 +12,7 @@ class NotificationsWidget extends StatelessWidget {
         alignment: Alignment.center,
         child: const Text("Página das notificações"),
       ),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

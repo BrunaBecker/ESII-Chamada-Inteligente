@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/widgets/bottom_nav_bar.dart';
 import 'widgets/start_button.dart';
 
 class HomeWidget extends StatelessWidget {
@@ -14,6 +15,7 @@ class HomeWidget extends StatelessWidget {
           child: StartButton(),
         ),
       ),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }
