@@ -16,6 +16,7 @@ class AppWidget extends StatelessWidget {
       getPages: AppRoutes.routes,
       initialRoute: AppRoutes.login,
       initialBinding: AppBindings(),
+      defaultTransition: Transition.noTransition,
     );
   }
 }
