@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/adapters/mask_adapter.dart';
+
 class AttendanceSettingsController extends GetxController {
+  AttendanceSettingsController({
+    required maskAdapter,
+  }) : _maskAdapter = maskAdapter;
+
+  final MaskAdapter _maskAdapter;
+
   final _isLoading = true.obs;
   final _isStartingAttendance = false.obs;
   final _formKey = GlobalKey<FormState>();
@@ -13,6 +21,7 @@ class AttendanceSettingsController extends GetxController {
   final _startTimeController = TextEditingController();
   final _endTimeController = TextEditingController();
 
+  MaskAdapter get maskAdapter => _maskAdapter;
   bool get isLoading => _isLoading.value;
   bool get isCreatingAttendance => _isStartingAttendance.value;
   GlobalKey<FormState> get formKey => _formKey;

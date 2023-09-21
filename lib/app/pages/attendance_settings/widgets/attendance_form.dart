@@ -45,6 +45,7 @@ class AttendanceForm extends StatelessWidget {
                     TextFormField(
                       controller: controller.startTimeController,
                       keyboardType: TextInputType.datetime,
+                      inputFormatters: [controller.maskAdapter.time],
                       decoration: AttendanceSettingsInputDecoration(
                         labelText: "Início",
                         hintText: "09:30",
@@ -77,6 +78,7 @@ class AttendanceForm extends StatelessWidget {
                             child: TextFormField(
                               controller: controller.endTimeController,
                               keyboardType: TextInputType.datetime,
+                              inputFormatters: [controller.maskAdapter.time],
                               decoration: AttendanceSettingsInputDecoration(
                                 labelText: "Fim",
                                 hintText: "11:30",
