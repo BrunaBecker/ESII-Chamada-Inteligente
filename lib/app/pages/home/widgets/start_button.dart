@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../../app_routes.dart';
 import '../../../core/theme/app_colors.dart';
 
 class StartButton extends StatelessWidget {
@@ -11,6 +13,33 @@ class StartButton extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           // TODO: start attendance
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text("INICIANDO CHAMADA"),
+                content: const Text(
+                  "Você realmente deseja iniciar uma chamada inteligente? "
+                  "Ao confirmar, será levado para a página de configuração.",
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: const Text("Cancelar"),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Get.back();
+                      Get.offAllNamed(AppRoutes.attendanceSettings);
+                    },
+                    child: const Text("Confirmar"),
+                  ),
+                ],
+              );
+            },
+          );
         },
         child: Container(
           width: 200,

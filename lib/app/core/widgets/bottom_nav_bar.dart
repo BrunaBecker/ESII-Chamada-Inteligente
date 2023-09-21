@@ -50,22 +50,24 @@ class BottomNavBar extends StatelessWidget {
         ),
       ],
       onDestinationSelected: (index) {
+        var route = AppRoutes.home;
         switch (index) {
           case 0:
-            Get.toNamed(AppRoutes.home);
+            route = AppRoutes.home;
             break;
           case 1:
-            Get.toNamed(AppRoutes.classes);
+            route = AppRoutes.classes;
             break;
           case 2:
-            Get.toNamed(AppRoutes.calendar);
+            route = AppRoutes.calendar;
             break;
           case 3:
-            Get.toNamed(AppRoutes.settings);
+            route = AppRoutes.settings;
             break;
           default:
             break;
         }
+        Get.offAllNamed(route);
       },
     );
   }
