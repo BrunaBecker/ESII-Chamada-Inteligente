@@ -16,6 +16,8 @@ class LoginForm extends StatelessWidget {
         child: Column(
           children: [
             TextFormField(
+              keyboardType: TextInputType.number,
+              inputFormatters: [controller.maskAdapter.registration],
               decoration: LoginInputDecoration(
                 labelText: "Matrícula/SIAPE",
                 hintText: "Matrícula/SIAPE",

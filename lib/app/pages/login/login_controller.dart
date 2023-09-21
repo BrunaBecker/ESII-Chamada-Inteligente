@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginController extends GetxController {
-  final _isLoading = false.obs;
+import '../../core/adapters/mask_adapter.dart';
 
+class LoginController extends GetxController {
+  LoginController({
+    required maskAdapter,
+  }) : _maskAdapter = maskAdapter;
+
+  final MaskAdapter _maskAdapter;
+
+  final _isLoading = false.obs;
   final _isVisible = false.obs;
 
+  MaskAdapter get maskAdapter => _maskAdapter;
   bool get isLoading => _isLoading.value;
-
   bool get isVisible => _isVisible.value;
 
   void togglePasswordVisibility() {
