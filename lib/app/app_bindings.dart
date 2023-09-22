@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import 'core/adapters/mask_adapter.dart';
 import 'core/enums/mask.dart';
+import 'pages/notifications/notifications_controller.dart';
 
 class AppBindings extends Bindings {
   @override
@@ -27,5 +28,8 @@ class AppBindings extends Bindings {
         ),
       ),
     );
+
+    // Controllers
+    Get.put<NotificationsController>(NotificationsController());
   }
 }
