@@ -20,7 +20,10 @@ class ClassesWidget extends StatelessWidget {
         title: const Text("Minhas turmas"),
         centerTitle: true,
         actions: const [
-          ProfilePictureButton(),
+          Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: ProfilePictureButton(),
+          ),
         ],
       ),
       body: GetBuilder(
@@ -36,9 +39,11 @@ class ClassesWidget extends StatelessWidget {
                     final item = controller.classesList[index];
                     return ListTile(
                       onTap: () {},
+                      contentPadding: EdgeInsets.zero,
                       leading: Container(
                         width: 40,
                         height: 40,
+                        margin: const EdgeInsets.only(left: 16.0),
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: AppColors.primaryContainer,
@@ -68,7 +73,10 @@ class ClassesWidget extends StatelessWidget {
                           color: AppColors.onSurface,
                         ),
                       ),
-                      trailing: const Icon(Icons.more_vert),
+                      trailing: const Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Icon(Icons.more_vert),
+                      ),
                     );
                   },
                 ),

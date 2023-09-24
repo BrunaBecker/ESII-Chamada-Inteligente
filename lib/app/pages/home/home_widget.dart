@@ -21,17 +21,18 @@ class HomeWidget extends StatelessWidget {
               onTap: () => Get.toNamed(AppRoutes.notifications),
               child: Stack(
                 children: [
-                  const SizedBox(
-                    width: 48,
-                    height: 48,
-                    child: Icon(Icons.notifications_outlined),
+                  Container(
+                    width: 64,
+                    height: 64,
+                    padding: const EdgeInsets.only(right: 16.0),
+                    child: const Icon(Icons.notifications_outlined),
                   ),
                   Obx(
                     () => controller.isLoading || controller.totalUnreadNotifications < 1
                         ? const SizedBox()
                         : Positioned(
-                            top: 8,
-                            right: 8,
+                            top: 12,
+                            left: 24,
                             child: Badge(
                               smallSize: 16,
                               largeSize: 16,

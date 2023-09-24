@@ -14,11 +14,14 @@ class NotificationsWidget extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: () {
-              Get.back();
-            },
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: IconButton(
+              icon: const Icon(Icons.notifications),
+              onPressed: () {
+                Get.back();
+              },
+            ),
           ),
         ],
       ),
@@ -34,7 +37,11 @@ class NotificationsWidget extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final notification = controller.notifications[index];
                     return ListTile(
-                      leading: notification["isRead"] ? const Icon(Icons.notifications_outlined) : const Icon(Icons.notifications_active),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      leading: IconButton(
+                        onPressed: () {},
+                        icon: Icon(notification["isRead"] ? Icons.notifications_outlined : Icons.notifications_active),
+                      ),
                       title: Text(notification["title"]),
                       subtitle: Text(notification["description"]),
                       trailing: PopupMenuButton(
