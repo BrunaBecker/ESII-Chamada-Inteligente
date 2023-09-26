@@ -12,34 +12,7 @@ class StartButton extends StatelessWidget {
     return Center(
       child: GestureDetector(
         onTap: () {
-          // TODO: start attendance
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: const Text("INICIANDO CHAMADA"),
-                content: const Text(
-                  "Você realmente deseja iniciar uma chamada inteligente? "
-                  "Ao confirmar, será levado para a página de configuração.",
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    child: const Text("Cancelar"),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Get.back();
-                      Get.offAllNamed(AppRoutes.attendanceSettings);
-                    },
-                    child: const Text("Confirmar"),
-                  ),
-                ],
-              );
-            },
-          );
+          Get.offAllNamed(AppRoutes.attendanceSettings);
         },
         child: Container(
           width: 200,

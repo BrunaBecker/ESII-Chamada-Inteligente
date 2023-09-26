@@ -13,17 +13,41 @@ class AttendanceStartButton extends StatelessWidget {
       init: Get.find<AttendanceSettingsController>(),
       builder: (controller) {
         return FilledButton(
-          onPressed: () async {
-            // TODO: start attendance
-            await controller.startAttendance();
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text("INICIANDO CHAMADA"),
+                  content: const Text(
+                    "Você realmente deseja iniciar uma chamada inteligente?",
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: const Text("Cancelar"),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        // TODO: start attendance
+                        await controller.startAttendance();
 
-            Get.snackbar(
-              "Chamada",
-              "Chamada iniciada com sucesso!",
-              snackPosition: SnackPosition.BOTTOM,
-              margin: const EdgeInsets.all(88.0),
+                        Get.snackbar(
+                          "Chamada",
+                          "Chamada iniciada com sucesso!",
+                          snackPosition: SnackPosition.BOTTOM,
+                          margin: const EdgeInsets.all(88.0),
+                        );
+                        Get.offAllNamed(AppRoutes.home);
+                      },
+                      child: const Text("Confirmar"),
+                    ),
+                  ],
+                );
+              },
             );
-            Get.offAllNamed(AppRoutes.home);
           },
           child: const Text("Iniciar"),
         );
