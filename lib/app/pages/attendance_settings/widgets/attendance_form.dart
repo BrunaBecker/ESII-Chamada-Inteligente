@@ -23,6 +23,7 @@ class AttendanceForm extends StatelessWidget {
               : Column(
                   children: [
                     DropdownButtonFormField(
+                      value: controller.selectedClass,
                       isExpanded: true,
                       items: controller.classList
                           .map(
@@ -43,6 +44,48 @@ class AttendanceForm extends StatelessWidget {
                     ),
                     const Spacing(8.0),
                     TextFormField(
+                      controller: controller.dateController,
+                      keyboardType: TextInputType.datetime,
+                      inputFormatters: [controller.maskAdapter.date],
+                      readOnly: true,
+                      decoration: AttendanceSettingsInputDecoration(
+                        labelText: "Data",
+                        suffixIcon: IconButton(
+                          onPressed: () async {
+                            final date = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(DateTime.now().year - 1),
+                              lastDate: DateTime(DateTime.now().year + 1),
+                            );
+
+                            if (date != null) {
+                              controller.changeDate(date);
+                              controller.disableUsePreset();
+                            }
+                          },
+                          icon: const Icon(Icons.edit_calendar_outlined),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        controller.startTimeController.text = value;
+                        controller.disableUsePreset();
+                      },
+                    ),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 16.0, top: 4.0),
+                        child: Text(
+                          "DD/MM/YYYY",
+                          style: TextStyle(
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Spacing(8.0),
+                    TextFormField(
                       controller: controller.startTimeController,
                       keyboardType: TextInputType.datetime,
                       inputFormatters: [controller.maskAdapter.time],
@@ -51,10 +94,15 @@ class AttendanceForm extends StatelessWidget {
                         hintText: "09:30",
                         prefixIcon: const Icon(Icons.access_time),
                       ),
+                      onChanged: (value) {
+                        controller.startTimeController.text = value;
+                        controller.disableUsePreset();
+                      },
                     ),
-                    const Spacing(4.0),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 4.0,
+                      ),
                       child: Row(
                         children: [
                           Switch(
@@ -62,10 +110,15 @@ class AttendanceForm extends StatelessWidget {
                             onChanged: (_) => controller.toggleManualEnd(),
                           ),
                           const Spacing(8.0),
-                          const Text(
-                            "Finalizar a chamada manualmente",
-                            style: TextStyle(
-                              fontSize: 16,
+                          const Expanded(
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Text(
+                                "Finalizar a chamada manualmente",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
                             ),
                           ),
                         ],
@@ -73,18 +126,19 @@ class AttendanceForm extends StatelessWidget {
                     ),
                     controller.manualEnd
                         ? const SizedBox()
-                        : Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: TextFormField(
-                              controller: controller.endTimeController,
-                              keyboardType: TextInputType.datetime,
-                              inputFormatters: [controller.maskAdapter.time],
-                              decoration: AttendanceSettingsInputDecoration(
-                                labelText: "Fim",
-                                hintText: "11:30",
-                                prefixIcon: const Icon(Icons.access_time),
-                              ),
+                        : TextFormField(
+                            controller: controller.endTimeController,
+                            keyboardType: TextInputType.datetime,
+                            inputFormatters: [controller.maskAdapter.time],
+                            decoration: AttendanceSettingsInputDecoration(
+                              labelText: "Fim",
+                              hintText: "11:30",
+                              prefixIcon: const Icon(Icons.access_time),
                             ),
+                            onChanged: (value) {
+                              controller.endTimeController.text = value;
+                              controller.disableUsePreset();
+                            },
                           ),
                     const Spacing(4.0),
                     SingleChildScrollView(
@@ -95,10 +149,15 @@ class AttendanceForm extends StatelessWidget {
                             onChanged: (_) => controller.toggleSaveSettings(),
                           ),
                           const Spacing(8.0),
-                          const Text(
-                            "Salvar essa predefinição no calendário",
-                            style: TextStyle(
-                              fontSize: 14,
+                          const Expanded(
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Text(
+                                "Salvar essa predefinição no calendário",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                ),
+                              ),
                             ),
                           ),
                         ],

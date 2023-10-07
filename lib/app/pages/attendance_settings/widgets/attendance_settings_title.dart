@@ -9,7 +9,6 @@ class AttendanceSettingsTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.primary30,
-      height: 135,
       alignment: Alignment.center,
       child: const Text(
         "CONFIGURE SUA CHAMADA",

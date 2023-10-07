@@ -4,7 +4,8 @@ class AttendanceSettingsInputDecoration extends InputDecoration {
   AttendanceSettingsInputDecoration({
     String labelText = "",
     String hintText = "",
-    Widget prefixIcon = const SizedBox(),
+    Widget? prefixIcon,
+    Widget? suffixIcon,
   }) : super(
           border: OutlineInputBorder(
             borderSide: const BorderSide(
@@ -15,5 +16,6 @@ class AttendanceSettingsInputDecoration extends InputDecoration {
           labelText: labelText,
           hintText: hintText,
           prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
         );
 }

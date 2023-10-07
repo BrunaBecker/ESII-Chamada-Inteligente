@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/adapters/mask_adapter.dart';
+import '../../core/utils/app_date_utils.dart';
 
 class AttendanceSettingsController extends GetxController {
   AttendanceSettingsController({
@@ -16,10 +17,12 @@ class AttendanceSettingsController extends GetxController {
   final _allClassList = <String>[].obs;
   final _searchClassList = <String>[].obs;
   final _selectedClass = "".obs;
+  final _usePreset = false.obs;
   final _manualEnd = false.obs;
-  final _saveSettings = false.obs;
-  final _startTimeController = TextEditingController();
-  final _endTimeController = TextEditingController();
+  final _savePreset = false.obs;
+  final _dateController = TextEditingController().obs;
+  final _startTimeController = TextEditingController().obs;
+  final _endTimeController = TextEditingController().obs;
 
   MaskAdapter get maskAdapter => _maskAdapter;
   bool get isLoading => _isLoading.value;
@@ -28,10 +31,12 @@ class AttendanceSettingsController extends GetxController {
   List<String> get classList => _allClassList;
   List<String> get searchClassList => _searchClassList;
   String get selectedClass => _selectedClass.value;
+  bool get usePreset => _usePreset.value;
   bool get manualEnd => _manualEnd.value;
-  bool get saveSettings => _saveSettings.value;
-  TextEditingController get startTimeController => _startTimeController;
-  TextEditingController get endTimeController => _endTimeController;
+  bool get saveSettings => _savePreset.value;
+  TextEditingController get dateController => _dateController.value;
+  TextEditingController get startTimeController => _startTimeController.value;
+  TextEditingController get endTimeController => _endTimeController.value;
 
   @override
   void onReady() async {
@@ -50,9 +55,11 @@ class AttendanceSettingsController extends GetxController {
       "ESTRUTURAS DE DADOS E SEUS ALGORITMOS - A1",
       "ESTRUTURAS DE DADOS E SEUS ALGORITMOS - B1",
     ]);
-    _selectedClass.value = _allClassList.first;
+    if (_allClassList.isNotEmpty) {
+      _selectedClass.value = _allClassList.first;
+      _searchClassList.addAll(_allClassList);
+    }
 
-    _searchClassList.addAll(_allClassList);
     _isLoading.value = false;
   }
 
@@ -63,12 +70,27 @@ class AttendanceSettingsController extends GetxController {
     }));
   }
 
+  toggleUsePreset() {
+    _usePreset.value = !_usePreset.value;
+
+    if (usePreset && selectedClass.isNotEmpty) {
+      // TODO: get class settings
+      dateController.text = AppDateUtils.appDateFormat.format(DateTime.now());
+      startTimeController.text = "09:00";
+      endTimeController.text = "11:00";
+    }
+  }
+
+  disableUsePreset() {
+    _usePreset.value = false;
+  }
+
   void toggleManualEnd() {
     _manualEnd.value = !_manualEnd.value;
   }
 
   void toggleSaveSettings() {
-    _saveSettings.value = !_saveSettings.value;
+    _savePreset.value = !_savePreset.value;
   }
 
   void changeClass(String value) {
@@ -79,5 +101,9 @@ class AttendanceSettingsController extends GetxController {
     _isStartingAttendance.value = true;
     await Future.delayed(const Duration(seconds: 2));
     _isStartingAttendance.value = false;
+  }
+
+  void changeDate(DateTime date) {
+    dateController.text = AppDateUtils.appDateFormat.format(date);
   }
 }
