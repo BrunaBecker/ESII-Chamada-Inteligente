@@ -13,6 +13,8 @@ abstract class AppColors {
 
   static const onSurface = Color(0xff1D1B20);
 
+  static const onSurfaceVariant = Color(0xff49454F);
+
   static const black = Colors.black;
 
   static const white = Colors.white;
@@ -20,4 +22,6 @@ abstract class AppColors {
   static const darkGray = Color(0xff49454F);
 
   static const lightGray = Color(0xffD9D9D9);
+
+  static const green1 = Color(0xff219653);
 }
