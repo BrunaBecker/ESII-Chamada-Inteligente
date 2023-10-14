@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../../core/utils/app_date_utils.dart';
+
 class ClassesController extends GetxController {
   final _isLoading = false.obs;
   final _classesList = <Map<String, dynamic>>[].obs;
@@ -17,6 +19,13 @@ class ClassesController extends GetxController {
         "name": "Engenharia de Software $i",
         "class": "A1",
         "activeAttendance": false,
+        "attendances": List.generate(
+          20,
+          (index) => {
+            "date": AppDateUtils.appDateFormat.format(DateTime(2023, 3, index + 1)),
+            "description": "Aula ${index + 1} de Engenharia de Software $i",
+          },
+        )
       });
     }
     classesList[0]["activeAttendance"] = true;
