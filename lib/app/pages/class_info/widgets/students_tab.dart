@@ -1,13 +1,123 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../class_info_controller.dart';
 
 class StudentsTab extends StatelessWidget {
   const StudentsTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: const Text("Painel de meus alunos"),
+    return GetBuilder(
+      init: Get.find<ClassInfoController>(),
+      builder: (controller) => Obx(
+        () => controller.isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Container(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 8.0,
+                    left: 16.0,
+                    right: 16.0,
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          OutlinedButton.icon(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.ios_share_outlined,
+                              size: 18,
+                            ),
+                            label: const Text(
+                              "Lista de Reprovados",
+                              style: TextStyle(
+                                color: AppColors.onSurface,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            style: ButtonStyle(
+                              iconColor: MaterialStateProperty.all(AppColors.onSurface),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              ),
+                              padding: MaterialStateProperty.all(
+                                const EdgeInsets.all(8.0),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            "${controller.selectedClass["students"].length} Alunos",
+                            style: const TextStyle(
+                              color: AppColors.onSecondaryFixedVariant,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 22,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        height: 5,
+                        margin: const EdgeInsets.only(
+                          top: 8.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.primary,
+                          borderRadius: BorderRadius.circular(100.0),
+                        ),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: controller.selectedClass["students"].length,
+                          itemBuilder: (context, index) {
+                            final item = controller.selectedClass["students"][index];
+                            return ListTile(
+                              leading: Container(
+                                width: 40,
+                                height: 40,
+                                margin: const EdgeInsets.only(left: 16.0),
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.primaryContainer,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    item["name"].substring(0, 1),
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: AppColors.onPrimaryContainer,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              title: Text(item["name"]),
+                              trailing: const Padding(
+                                padding: EdgeInsets.all(16.0),
+                                child: Icon(
+                                  Icons.arrow_right_outlined,
+                                ),
+                              ),
+                              contentPadding: const EdgeInsets.only(
+                                left: 0.0,
+                              ),
+                              onTap: () {},
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+      ),
     );
   }
 }

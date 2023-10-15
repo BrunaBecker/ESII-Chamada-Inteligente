@@ -25,7 +25,13 @@ class ClassesController extends GetxController {
             "date": AppDateUtils.appDateFormat.format(DateTime(2023, 3, index + 1)),
             "description": "Aula ${index + 1} de Engenharia de Software $i",
           },
-        )
+        ),
+        "students": List.generate(
+          30,
+          (index) => {
+            "name": "Aluno ${index + 1}",
+          },
+        ),
       });
     }
     classesList[0]["activeAttendance"] = true;
