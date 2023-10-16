@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:get/get.dart';
 
 import '../../core/utils/app_date_utils.dart';
@@ -24,6 +26,8 @@ class ClassesController extends GetxController {
           (index) => {
             "date": AppDateUtils.appDateFormat.format(DateTime(2023, 3, index + 1)),
             "description": "Aula ${index + 1} de Engenharia de Software $i",
+            "average_time": Random().nextInt(180) + 50,
+            "total_students": Random().nextInt(10) + 15,
           },
         ),
         "students": List.generate(
