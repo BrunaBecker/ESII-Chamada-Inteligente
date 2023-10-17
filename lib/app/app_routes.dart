@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'pages/attendance_info/attendance_info_bindings.dart';
+import 'pages/attendance_info/attendance_info_widget.dart';
 import 'pages/attendance_settings/attendance_settings_bindings.dart';
 import 'pages/attendance_settings/attendance_settings_widget.dart';
 import 'pages/calendar/calendar_bindings.dart';
@@ -33,6 +35,8 @@ abstract class AppRoutes {
   static const attendanceSettings = "/attendance-settings";
 
   static const classInfo = "/class-info";
+
+  static const attendanceInfo = "/attendance-info";
 
   static final routes = <GetPage>[
     GetPage(
@@ -74,6 +78,11 @@ abstract class AppRoutes {
       name: classInfo,
       page: () => const ClassInfoWidget(),
       binding: ClassInfoBindings(),
+    ),
+    GetPage(
+      name: attendanceInfo,
+      page: () => const AttendanceInfoWidget(),
+      binding: AttendanceInfoBindings(),
     ),
   ];
 }

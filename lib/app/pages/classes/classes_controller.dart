@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:get/get.dart';
 
+import '../../core/enums/presence_status.dart';
 import '../../core/utils/app_date_utils.dart';
 
 class ClassesController extends GetxController {
@@ -28,6 +29,14 @@ class ClassesController extends GetxController {
             "description": "Aula ${index + 1} de Engenharia de Software $i",
             "average_time": Random().nextInt(180) + 50,
             "total_students": Random().nextInt(10) + 15,
+            "students": List.generate(
+              Random().nextInt(10) + 15,
+              (index) => {
+                "name": "Aluno ${index + 1}",
+                "status": PresenceStatus.fromInt(Random().nextInt(3)),
+                "confirmed": Random().nextInt(3) != 1,
+              },
+            ),
           },
         ),
         "students": List.generate(

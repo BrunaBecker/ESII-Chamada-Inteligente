@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../app_routes.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/spacing.dart';
 import '../class_info_controller.dart';
@@ -58,7 +59,14 @@ class AttendancesTab extends StatelessWidget {
                                 icon: const Icon(
                                   Icons.mode_edit_outline_outlined,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.toNamed(
+                                    AppRoutes.attendanceInfo,
+                                    arguments: {
+                                      "attendanceInfo": item,
+                                    },
+                                  );
+                                },
                               ),
                               contentPadding: const EdgeInsets.only(
                                 left: 16.0,
@@ -70,7 +78,7 @@ class AttendancesTab extends StatelessWidget {
                             child: Divider(),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
