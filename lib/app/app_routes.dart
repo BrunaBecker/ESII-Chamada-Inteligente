@@ -18,6 +18,8 @@ import 'pages/notifications/notifications_bindings.dart';
 import 'pages/notifications/notifications_widget.dart';
 import 'pages/settings/settings_bindings.dart';
 import 'pages/settings/settings_widget.dart';
+import 'pages/student_info/student_info_bindings.dart';
+import 'pages/student_info/student_info_widget.dart';
 
 abstract class AppRoutes {
   static const login = "/login";
@@ -37,6 +39,8 @@ abstract class AppRoutes {
   static const classInfo = "/class-info";
 
   static const attendanceInfo = "/attendance-info";
+
+  static const studentInfo = "/student-info";
 
   static final routes = <GetPage>[
     GetPage(
@@ -83,6 +87,11 @@ abstract class AppRoutes {
       name: attendanceInfo,
       page: () => const AttendanceInfoWidget(),
       binding: AttendanceInfoBindings(),
+    ),
+    GetPage(
+      name: studentInfo,
+      page: () => const StudentInfoWidget(),
+      binding: StudentInfoBindings(),
     ),
   ];
 }

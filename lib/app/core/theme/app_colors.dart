@@ -11,6 +11,8 @@ abstract class AppColors {
 
   static const onSecondaryFixedVariant = Color(0xff4A4458);
 
+  static const surface = Color(0xffFEF7FF);
+
   static const surfaceContainer = Color(0xffF3EDF7);
 
   static const onSurface = Color(0xff1D1B20);

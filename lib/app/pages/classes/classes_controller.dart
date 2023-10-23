@@ -16,6 +16,33 @@ class ClassesController extends GetxController {
   void onReady() {
     _isLoading.value = true;
     // TODO: get classes
+    final students = List.generate(
+      Random().nextInt(10) + 15,
+      (index) => {
+        "name": "Aluno ${index + 1}",
+        "status": PresenceStatus.fromInt(Random().nextInt(3)),
+        "confirmed": Random().nextInt(3) != 1,
+        "registration": "120031${Random().nextInt(100).toString().padLeft(3, "0")}",
+        "justifications": [
+          {
+            "date": DateTime(2023, 10, 03),
+            "file": null,
+            "title": "Quebrei a perna",
+            "description": "Eu quebrei a perna, professor, não consigo ir até a faculdade.",
+            "attach_file": null,
+            "approved": null,
+          },
+          {
+            "date": DateTime(2023, 10, 05),
+            "file": null,
+            "title": "Quebrei o braço.",
+            "description": "Eu quebrei o braço, professor, não consigo ir até a faculdade.",
+            "attach_file": null,
+            "approved": null,
+          },
+        ],
+      },
+    );
     for (var i = 1; i < 21; i++) {
       classesList.add({
         "code": "TCC00${291 + i}",
@@ -29,22 +56,10 @@ class ClassesController extends GetxController {
             "description": "Aula ${index + 1} de Engenharia de Software $i",
             "average_time": Random().nextInt(180) + 50,
             "total_students": Random().nextInt(10) + 15,
-            "students": List.generate(
-              Random().nextInt(10) + 15,
-              (index) => {
-                "name": "Aluno ${index + 1}",
-                "status": PresenceStatus.fromInt(Random().nextInt(3)),
-                "confirmed": Random().nextInt(3) != 1,
-              },
-            ),
+            "students": students,
           },
         ),
-        "students": List.generate(
-          30,
-          (index) => {
-            "name": "Aluno ${index + 1}",
-          },
-        ),
+        "students": students,
       });
     }
     classesList[0]["activeAttendance"] = true;

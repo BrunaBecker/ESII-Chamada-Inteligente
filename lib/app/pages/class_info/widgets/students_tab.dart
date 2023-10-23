@@ -99,16 +99,21 @@ class StudentsTab extends StatelessWidget {
                                 ),
                               ),
                               title: Text(item["name"]),
-                              trailing: const Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: Icon(
-                                  Icons.arrow_right_outlined,
-                                ),
+                              trailing: IconButton(
+                                icon: const Icon(Icons.arrow_right_outlined),
+                                onPressed: () {
+                                  Get.toNamed(
+                                    "/student-info",
+                                    arguments: {
+                                      "studentInfo": item,
+                                      "classInfo": controller.selectedClass,
+                                    },
+                                  );
+                                },
                               ),
                               contentPadding: const EdgeInsets.only(
                                 left: 0.0,
                               ),
-                              onTap: () {},
                             );
                           },
                         ),
