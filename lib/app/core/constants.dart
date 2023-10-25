@@ -1,2 +1,2 @@
-const appDatePattern = "dd/MM/yyyy";
-const storageDatePattern = "yyyy-MM-dd";
+const appDatePattern = "dd/MM/yyyy hh:mm:ss";
+const storageDatePattern = "yyyy-MM-dd hh:mm:ss";
