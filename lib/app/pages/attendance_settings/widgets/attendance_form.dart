@@ -89,10 +89,24 @@ class AttendanceForm extends StatelessWidget {
                       controller: controller.startTimeController,
                       keyboardType: TextInputType.datetime,
                       inputFormatters: [controller.maskAdapter.time],
+                      readOnly: true,
                       decoration: AttendanceSettingsInputDecoration(
                         labelText: "Início",
                         hintText: "09:30",
-                        prefixIcon: const Icon(Icons.access_time),
+                        suffixIcon: IconButton(
+                          onPressed: () async {
+                            final time = await showTimePicker(
+                              context: context,
+                              initialTime: TimeOfDay.now(),
+                            );
+
+                            if (time != null) {
+                              controller.changeStartTime(time);
+                              controller.disableUsePreset();
+                            }
+                          },
+                          icon: const Icon(Icons.access_time_outlined),
+                        ),
                       ),
                       onChanged: (value) {
                         controller.startTimeController.text = value;
@@ -130,10 +144,24 @@ class AttendanceForm extends StatelessWidget {
                             controller: controller.endTimeController,
                             keyboardType: TextInputType.datetime,
                             inputFormatters: [controller.maskAdapter.time],
+                            readOnly: true,
                             decoration: AttendanceSettingsInputDecoration(
                               labelText: "Fim",
                               hintText: "11:30",
-                              prefixIcon: const Icon(Icons.access_time),
+                              suffixIcon: IconButton(
+                                onPressed: () async {
+                                  final time = await showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.now(),
+                                  );
+
+                                  if (time != null) {
+                                    controller.changeEndTime(time);
+                                    controller.disableUsePreset();
+                                  }
+                                },
+                                icon: const Icon(Icons.access_time_outlined),
+                              ),
                             ),
                             onChanged: (value) {
                               controller.endTimeController.text = value;

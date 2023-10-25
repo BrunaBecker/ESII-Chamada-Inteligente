@@ -106,4 +106,14 @@ class AttendanceSettingsController extends GetxController {
   void changeDate(DateTime date) {
     dateController.text = AppDateUtils.appDateFormat.format(date);
   }
+
+  void changeStartTime(TimeOfDay time) {
+    startTimeController.text = AppDateUtils.timeOfDayToAppString(time);
+    disableUsePreset();
+  }
+
+  void changeEndTime(TimeOfDay time) {
+    endTimeController.text = AppDateUtils.timeOfDayToAppString(time);
+    disableUsePreset();
+  }
 }
