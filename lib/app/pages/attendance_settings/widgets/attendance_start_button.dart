@@ -31,6 +31,7 @@ class AttendanceStartButton extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () async {
+                        Get.back();
                         // TODO: start attendance
                         final attendance = await controller.startAttendance();
 
