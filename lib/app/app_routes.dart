@@ -10,6 +10,8 @@ import 'pages/class_info/class_info_bindings.dart';
 import 'pages/class_info/class_info_widget.dart';
 import 'pages/classes/classes_bindings.dart';
 import 'pages/classes/classes_widget.dart';
+import 'pages/current_attendance/current_attendance_bindings.dart';
+import 'pages/current_attendance/current_attendance_widget.dart';
 import 'pages/home/home_bindings.dart';
 import 'pages/home/home_widget.dart';
 import 'pages/login/login_bindings.dart';
@@ -35,6 +37,8 @@ abstract class AppRoutes {
   static const settings = "/settings";
 
   static const attendanceSettings = "/attendance-settings";
+
+  static const currentAttendance = "/current-attendance";
 
   static const classInfo = "/class-info";
 
@@ -77,6 +81,11 @@ abstract class AppRoutes {
       name: attendanceSettings,
       page: () => const AttendanceSettingsWidget(),
       binding: AttendanceSettingsBindings(),
+    ),
+    GetPage(
+      name: currentAttendance,
+      page: () => const CurrentAttendanceWidget(),
+      binding: CurrentAttendanceBindings(),
     ),
     GetPage(
       name: classInfo,

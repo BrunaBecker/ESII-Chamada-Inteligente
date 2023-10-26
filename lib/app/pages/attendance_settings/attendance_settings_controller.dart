@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/adapters/mask_adapter.dart';
+import '../../core/enums/presence_status.dart';
 import '../../core/utils/app_date_utils.dart';
 
 class AttendanceSettingsController extends GetxController {
@@ -97,10 +100,47 @@ class AttendanceSettingsController extends GetxController {
     _selectedClass.value = value;
   }
 
-  Future<void> startAttendance() async {
+  Future<Map<String, dynamic>> startAttendance() async {
     _isStartingAttendance.value = true;
     await Future.delayed(const Duration(seconds: 2));
+    final attendance = {
+      "name": selectedClass,
+      "date": dateController.text,
+      "start": startTimeController.text,
+      "end": endTimeController.text,
+      "zone": null,
+      "students": List.generate(
+        Random().nextInt(10) + 15,
+        (index) => {
+          "name": "Aluno ${index + 1}",
+          "status": PresenceStatus.fromInt(Random().nextInt(3)),
+          "answered": Random().nextInt(3) != 1,
+          "confirmed": Random().nextInt(3) != 1,
+          "registration": "120031${Random().nextInt(100).toString().padLeft(3, "0")}",
+          "justifications": [
+            {
+              "date": AppDateUtils.appDateFormat.parse(dateController.text),
+              "file": null,
+              "title": "Quebrei a perna",
+              "description": "Eu quebrei a perna, professor, não consigo ir até a faculdade.",
+              "attach_file": null,
+              "approved": null,
+            },
+            {
+              "date": AppDateUtils.appDateFormat.parse(dateController.text),
+              "file": null,
+              "title": "Quebrei o braço.",
+              "description": "Eu quebrei o braço, professor, não consigo ir até a faculdade.",
+              "attach_file": null,
+              "approved": null,
+            },
+          ],
+        },
+      ),
+    };
+
     _isStartingAttendance.value = false;
+    return attendance;
   }
 
   void changeDate(DateTime date) {
