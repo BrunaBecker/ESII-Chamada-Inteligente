@@ -124,6 +124,8 @@ class CurrentAttendanceWidget extends StatelessWidget {
                                 const Spacing(4.0),
                                 TextFormField(
                                   controller: controller.registrationController,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [controller.maskAdapter.registration],
                                   decoration: const InputDecoration(
                                     labelText: "Matrícula",
                                     border: OutlineInputBorder(
@@ -145,9 +147,11 @@ class CurrentAttendanceWidget extends StatelessWidget {
                             ),
                             TextButton(
                               onPressed: () async {
+                                controller.addStudent();
+                                Get.back();
                                 Get.snackbar(
-                                  "Chamada",
-                                  "Chamada iniciada com sucesso!",
+                                  "Adicionar aluno",
+                                  "Aluno adicionado com sucesso!",
                                   snackPosition: SnackPosition.BOTTOM,
                                   margin: const EdgeInsets.all(88.0),
                                 );

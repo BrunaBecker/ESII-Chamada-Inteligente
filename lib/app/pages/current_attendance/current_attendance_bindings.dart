@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../core/adapters/mask_adapter.dart';
 import 'current_attendance_controller.dart';
 
 class CurrentAttendanceBindings extends Bindings {
@@ -7,7 +8,9 @@ class CurrentAttendanceBindings extends Bindings {
   void dependencies() {
     // Controller
     Get.lazyPut(
-      () => CurrentAttendanceController(),
+      () => CurrentAttendanceController(
+        maskAdapter: Get.find<MaskAdapter>(),
+      ),
     );
   }
 }
