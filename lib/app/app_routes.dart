@@ -18,6 +18,8 @@ import 'pages/login/login_bindings.dart';
 import 'pages/login/login_widget.dart';
 import 'pages/notifications/notifications_bindings.dart';
 import 'pages/notifications/notifications_widget.dart';
+import 'pages/profile/profile_bindings.dart';
+import 'pages/profile/profile_widget.dart';
 import 'pages/settings/settings_bindings.dart';
 import 'pages/settings/settings_widget.dart';
 import 'pages/student_info/student_info_bindings.dart';
@@ -45,6 +47,8 @@ abstract class AppRoutes {
   static const attendanceInfo = "/attendance-info";
 
   static const studentInfo = "/student-info";
+
+  static const profile = "/profile";
 
   static final routes = <GetPage>[
     GetPage(
@@ -101,6 +105,11 @@ abstract class AppRoutes {
       name: studentInfo,
       page: () => const StudentInfoWidget(),
       binding: StudentInfoBindings(),
+    ),
+    GetPage(
+      name: profile,
+      page: () => const ProfileWidget(),
+      binding: ProfileBindings(),
     ),
   ];
 }

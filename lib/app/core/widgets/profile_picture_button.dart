@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../app_routes.dart';
 import '../theme/app_colors.dart';
 
 class ProfilePictureButton extends StatelessWidget {
@@ -12,19 +14,24 @@ class ProfilePictureButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 24,
-      height: 24,
-      margin: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        color: AppColors.lightGray,
-        shape: BoxShape.circle,
-        image: image != null
-            ? DecorationImage(
-                image: image!,
-                fit: BoxFit.cover,
-              )
-            : null,
+    return GestureDetector(
+      onTap: () => Get.toNamed(
+        AppRoutes.profile,
+      ),
+      child: Container(
+        width: 24,
+        height: 24,
+        margin: const EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          color: AppColors.lightGray,
+          shape: BoxShape.circle,
+          image: image != null
+              ? DecorationImage(
+                  image: image!,
+                  fit: BoxFit.cover,
+                )
+              : null,
+        ),
       ),
     );
   }
