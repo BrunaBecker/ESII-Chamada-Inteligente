@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../constants.dart';
@@ -12,5 +13,9 @@ abstract class AppDateUtils {
 
   static String convertStorageToApp(String date) {
     return appDateFormat.format(AppDateUtils.storageDateFormat.parse(date));
+  }
+
+  static String timeOfDayToAppString(TimeOfDay time) {
+    return "${time.hour.toString().padLeft(2, "0")}:${time.minute.toString().padLeft(2, "0")}";
   }
 }

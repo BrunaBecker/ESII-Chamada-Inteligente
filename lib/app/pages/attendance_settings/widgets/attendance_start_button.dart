@@ -31,8 +31,9 @@ class AttendanceStartButton extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () async {
+                        Get.back();
                         // TODO: start attendance
-                        await controller.startAttendance();
+                        final attendance = await controller.startAttendance();
 
                         Get.snackbar(
                           "Chamada",
@@ -40,7 +41,12 @@ class AttendanceStartButton extends StatelessWidget {
                           snackPosition: SnackPosition.BOTTOM,
                           margin: const EdgeInsets.all(88.0),
                         );
-                        Get.offAllNamed(AppRoutes.home);
+                        Get.offAllNamed(
+                          AppRoutes.currentAttendance,
+                          arguments: {
+                            "currentAttendance": attendance,
+                          },
+                        );
                       },
                       child: const Text("Confirmar"),
                     ),

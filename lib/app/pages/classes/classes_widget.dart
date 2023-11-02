@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../app_routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/bottom_nav_bar.dart';
 import '../../core/widgets/profile_picture_button.dart';
 import 'classes_controller.dart';
+import '../../core/widgets/classes_drawer.dart';
 
 class ClassesWidget extends StatelessWidget {
   const ClassesWidget({super.key});
@@ -12,11 +14,8 @@ class ClassesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const ClassesDrawer(),
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.menu),
-        ),
         title: const Text("Minhas turmas"),
         centerTitle: true,
         actions: const [
@@ -73,9 +72,43 @@ class ClassesWidget extends StatelessWidget {
                           color: AppColors.onSurface,
                         ),
                       ),
-                      trailing: const Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Icon(Icons.more_vert),
+                      trailing: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: PopupMenuButton(
+                          itemBuilder: (BuildContext context) => [
+                            PopupMenuItem(
+                              onTap: () {},
+                              child: const ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                title: Text(
+                                  "Iniciar Chamada",
+                                ),
+                                subtitle: Text(
+                                  "Comece uma chamada",
+                                ),
+                                trailing: Icon(Icons.arrow_right),
+                              ),
+                            ),
+                            PopupMenuItem(
+                              onTap: () => Get.toNamed(
+                                AppRoutes.classInfo,
+                                arguments: {
+                                  "classInfo": item,
+                                },
+                              ),
+                              child: const ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                title: Text(
+                                  "Ver mais",
+                                ),
+                                subtitle: Text(
+                                  "Interaja com a turma",
+                                ),
+                                trailing: Icon(Icons.arrow_right),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
