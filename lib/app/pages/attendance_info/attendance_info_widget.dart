@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/enums/presence_status.dart';
+import '../../core/enums/student_at_attendance_state.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/bottom_nav_bar.dart';
 import 'attendance_info_controller.dart';
@@ -73,13 +73,13 @@ class AttendanceInfoWidget extends StatelessWidget {
                                 ),
                                 trailing: PopupMenuButton(
                                   icon: Icon(
-                                    item["status"] == PresenceStatus.present
+                                    item["status"] == StudentAtAttendanceState.present
                                         ? Icons.check_outlined
-                                        : item["status"] == PresenceStatus.absent
+                                        : item["status"] == StudentAtAttendanceState.absent
                                             ? Icons.close_outlined
                                             : Icons.indeterminate_check_box,
                                     color: item["confirmed"]
-                                        ? item["status"] == PresenceStatus.present || item["status"] == PresenceStatus.absentJustified
+                                        ? item["status"] == StudentAtAttendanceState.present || item["status"] == StudentAtAttendanceState.justified
                                             ? AppColors.green1
                                             : AppColors.red1
                                         : AppColors.onSurfaceVariant,
@@ -89,7 +89,7 @@ class AttendanceInfoWidget extends StatelessWidget {
                                       onTap: () {
                                         controller.changeStudentPresence(
                                           student: item,
-                                          presence: PresenceStatus.present,
+                                          presence: StudentAtAttendanceState.present,
                                         );
                                       },
                                       child: const ListTile(
@@ -105,7 +105,7 @@ class AttendanceInfoWidget extends StatelessWidget {
                                       onTap: () {
                                         controller.changeStudentPresence(
                                           student: item,
-                                          presence: PresenceStatus.absent,
+                                          presence: StudentAtAttendanceState.absent,
                                         );
                                       },
                                       child: const ListTile(
@@ -121,7 +121,7 @@ class AttendanceInfoWidget extends StatelessWidget {
                                       onTap: () {
                                         controller.changeStudentPresence(
                                           student: item,
-                                          presence: PresenceStatus.absentJustified,
+                                          presence: StudentAtAttendanceState.justified,
                                         );
                                       },
                                       child: const ListTile(
