@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/adapters/validator_adapter.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/spacing.dart';
 import '../attendance_settings_controller.dart';
@@ -44,6 +45,8 @@ class AttendanceForm extends StatelessWidget {
                     ),
                     const Spacing(8.0),
                     TextFormField(
+                      validator: (val) =>
+                          ValidatorAdapter().validateNotNullInput(val),
                       controller: controller.dateController,
                       keyboardType: TextInputType.datetime,
                       inputFormatters: [controller.maskAdapter.date],
@@ -86,6 +89,8 @@ class AttendanceForm extends StatelessWidget {
                     ),
                     const Spacing(8.0),
                     TextFormField(
+                      validator: (val) =>
+                          ValidatorAdapter().validateNotNullInput(val),
                       controller: controller.startTimeController,
                       keyboardType: TextInputType.datetime,
                       inputFormatters: [controller.maskAdapter.time],
@@ -141,6 +146,8 @@ class AttendanceForm extends StatelessWidget {
                     controller.manualEnd
                         ? const SizedBox()
                         : TextFormField(
+                            validator: (val) =>
+                                ValidatorAdapter().validateNotNullInput(val),
                             controller: controller.endTimeController,
                             keyboardType: TextInputType.datetime,
                             inputFormatters: [controller.maskAdapter.time],

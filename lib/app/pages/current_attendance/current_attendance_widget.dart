@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app_routes.dart';
+import '../../core/adapters/validator_adapter.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/bottom_nav_bar.dart';
 import '../../core/widgets/spacing.dart';
@@ -28,7 +29,9 @@ class CurrentAttendanceWidget extends StatelessWidget {
                     : AppBar(
                         leading: Icon(
                           Icons.online_prediction_outlined,
-                          color: controller.currentAttendance["zone"] == null ? AppColors.red1 : AppColors.green1,
+                          color: controller.currentAttendance["zone"] == null
+                              ? AppColors.red1
+                              : AppColors.green1,
                         ),
                         actions: [
                           IconButton(
@@ -42,7 +45,8 @@ class CurrentAttendanceWidget extends StatelessWidget {
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
-                                  icon: const Icon(Icons.warning_amber_outlined),
+                                  icon:
+                                      const Icon(Icons.warning_amber_outlined),
                                   title: const Text("FINALIZAR CHAMADA"),
                                   content: const Text(
                                     "Ao confirmar, sua chamada será finalizada e poderá ser acessada navegando em turmas.",
@@ -99,43 +103,54 @@ class CurrentAttendanceWidget extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (context) => GestureDetector(
-                        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+                        onTap: () =>
+                            FocusManager.instance.primaryFocus?.unfocus(),
                         child: AlertDialog(
                           icon: const Icon(Icons.add_outlined),
                           title: const Text("Adicione um aluno"),
                           content: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                const Text(
-                                  "Essa ação realizará a criação de um aluno nessa chamada, você estará automaticamente marcando presença validada no mesmo.",
-                                ),
-                                const Spacing(8.0),
-                                TextFormField(
-                                  controller: controller.nameController,
-                                  decoration: const InputDecoration(
-                                    labelText: "Nome completo do aluno",
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8.0),
+                            child: Form(
+                              key: controller.formKey,
+                              child: Column(
+                                children: [
+                                  const Text(
+                                    "Essa ação realizará a criação de um aluno nessa chamada, você estará automaticamente marcando presença validada no mesmo.",
+                                  ),
+                                  const Spacing(8.0),
+                                  TextFormField(
+                                    validator: (val) => ValidatorAdapter()
+                                        .validateNotNullInput(val),
+                                    controller: controller.nameController,
+                                    decoration: const InputDecoration(
+                                      labelText: "Nome completo do aluno",
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8.0),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                const Spacing(4.0),
-                                TextFormField(
-                                  controller: controller.registrationController,
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: [controller.maskAdapter.registration],
-                                  decoration: const InputDecoration(
-                                    labelText: "Matrícula",
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8.0),
+                                  const Spacing(4.0),
+                                  TextFormField(
+                                    validator: (val) => ValidatorAdapter()
+                                        .validateRegistration(val),
+                                    controller:
+                                        controller.registrationController,
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      controller.maskAdapter.registration
+                                    ],
+                                    decoration: const InputDecoration(
+                                      labelText: "Matrícula",
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8.0),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           actions: [
@@ -147,6 +162,8 @@ class CurrentAttendanceWidget extends StatelessWidget {
                             ),
                             TextButton(
                               onPressed: () async {
+                                if (!controller.formKey.currentState!
+                                    .validate()) return;
                                 controller.addStudent();
                                 Get.back();
                                 Get.snackbar(
