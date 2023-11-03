@@ -39,11 +39,13 @@ class PingDto extends PingEntity {
       "id": id,
       "date": AppDateUtils.storageDateFormat.format(date),
       "status": status,
-      "attendanceStatus": AttendanceStatusDto.fromEntity(attendanceStatus).toMap(),
+      "attendanceStatus":
+          AttendanceStatusDto.fromEntity(attendanceStatus).toMap(),
     };
   }
 
-  factory PingDto.fromJson(String source) => PingDto.fromMap(json.decode(source));
+  factory PingDto.fromJson(String source) =>
+      PingDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }
