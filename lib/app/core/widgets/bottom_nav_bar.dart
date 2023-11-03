@@ -29,21 +29,25 @@ class BottomNavBar extends StatelessWidget {
       selectedIndex: getPageIndex(Get.currentRoute),
       destinations: const [
         BottomNavBarItem(
+          key: Key('início_button'),
           selectedIcon: Icons.home,
           icon: Icons.home_outlined,
           label: "Início",
         ),
         BottomNavBarItem(
+          key: Key('turmas_button'),
           selectedIcon: Icons.class_,
           icon: Icons.class_outlined,
           label: "Turmas",
         ),
         BottomNavBarItem(
+          key: Key('calendário_button'),
           selectedIcon: Icons.calendar_month,
           icon: Icons.calendar_month_outlined,
           label: "Calendário",
         ),
         BottomNavBarItem(
+          key: Key('preferências_button'),
           selectedIcon: Icons.settings,
           icon: Icons.settings_outlined,
           label: "Preferências",

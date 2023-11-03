@@ -17,6 +17,7 @@ class ProfileWidget extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
+            key: const Key('sair_box'),
             onPressed: () {
               showDialog(
                 context: context,
@@ -27,10 +28,12 @@ class ProfileWidget extends StatelessWidget {
                     content: const Text("Essa ação irá desconectar a sessão salva na aplicação e você terá que entrar novamente."),
                     actions: [
                       TextButton(
+                        key: const Key('cancelar_logout_button'),
                         onPressed: () => Get.back(),
                         child: const Text("Cancelar"),
                       ),
                       TextButton(
+                        key: const Key('confirmar_logout_button'),
                         onPressed: () => Get.offAllNamed(AppRoutes.login),
                         child: const Text("Confirmar"),
                       ),

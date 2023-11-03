@@ -16,6 +16,7 @@ class LoginForm extends StatelessWidget {
         child: Column(
           children: [
             TextFormField(
+              key: const Key('matrícula_form'),
               keyboardType: TextInputType.number,
               inputFormatters: [controller.maskAdapter.registration],
               decoration: LoginInputDecoration(
@@ -42,6 +43,7 @@ class LoginForm extends StatelessWidget {
             ),
             Obx(
               () => TextFormField(
+                key: const Key('senha_form'),
                 decoration: LoginInputDecoration(
                   labelText: "Senha",
                   hintText: "Senha",

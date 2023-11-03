@@ -19,6 +19,7 @@ class ProfilePictureButton extends StatelessWidget {
         AppRoutes.profile,
       ),
       child: Container(
+        key: const Key('perfil_box'),
         width: 24,
         height: 24,
         margin: const EdgeInsets.all(10.0),

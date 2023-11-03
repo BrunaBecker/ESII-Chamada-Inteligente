@@ -12,6 +12,7 @@ class LoginButton extends StatelessWidget {
     return GetBuilder(
       init: Get.find<LoginController>(),
       builder: (controller) => SizedBox(
+        key: const Key('entrar_button'),
         width: double.maxFinite,
         child: FilledButton(
           onPressed: () async {

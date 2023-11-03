@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import 'core/adapters/mask_adapter.dart';
+import 'core/adapters/validator_adapter.dart';
 import 'core/enums/mask.dart';
 import 'pages/notifications/notifications_controller.dart';
 
@@ -27,6 +28,9 @@ class AppBindings extends Bindings {
           filters: Mask.time.filters(),
         ),
       ),
+    );
+    Get.put(
+      ValidatorAdapter(),
     );
 
     // Controllers

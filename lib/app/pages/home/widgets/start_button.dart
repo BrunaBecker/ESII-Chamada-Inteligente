@@ -15,6 +15,7 @@ class StartButton extends StatelessWidget {
           Get.offAllNamed(AppRoutes.attendanceSettings);
         },
         child: Container(
+          key: const Key('iniciar_chamada_button'),
           width: 200,
           height: 200,
           decoration: BoxDecoration(
