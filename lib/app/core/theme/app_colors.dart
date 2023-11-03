@@ -21,6 +21,8 @@ abstract class AppColors {
 
   static const surfaceContainerHigh = Color(0xffECE6F0);
 
+  static const transparent = Colors.transparent;
+
   static const black = Colors.black;
 
   static const white = Colors.white;
@@ -32,4 +34,6 @@ abstract class AppColors {
   static const green1 = Color(0xff219653);
 
   static const red1 = Color(0xffEB5757);
+
+  static const blue1 = Color(0xff0C41FF);
 }
