@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../core/enums/presence_status.dart';
+import '../../core/enums/student_at_attendance_state.dart';
 
 class AttendanceInfoController extends GetxController {
   final _isLoading = true.obs;
@@ -22,7 +22,7 @@ class AttendanceInfoController extends GetxController {
 
   void changeStudentPresence({
     required Map<String, dynamic> student,
-    required PresenceStatus presence,
+    required StudentAtAttendanceState presence,
   }) {
     student["status"] = presence;
     student["confirmed"] = true;

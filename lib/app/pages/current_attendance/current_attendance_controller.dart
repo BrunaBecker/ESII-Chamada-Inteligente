@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/adapters/mask_adapter.dart';
-import '../../core/enums/presence_status.dart';
+import '../../core/enums/student_at_attendance_state.dart';
 
 class CurrentAttendanceController extends GetxController {
   CurrentAttendanceController({
@@ -44,7 +44,7 @@ class CurrentAttendanceController extends GetxController {
 
   void changeStudentPresence({
     required Map<String, dynamic> student,
-    required PresenceStatus presence,
+    required StudentAtAttendanceState presence,
   }) {
     student["status"] = presence;
     student["answered"] = true;
@@ -55,7 +55,7 @@ class CurrentAttendanceController extends GetxController {
   Future<void> addStudent() async {
     _currentAttendance["students"].add({
       "name": _nameController.text,
-      "status": PresenceStatus.present,
+      "status": StudentAtAttendanceState.present,
       "answered": true,
       "confirmed": true,
       "registration": _registrationController.text,

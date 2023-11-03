@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:get/get.dart';
 
-import '../../core/enums/presence_status.dart';
+import '../../core/enums/student_at_attendance_state.dart';
 import '../../core/utils/app_date_utils.dart';
 
 class ClassesController extends GetxController {
@@ -20,7 +20,7 @@ class ClassesController extends GetxController {
       Random().nextInt(10) + 15,
       (index) => {
         "name": "Aluno ${index + 1}",
-        "status": PresenceStatus.fromInt(Random().nextInt(3)),
+        "status": StudentAtAttendanceState.fromInt(Random().nextInt(3)),
         "confirmed": Random().nextInt(3) != 1,
         "registration": "120031${Random().nextInt(100).toString().padLeft(3, "0")}",
         "justifications": [
