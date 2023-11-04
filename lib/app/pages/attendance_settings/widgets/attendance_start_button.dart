@@ -14,6 +14,7 @@ class AttendanceStartButton extends StatelessWidget {
       builder: (controller) {
         return FilledButton(
           onPressed: () {
+            if (!controller.formKey.currentState!.validate()) return;
             showDialog(
               context: context,
               builder: (context) {

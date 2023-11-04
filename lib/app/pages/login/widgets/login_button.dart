@@ -16,6 +16,7 @@ class LoginButton extends StatelessWidget {
         width: double.maxFinite,
         child: FilledButton(
           onPressed: () async {
+            if (!controller.formKey.currentState!.validate()) return;
             await controller.authenticate();
             Get.offAllNamed(AppRoutes.home);
           },
