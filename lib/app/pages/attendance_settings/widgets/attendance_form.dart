@@ -47,9 +47,10 @@ class AttendanceForm extends StatelessWidget {
                     const Spacing(8.0),
                     TextFormField(
                       key: const Key('date-form'),
+                      validator: (val) => controller.validator.validateNotNullInput(val),
                       controller: controller.dateController,
                       keyboardType: TextInputType.datetime,
-                      inputFormatters: [controller.maskAdapter.date],
+                      inputFormatters: [controller.mask.date],
                       readOnly: true,
                       decoration: AttendanceSettingsInputDecoration(
                         labelText: "Data",
@@ -90,9 +91,10 @@ class AttendanceForm extends StatelessWidget {
                     ),
                     const Spacing(8.0),
                     TextFormField(
+                      validator: (val) => controller.validator.validateNotNullInput(val),
                       controller: controller.startTimeController,
                       keyboardType: TextInputType.datetime,
-                      inputFormatters: [controller.maskAdapter.time],
+                      inputFormatters: [controller.mask.time],
                       readOnly: true,
                       decoration: AttendanceSettingsInputDecoration(
                         labelText: "Início",
@@ -145,9 +147,10 @@ class AttendanceForm extends StatelessWidget {
                     controller.manualEnd
                         ? const SizedBox()
                         : TextFormField(
+                            validator: (val) => controller.validator.validateNotNullInput(val),
                             controller: controller.endTimeController,
                             keyboardType: TextInputType.datetime,
-                            inputFormatters: [controller.maskAdapter.time],
+                            inputFormatters: [controller.mask.time],
                             readOnly: true,
                             decoration: AttendanceSettingsInputDecoration(
                               labelText: "Fim",

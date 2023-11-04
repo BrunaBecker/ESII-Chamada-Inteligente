@@ -15,7 +15,7 @@ class ClassInfoBindings extends Bindings {
     // Controllers
     Get.lazyPut(
       () => ClassInfoController(
-        chartAdapter: Get.find<ChartAdapter>(),
+        chart: Get.find<ChartAdapter>(),
       ),
     );
     Get.lazyPut(
