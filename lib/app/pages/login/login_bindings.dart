@@ -9,8 +9,8 @@ class LoginBindings extends Bindings {
   void dependencies() {
     // Controller
     Get.lazyPut(() => LoginController(
-          maskAdapter: Get.find<MaskAdapter>(),
-          validatorAdapter: Get.find<ValidatorAdapter>(),
+          mask: Get.find<MaskAdapter>(),
+          validator: Get.find<ValidatorAdapter>(),
         ));
   }
 }

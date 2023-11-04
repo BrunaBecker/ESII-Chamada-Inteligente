@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/adapters/validator_adapter.dart';
 import '../../../core/theme/app_colors.dart';
 import '../login_controller.dart';
 import 'decorations/login_input_decoration.dart';
@@ -20,9 +19,8 @@ class LoginForm extends StatelessWidget {
             TextFormField(
               key: const Key('matrícula_form'),
               keyboardType: TextInputType.number,
-              validator: (val) =>
-                  controller.validatorAdapter.validateRegistration(val),
-              inputFormatters: [controller.maskAdapter.registration],
+              validator: (val) => controller.validator.validateRegistration(val),
+              inputFormatters: [controller.mask.registration],
               decoration: LoginInputDecoration(
                 labelText: "Matrícula/SIAPE",
                 hintText: "Matrícula/SIAPE",
@@ -47,8 +45,7 @@ class LoginForm extends StatelessWidget {
             ),
             Obx(
               () => TextFormField(
-                validator: (val) =>
-                    controller.validatorAdapter.validateNotNullInput(val),
+                validator: (val) => controller.validator.validateNotNullInput(val),
                 key: const Key('senha_form'),
                 decoration: LoginInputDecoration(
                   labelText: "Senha",
@@ -58,9 +55,7 @@ class LoginForm extends StatelessWidget {
                       controller.togglePasswordVisibility();
                     },
                     icon: Icon(
-                      controller.isVisible
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
+                      controller.isVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
                       color: AppColors.black,
                     ),
                   ),

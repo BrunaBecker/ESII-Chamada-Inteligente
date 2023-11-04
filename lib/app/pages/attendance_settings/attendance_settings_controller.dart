@@ -4,15 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/adapters/mask_adapter.dart';
+import '../../core/adapters/validator_adapter.dart';
 import '../../core/enums/student_at_attendance_state.dart';
 import '../../core/utils/app_date_utils.dart';
 
 class AttendanceSettingsController extends GetxController {
   AttendanceSettingsController({
-    required maskAdapter,
-  }) : _maskAdapter = maskAdapter;
+    required mask,
+    required validator,
+  })  : _mask = mask,
+        _validator = validator;
 
-  final MaskAdapter _maskAdapter;
+  final MaskAdapter _mask;
+  final ValidatorAdapter _validator;
 
   final _isLoading = true.obs;
   final _isStartingAttendance = false.obs;
@@ -27,7 +31,8 @@ class AttendanceSettingsController extends GetxController {
   final _startTimeController = TextEditingController().obs;
   final _endTimeController = TextEditingController().obs;
 
-  MaskAdapter get maskAdapter => _maskAdapter;
+  MaskAdapter get mask => _mask;
+  ValidatorAdapter get validator => _validator;
   bool get isLoading => _isLoading.value;
   bool get isCreatingAttendance => _isStartingAttendance.value;
   GlobalKey<FormState> get formKey => _formKey;
@@ -116,15 +121,13 @@ class AttendanceSettingsController extends GetxController {
           "status": StudentAtAttendanceState.fromInt(Random().nextInt(3)),
           "answered": Random().nextInt(3) != 1,
           "confirmed": Random().nextInt(3) != 1,
-          "registration":
-              "120031${Random().nextInt(100).toString().padLeft(3, "0")}",
+          "registration": "120031${Random().nextInt(100).toString().padLeft(3, "0")}",
           "justifications": [
             {
               "date": AppDateUtils.appDateFormat.parse(dateController.text),
               "file": null,
               "title": "Quebrei a perna",
-              "description":
-                  "Eu quebrei a perna, professor, não consigo ir até a faculdade.",
+              "description": "Eu quebrei a perna, professor, não consigo ir até a faculdade.",
               "attach_file": null,
               "approved": null,
             },
@@ -132,8 +135,7 @@ class AttendanceSettingsController extends GetxController {
               "date": AppDateUtils.appDateFormat.parse(dateController.text),
               "file": null,
               "title": "Quebrei o braço.",
-              "description":
-                  "Eu quebrei o braço, professor, não consigo ir até a faculdade.",
+              "description": "Eu quebrei o braço, professor, não consigo ir até a faculdade.",
               "attach_file": null,
               "approved": null,
             },

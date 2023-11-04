@@ -6,20 +6,20 @@ import '../../core/adapters/validator_adapter.dart';
 
 class LoginController extends GetxController {
   LoginController({
-    required maskAdapter,
-    required validatorAdapter,
-  })  : _maskAdapter = maskAdapter,
-        _validatorAdapter = validatorAdapter;
+    required mask,
+    required validator,
+  })  : _mask = mask,
+        _validator = validator;
 
-  final MaskAdapter _maskAdapter;
-  final ValidatorAdapter _validatorAdapter;
+  final MaskAdapter _mask;
+  final ValidatorAdapter _validator;
 
   final _isLoading = false.obs;
   final _isVisible = false.obs;
   final _formKey = GlobalKey<FormState>();
 
-  MaskAdapter get maskAdapter => _maskAdapter;
-  ValidatorAdapter get validatorAdapter => _validatorAdapter;
+  MaskAdapter get mask => _mask;
+  ValidatorAdapter get validator => _validator;
   bool get isLoading => _isLoading.value;
   bool get isVisible => _isVisible.value;
   GlobalKey<FormState> get formKey => _formKey;
