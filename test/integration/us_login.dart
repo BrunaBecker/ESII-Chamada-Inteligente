@@ -3,6 +3,23 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mac_fi/main.dart' as app;
 
+Future<void> login(WidgetTester tester) async {
+  // Enter text in the email field
+  final Finder emailField = find.byKey(const Key('matrícula_form'));
+  await tester.enterText(emailField, '111111111');
+  await tester.pumpAndSettle();
+
+  // Enter text in the password field
+  final Finder passwordField = find.byKey(const Key('senha_form'));
+  await tester.enterText(passwordField, 'password123');
+  await tester.pumpAndSettle();
+
+  // Tap on the login button
+  final Finder loginButton = find.byKey(const Key('entrar_button'));
+  await tester.tap(loginButton);
+  await tester.pumpAndSettle();
+}
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
@@ -140,7 +157,8 @@ void main() {
       await tester.tap(sairBox);
       await tester.pumpAndSettle();
 
-      final Finder confirmarLogoutButton = find.byKey(const Key('confirmar_logout_button'));
+      final Finder confirmarLogoutButton =
+          find.byKey(const Key('confirmar_logout_button'));
       await tester.tap(confirmarLogoutButton);
       await tester.pumpAndSettle();
 

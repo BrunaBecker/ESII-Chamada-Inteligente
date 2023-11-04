@@ -8,6 +8,7 @@ class SettingsTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: const Key('settings_page_header'),
       alignment: Alignment.centerLeft,
       child: const Text(
         "Preferências",
