@@ -1,16 +1,16 @@
 import 'dart:ffi';
 
-import '../../adapters/http_adapter.dart';
-import '../../domain/entities/waiver_entity.dart';
-import '../dtos/waiver_dto.dart';
-import 'base_provider.dart';
+import '../../../adapters/http_adapter.dart';
+import '../../../domain/entities/waiver_entity.dart';
+import '../../dtos/waiver_dto.dart';
+import '../base_provider.dart';
 
 class WaiverProvider extends BaseProvider {
   Http http;
 
   WaiverProvider({required this.http});
 
-  Future<void> createWaiver(WaiverEntity waiverEntity) async {
+  Future<WaiverEntity?> createWaiver(WaiverEntity waiverEntity) async {
     WaiverDto waiverDto = WaiverDto.fromEntity(waiverEntity);
 
     try {
@@ -24,9 +24,10 @@ class WaiverProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return response.data;
+      return WaiverDto.fromJson(response.data);
     } catch (e) {
       logError(e.toString());
+      return null;
     }
   }
 
@@ -42,13 +43,10 @@ class WaiverProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      final waiver = WaiverDto.fromJson(response.data);
-
-      return waiver;
+      return WaiverDto.fromJson(response.data);
     } catch (e) {
       logError(e.toString());
+      return null;
     }
-
-    return null;
   }
 }

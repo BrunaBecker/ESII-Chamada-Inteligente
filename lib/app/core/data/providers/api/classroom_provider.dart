@@ -1,16 +1,17 @@
 import 'dart:ffi';
 
-import '../../adapters/http_adapter.dart';
-import '../../domain/entities/classroom_entity.dart';
-import '../dtos/classroom_dto.dart';
-import 'base_provider.dart';
+import '../../../adapters/http_adapter.dart';
+import '../../../domain/entities/classroom_entity.dart';
+import '../../dtos/classroom_dto.dart';
+import '../base_provider.dart';
 
 class ClassroomProvider extends BaseProvider {
   Http http;
 
   ClassroomProvider({required this.http});
 
-  Future<void> createClassroom(ClassroomEntity classroomEntity) async {
+  Future<ClassroomEntity?> createClassroom(
+      ClassroomEntity classroomEntity) async {
     ClassroomDto classroomDto = ClassroomDto.fromEntity(classroomEntity);
 
     try {
@@ -24,13 +25,15 @@ class ClassroomProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return response.data;
+      return ClassroomDto.fromJson(response.data);
     } catch (e) {
       logError(e.toString());
+      return null;
     }
   }
 
-  Future<void> updateClassroom(ClassroomEntity classroomEntity) async {
+  Future<ClassroomEntity?> updateClassroom(
+      ClassroomEntity classroomEntity) async {
     ClassroomDto classroomDto = ClassroomDto.fromEntity(classroomEntity);
 
     try {
@@ -44,13 +47,14 @@ class ClassroomProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return response.data;
+      return ClassroomDto.fromJson(response.data);
     } catch (e) {
       logError(e.toString());
+      return null;
     }
   }
 
-  Future<List<ClassroomDto>> fetchClassroomsByProfessor(
+  Future<List<ClassroomEntity>?> fetchClassroomsByProfessor(
       Long professorId) async {
     try {
       final response = await http.get(
@@ -71,12 +75,12 @@ class ClassroomProvider extends BaseProvider {
       return classrooms;
     } catch (e) {
       logError(e.toString());
+      return null;
     }
-
-    return [];
   }
 
-  Future<List<ClassroomDto>> fetchClassroomsByStudent(Long studentId) async {
+  Future<List<ClassroomEntity>?> fetchClassroomsByStudent(
+      Long studentId) async {
     try {
       final response = await http.get(
         '/classroom/student/$studentId',
@@ -96,8 +100,7 @@ class ClassroomProvider extends BaseProvider {
       return classrooms;
     } catch (e) {
       logError(e.toString());
+      return null;
     }
-
-    return [];
   }
 }
