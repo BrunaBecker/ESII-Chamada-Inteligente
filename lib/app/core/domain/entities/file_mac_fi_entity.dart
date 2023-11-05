@@ -1,5 +1,6 @@
 class FileMacFiEntity {
   FileMacFiEntity({
+    required this.id,
     required this.linkFile,
     required this.nameFile,
     required this.typeFile,
@@ -7,6 +8,7 @@ class FileMacFiEntity {
     required this.dateFile,
   });
 
+  int id;
   String linkFile;
   String nameFile;
   String typeFile;

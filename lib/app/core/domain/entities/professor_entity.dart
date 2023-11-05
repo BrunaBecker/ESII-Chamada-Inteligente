@@ -1,7 +1,6 @@
 import 'classroom_entity.dart';
 import 'location_entity.dart';
 import 'person_entity.dart';
-import 'register_professor_entity.dart';
 
 class ProfessorEntity extends PersonEntity {
   ProfessorEntity({
@@ -13,13 +12,15 @@ class ProfessorEntity extends PersonEntity {
     required super.cpf,
     required super.email,
     required super.password,
+    required super.register,
     required super.setting,
-    required this.siape,
+    required super.profileImage,
+    required super.comments,
+    required super.notifications,
     required this.locations,
     required this.classrooms,
   });
 
-  RegisterProfessorEntity siape;
   List<LocationEntity> locations;
   List<ClassroomEntity> classrooms;
 }
