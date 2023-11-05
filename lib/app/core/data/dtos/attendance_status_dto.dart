@@ -15,6 +15,7 @@ class AttendanceStatusDto extends AttendanceStatusEntity {
     required super.attendance,
     required super.successfulPings,
     required super.unsuccessfulPings,
+    super.waiver,
   });
 
   factory AttendanceStatusDto.fromEntity(AttendanceStatusEntity entity) {
@@ -27,6 +28,7 @@ class AttendanceStatusDto extends AttendanceStatusEntity {
       attendance: entity.attendance,
       successfulPings: entity.successfulPings,
       unsuccessfulPings: entity.unsuccessfulPings,
+      waiver: entity.waiver,
     );
   }
 
@@ -50,6 +52,7 @@ class AttendanceStatusDto extends AttendanceStatusEntity {
       attendance: AttendanceDto.fromMap(map["attendance"]),
       successfulPings: successfulPings,
       unsuccessfulPings: unsuccessfulPings,
+      waiver: map["waiver"],
     );
   }
 
@@ -73,6 +76,7 @@ class AttendanceStatusDto extends AttendanceStatusEntity {
       "attendance": AttendanceDto.fromEntity(attendance).toMap(),
       "successfulPings": successfulPingsAsMap,
       "unsuccessfulPings": unsuccessfulPingsAsMap,
+      "waiver": waiver,
     };
   }
 

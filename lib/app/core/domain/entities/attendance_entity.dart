@@ -13,7 +13,7 @@ class AttendanceEntity {
     required this.endHour,
     required this.duration,
     required this.isAutomatic,
-    required this.isActive,
+    required this.isHappening,
     required this.virtualZone,
     required this.classroom,
     required this.statusStudentAttendance,
@@ -26,7 +26,7 @@ class AttendanceEntity {
   TimeOfDay endHour;
   String duration;
   bool isAutomatic;
-  bool isActive;
+  bool isHappening;
   VirtualZoneEntity virtualZone;
   ClassroomEntity classroom;
   List<AttendanceStatusEntity> statusStudentAttendance;

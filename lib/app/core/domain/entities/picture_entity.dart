@@ -2,6 +2,7 @@ import 'file_mac_fi_entity.dart';
 
 class PictureEntity extends FileMacFiEntity {
   PictureEntity({
+    required super.id,
     required super.linkFile,
     required super.nameFile,
     required super.typeFile,

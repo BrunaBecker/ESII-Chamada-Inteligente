@@ -1,8 +1,12 @@
 import 'dart:convert';
 
+import '../../domain/entities/register_student_entity.dart';
 import '../../domain/entities/student_entity.dart';
+import '../../utils/app_date_utils.dart';
 import 'attendance_dto.dart';
 import 'classroom_dto.dart';
+import 'comment_dto.dart';
+import 'notification_dto.dart';
 import 'register_student_dto.dart';
 import 'waiver_dto.dart';
 
@@ -16,8 +20,11 @@ class StudentDto extends StudentEntity {
     required super.cpf,
     required super.email,
     required super.password,
+    required super.register,
     required super.setting,
-    required super.registration,
+    required super.profileImage,
+    required super.comments,
+    required super.notifications,
     required super.classrooms,
     required super.waivers,
     required super.attendances,
@@ -33,8 +40,11 @@ class StudentDto extends StudentEntity {
       cpf: entity.cpf,
       email: entity.email,
       password: entity.password,
+      register: entity.register as RegisterStudentEntity,
       setting: entity.setting,
-      registration: entity.registration,
+      profileImage: entity.profileImage,
+      comments: entity.comments,
+      notifications: entity.notifications,
       classrooms: entity.classrooms,
       waivers: entity.waivers,
       attendances: entity.attendances,
@@ -42,6 +52,16 @@ class StudentDto extends StudentEntity {
   }
 
   factory StudentDto.fromMap(Map<String, dynamic> map) {
+    // Mapping Comments
+    List<CommentDto> comments = [];
+    for (var comment in map["comments"]) {
+      comments.add(CommentDto.fromMap(comment));
+    }
+    // Mapping Notifications
+    List<NotificationDto> notifications = [];
+    for (var notification in map["notifications"]) {
+      notifications.add(NotificationDto.fromMap(notification));
+    }
     // Mapping classrooms
     final List<ClassroomDto> classrooms = [];
     for (var classroom in map["classrooms"]) {
@@ -62,13 +82,16 @@ class StudentDto extends StudentEntity {
       id: map["id"],
       name: map["name"],
       socialName: map["socialName"],
-      birthDate: DateTime.parse(map["birthDate"]),
+      birthDate: AppDateUtils.storageDateFormat.parse(map["birthDate"]),
       isActive: map["isActive"],
       cpf: map["cpf"],
       email: map["email"],
       password: map["password"],
+      register: RegisterStudentDto.fromMap(map["register"]),
       setting: map["setting"],
-      registration: RegisterStudentDto.fromMap(map["registration"]),
+      profileImage: map["profileImage"],
+      comments: comments,
+      notifications: notifications,
       classrooms: classrooms,
       waivers: waivers,
       attendances: attendances,
@@ -76,6 +99,16 @@ class StudentDto extends StudentEntity {
   }
 
   Map<String, dynamic> toMap() {
+    // Mapping Comments
+    final List<Map<String, dynamic>> commentsAsMap = [];
+    for (var comment in comments) {
+      commentsAsMap.add(CommentDto.fromEntity(comment).toMap());
+    }
+    // Mapping Notifications
+    final List<Map<String, dynamic>> notificationsAsMap = [];
+    for (var notification in notifications) {
+      notificationsAsMap.add(NotificationDto.fromEntity(notification).toMap());
+    }
     // Mapping classrooms
     final List<Map<String, dynamic>> classroomsAsMap = [];
     for (var classroom in classrooms) {
@@ -96,13 +129,16 @@ class StudentDto extends StudentEntity {
       "id": id,
       "name": name,
       "socialName": socialName,
-      "birthDate": birthDate.toIso8601String(),
+      "birthDate": AppDateUtils.storageDateFormat.format(birthDate),
       "isActive": isActive,
       "cpf": cpf,
       "email": email,
       "password": password,
+      "register": RegisterStudentDto.fromEntity(register as RegisterStudentDto).toMap(),
       "setting": setting,
-      "registration": RegisterStudentDto.fromEntity(registration).toMap(),
+      "profileImage": profileImage,
+      "comments": commentsAsMap,
+      "notifications": notificationsAsMap,
       "classrooms": classroomsAsMap,
       "waivers": waiversAsMap,
       "attendances": attendancesAsMap,

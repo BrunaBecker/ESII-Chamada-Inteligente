@@ -5,6 +5,7 @@ import '../../utils/app_date_utils.dart';
 
 class PictureDto extends PictureEntity {
   PictureDto({
+    required super.id,
     required super.linkFile,
     required super.nameFile,
     required super.typeFile,
@@ -14,6 +15,7 @@ class PictureDto extends PictureEntity {
 
   factory PictureDto.fromEntity(PictureEntity entity) {
     return PictureDto(
+      id: entity.id,
       linkFile: entity.linkFile,
       nameFile: entity.nameFile,
       typeFile: entity.typeFile,
@@ -24,6 +26,7 @@ class PictureDto extends PictureEntity {
 
   factory PictureDto.fromMap(Map<String, dynamic> map) {
     return PictureDto(
+      id: map["id"],
       linkFile: map["linkFile"],
       nameFile: map["nameFile"],
       typeFile: map["typeFile"],
@@ -34,6 +37,7 @@ class PictureDto extends PictureEntity {
 
   Map<String, dynamic> toMap() {
     return {
+      "id": id,
       "linkFile": linkFile,
       "nameFile": nameFile,
       "typeFile": typeFile,

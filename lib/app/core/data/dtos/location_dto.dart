@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '../../domain/entities/coordinate_dto.dart';
 import '../../domain/entities/location_entity.dart';
 import 'professor_dto.dart';
 import 'virtual_zone_dto.dart';
@@ -9,9 +10,8 @@ class LocationDto extends LocationEntity {
     required super.id,
     required super.title,
     required super.description,
-    required super.isVisible,
-    required super.latitude,
-    required super.longitude,
+    required super.isActive,
+    required super.coordinate,
     required super.professor,
     required super.virtualZones,
   });
@@ -21,9 +21,8 @@ class LocationDto extends LocationEntity {
       id: entity.id,
       title: entity.title,
       description: entity.description,
-      isVisible: entity.isVisible,
-      latitude: entity.latitude,
-      longitude: entity.longitude,
+      isActive: entity.isActive,
+      coordinate: entity.coordinate,
       professor: entity.professor,
       virtualZones: entity.virtualZones,
     );
@@ -40,9 +39,8 @@ class LocationDto extends LocationEntity {
       id: map["id"],
       title: map["title"],
       description: map["description"],
-      isVisible: map["isVisible"],
-      latitude: map["latitude"],
-      longitude: map["longitude"],
+      isActive: map["isActive"],
+      coordinate: CoordinateDto.fromMap(map["coordinate"]),
       professor: ProfessorDto.fromMap(map["professor"]),
       virtualZones: virtualZones,
     );
@@ -59,9 +57,8 @@ class LocationDto extends LocationEntity {
       "id": id,
       "title": title,
       "description": description,
-      "isVisible": isVisible,
-      "latitude": latitude,
-      "longitude": longitude,
+      "isActive": isActive,
+      "coordinate": CoordinateDto.fromEntity(coordinate).toMap(),
       "professor": ProfessorDto.fromEntity(professor).toMap(),
       "virtualZones": virtualZones,
     };
