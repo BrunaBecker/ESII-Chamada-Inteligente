@@ -23,11 +23,13 @@ class AttendanceForm extends StatelessWidget {
               : Column(
                   children: [
                     DropdownButtonFormField(
+                      key: const Key('dropdown-class'),
                       value: controller.selectedClass,
                       isExpanded: true,
                       items: controller.classList
                           .map(
                             (item) => DropdownMenuItem(
+                              key: const Key('dropdown-select'),
                               value: item,
                               child: Text(item),
                             ),
@@ -44,6 +46,7 @@ class AttendanceForm extends StatelessWidget {
                     ),
                     const Spacing(8.0),
                     TextFormField(
+                      key: const Key('date-form'),
                       validator: (val) => controller.validator.validateNotNullInput(val),
                       controller: controller.dateController,
                       keyboardType: TextInputType.datetime,
@@ -52,6 +55,7 @@ class AttendanceForm extends StatelessWidget {
                       decoration: AttendanceSettingsInputDecoration(
                         labelText: "Data",
                         suffixIcon: IconButton(
+                          key: const Key('date-edit-button'),
                           onPressed: () async {
                             final date = await showDatePicker(
                               context: context,

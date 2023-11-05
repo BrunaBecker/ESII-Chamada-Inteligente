@@ -16,6 +16,7 @@ class HomeWidget extends StatelessWidget {
         automaticallyImplyLeading: false,
         actions: [
           GetBuilder(
+            key: const Key('notification_button'),
             init: Get.find<NotificationsController>(),
             builder: (controller) => GestureDetector(
               onTap: () => Get.toNamed(AppRoutes.notifications),

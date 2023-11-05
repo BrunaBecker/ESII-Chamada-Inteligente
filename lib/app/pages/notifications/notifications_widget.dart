@@ -17,6 +17,7 @@ class NotificationsWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: IconButton(
+              key: const Key('notification_button_pressed'),
               icon: const Icon(Icons.notifications),
               onPressed: () {
                 Get.back();
@@ -37,6 +38,7 @@ class NotificationsWidget extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final notification = controller.notifications[index];
                     return ListTile(
+                      key: const Key('notification list'),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                       leading: IconButton(
                         onPressed: () {},
@@ -45,6 +47,7 @@ class NotificationsWidget extends StatelessWidget {
                       title: Text(notification["title"]),
                       subtitle: Text(notification["description"]),
                       trailing: PopupMenuButton(
+                        key: const Key('ellipsis menu'),
                         itemBuilder: (BuildContext context) => [
                           PopupMenuItem(
                             onTap: () => controller.toggleReadNotification(notification["id"]),
