@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/widgets/bottom_nav_bar.dart';
-import '../../core/widgets/spacing.dart';
 import 'notifications_controller.dart';
 
 class NotificationsWidget extends StatelessWidget {
@@ -51,22 +50,16 @@ class NotificationsWidget extends StatelessWidget {
                         itemBuilder: (BuildContext context) => [
                           PopupMenuItem(
                             onTap: () => controller.toggleReadNotification(notification["id"]),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.cut),
-                                const Spacing(4.0),
-                                Text("Marcar como ${notification["isRead"] ? "não " : ""}lida"),
-                              ],
+                            child: ListTile(
+                              leading: const Icon(Icons.cut_outlined),
+                              title: Text(notification["isRead"] ? "Marcar como não lida" : "Marcar como lida"),
                             ),
                           ),
                           PopupMenuItem(
                             onTap: () => controller.removeNotification(notification["id"]),
-                            child: const Row(
-                              children: [
-                                Icon(Icons.delete_outline),
-                                Spacing(4.0),
-                                Text("Excluir"),
-                              ],
+                            child: const ListTile(
+                              leading: Icon(Icons.delete_outline),
+                              title: Text("Excluir"),
                             ),
                           ),
                         ],
