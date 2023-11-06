@@ -3,13 +3,15 @@ import 'package:get/get.dart';
 import '../../core/adapters/chart_adapter.dart';
 
 class ClassInfoController extends GetxController {
-  ClassInfoController({required ChartAdapter chartAdapter}) : _chartAdapter = chartAdapter;
+  ClassInfoController({
+    required ChartAdapter chart,
+  }) : _chart = chart;
 
-  final ChartAdapter _chartAdapter;
+  final ChartAdapter _chart;
   final _isLoading = true.obs;
   late final Map<String, dynamic> _selectedClass;
 
-  ChartAdapter get chartAdapter => _chartAdapter;
+  ChartAdapter get chart => _chart;
   bool get isLoading => _isLoading.value;
   Map<String, dynamic> get selectedClass => _selectedClass;
 

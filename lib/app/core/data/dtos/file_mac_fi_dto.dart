@@ -5,6 +5,7 @@ import '../../utils/app_date_utils.dart';
 
 class FileMacFiDto extends FileMacFiEntity {
   FileMacFiDto({
+    required super.id,
     required super.linkFile,
     required super.nameFile,
     required super.typeFile,
@@ -14,6 +15,7 @@ class FileMacFiDto extends FileMacFiEntity {
 
   factory FileMacFiDto.fromEntity(FileMacFiEntity entity) {
     return FileMacFiDto(
+      id: entity.id,
       linkFile: entity.linkFile,
       nameFile: entity.nameFile,
       typeFile: entity.typeFile,
@@ -24,6 +26,7 @@ class FileMacFiDto extends FileMacFiEntity {
 
   factory FileMacFiDto.fromMap(Map<String, dynamic> map) {
     return FileMacFiDto(
+      id: map["id"],
       linkFile: map["linkFile"],
       nameFile: map["nameFile"],
       typeFile: map["typeFile"],
@@ -34,6 +37,7 @@ class FileMacFiDto extends FileMacFiEntity {
 
   Map<String, dynamic> toMap() {
     return {
+      "id": id,
       "linkFile": linkFile,
       "nameFile": nameFile,
       "typeFile": typeFile,

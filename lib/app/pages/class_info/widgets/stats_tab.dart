@@ -46,7 +46,7 @@ class StatsTab extends StatelessWidget {
                         margin: const EdgeInsets.only(
                           top: 128.0,
                         ),
-                        child: controller.chartAdapter.createAttendanceChart(
+                        child: controller.chart.createAttendanceChart(
                           data: controller.selectedClass["attendances"],
                         ),
                       ),
