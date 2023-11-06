@@ -4,8 +4,9 @@ import 'package:integration_test/integration_test.dart';
 import 'package:mac_fi/main.dart' as app;
 
 Future<void> login(WidgetTester tester) async {
+  // Enter text in the email field
   final Finder emailField = find.byKey(const Key('matrícula_form'));
-  await tester.enterText(emailField, '1111111');
+  await tester.enterText(emailField, '111111111');
   await tester.pumpAndSettle();
 
   // Enter text in the password field
@@ -133,7 +134,6 @@ void main() {
       final Finder emailField = find.byKey(const Key('matrícula_form'));
       await tester.enterText(emailField, '1111111111');
       await tester.pumpAndSettle();
-
 
       final Finder errorPassword = find.text('O campo é obrigatório');
 
