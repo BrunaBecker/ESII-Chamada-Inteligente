@@ -35,5 +35,13 @@ abstract class AppColors {
 
   static const red1 = Color(0xffEB5757);
 
+  static const redDarker = Color(0xffBE1A1A);
+
   static const blue1 = Color(0xff0C41FF);
+
+  static const amberPastel = Color(0xffFFEBB7);
+
+  static const amberPastelDarker = Color(0xffE7C160);
+
+  static const orange = Color(0xffF2994A);
 }
