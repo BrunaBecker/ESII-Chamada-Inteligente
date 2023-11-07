@@ -16,6 +16,7 @@ class ClassesWidget extends StatelessWidget {
     return Scaffold(
       drawer: const ClassesDrawer(),
       appBar: AppBar(
+        key: const Key('class_page_header'),
         title: const Text("Minhas turmas"),
         centerTitle: true,
         actions: const [

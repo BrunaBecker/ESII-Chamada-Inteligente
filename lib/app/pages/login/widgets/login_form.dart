@@ -13,12 +13,14 @@ class LoginForm extends StatelessWidget {
     return GetBuilder<LoginController>(
       init: Get.find<LoginController>(),
       builder: (controller) => Form(
+        key: controller.formKey,
         child: Column(
           children: [
             TextFormField(
               key: const Key('matrícula_form'),
               keyboardType: TextInputType.number,
-              inputFormatters: [controller.maskAdapter.registration],
+              validator: (val) => controller.validator.validateRegistration(val),
+              inputFormatters: [controller.mask.registration],
               decoration: LoginInputDecoration(
                 labelText: "Matrícula/SIAPE",
                 hintText: "Matrícula/SIAPE",
@@ -43,6 +45,7 @@ class LoginForm extends StatelessWidget {
             ),
             Obx(
               () => TextFormField(
+                validator: (val) => controller.validator.validateNotNullInput(val),
                 key: const Key('senha_form'),
                 decoration: LoginInputDecoration(
                   labelText: "Senha",

@@ -1,3 +1,4 @@
+import 'attendance_status_entity.dart';
 import 'comment_entity.dart';
 import 'file_mac_fi_entity.dart';
 import 'student_entity.dart';
@@ -11,6 +12,7 @@ class WaiverEntity {
     required this.isAccepted,
     required this.comment,
     required this.student,
+    required this.attendanceStatus,
   });
 
   int id;
@@ -20,4 +22,5 @@ class WaiverEntity {
   bool isAccepted;
   CommentEntity comment;
   StudentEntity student;
+  AttendanceStatusEntity attendanceStatus;
 }

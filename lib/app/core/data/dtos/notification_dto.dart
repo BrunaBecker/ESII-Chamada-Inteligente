@@ -10,6 +10,7 @@ class NotificationDto extends NotificationEntity {
     required super.statusNotification,
     required super.isActive,
     required super.isRead,
+    required super.person,
   });
 
   factory NotificationDto.fromEntity(NotificationEntity entity) {
@@ -20,6 +21,7 @@ class NotificationDto extends NotificationEntity {
       statusNotification: entity.statusNotification,
       isActive: entity.isActive,
       isRead: entity.isRead,
+      person: entity.person,
     );
   }
 
@@ -31,6 +33,7 @@ class NotificationDto extends NotificationEntity {
       statusNotification: map["statusNotification"],
       isActive: map["isActive"],
       isRead: map["isRead"],
+      person: map["person"],
     );
   }
 
@@ -42,6 +45,7 @@ class NotificationDto extends NotificationEntity {
       "statusNotification": statusNotification,
       "isActive": isActive,
       "isRead": isRead,
+      "person": person,
     };
   }
 

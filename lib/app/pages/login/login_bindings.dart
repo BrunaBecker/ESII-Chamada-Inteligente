@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../core/adapters/mask_adapter.dart';
+import '../../core/adapters/validator_adapter.dart';
 import 'login_controller.dart';
 
 class LoginBindings extends Bindings {
@@ -8,7 +9,8 @@ class LoginBindings extends Bindings {
   void dependencies() {
     // Controller
     Get.lazyPut(() => LoginController(
-          maskAdapter: Get.find<MaskAdapter>(),
+          mask: Get.find<MaskAdapter>(),
+          validator: Get.find<ValidatorAdapter>(),
         ));
   }
 }

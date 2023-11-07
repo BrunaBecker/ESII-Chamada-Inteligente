@@ -2,6 +2,7 @@ import '../../enums/student_at_attendance_state.dart';
 import 'attendance_entity.dart';
 import 'ping_entity.dart';
 import 'student_entity.dart';
+import 'waiver_entity.dart';
 
 class AttendanceStatusEntity {
   AttendanceStatusEntity({
@@ -13,6 +14,7 @@ class AttendanceStatusEntity {
     required this.attendance,
     required this.successfulPings,
     required this.unsuccessfulPings,
+    this.waiver,
   });
 
   int id;
@@ -23,4 +25,5 @@ class AttendanceStatusEntity {
   AttendanceEntity attendance;
   List<PingEntity> successfulPings;
   List<PingEntity> unsuccessfulPings;
+  WaiverEntity? waiver;
 }

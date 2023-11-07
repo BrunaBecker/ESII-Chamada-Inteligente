@@ -1,4 +1,5 @@
 import '../../enums/status_notification.dart';
+import 'person_entity.dart';
 
 class NotificationEntity {
   NotificationEntity({
@@ -8,6 +9,7 @@ class NotificationEntity {
     required this.statusNotification,
     required this.isActive,
     required this.isRead,
+    required this.person,
   });
 
   int id;
@@ -16,4 +18,5 @@ class NotificationEntity {
   StatusNotification statusNotification;
   bool isActive;
   bool isRead;
+  PersonEntity person;
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import '../../domain/entities/waiver_entity.dart';
 import '../../utils/app_date_utils.dart';
+import 'attendance_status_dto.dart';
 import 'comment_dto.dart';
 import 'file_mac_fi_dto.dart';
 import 'student_dto.dart';
@@ -15,6 +16,7 @@ class WaiverDto extends WaiverEntity {
     required super.isAccepted,
     required super.comment,
     required super.student,
+    required super.attendanceStatus,
   });
 
   factory WaiverDto.fromEntity(WaiverEntity entity) {
@@ -26,6 +28,7 @@ class WaiverDto extends WaiverEntity {
       isAccepted: entity.isAccepted,
       comment: entity.comment,
       student: entity.student,
+      attendanceStatus: entity.attendanceStatus,
     );
   }
 
@@ -38,6 +41,7 @@ class WaiverDto extends WaiverEntity {
       isAccepted: map["isAccepted"],
       comment: CommentDto.fromMap(map["comment"]),
       student: StudentDto.fromMap(map["student"]),
+      attendanceStatus: AttendanceStatusDto.fromMap(map["attendanceStatus"]),
     );
   }
 
@@ -50,6 +54,7 @@ class WaiverDto extends WaiverEntity {
       "isAccepted": isAccepted,
       "comment": CommentDto.fromEntity(comment).toMap(),
       "student": StudentDto.fromEntity(student).toMap(),
+      "attendanceStatus": AttendanceStatusDto.fromEntity(attendanceStatus).toMap(),
     };
   }
 
