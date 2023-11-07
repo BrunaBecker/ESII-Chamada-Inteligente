@@ -69,7 +69,7 @@ class ProfessorProvider extends BaseProvider {
   }
 
   /// NÃO USAR, VAI CRASHAR O SERVIDOR E O APP
-  Future<List<ProfessorDto>?> fetchAllProfessors(Long id) async {
+  Future<List<ProfessorDto>?> fetchAllProfessors() async {
     try {
       final response = await http.get(
         '/professor',
