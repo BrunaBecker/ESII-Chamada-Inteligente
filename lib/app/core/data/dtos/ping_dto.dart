@@ -48,11 +48,13 @@ class PingDto extends PingEntity {
       "status": status,
       "isContinuous": isContinuous,
       "coordinate": CoordinateDto.fromEntity(coordinate).toMap(),
-      "attendanceStatus": AttendanceStatusDto.fromEntity(attendanceStatus).toMap(),
+      "attendanceStatus":
+          AttendanceStatusDto.fromEntity(attendanceStatus).toMap(),
     };
   }
 
-  factory PingDto.fromJson(String source) => PingDto.fromMap(json.decode(source));
+  factory PingDto.fromJson(String source) =>
+      PingDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }
