@@ -18,4 +18,8 @@ abstract class AppDateUtils {
   static String timeOfDayToAppString(TimeOfDay time) {
     return "${time.hour.toString().padLeft(2, "0")}:${time.minute.toString().padLeft(2, "0")}";
   }
+
+  static String dateTimeToTimeString(DateTime dateTime) {
+    return "${dateTime.hour.toString().padLeft(2, "0")}:${dateTime.minute.toString().padLeft(2, "0")}";
+  }
 }
