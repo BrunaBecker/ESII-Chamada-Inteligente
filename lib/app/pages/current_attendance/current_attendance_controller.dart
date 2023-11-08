@@ -65,6 +65,7 @@ class CurrentAttendanceController extends GetxController {
       "confirmed": true,
       "registration": _registrationController.text,
       "justifications": [],
+      "virtualZone": null,
     });
     _nameController.clear();
     _registrationController.clear();
