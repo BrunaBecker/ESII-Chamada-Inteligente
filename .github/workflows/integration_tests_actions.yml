@@ -39,12 +39,6 @@ jobs:
       - name: Analyze project source
         run: dart analyze
 
-      - name: Set up Android emulator
-        run: |
-          echo "y" | flutter emulators --create --name test_emulator
-          flutter emulators --launch test_emulator
-          sleep 30 # Wait for emulator to start up
-
       # Build the app for the Android emulator
       - name: Build app
         run: flutter build apk --debug
