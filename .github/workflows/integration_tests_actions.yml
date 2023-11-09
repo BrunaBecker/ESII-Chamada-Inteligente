@@ -49,4 +49,4 @@ jobs:
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
       - name: Run tests
-        run: flutter drive --target=test_driver/app_test.dart
+        run: flutter drive --target=test_driver/test/integration/login_test.dart
