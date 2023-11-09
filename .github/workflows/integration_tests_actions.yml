@@ -5,11 +5,11 @@
 
 name: Run Integration Tests
 
-on:
-#  push: 
-#    branches: [ "main" ] # Not necessary since pushes on main are blocked.
+on: 
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
+    
 
 jobs:
   build:
