@@ -5,7 +5,7 @@
 
 name: Run Integration Tests
 
-on: 
+on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
@@ -46,5 +46,8 @@ jobs:
       # Your project will need to have tests in test/ and a dependency on
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
-      - name: Run tests
-        run: flutter drive --target=test_driver/test/integration/login_test.dart 2>&1 | tee drive_output.log
+      - name: Run Integration Tests
+        run: |
+          chmod +x ./scripts/run_integration_tests.sh
+          ./scripts/run_integration_tests.sh
+      # flutter drive --target=test_driver/test/integration_test/login_test.dart,test_driver/test/integration_test/notification_test.dart
