@@ -5,11 +5,10 @@
 
 name: Run Integration Tests
 
-on:
-#  push: 
-#    branches: [ "main" ] # Not necessary since pushes on main are blocked.
+on: 
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -40,8 +39,12 @@ jobs:
       - name: Analyze project source
         run: dart analyze
 
+      # Build the app for the Android emulator
+      - name: Build app
+        run: flutter build apk --debug
+
       # Your project will need to have tests in test/ and a dependency on
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
       - name: Run tests
-        run: flutter test test/integration/login_test.dart
+        run: flutter drive --target=test_driver/test/integration/login_test.dart 2>&1 | tee drive_output.log
