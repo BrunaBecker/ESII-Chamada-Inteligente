@@ -24,4 +24,9 @@ class ClassInfoController extends GetxController {
     _isLoading.value = false;
     super.onReady();
   }
+
+  void filterAttendancesByDate(DateTime start, DateTime end) {
+    // TODO: filter attendances by date
+    update();
+  }
 }
