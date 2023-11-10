@@ -48,5 +48,5 @@ jobs:
       # want to change this to 'flutter test'.
       - name: Run tests
         run: 
-          flutter drive --target=test_driver/test/integration_test/login_test.dart 
-          flutter drive --target=test_driver/test/integration_test/notification_test.dart 
+          flutter drive --target=test/integration_test/login_test.dart 
+          flutter drive --target=test/integration_test/notification_test.dart 
