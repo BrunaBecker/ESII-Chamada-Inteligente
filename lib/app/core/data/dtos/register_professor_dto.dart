@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import '../../domain/entities/professor_entity.dart';
 import '../../domain/entities/register_professor_entity.dart';
 import '../../utils/app_date_utils.dart';
-import 'professor_dto.dart';
 
 class RegisterProfessorDto extends RegisterProfessorEntity {
   RegisterProfessorDto({

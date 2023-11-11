@@ -5,7 +5,6 @@ import '../../domain/entities/professor_entity.dart';
 import '../../domain/entities/student_entity.dart';
 import 'professor_dto.dart';
 import 'student_dto.dart';
-import 'waiver_dto.dart';
 
 class CommentDto extends CommentEntity {
   CommentDto({

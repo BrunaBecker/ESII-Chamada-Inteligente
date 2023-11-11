@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'attendance_status_entity.dart';
 import 'classroom_entity.dart';
 import 'virtual_zone_entity.dart';
 
