@@ -44,5 +44,6 @@ class CalendarDto extends CalendarEntity {
 
   String toJson() => json.encode(toMap());
 
-  factory CalendarDto.fromJson(String source) => CalendarDto.fromMap(json.decode(source));
+  factory CalendarDto.fromJson(String source) =>
+      CalendarDto.fromMap(json.decode(source));
 }

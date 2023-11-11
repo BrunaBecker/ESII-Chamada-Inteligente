@@ -64,7 +64,8 @@ class LocationDto extends LocationEntity {
     };
   }
 
-  factory LocationDto.fromJson(String source) => LocationDto.fromMap(json.decode(source));
+  factory LocationDto.fromJson(String source) =>
+      LocationDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

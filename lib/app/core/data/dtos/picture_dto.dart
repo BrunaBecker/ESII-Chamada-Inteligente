@@ -46,7 +46,8 @@ class PictureDto extends PictureEntity {
     };
   }
 
-  factory PictureDto.fromJson(String source) => PictureDto.fromMap(json.decode(source));
+  factory PictureDto.fromJson(String source) =>
+      PictureDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

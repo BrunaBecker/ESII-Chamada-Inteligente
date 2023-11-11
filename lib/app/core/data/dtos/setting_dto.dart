@@ -19,7 +19,8 @@ class SettingDto extends SettingEntity {
     return SettingDto(
       id: entity.id,
       automaticSaveLocalization: entity.automaticSaveLocalization,
-      usePredefinedCalendarForAttendance: entity.usePredefinedCalendarForAttendance,
+      usePredefinedCalendarForAttendance:
+          entity.usePredefinedCalendarForAttendance,
       silentMode: entity.silentMode,
       person: entity.person,
     );
@@ -37,7 +38,8 @@ class SettingDto extends SettingEntity {
     return SettingDto(
       id: map["id"],
       automaticSaveLocalization: map["automaticSaveLocalization"],
-      usePredefinedCalendarForAttendance: map["usePredefinedCalendarForAttendance"],
+      usePredefinedCalendarForAttendance:
+          map["usePredefinedCalendarForAttendance"],
       silentMode: map["silentMode"],
       person: person,
     );
@@ -61,7 +63,8 @@ class SettingDto extends SettingEntity {
     };
   }
 
-  factory SettingDto.fromJson(String source) => SettingDto.fromMap(json.decode(source));
+  factory SettingDto.fromJson(String source) =>
+      SettingDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

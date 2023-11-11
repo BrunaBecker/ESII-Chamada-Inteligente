@@ -63,23 +63,34 @@ class AttendanceInfoWidget extends StatelessWidget {
                         const AttendanceFilterOptions(),
                         Expanded(
                           child: ListView.builder(
-                            itemCount: controller.selectedAttendance["students"].length,
+                            itemCount: controller
+                                .selectedAttendance["students"].length,
                             itemBuilder: (context, index) {
-                              final item = controller.selectedAttendance["students"][index];
+                              final item = controller
+                                  .selectedAttendance["students"][index];
                               return ListTile(
                                 title: Text(item["name"]),
                                 subtitle: Text(
-                                  item["confirmed"] ? "Resposta validada" : "Valide essa resposta",
+                                  item["confirmed"]
+                                      ? "Resposta validada"
+                                      : "Valide essa resposta",
                                 ),
                                 trailing: PopupMenuButton(
                                   icon: Icon(
-                                    item["status"] == StudentAtAttendanceState.present
+                                    item["status"] ==
+                                            StudentAtAttendanceState.present
                                         ? Icons.check_outlined
-                                        : item["status"] == StudentAtAttendanceState.absent
+                                        : item["status"] ==
+                                                StudentAtAttendanceState.absent
                                             ? Icons.close_outlined
                                             : Icons.indeterminate_check_box,
                                     color: item["confirmed"]
-                                        ? item["status"] == StudentAtAttendanceState.present || item["status"] == StudentAtAttendanceState.justified
+                                        ? item["status"] ==
+                                                    StudentAtAttendanceState
+                                                        .present ||
+                                                item["status"] ==
+                                                    StudentAtAttendanceState
+                                                        .justified
                                             ? AppColors.green1
                                             : AppColors.red1
                                         : AppColors.onSurfaceVariant,
@@ -89,7 +100,8 @@ class AttendanceInfoWidget extends StatelessWidget {
                                       onTap: () {
                                         controller.changeStudentPresence(
                                           student: item,
-                                          presence: StudentAtAttendanceState.present,
+                                          presence:
+                                              StudentAtAttendanceState.present,
                                         );
                                       },
                                       child: const ListTile(
@@ -105,7 +117,8 @@ class AttendanceInfoWidget extends StatelessWidget {
                                       onTap: () {
                                         controller.changeStudentPresence(
                                           student: item,
-                                          presence: StudentAtAttendanceState.absent,
+                                          presence:
+                                              StudentAtAttendanceState.absent,
                                         );
                                       },
                                       child: const ListTile(
@@ -121,7 +134,8 @@ class AttendanceInfoWidget extends StatelessWidget {
                                       onTap: () {
                                         controller.changeStudentPresence(
                                           student: item,
-                                          presence: StudentAtAttendanceState.justified,
+                                          presence: StudentAtAttendanceState
+                                              .justified,
                                         );
                                       },
                                       child: const ListTile(
@@ -130,7 +144,8 @@ class AttendanceInfoWidget extends StatelessWidget {
                                           color: AppColors.green1,
                                         ),
                                         title: Text("Falta abonada"),
-                                        subtitle: Text("Falta abonada validada"),
+                                        subtitle:
+                                            Text("Falta abonada validada"),
                                       ),
                                     ),
                                   ],

@@ -54,11 +54,13 @@ class WaiverDto extends WaiverEntity {
       "isAccepted": isAccepted,
       "comment": CommentDto.fromEntity(comment).toMap(),
       "student": StudentDto.fromEntity(student).toMap(),
-      "attendanceStatus": AttendanceStatusDto.fromEntity(attendanceStatus).toMap(),
+      "attendanceStatus":
+          AttendanceStatusDto.fromEntity(attendanceStatus).toMap(),
     };
   }
 
-  factory WaiverDto.fromJson(String source) => WaiverDto.fromMap(json.decode(source));
+  factory WaiverDto.fromJson(String source) =>
+      WaiverDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

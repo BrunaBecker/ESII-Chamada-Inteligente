@@ -46,7 +46,8 @@ class RegisterStudentDto extends RegisterStudentEntity {
     };
   }
 
-  factory RegisterStudentDto.fromJson(String source) => RegisterStudentDto.fromMap(json.decode(source));
+  factory RegisterStudentDto.fromJson(String source) =>
+      RegisterStudentDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

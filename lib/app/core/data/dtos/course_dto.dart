@@ -33,7 +33,8 @@ class CourseDto extends CourseEntity {
     };
   }
 
-  factory CourseDto.fromJson(String source) => CourseDto.fromMap(json.decode(source));
+  factory CourseDto.fromJson(String source) =>
+      CourseDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

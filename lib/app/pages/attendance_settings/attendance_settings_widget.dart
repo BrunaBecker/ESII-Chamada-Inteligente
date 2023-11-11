@@ -53,7 +53,8 @@ class AttendanceSettingsWidget extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Padding(
-                                          padding: EdgeInsets.symmetric(vertical: 4.0),
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 4.0),
                                           child: AttendanceUsePresetButton(),
                                         ),
                                         Column(

@@ -21,7 +21,6 @@ void main() {
       final Finder firstNotification =
           find.byKey(const Key('notification list')).first;
 
-
       final Finder trailingWidgetFinder = find.descendant(
         of: firstNotification,
         matching: find.byType(PopupMenuButton),
@@ -48,7 +47,7 @@ void main() {
       );
 
       IconButton iconButton =
-      tester.widget(iconButtonFinder.first) as IconButton;
+          tester.widget(iconButtonFinder.first) as IconButton;
 
       Icon icon = iconButton.icon as Icon;
       bool isReadIcon = icon.icon == Icons.notifications_outlined;
@@ -70,7 +69,7 @@ void main() {
           find.byKey(const Key('notification list')).first;
 
       final Finder secondNotification =
-      find.byKey(const Key('notification list')).at(1);
+          find.byKey(const Key('notification list')).at(1);
 
       final secondTile = tester.widget<ListTile>(secondNotification);
       final String originalClass = secondTile.title.toString();
@@ -85,7 +84,8 @@ void main() {
         await tester.pumpAndSettle();
       }
 
-      final Finder deleteNotification = find.byKey(const Key('delete notification'));
+      final Finder deleteNotification =
+          find.byKey(const Key('delete notification'));
 
       if (tester.any(deleteNotification)) {
         await tester.tap(deleteNotification);
@@ -96,7 +96,6 @@ void main() {
       final String afterClass = firstTile.title.toString();
 
       expect(originalClass, afterClass);
-
     });
 
     testWidgets('Return to main page', (WidgetTester tester) async {
@@ -108,8 +107,8 @@ void main() {
 
       await goToNotificationPage(tester);
 
-      final Finder notificationButton = find.byKey(
-          const Key('notification_button_pressed'));
+      final Finder notificationButton =
+          find.byKey(const Key('notification_button_pressed'));
 
       await tester.tap(notificationButton);
       await tester.pumpAndSettle();

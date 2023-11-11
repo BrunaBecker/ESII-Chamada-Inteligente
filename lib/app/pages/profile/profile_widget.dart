@@ -25,7 +25,8 @@ class ProfileWidget extends StatelessWidget {
                   return AlertDialog(
                     icon: const Icon(Icons.logout_outlined),
                     title: const Text("Sair do aplicativo"),
-                    content: const Text("Essa ação irá desconectar a sessão salva na aplicação e você terá que entrar novamente."),
+                    content: const Text(
+                        "Essa ação irá desconectar a sessão salva na aplicação e você terá que entrar novamente."),
                     actions: [
                       TextButton(
                         key: const Key('cancelar_logout_button'),

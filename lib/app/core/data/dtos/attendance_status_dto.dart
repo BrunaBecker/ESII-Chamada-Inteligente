@@ -80,7 +80,8 @@ class AttendanceStatusDto extends AttendanceStatusEntity {
     };
   }
 
-  factory AttendanceStatusDto.fromJson(String source) => AttendanceStatusDto.fromMap(jsonDecode(source));
+  factory AttendanceStatusDto.fromJson(String source) =>
+      AttendanceStatusDto.fromMap(jsonDecode(source));
 
   String toJson() => toMap().toString();
 }

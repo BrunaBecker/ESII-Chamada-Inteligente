@@ -47,7 +47,8 @@ class AttendanceForm extends StatelessWidget {
                     const Spacing(8.0),
                     TextFormField(
                       key: const Key('date-form'),
-                      validator: (val) => controller.validator.validateNotNullInput(val),
+                      validator: (val) =>
+                          controller.validator.validateNotNullInput(val),
                       controller: controller.dateController,
                       keyboardType: TextInputType.datetime,
                       inputFormatters: [controller.mask.date],
@@ -91,7 +92,8 @@ class AttendanceForm extends StatelessWidget {
                     ),
                     const Spacing(8.0),
                     TextFormField(
-                      validator: (val) => controller.validator.validateNotNullInput(val),
+                      validator: (val) =>
+                          controller.validator.validateNotNullInput(val),
                       controller: controller.startTimeController,
                       keyboardType: TextInputType.datetime,
                       inputFormatters: [controller.mask.time],
@@ -147,7 +149,8 @@ class AttendanceForm extends StatelessWidget {
                     controller.manualEnd
                         ? const SizedBox()
                         : TextFormField(
-                            validator: (val) => controller.validator.validateNotNullInput(val),
+                            validator: (val) =>
+                                controller.validator.validateNotNullInput(val),
                             controller: controller.endTimeController,
                             keyboardType: TextInputType.datetime,
                             inputFormatters: [controller.mask.time],

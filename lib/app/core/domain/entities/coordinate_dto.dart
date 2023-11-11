@@ -33,7 +33,8 @@ class CoordinateDto extends CoordinateEntity {
     };
   }
 
-  factory CoordinateDto.fromJson(String source) => CoordinateDto.fromMap(json.decode(source));
+  factory CoordinateDto.fromJson(String source) =>
+      CoordinateDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

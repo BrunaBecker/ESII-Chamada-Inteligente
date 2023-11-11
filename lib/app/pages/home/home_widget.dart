@@ -29,7 +29,8 @@ class HomeWidget extends StatelessWidget {
                     child: const Icon(Icons.notifications_outlined),
                   ),
                   Obx(
-                    () => controller.isLoading || controller.totalUnreadNotifications < 1
+                    () => controller.isLoading ||
+                            controller.totalUnreadNotifications < 1
                         ? const SizedBox()
                         : Positioned(
                             top: 12,
@@ -37,7 +38,8 @@ class HomeWidget extends StatelessWidget {
                             child: Badge(
                               smallSize: 16,
                               largeSize: 16,
-                              label: Text(controller.totalUnreadNotifications.toString()),
+                              label: Text(controller.totalUnreadNotifications
+                                  .toString()),
                             ),
                           ),
                   ),
