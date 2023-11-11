@@ -12,43 +12,7 @@ class ProfessorProvider extends BaseProvider {
 
   ProfessorProvider({required this.http});
 
-  Future<ProfessorEntity?> fetchProfessorById(Long id) async {
-    try {
-      final response = await http.get(
-        '/professor/$id',
-      );
-
-      validateResponse(
-        response: response,
-        statusCodes: [200],
-      );
-
-      return ProfessorDto.fromJson(response.data);
-    } catch (e) {
-      logError(e.toString());
-      return null;
-    }
-  }
-
-  Future<ProfessorDto?> fetchProfessorByIdentifier(Long idenfitifer) async {
-    try {
-      final response = await http.get(
-        '/professor/byIdentifier/$idenfitifer',
-      );
-
-      validateResponse(
-        response: response,
-        statusCodes: [200],
-      );
-
-      return ProfessorDto.fromJson(response.data);
-    } catch (e) {
-      logError(e.toString());
-      return null;
-    }
-  }
-
-  Future<ProfessorDto?> createProfessor(ProfessorEntity professorEntity) async {
+  Future<ProfessorDto?> create(ProfessorEntity professorEntity) async {
     ProfessorDto professorDto = ProfessorDto.fromEntity(professorEntity);
     try {
       final response = await http.post(
@@ -68,33 +32,7 @@ class ProfessorProvider extends BaseProvider {
     }
   }
 
-  /// NÃO USAR, VAI CRASHAR O SERVIDOR E O APP
-  Future<List<ProfessorDto>?> fetchAllProfessors() async {
-    try {
-      final response = await http.get(
-        '/professor',
-      );
-
-      validateResponse(
-        response: response,
-        statusCodes: [200],
-      );
-
-      final professor = response.data
-          .map<ProfessorDto>(
-            (professor) => ProfessorDto.fromJson(professor),
-          )
-          .toList();
-
-      return professor;
-    } catch (e) {
-      logError(e.toString());
-      return null;
-    }
-  }
-
-  Future<ProfessorEntity?> updateProfessor(
-      ProfessorEntity professorEntity) async {
+  Future<ProfessorEntity?> update(ProfessorEntity professorEntity) async {
     ProfessorDto professorDto = ProfessorDto.fromEntity(professorEntity);
 
     try {
@@ -116,13 +54,68 @@ class ProfessorProvider extends BaseProvider {
   }
 
   Future<ProfessorEntity?> addClassroom(
-      Long id, ClassroomEntity classroomEntity) async {
+      Long professorRegister, ClassroomEntity classroomEntity) async {
     ClassroomDto classroomDto = ClassroomDto.fromEntity(classroomEntity);
 
     try {
-      final response = await http.put('/professor/$id/class', body: {
-        "Classroom": classroomDto.toJson(),
-      });
+      final response = await http.put(
+        '/professor/$professorRegister/class',
+        body: classroomDto.toJson(),
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      return ProfessorDto.fromJson(response.data);
+    } catch (e) {
+      logError(e.toString());
+      return null;
+    }
+  }
+
+  Future<ProfessorEntity?> fetchById(int id) async {
+    try {
+      final response = await http.get(
+        '/professor/$id',
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      return ProfessorDto.fromJson(response.data);
+    } catch (e) {
+      logError(e.toString());
+      return null;
+    }
+  }
+
+  Future<ProfessorDto?> fetchByRegister(int idenfitifer) async {
+    try {
+      final response = await http.get(
+        '/professor/byIdentifier/$idenfitifer',
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      return ProfessorDto.fromJson(response.data);
+    } catch (e) {
+      logError(e.toString());
+      return null;
+    }
+  }
+
+  Future<ProfessorDto?> fetchByClassroomCode(String classroomCode) async {
+    try {
+      final response = await http.get(
+        '/professor/byClassroomCode/$classroomCode',
+      );
 
       validateResponse(
         response: response,

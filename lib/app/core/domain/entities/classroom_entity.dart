@@ -10,7 +10,7 @@ class ClassroomEntity {
     required this.startHour,
     required this.endHour,
     required this.professor,
-    required this.students,
+    this.students,
   });
 
   int id;
@@ -20,5 +20,5 @@ class ClassroomEntity {
   DateTime startHour;
   DateTime endHour;
   ProfessorEntity professor;
-  List<StudentEntity> students;
+  List<StudentEntity>? students;
 }

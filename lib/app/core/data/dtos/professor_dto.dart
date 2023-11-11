@@ -63,6 +63,17 @@ class ProfessorDto extends ProfessorEntity {
       classrooms.add(ClassroomDto.fromMap(classroom));
     }
 
+    // Checking non required fields
+    RegisterProfessorDto? siape;
+    if (map["siape"] != null) {
+      siape = RegisterProfessorDto.fromMap(map["siape"]);
+    }
+
+    SettingDto? setting;
+    if (map["setting"] != null) {
+      setting = SettingDto.fromMap(map["setting"]);
+    }
+
     return ProfessorDto(
       id: map["id"],
       name: map["name"],
@@ -72,8 +83,8 @@ class ProfessorDto extends ProfessorEntity {
       cpf: map["cpf"],
       email: map["email"],
       password: map["password"],
-      siape: RegisterProfessorDto.fromMap(map["siape"]),
-      setting: SettingDto.fromMap(map["setting"]),
+      siape: siape,
+      setting: setting,
       profileImage: PictureDto.fromMap(map["profileImage"]),
     );
   }
@@ -88,8 +99,10 @@ class ProfessorDto extends ProfessorEntity {
       "cpf": cpf,
       "email": email,
       "password": password,
-      "register": RegisterProfessorDto.fromEntity(siape as RegisterProfessorDto)
-          .toMap(),
+      "siape": siape != null
+          ? RegisterProfessorDto.fromEntity(siape as RegisterProfessorDto)
+              .toMap()
+          : null,
       "setting":
           setting != null ? SettingDto.fromEntity(setting!).toMap() : null,
       "profileImage": profileImage != null

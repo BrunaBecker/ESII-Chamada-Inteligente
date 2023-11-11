@@ -15,7 +15,7 @@ class ClassroomDto extends ClassroomEntity {
     required super.startHour,
     required super.endHour,
     required super.professor,
-    required super.students,
+    super.students,
   });
 
   factory ClassroomDto.fromEntity(ClassroomEntity entity) {
@@ -32,10 +32,14 @@ class ClassroomDto extends ClassroomEntity {
   }
 
   factory ClassroomDto.fromMap(Map<String, dynamic> map) {
+    List<StudentDto>? students = [];
     // Mapping Students
-    List<StudentDto> students = [];
-    for (var studentMap in map["students"]) {
-      students.add(StudentDto.fromMap(studentMap));
+    if (map["students"] != null) {
+      for (var studentMap in map["students"]) {
+        students.add(StudentDto.fromMap(studentMap));
+      }
+    } else {
+      students = null;
     }
 
     // Mapping Attendances
@@ -58,9 +62,12 @@ class ClassroomDto extends ClassroomEntity {
 
   Map<String, dynamic> toMap() {
     // Mapping Students
-    List<Map<String, dynamic>> studentsAsMap = [];
-    for (var student in students) {
-      studentsAsMap.add(StudentDto.fromEntity(student).toMap());
+    List<Map<String, dynamic>>? studentsAsMap;
+    if (students != null) {
+      List<Map<String, dynamic>> studentsAsMap = [];
+      for (var student in students!) {
+        studentsAsMap.add(StudentDto.fromEntity(student).toMap());
+      }
     }
 
     return {

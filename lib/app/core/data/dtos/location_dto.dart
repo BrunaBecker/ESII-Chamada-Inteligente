@@ -31,10 +31,29 @@ class LocationDto extends LocationEntity {
   }
 
   factory LocationDto.fromMap(Map<String, dynamic> map) {
+    // Check non required fields
+    CoordinateDto? coordinate;
+    if (map["coordinate"] != null) {
+      coordinate = CoordinateDto.fromMap(map["coordinate"]);
+    }
+
+    ProfessorDto? professor;
+    if (map["professor"] != null) {
+      professor = ProfessorDto.fromMap(map["professor"]);
+    }
+
     // Mapping VirtualZones
-    List<VirtualZoneDto> virtualZones = [];
-    for (var virtualZoneMap in map["virtualZones"]) {
-      virtualZones.add(VirtualZoneDto.fromMap(virtualZoneMap));
+    List<VirtualZoneDto>? virtualZones;
+    if (map["virtualZones"] != null) {
+      virtualZones = [];
+      for (var virtualZoneMap in map["virtualZones"]) {
+        virtualZones.add(VirtualZoneDto.fromMap(virtualZoneMap));
+      }
+    }
+
+    ClassroomDto? classroom;
+    if (map["classroom"] != null) {
+      classroom = ClassroomDto.fromMap(map["classroom"]);
     }
 
     return LocationDto(
@@ -42,10 +61,10 @@ class LocationDto extends LocationEntity {
       title: map["title"],
       description: map["description"],
       isActive: map["isActive"],
-      coordinate: CoordinateDto.fromMap(map["coordinate"]),
-      professor: ProfessorDto.fromMap(map["professor"]),
+      coordinate: coordinate,
+      professor: professor,
       virtualZones: virtualZones,
-      classroom: ClassroomDto.fromMap(map["classroom"]),
+      classroom: classroom,
     );
   }
 
