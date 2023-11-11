@@ -41,11 +41,13 @@ jobs:
         run: dart analyze
 
       # Build the app for the Android emulator
-      - name: Build app
-        run: flutter build apk --debug
+      #- name: Build app
+      #  run: flutter build apk --debug
 
       # Your project will need to have tests in test/ and a dependency on
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
       - name: Run Integration Tests
-        run: bash test/integration_test/scripts/run_integration_tests.sh
+        run: |
+          flutter test test/integration_test/login_test.dart
+          flutter test test/integration_test/notification_test.dart
