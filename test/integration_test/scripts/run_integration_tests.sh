@@ -2,8 +2,8 @@
 
 # Define an array of test files
 TEST_FILES=(
-  "test_driver/test/integration_test/login_test.dart"
-  "test_driver/test/integration_test/notification_test.dart"
+  "/home/runner/work/ESII-Chamada-Inteligente/ESII-Chamada-Inteligente/test/integration_test/login_test.dart"
+  "/home/runner/work/ESII-Chamada-Inteligente/ESII-Chamada-Inteligente/test/integration_test/notification_test.dart"
 )
 
 # Iterate over the array and run each test
