@@ -57,7 +57,7 @@ class WaiverDto extends WaiverEntity {
       "isAccepted": isAccepted,
       "comment": CommentDto.fromEntity(comment).toMap(),
       "student": StudentDto.fromEntity(student).toMap(),
-      "attendanceStatus": attendanceStatusId,
+      "attendanceStatusId": attendanceStatusId,
     };
   }
 
