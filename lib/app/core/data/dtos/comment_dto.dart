@@ -58,11 +58,14 @@ class CommentDto extends CommentEntity {
       "content": content,
       "author": personAsMap,
       "waiver": WaiverDto.fromEntity(waiver).toMap(),
-      "replyTo": replyTo != null ? CommentDto.fromEntity(replyTo as CommentEntity).toMap() : null,
+      "replyTo": replyTo != null
+          ? CommentDto.fromEntity(replyTo as CommentEntity).toMap()
+          : null,
     };
   }
 
-  factory CommentDto.fromJson(String source) => CommentDto.fromMap(json.decode(source));
+  factory CommentDto.fromJson(String source) =>
+      CommentDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

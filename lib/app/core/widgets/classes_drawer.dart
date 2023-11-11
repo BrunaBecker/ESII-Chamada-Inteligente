@@ -66,7 +66,9 @@ class ClassesDrawer extends StatelessWidget {
                           height: 12,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: item["activeAttendance"]! ? AppColors.green1 : AppColors.onSurfaceVariant,
+                            color: item["activeAttendance"]!
+                                ? AppColors.green1
+                                : AppColors.onSurfaceVariant,
                           ),
                         ),
                         title: Text(

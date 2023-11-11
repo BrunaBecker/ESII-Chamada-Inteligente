@@ -134,7 +134,8 @@ class StudentDto extends StudentEntity {
       "cpf": cpf,
       "email": email,
       "password": password,
-      "register": RegisterStudentDto.fromEntity(register as RegisterStudentDto).toMap(),
+      "register":
+          RegisterStudentDto.fromEntity(register as RegisterStudentDto).toMap(),
       "setting": setting,
       "profileImage": profileImage,
       "comments": commentsAsMap,
@@ -145,7 +146,8 @@ class StudentDto extends StudentEntity {
     };
   }
 
-  factory StudentDto.fromJson(String source) => StudentDto.fromMap(json.decode(source));
+  factory StudentDto.fromJson(String source) =>
+      StudentDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

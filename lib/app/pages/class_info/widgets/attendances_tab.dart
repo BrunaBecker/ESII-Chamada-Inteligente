@@ -49,9 +49,11 @@ class AttendancesTab extends StatelessWidget {
                       ),
                       Expanded(
                         child: ListView.separated(
-                          itemCount: controller.selectedClass["attendances"].length,
+                          itemCount:
+                              controller.selectedClass["attendances"].length,
                           itemBuilder: (context, index) {
-                            final item = controller.selectedClass["attendances"][index];
+                            final item =
+                                controller.selectedClass["attendances"][index];
                             return ListTile(
                               title: Text(item["date"]),
                               subtitle: Text(item["description"]),

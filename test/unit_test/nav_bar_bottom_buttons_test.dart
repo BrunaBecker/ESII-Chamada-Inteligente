@@ -16,8 +16,7 @@ void main() {
 
       await login(tester);
 
-      final Finder navHomeButton =
-      find.byKey(const Key('início_button'));
+      final Finder navHomeButton = find.byKey(const Key('início_button'));
       await tester.tap(navHomeButton);
       await tester.pumpAndSettle();
 
@@ -31,8 +30,7 @@ void main() {
 
       await login(tester);
 
-      final Finder navClassButton =
-      find.byKey(const Key('turmas_button'));
+      final Finder navClassButton = find.byKey(const Key('turmas_button'));
       await tester.tap(navClassButton);
       await tester.pumpAndSettle();
 
@@ -45,8 +43,7 @@ void main() {
 
       if (selectedText.evaluate().isNotEmpty) {
         final Element selectedElement = selectedText.evaluate().first;
-        final String? selectedValue =
-            (selectedElement.widget as Text).data;
+        final String? selectedValue = (selectedElement.widget as Text).data;
 
         const String expectedValue = 'Minhas turmas';
 
@@ -65,7 +62,7 @@ void main() {
       await login(tester);
 
       final Finder navCalendarButton =
-      find.byKey(const Key('calendário_button'));
+          find.byKey(const Key('calendário_button'));
       await tester.tap(navCalendarButton);
       await tester.pumpAndSettle();
 
@@ -89,7 +86,7 @@ void main() {
       await login(tester);
 
       final Finder navSettingsButton =
-      find.byKey(const Key('preferências_button'));
+          find.byKey(const Key('preferências_button'));
       await tester.tap(navSettingsButton);
       await tester.pumpAndSettle();
 
@@ -102,8 +99,7 @@ void main() {
 
       if (selectedText.evaluate().isNotEmpty) {
         final Element selectedElement = selectedText.evaluate().first;
-        final String? selectedValue =
-            (selectedElement.widget as Text).data;
+        final String? selectedValue = (selectedElement.widget as Text).data;
 
         const String expectedValue = 'Preferências';
 

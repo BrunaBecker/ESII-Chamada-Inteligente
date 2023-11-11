@@ -35,7 +35,8 @@ class VirtualZoneDto extends VirtualZoneEntity {
     };
   }
 
-  factory VirtualZoneDto.fromJson(String source) => VirtualZoneDto.fromMap(json.decode(source));
+  factory VirtualZoneDto.fromJson(String source) =>
+      VirtualZoneDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

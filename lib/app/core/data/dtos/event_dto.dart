@@ -65,7 +65,8 @@ class EventDto extends EventEntity {
     };
   }
 
-  factory EventDto.fromJson(String source) => EventDto.fromMap(json.decode(source));
+  factory EventDto.fromJson(String source) =>
+      EventDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

@@ -49,7 +49,8 @@ class NotificationDto extends NotificationEntity {
     };
   }
 
-  factory NotificationDto.fromJson(String source) => NotificationDto.fromMap(json.decode(source));
+  factory NotificationDto.fromJson(String source) =>
+      NotificationDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

@@ -82,7 +82,8 @@ void main() {
       await tester.enterText(emailField, '111');
       await tester.pumpAndSettle();
 
-      final Finder errorMatricula = find.text('Número incorreto de dígitos para matrícula/SIAPE');
+      final Finder errorMatricula =
+          find.text('Número incorreto de dígitos para matrícula/SIAPE');
 
       // Enter text in the password field
       final Finder passwordField = find.byKey(const Key('senha_form'));
@@ -96,7 +97,6 @@ void main() {
 
       // Expect to find the home screen
       expect(errorMatricula, findsOneWidget);
-
     });
 
     testWidgets('Login Email Mandatory', (WidgetTester tester) async {
@@ -109,7 +109,8 @@ void main() {
       await tester.enterText(emailField, '');
       await tester.pumpAndSettle();
 
-      final Finder errorMatricula = find.text('O campo matrícula/SIAPE é obrigatório');
+      final Finder errorMatricula =
+          find.text('O campo matrícula/SIAPE é obrigatório');
 
       // Enter text in the password field
       final Finder passwordField = find.byKey(const Key('senha_form'));

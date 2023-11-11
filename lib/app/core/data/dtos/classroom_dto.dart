@@ -80,7 +80,8 @@ class ClassroomDto extends ClassroomEntity {
     };
   }
 
-  factory ClassroomDto.fromJson(String json) => ClassroomDto.fromMap(jsonDecode(json));
+  factory ClassroomDto.fromJson(String json) =>
+      ClassroomDto.fromMap(jsonDecode(json));
 
   String toJson() => jsonEncode(toMap());
 }

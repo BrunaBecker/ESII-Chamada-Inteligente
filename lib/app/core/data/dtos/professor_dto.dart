@@ -121,7 +121,9 @@ class ProfessorDto extends ProfessorEntity {
       "cpf": cpf,
       "email": email,
       "password": password,
-      "register": RegisterProfessorDto.fromEntity(register as RegisterProfessorDto).toMap(),
+      "register":
+          RegisterProfessorDto.fromEntity(register as RegisterProfessorDto)
+              .toMap(),
       "setting": SettingDto.fromEntity(setting).toMap(),
       "profileImage": PictureDto.fromEntity(profileImage).toMap(),
       "comments": commentsAsMap,
@@ -131,7 +133,8 @@ class ProfessorDto extends ProfessorEntity {
     };
   }
 
-  factory ProfessorDto.fromJson(String source) => ProfessorDto.fromMap(json.decode(source));
+  factory ProfessorDto.fromJson(String source) =>
+      ProfessorDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

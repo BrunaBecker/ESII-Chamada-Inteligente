@@ -28,12 +28,14 @@ class SettingsOptions extends StatelessWidget {
                         OptionItem(
                           value: controller.usePreset,
                           onChanged: (_) => controller.toggleUsePreset(),
-                          text: "Usar a predefinição do calendário para as chamadas",
+                          text:
+                              "Usar a predefinição do calendário para as chamadas",
                         ),
                         OptionItem(
                           value: controller.saveLocation,
                           onChanged: (_) => controller.toggleSaveLocation(),
-                          text: "Salvar automaticamente minha localização a cada nova chamada",
+                          text:
+                              "Salvar automaticamente minha localização a cada nova chamada",
                         ),
                         OptionItem(
                           value: controller.silentMode,
@@ -42,20 +44,23 @@ class SettingsOptions extends StatelessWidget {
                         ),
                         OptionCard(
                           title: "Minhas localizações",
-                          subtitle: "Supporting line text lorem ipsum dolor sit amet, consectetur.",
+                          subtitle:
+                              "Supporting line text lorem ipsum dolor sit amet, consectetur.",
                           leadingIcon: const Icon(Icons.map_outlined),
                           trailingIcon: const Icon(Icons.arrow_right),
                           onTap: () {},
                         ),
                         OptionCard(
                           title: "Tema",
-                          subtitle: "Supporting line text lorem ipsum dolor sit amet, consectetur.",
+                          subtitle:
+                              "Supporting line text lorem ipsum dolor sit amet, consectetur.",
                           leadingIcon: const Icon(Icons.dark_mode_outlined),
                           onTap: () {},
                         ),
                         OptionCard(
                           title: "Ajuda",
-                          subtitle: "Ajuda, sobre o aplicativo, política de privacidade.",
+                          subtitle:
+                              "Ajuda, sobre o aplicativo, política de privacidade.",
                           leadingIcon: const Icon(Icons.help_outline_outlined),
                           trailingIcon: const Icon(Icons.arrow_right),
                           onTap: () {},

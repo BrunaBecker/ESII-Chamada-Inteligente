@@ -38,7 +38,8 @@ class ChartAdapter {
         ],
         tooltipBehavior: TooltipBehavior(
             enable: true,
-            builder: (data, point, series, pointIndex, seriesIndex) => Container(
+            builder: (data, point, series, pointIndex, seriesIndex) =>
+                Container(
                   decoration: BoxDecoration(
                     color: AppColors.primary,
                     borderRadius: BorderRadius.circular(8.0),

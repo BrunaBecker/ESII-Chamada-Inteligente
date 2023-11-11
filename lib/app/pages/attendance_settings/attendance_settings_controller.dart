@@ -121,13 +121,15 @@ class AttendanceSettingsController extends GetxController {
           "status": StudentAtAttendanceState.fromInt(Random().nextInt(3)),
           "answered": Random().nextInt(3) != 1,
           "confirmed": Random().nextInt(3) != 1,
-          "registration": "120031${Random().nextInt(100).toString().padLeft(3, "0")}",
+          "registration":
+              "120031${Random().nextInt(100).toString().padLeft(3, "0")}",
           "justifications": [
             {
               "date": AppDateUtils.appDateFormat.parse(dateController.text),
               "file": null,
               "title": "Quebrei a perna",
-              "description": "Eu quebrei a perna, professor, não consigo ir até a faculdade.",
+              "description":
+                  "Eu quebrei a perna, professor, não consigo ir até a faculdade.",
               "attach_file": null,
               "approved": null,
             },
@@ -135,7 +137,8 @@ class AttendanceSettingsController extends GetxController {
               "date": AppDateUtils.appDateFormat.parse(dateController.text),
               "file": null,
               "title": "Quebrei o braço.",
-              "description": "Eu quebrei o braço, professor, não consigo ir até a faculdade.",
+              "description":
+                  "Eu quebrei o braço, professor, não consigo ir até a faculdade.",
               "attach_file": null,
               "approved": null,
             },

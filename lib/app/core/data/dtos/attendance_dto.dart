@@ -43,15 +43,18 @@ class AttendanceDto extends AttendanceEntity {
     // Mapping StatusStudentAttendance
     List<AttendanceStatusDto> statusStudentAttendance = [];
     for (var statusStudentAttendanceMap in map["statusStudentAttendance"]) {
-      statusStudentAttendance.add(AttendanceStatusDto.fromMap(statusStudentAttendanceMap));
+      statusStudentAttendance
+          .add(AttendanceStatusDto.fromMap(statusStudentAttendanceMap));
     }
 
     return AttendanceDto(
       id: map["id"],
       date: AppDateUtils.storageDateFormat.parse(map["date"]),
       supportingText: map["supportingText"],
-      startHour: TimeOfDay.fromDateTime(AppDateUtils.storageDateFormat.parse(map["startHour"])),
-      endHour: TimeOfDay.fromDateTime(AppDateUtils.storageDateFormat.parse(map["endHour"])),
+      startHour: TimeOfDay.fromDateTime(
+          AppDateUtils.storageDateFormat.parse(map["startHour"])),
+      endHour: TimeOfDay.fromDateTime(
+          AppDateUtils.storageDateFormat.parse(map["endHour"])),
       duration: map["duration"],
       isAutomatic: map["isAutomatic"],
       isHappening: map["isHappening"],
@@ -65,7 +68,8 @@ class AttendanceDto extends AttendanceEntity {
     // Mapping StatusStudentAttendance
     List<Map<String, dynamic>> statusStudentAttendanceAsMap = [];
     for (var statusStudentAttendance in this.statusStudentAttendance) {
-      statusStudentAttendanceAsMap.add(AttendanceStatusDto.fromEntity(statusStudentAttendance).toMap());
+      statusStudentAttendanceAsMap
+          .add(AttendanceStatusDto.fromEntity(statusStudentAttendance).toMap());
     }
 
     return {
@@ -83,7 +87,8 @@ class AttendanceDto extends AttendanceEntity {
     };
   }
 
-  factory AttendanceDto.fromJson(String json) => AttendanceDto.fromMap(jsonDecode(json));
+  factory AttendanceDto.fromJson(String json) =>
+      AttendanceDto.fromMap(jsonDecode(json));
 
   String toJson() => jsonEncode(toMap());
 }
