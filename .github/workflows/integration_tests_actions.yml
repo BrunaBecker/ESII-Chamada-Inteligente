@@ -48,6 +48,6 @@ jobs:
       # want to change this to 'flutter test'.
       - name: Run Integration Tests
         run: |
-          chmod +x ./scripts/run_integration_tests.sh
-          ./scripts/run_integration_tests.sh
+          chmod +x ./test/integration_test/scripts/run_integration_tests.sh
+          ./test/integration_test/scripts/run_integration_tests.sh
       # flutter drive --target=test_driver/test/integration_test/login_test.dart,test_driver/test/integration_test/notification_test.dart
