@@ -12,7 +12,6 @@ class CommentDto extends CommentEntity {
     required super.id,
     required super.content,
     required super.author,
-    required super.waiver,
     super.replyTo,
   });
 
@@ -21,7 +20,6 @@ class CommentDto extends CommentEntity {
       id: entity.id,
       content: entity.content,
       author: entity.author,
-      waiver: entity.waiver,
       replyTo: entity.replyTo,
     );
   }
@@ -39,7 +37,6 @@ class CommentDto extends CommentEntity {
       id: map["id"],
       content: map["content"],
       author: person,
-      waiver: WaiverDto.fromMap(map["waiver"]),
       replyTo: CommentDto.fromMap(map["replyTo"]),
     );
   }
@@ -57,12 +54,14 @@ class CommentDto extends CommentEntity {
       "id": id,
       "content": content,
       "author": personAsMap,
-      "waiver": WaiverDto.fromEntity(waiver).toMap(),
-      "replyTo": replyTo != null ? CommentDto.fromEntity(replyTo as CommentEntity).toMap() : null,
+      "replyTo": replyTo != null
+          ? CommentDto.fromEntity(replyTo as CommentEntity).toMap()
+          : null,
     };
   }
 
-  factory CommentDto.fromJson(String source) => CommentDto.fromMap(json.decode(source));
+  factory CommentDto.fromJson(String source) =>
+      CommentDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import '../../domain/entities/coordinate_dto.dart';
 import '../../domain/entities/ping_entity.dart';
 import '../../utils/app_date_utils.dart';
-import 'attendance_status_dto.dart';
 
 class PingDto extends PingEntity {
   PingDto({
@@ -12,8 +10,8 @@ class PingDto extends PingEntity {
     required super.date,
     required super.status,
     required super.isContinuous,
-    required super.coordinate,
-    required super.attendanceStatus,
+    required super.coordinateId,
+    required super.attendanceStatusId,
   });
 
   factory PingDto.fromEntity(PingEntity entity) {
@@ -23,8 +21,8 @@ class PingDto extends PingEntity {
       date: entity.date,
       status: entity.status,
       isContinuous: entity.isContinuous,
-      coordinate: entity.coordinate,
-      attendanceStatus: entity.attendanceStatus,
+      coordinateId: entity.coordinateId,
+      attendanceStatusId: entity.attendanceStatusId,
     );
   }
 
@@ -35,8 +33,8 @@ class PingDto extends PingEntity {
       date: AppDateUtils.storageDateFormat.parse(map["date"]),
       status: map["status"],
       isContinuous: map["isContinuous"],
-      coordinate: CoordinateDto.fromMap(map["coordinate"]),
-      attendanceStatus: AttendanceStatusDto.fromMap(map["attendanceStatus"]),
+      coordinateId: map["coordinateId"],
+      attendanceStatusId: map["attendanceStatusId"],
     );
   }
 
@@ -47,9 +45,8 @@ class PingDto extends PingEntity {
       "date": AppDateUtils.storageDateFormat.format(date),
       "status": status,
       "isContinuous": isContinuous,
-      "coordinate": CoordinateDto.fromEntity(coordinate).toMap(),
-      "attendanceStatus":
-          AttendanceStatusDto.fromEntity(attendanceStatus).toMap(),
+      "coordinateId": coordinateId,
+      "attendanceStatusId": attendanceStatusId,
     };
   }
 

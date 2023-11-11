@@ -1,5 +1,3 @@
-import 'attendance_entity.dart';
-import 'location_entity.dart';
 import 'professor_entity.dart';
 import 'student_entity.dart';
 
@@ -9,18 +7,18 @@ class ClassroomEntity {
     required this.name,
     required this.code,
     required this.semester,
-    required this.defaultLocation,
+    required this.startHour,
+    required this.endHour,
     required this.professor,
     required this.students,
-    required this.attendances,
   });
 
   int id;
   String name;
   String code;
   String semester;
-  LocationEntity defaultLocation;
+  DateTime startHour;
+  DateTime endHour;
   ProfessorEntity professor;
   List<StudentEntity> students;
-  List<AttendanceEntity> attendances;
 }

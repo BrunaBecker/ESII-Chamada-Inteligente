@@ -1,20 +1,21 @@
 import 'dart:convert';
 
-import '../../domain/entities/coordinate_dto.dart';
+import 'classroom_dto.dart';
+import 'coordinate_dto.dart';
 import '../../domain/entities/location_entity.dart';
 import 'professor_dto.dart';
 import 'virtual_zone_dto.dart';
 
 class LocationDto extends LocationEntity {
-  LocationDto({
-    required super.id,
-    required super.title,
-    required super.description,
-    required super.isActive,
-    required super.coordinate,
-    required super.professor,
-    required super.virtualZones,
-  });
+  LocationDto(
+      {required super.id,
+      required super.title,
+      required super.description,
+      required super.isActive,
+      super.coordinate,
+      super.professor,
+      super.virtualZones,
+      super.classroom});
 
   factory LocationDto.fromEntity(LocationEntity entity) {
     return LocationDto(
@@ -25,6 +26,7 @@ class LocationDto extends LocationEntity {
       coordinate: entity.coordinate,
       professor: entity.professor,
       virtualZones: entity.virtualZones,
+      classroom: entity.classroom,
     );
   }
 
@@ -43,14 +45,17 @@ class LocationDto extends LocationEntity {
       coordinate: CoordinateDto.fromMap(map["coordinate"]),
       professor: ProfessorDto.fromMap(map["professor"]),
       virtualZones: virtualZones,
+      classroom: ClassroomDto.fromMap(map["classroom"]),
     );
   }
 
   Map<String, dynamic> toMap() {
     // Mapping VirtualZones
-    List<Map<String, dynamic>> virtualZones = [];
-    for (var virtualZone in this.virtualZones) {
-      virtualZones.add(VirtualZoneDto.fromEntity(virtualZone).toMap());
+    List<Map<String, dynamic>> mappedVirtualZones = [];
+    if (virtualZones != null) {
+      for (var virtualZone in virtualZones!) {
+        mappedVirtualZones.add(VirtualZoneDto.fromEntity(virtualZone).toMap());
+      }
     }
 
     return {
@@ -58,13 +63,21 @@ class LocationDto extends LocationEntity {
       "title": title,
       "description": description,
       "isActive": isActive,
-      "coordinate": CoordinateDto.fromEntity(coordinate).toMap(),
-      "professor": ProfessorDto.fromEntity(professor).toMap(),
-      "virtualZones": virtualZones,
+      "coordinate": coordinate != null
+          ? CoordinateDto.fromEntity(coordinate!).toMap()
+          : null,
+      "professor": professor != null
+          ? ProfessorDto.fromEntity(professor!).toMap()
+          : null,
+      "virtualZones": virtualZones != null ? mappedVirtualZones : null,
+      "classroom": classroom != null
+          ? ClassroomDto.fromEntity(classroom!).toMap()
+          : null,
     };
   }
 
-  factory LocationDto.fromJson(String source) => LocationDto.fromMap(json.decode(source));
+  factory LocationDto.fromJson(String source) =>
+      LocationDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

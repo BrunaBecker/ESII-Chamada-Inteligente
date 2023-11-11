@@ -20,7 +20,6 @@ class AttendanceDto extends AttendanceEntity {
     required super.isHappening,
     required super.virtualZone,
     required super.classroom,
-    required super.statusStudentAttendance,
   });
 
   factory AttendanceDto.fromEntity(AttendanceEntity entity) {
@@ -35,7 +34,6 @@ class AttendanceDto extends AttendanceEntity {
       isHappening: entity.isHappening,
       virtualZone: entity.virtualZone,
       classroom: entity.classroom,
-      statusStudentAttendance: entity.statusStudentAttendance,
     );
   }
 
@@ -43,31 +41,27 @@ class AttendanceDto extends AttendanceEntity {
     // Mapping StatusStudentAttendance
     List<AttendanceStatusDto> statusStudentAttendance = [];
     for (var statusStudentAttendanceMap in map["statusStudentAttendance"]) {
-      statusStudentAttendance.add(AttendanceStatusDto.fromMap(statusStudentAttendanceMap));
+      statusStudentAttendance
+          .add(AttendanceStatusDto.fromMap(statusStudentAttendanceMap));
     }
 
     return AttendanceDto(
       id: map["id"],
       date: AppDateUtils.storageDateFormat.parse(map["date"]),
       supportingText: map["supportingText"],
-      startHour: TimeOfDay.fromDateTime(AppDateUtils.storageDateFormat.parse(map["startHour"])),
-      endHour: TimeOfDay.fromDateTime(AppDateUtils.storageDateFormat.parse(map["endHour"])),
+      startHour: TimeOfDay.fromDateTime(
+          AppDateUtils.storageDateFormat.parse(map["startHour"])),
+      endHour: TimeOfDay.fromDateTime(
+          AppDateUtils.storageDateFormat.parse(map["endHour"])),
       duration: map["duration"],
       isAutomatic: map["isAutomatic"],
       isHappening: map["isHappening"],
       virtualZone: map["virtualZone"],
       classroom: map["classroom"],
-      statusStudentAttendance: statusStudentAttendance,
     );
   }
 
   Map<String, dynamic> toMap() {
-    // Mapping StatusStudentAttendance
-    List<Map<String, dynamic>> statusStudentAttendanceAsMap = [];
-    for (var statusStudentAttendance in this.statusStudentAttendance) {
-      statusStudentAttendanceAsMap.add(AttendanceStatusDto.fromEntity(statusStudentAttendance).toMap());
-    }
-
     return {
       "id": id,
       "date": AppDateUtils.storageDateFormat.format(date),
@@ -79,11 +73,11 @@ class AttendanceDto extends AttendanceEntity {
       "isHappening": isHappening,
       "virtualZone": VirtualZoneDto.fromEntity(virtualZone).toMap(),
       "classroom": ClassroomDto.fromEntity(classroom).toMap(),
-      "statusStudentAttendance": statusStudentAttendanceAsMap,
     };
   }
 
-  factory AttendanceDto.fromJson(String json) => AttendanceDto.fromMap(jsonDecode(json));
+  factory AttendanceDto.fromJson(String json) =>
+      AttendanceDto.fromMap(jsonDecode(json));
 
   String toJson() => jsonEncode(toMap());
 }

@@ -16,7 +16,6 @@ class AttendanceEntity {
     required this.isHappening,
     required this.virtualZone,
     required this.classroom,
-    required this.statusStudentAttendance,
   });
 
   int id;
@@ -29,5 +28,4 @@ class AttendanceEntity {
   bool isHappening;
   VirtualZoneEntity virtualZone;
   ClassroomEntity classroom;
-  List<AttendanceStatusEntity> statusStudentAttendance;
 }
