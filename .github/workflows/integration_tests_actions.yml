@@ -21,7 +21,7 @@ jobs:
       # You can specify other versions if desired, see documentation here:
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
       # - uses: dart-lang/setup-dart@v1
-      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+      - uses: dart-lang/setup-dart@1.6
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -30,6 +30,7 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
+        
 
       # Uncomment this step to verify the use of 'dart format' on each commit.
       # - name: Verify formatting
@@ -47,5 +48,4 @@ jobs:
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
       - name: Run Integration Tests
-        run: flutter test test/integration_test/login_test.dart
-          flutter test test/integration_test/notification_test.dart
+        run: bash test/integration_test/scripts/run_integration_tests.sh
