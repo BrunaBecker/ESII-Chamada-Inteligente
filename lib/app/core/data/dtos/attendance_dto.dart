@@ -1,10 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-
 import '../../domain/entities/attendance_entity.dart';
 import '../../utils/app_date_utils.dart';
-import 'attendance_status_dto.dart';
 import 'classroom_dto.dart';
 import 'virtual_zone_dto.dart';
 
@@ -38,21 +35,12 @@ class AttendanceDto extends AttendanceEntity {
   }
 
   factory AttendanceDto.fromMap(Map<String, dynamic> map) {
-    // Mapping StatusStudentAttendance
-    List<AttendanceStatusDto> statusStudentAttendance = [];
-    for (var statusStudentAttendanceMap in map["statusStudentAttendance"]) {
-      statusStudentAttendance
-          .add(AttendanceStatusDto.fromMap(statusStudentAttendanceMap));
-    }
-
     return AttendanceDto(
       id: map["id"],
       date: AppDateUtils.storageDateFormat.parse(map["date"]),
       supportingText: map["supportingText"],
-      startHour: TimeOfDay.fromDateTime(
-          AppDateUtils.storageDateFormat.parse(map["startHour"])),
-      endHour: TimeOfDay.fromDateTime(
-          AppDateUtils.storageDateFormat.parse(map["endHour"])),
+      startHour: AppDateUtils.storageDateFormat.parse(map["startHour"]),
+      endHour: AppDateUtils.storageDateFormat.parse(map["endHour"]),
       duration: map["duration"],
       isAutomatic: map["isAutomatic"],
       isHappening: map["isHappening"],

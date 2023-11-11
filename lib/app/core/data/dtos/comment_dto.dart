@@ -53,9 +53,8 @@ class CommentDto extends CommentEntity {
       "id": id,
       "content": content,
       "author": personAsMap,
-      "replyTo": replyTo != null
-          ? CommentDto.fromEntity(replyTo as CommentEntity).toMap()
-          : null,
+      "replyTo":
+          replyTo != null ? CommentDto.fromEntity(replyTo!).toMap() : null,
     };
   }
 

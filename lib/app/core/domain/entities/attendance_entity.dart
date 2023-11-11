@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import 'classroom_entity.dart';
 import 'virtual_zone_entity.dart';
 
@@ -20,8 +18,8 @@ class AttendanceEntity {
   int id;
   DateTime date;
   String supportingText;
-  TimeOfDay startHour;
-  TimeOfDay endHour;
+  DateTime startHour;
+  DateTime endHour;
   String duration;
   bool isAutomatic;
   bool isHappening;
