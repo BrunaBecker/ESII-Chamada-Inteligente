@@ -1,5 +1,4 @@
 import '../../enums/event_status.dart';
-import 'calendar_entity.dart';
 import 'classroom_entity.dart';
 
 class EventEntity {
@@ -10,7 +9,6 @@ class EventEntity {
     required this.description,
     required this.classroom,
     required this.status,
-    required this.calendars,
   });
 
   int id;
@@ -19,5 +17,4 @@ class EventEntity {
   String description;
   ClassroomEntity classroom;
   EventStatus status;
-  List<CalendarEntity> calendars;
 }

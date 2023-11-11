@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'coordinate_entity.dart';
+import '../../domain/entities/coordinate_entity.dart';
 
 class CoordinateDto extends CoordinateEntity {
   CoordinateDto({

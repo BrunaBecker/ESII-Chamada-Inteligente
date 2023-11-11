@@ -10,7 +10,6 @@ class RegisterStudentDto extends RegisterStudentEntity {
     required super.dateStarted,
     required super.dateFinished,
     required super.isActive,
-    required super.person,
   });
 
   factory RegisterStudentDto.fromEntity(RegisterStudentEntity entity) {
@@ -20,7 +19,6 @@ class RegisterStudentDto extends RegisterStudentEntity {
       dateStarted: entity.dateStarted,
       dateFinished: entity.dateFinished,
       isActive: entity.isActive,
-      person: entity.person,
     );
   }
 
@@ -31,7 +29,6 @@ class RegisterStudentDto extends RegisterStudentEntity {
       dateStarted: AppDateUtils.storageDateFormat.parse(map["dateStarted"]),
       dateFinished: AppDateUtils.storageDateFormat.parse(map["dateFinished"]),
       isActive: map["isActive"],
-      person: map["person"],
     );
   }
 
@@ -42,7 +39,6 @@ class RegisterStudentDto extends RegisterStudentEntity {
       "dateStarted": AppDateUtils.storageDateFormat.format(dateStarted),
       "dateFinished": AppDateUtils.storageDateFormat.format(dateFinished),
       "isActive": isActive,
-      "person": person,
     };
   }
 

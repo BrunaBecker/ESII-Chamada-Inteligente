@@ -20,13 +20,9 @@ class ProfessorDto extends ProfessorEntity {
     required super.cpf,
     required super.email,
     required super.password,
-    required super.register,
-    required super.setting,
+    super.siape,
+    super.setting,
     required super.profileImage,
-    required super.comments,
-    required super.notifications,
-    required super.locations,
-    required super.classrooms,
   });
 
   factory ProfessorDto.fromEntity(ProfessorEntity entity) {
@@ -39,13 +35,9 @@ class ProfessorDto extends ProfessorEntity {
       cpf: entity.cpf,
       email: entity.email,
       password: entity.password,
-      register: entity.register,
+      siape: entity.siape,
       setting: entity.setting,
       profileImage: entity.profileImage,
-      comments: entity.comments,
-      notifications: entity.notifications,
-      locations: entity.locations,
-      classrooms: entity.classrooms,
     );
   }
 
@@ -80,38 +72,13 @@ class ProfessorDto extends ProfessorEntity {
       cpf: map["cpf"],
       email: map["email"],
       password: map["password"],
-      register: RegisterProfessorDto.fromMap(map["siape"]),
+      siape: RegisterProfessorDto.fromMap(map["siape"]),
       setting: SettingDto.fromMap(map["setting"]),
       profileImage: PictureDto.fromMap(map["profileImage"]),
-      comments: comments,
-      notifications: notifications,
-      locations: locations,
-      classrooms: classrooms,
     );
   }
 
   Map<String, dynamic> toMap() {
-    // Mapping Comments
-    List<Map<String, dynamic>> commentsAsMap = [];
-    for (var comment in comments) {
-      commentsAsMap.add(CommentDto.fromEntity(comment).toMap());
-    }
-    // Mapping Notifications
-    List<Map<String, dynamic>> notificationsAsMap = [];
-    for (var notification in notifications) {
-      notificationsAsMap.add(NotificationDto.fromEntity(notification).toMap());
-    }
-    // Mapping Locations
-    List<Map<String, dynamic>> locationsAsMap = [];
-    for (var location in locations) {
-      locationsAsMap.add(LocationDto.fromEntity(location).toMap());
-    }
-    // Mapping Classrooms
-    List<Map<String, dynamic>> classroomsAsMap = [];
-    for (var classroom in classrooms) {
-      classroomsAsMap.add(ClassroomDto.fromEntity(classroom).toMap());
-    }
-
     return {
       "id": id,
       "name": name,
@@ -121,15 +88,13 @@ class ProfessorDto extends ProfessorEntity {
       "cpf": cpf,
       "email": email,
       "password": password,
-      "register":
-          RegisterProfessorDto.fromEntity(register as RegisterProfessorDto)
-              .toMap(),
-      "setting": SettingDto.fromEntity(setting).toMap(),
-      "profileImage": PictureDto.fromEntity(profileImage).toMap(),
-      "comments": commentsAsMap,
-      "notifications": notificationsAsMap,
-      "locations": locationsAsMap,
-      "classrooms": classroomsAsMap,
+      "register": RegisterProfessorDto.fromEntity(siape as RegisterProfessorDto)
+          .toMap(),
+      "setting":
+          setting != null ? SettingDto.fromEntity(setting!).toMap() : null,
+      "profileImage": profileImage != null
+          ? PictureDto.fromEntity(profileImage!).toMap()
+          : null,
     };
   }
 

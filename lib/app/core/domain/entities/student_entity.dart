@@ -1,7 +1,7 @@
-import 'attendance_entity.dart';
-import 'classroom_entity.dart';
 import 'person_entity.dart';
-import 'waiver_entity.dart';
+import 'picture_entity.dart';
+import 'register_college_id_entity.dart';
+import 'setting_entity.dart';
 
 class StudentEntity extends PersonEntity {
   StudentEntity({
@@ -12,18 +12,14 @@ class StudentEntity extends PersonEntity {
     required super.isActive,
     required super.cpf,
     required super.email,
-    required super.password,
-    required super.register,
-    required super.setting,
-    required super.profileImage,
-    required super.comments,
-    required super.notifications,
-    required this.classrooms,
-    required this.waivers,
-    required this.attendances,
+    required this.password,
+    required this.register,
+    required this.setting,
+    required this.profileImage,
   });
 
-  List<ClassroomEntity> classrooms;
-  List<WaiverEntity> waivers;
-  List<AttendanceEntity> attendances;
+  String password;
+  RegisterCollegeIdEntity register;
+  SettingEntity setting;
+  PictureEntity profileImage;
 }

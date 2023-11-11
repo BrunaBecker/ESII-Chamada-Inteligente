@@ -14,7 +14,6 @@ class EventDto extends EventEntity {
     required super.description,
     required super.classroom,
     required super.status,
-    required super.calendars,
   });
 
   factory EventDto.fromEntity(EventEntity entity) {
@@ -25,7 +24,6 @@ class EventDto extends EventEntity {
       description: entity.description,
       classroom: entity.classroom,
       status: entity.status,
-      calendars: entity.calendars,
     );
   }
 
@@ -43,16 +41,11 @@ class EventDto extends EventEntity {
       description: map["description"],
       classroom: ClassroomDto.fromMap(map["classroom"]),
       status: EventStatus.values[map["status"]],
-      calendars: calendars,
     );
   }
 
   Map<String, dynamic> toMap() {
     // Mapping Calendars
-    List<Map<String, dynamic>> calendarsAsMap = [];
-    for (var calendar in calendars) {
-      calendarsAsMap.add(CalendarDto.fromEntity(calendar).toMap());
-    }
 
     return {
       "id": id,
@@ -61,7 +54,6 @@ class EventDto extends EventEntity {
       "description": description,
       "classroom": ClassroomDto.fromEntity(classroom).toMap(),
       "status": status.index,
-      "calendar": calendarsAsMap,
     };
   }
 
