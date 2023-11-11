@@ -10,7 +10,7 @@ class WaiverProvider extends BaseProvider {
 
   WaiverProvider({required this.http});
 
-  Future<WaiverEntity?> createWaiver(WaiverEntity waiverEntity) async {
+  Future<WaiverEntity?> create(WaiverEntity waiverEntity) async {
     WaiverDto waiverDto = WaiverDto.fromEntity(waiverEntity);
 
     try {
@@ -31,11 +31,29 @@ class WaiverProvider extends BaseProvider {
     }
   }
 
-  Future<WaiverDto?> fetchWaiverByStudentAndClassroom(
+  Future<WaiverDto?> fetchByStudentAndClassroom(
       Long studentId, Long classroomId) async {
     try {
       final response = await http.get(
         '/waiver/student/$studentId/classroom/$classroomId',
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      return WaiverDto.fromJson(response.data);
+    } catch (e) {
+      logError(e.toString());
+      return null;
+    }
+  }
+
+  Future<WaiverDto?> fetchById(int waiverId) async {
+    try {
+      final response = await http.get(
+        '/waiver/$waiverId',
       );
 
       validateResponse(

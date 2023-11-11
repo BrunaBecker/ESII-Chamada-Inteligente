@@ -10,7 +10,7 @@ class LocationProvider extends BaseProvider {
 
   LocationProvider({required this.http});
 
-  Future<LocationEntity?> createLocation(LocationEntity locationEntity) async {
+  Future<LocationEntity?> create(LocationEntity locationEntity) async {
     LocationDto locationDto = LocationDto.fromEntity(locationEntity);
     try {
       final response = await http.post(
@@ -30,7 +30,7 @@ class LocationProvider extends BaseProvider {
     }
   }
 
-  Future<LocationEntity?> updateLocation(LocationEntity locationEntity) async {
+  Future<LocationEntity?> update(LocationEntity locationEntity) async {
     LocationDto locationDto = LocationDto.fromEntity(locationEntity);
     try {
       final response = await http.put(
