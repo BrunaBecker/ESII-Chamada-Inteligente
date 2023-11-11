@@ -19,6 +19,7 @@ class CalendarAdapter extends StatelessWidget {
     return SfCalendar(
       view: CalendarView.month,
       firstDayOfWeek: 1,
+      initialSelectedDate: DateTime.now(),
       monthViewSettings: const MonthViewSettings(
         appointmentDisplayMode: MonthAppointmentDisplayMode.indicator,
         showAgenda: true,
