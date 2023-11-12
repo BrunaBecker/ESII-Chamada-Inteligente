@@ -102,6 +102,7 @@ class AttendanceForm extends StatelessWidget {
                         labelText: "Início",
                         hintText: "09:30",
                         suffixIcon: IconButton(
+                          key: const Key('select start class button'),
                           onPressed: () async {
                             final time = await showTimePicker(
                               context: context,
@@ -159,6 +160,7 @@ class AttendanceForm extends StatelessWidget {
                               labelText: "Fim",
                               hintText: "11:30",
                               suffixIcon: IconButton(
+                                key: const Key('select end class button'),
                                 onPressed: () async {
                                   final time = await showTimePicker(
                                     context: context,

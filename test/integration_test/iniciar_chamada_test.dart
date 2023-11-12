@@ -47,13 +47,39 @@ void main() {
         fail('No selected value found.');
       }
 
-      // final Finder dateEditButton = find.byKey(const Key('date-edit-button'));
-      // await tester.tap(dateEditButton);
+      final Finder dateEditButton = find.byKey(const Key('date-edit-button'));
+      await tester.tap(dateEditButton);
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+
+      final Finder selectStartClassButton = find.byKey(const Key('select start class button'));
+      await tester.tap(selectStartClassButton);
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('OK'), warnIfMissed: false);
+      await tester.pumpAndSettle();
+
+      // final Finder selectEndClassButton = find.byKey(const Key('switch to manual end'));
+      // await tester.tap(selectEndClassButton);
       // await tester.pumpAndSettle();
-      //
-      // final Finder changeToInput = find.byTooltip('Switch to input');
-      // await tester.tap(changeToInput);
-      // await tester.pumpAndSettle();
+
+      final Finder selectEndClassButton = find.byKey(const Key('select end class button'));
+      await tester.tap(selectEndClassButton, warnIfMissed: false);
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('OK'), warnIfMissed: false);
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('start roll call button')));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Confirmar'));
+      await tester.pumpAndSettle();
+
+      expect(find.widgetWithText(Expanded, 'Chamada'), findsOneWidget);
+
     });
   });
 }
