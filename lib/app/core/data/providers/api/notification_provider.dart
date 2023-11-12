@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/notification_entity.dart';
 import '../../dtos/notification_dto.dart';
@@ -10,8 +8,7 @@ class NotificationProvider extends BaseProvider {
 
   NotificationProvider({required this.http});
 
-  Future<List<NotificationEntity>?> fetchActivesByPersonId(
-      Long personId) async {
+  Future<List<NotificationEntity>?> fetchActivesByPersonId(int personId) async {
     try {
       final response = await http.get(
         '/notification/$personId',

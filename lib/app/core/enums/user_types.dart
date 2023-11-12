@@ -1,0 +1,4 @@
+enum UserTypes {
+  professor,
+  student;
+}
