@@ -21,6 +21,8 @@ abstract class AppColors {
 
   static const surfaceContainerHigh = Color(0xffECE6F0);
 
+  static const outlineVariant = Color(0xffCAC4D0);
+
   static const transparent = Colors.transparent;
 
   static const black = Colors.black;
