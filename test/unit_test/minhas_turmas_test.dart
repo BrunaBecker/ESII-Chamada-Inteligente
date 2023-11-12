@@ -48,7 +48,7 @@ void main() {
       final Finder classTileFinder =
           find.byKey(const Key('list tile class')).at(2);
       String? classTileName =
-      ((tester.widget(classTileFinder) as ListTile).subtitle as Text).data;
+          ((tester.widget(classTileFinder) as ListTile).subtitle as Text).data;
 
       List<String>? wordsOfClassName = classTileName?.split(' ');
       List<String>? remainingClassWords =
