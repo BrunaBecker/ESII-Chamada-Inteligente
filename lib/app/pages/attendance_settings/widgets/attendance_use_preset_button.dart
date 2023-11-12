@@ -15,6 +15,7 @@ class AttendanceUsePresetButton extends StatelessWidget {
         () => Row(
           children: [
             Switch(
+              key: const Key('preset activate switch'),
               value: controller.usePreset,
               onChanged: (_) => controller.toggleUsePreset(),
             ),
