@@ -55,6 +55,7 @@ class ClassesDrawer extends StatelessWidget {
 
                       final item = controller.classesList[index];
                       return ListTile(
+                        key: const Key('drawer class tile'),
                         onTap: () {
                           controller.toggleAttendance(index);
                           debugPrint(item["activeAttendance"].toString());
