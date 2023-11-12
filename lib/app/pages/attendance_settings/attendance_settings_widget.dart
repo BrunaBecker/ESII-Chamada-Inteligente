@@ -64,8 +64,8 @@ class AttendanceSettingsWidget extends StatelessWidget {
                                             Align(
                                               alignment: Alignment.centerRight,
                                               child: AttendanceStartButton(
-                                                key: Key('start roll call button')
-                                              ),
+                                                  key: Key(
+                                                      'start roll call button')),
                                             ),
                                           ],
                                         ),
