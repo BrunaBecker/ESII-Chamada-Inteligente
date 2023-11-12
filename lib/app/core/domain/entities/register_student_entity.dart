@@ -7,6 +7,5 @@ class RegisterStudentEntity extends RegisterCollegeIdEntity {
     required super.dateStarted,
     required super.dateFinished,
     required super.isActive,
-    required super.person,
   });
 }

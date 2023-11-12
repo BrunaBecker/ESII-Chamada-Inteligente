@@ -1,4 +1,3 @@
-import 'attendance_status_entity.dart';
 import 'comment_entity.dart';
 import 'file_mac_fi_entity.dart';
 import 'student_entity.dart';
@@ -7,20 +6,22 @@ class WaiverEntity {
   WaiverEntity({
     required this.id,
     required this.file,
+    required this.description,
     required this.sendDate,
     required this.acceptionDate,
     required this.isAccepted,
     required this.comment,
     required this.student,
-    required this.attendanceStatus,
+    required this.attendanceStatusId,
   });
 
   int id;
   FileMacFiEntity file;
+  String description;
   DateTime sendDate;
   DateTime acceptionDate;
   bool isAccepted;
   CommentEntity comment;
   StudentEntity student;
-  AttendanceStatusEntity attendanceStatus;
+  int attendanceStatusId;
 }

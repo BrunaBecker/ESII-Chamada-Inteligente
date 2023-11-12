@@ -79,7 +79,8 @@ class MacFiAdapter {
 
   Future<Placemark> getPlacemark() async {
     position = await geolocatorAdapter.determinePosition();
-    List<Placemark> placemarks = await placemarkFromCoordinates(position!.latitude, position!.longitude);
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position!.latitude, position!.longitude);
     return placemarks.first;
   }
 }

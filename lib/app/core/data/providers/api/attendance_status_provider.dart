@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/attendance_status_entity.dart';
 import '../../dtos/attendance_status_dto.dart';
@@ -10,7 +8,7 @@ class AttendanceStatusProvider extends BaseProvider {
 
   AttendanceStatusProvider({required this.http});
 
-  Future<AttendanceStatusEntity?> createAttendanceStatus(
+  Future<AttendanceStatusEntity?> create(
       AttendanceStatusEntity attendanceStatusEntity) async {
     AttendanceStatusDto attendanceStatusDto =
         AttendanceStatusDto.fromEntity(attendanceStatusEntity);
@@ -33,7 +31,7 @@ class AttendanceStatusProvider extends BaseProvider {
     return null;
   }
 
-  Future<AttendanceStatusEntity?> updateAttendanceStatus(
+  Future<AttendanceStatusEntity?> update(
       AttendanceStatusEntity attendanceStatusEntity) async {
     AttendanceStatusDto attendanceStatusDto =
         AttendanceStatusDto.fromEntity(attendanceStatusEntity);
@@ -56,8 +54,7 @@ class AttendanceStatusProvider extends BaseProvider {
     return null;
   }
 
-  Future<AttendanceStatusEntity?> fetchAttendanceStatusByAttendanceId(
-      Long attendanceStatusId) async {
+  Future<AttendanceStatusEntity?> fetchById(int attendanceStatusId) async {
     try {
       final response = await http.get(
         '/attendanceStatus/$attendanceStatusId',
@@ -75,8 +72,8 @@ class AttendanceStatusProvider extends BaseProvider {
     }
   }
 
-  Future<List<AttendanceStatusEntity>?> fetchAllAttendanceStatusFromAttendance(
-      Long attendanceId) async {
+  Future<List<AttendanceStatusEntity>?> fetchAllByAttendanceId(
+      int attendanceId) async {
     try {
       final response = await http.get(
         '/attendanceStatus/attendance/$attendanceId',
@@ -101,8 +98,8 @@ class AttendanceStatusProvider extends BaseProvider {
     }
   }
 
-  Future<AttendanceStatusEntity?> fetchStatusByAttendanceAndStudent(
-      Long studentId, Long attendanceId) async {
+  Future<AttendanceStatusEntity?> fetchByAttendanceAndStudent(
+      int studentId, int attendanceId) async {
     try {
       final response = await http.get(
         '/attendanceStatus/byAttendanceAndStudent?attendanceid=$attendanceId&studentid=$studentId',

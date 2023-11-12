@@ -1,5 +1,3 @@
-import 'person_entity.dart';
-
 abstract class RegisterCollegeIdEntity {
   RegisterCollegeIdEntity({
     required this.id,
@@ -7,7 +5,6 @@ abstract class RegisterCollegeIdEntity {
     required this.dateStarted,
     required this.dateFinished,
     required this.isActive,
-    required this.person,
   });
 
   int id;
@@ -15,5 +12,4 @@ abstract class RegisterCollegeIdEntity {
   DateTime dateStarted;
   DateTime dateFinished;
   bool isActive;
-  PersonEntity person;
 }

@@ -11,7 +11,10 @@ class BottomNavBar extends StatelessWidget {
     switch (page) {
       case AppRoutes.home:
         return 0;
-      case AppRoutes.classes || AppRoutes.classInfo || AppRoutes.attendanceInfo || AppRoutes.studentInfo:
+      case AppRoutes.classes ||
+            AppRoutes.classInfo ||
+            AppRoutes.attendanceInfo ||
+            AppRoutes.studentInfo:
         return 1;
       case AppRoutes.calendar || AppRoutes.dailyWarnings:
         return 2;

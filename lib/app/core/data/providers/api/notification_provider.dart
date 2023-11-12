@@ -10,7 +10,7 @@ class NotificationProvider extends BaseProvider {
 
   NotificationProvider({required this.http});
 
-  Future<List<NotificationEntity>?> fetchNotificationsByPersonId(
+  Future<List<NotificationEntity>?> fetchActivesByPersonId(
       Long personId) async {
     try {
       final response = await http.get(
@@ -35,13 +35,13 @@ class NotificationProvider extends BaseProvider {
     }
   }
 
-  Future<NotificationEntity?> updateNotification(
+  Future<NotificationEntity?> create(
       NotificationEntity notificationEntity) async {
     NotificationDto notificationDto =
         NotificationDto.fromEntity(notificationEntity);
 
     try {
-      final response = await http.put(
+      final response = await http.post(
         '/notification',
         body: notificationDto.toJson(),
       );
@@ -58,13 +58,49 @@ class NotificationProvider extends BaseProvider {
     }
   }
 
-  Future<NotificationEntity?> createNotification(
+  Future<bool> delete(NotificationEntity notification) async {
+    try {
+      final response = await http.delete(
+        '/notification/${notification.id}',
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      return response.data;
+    } catch (e) {
+      logError(e.toString());
+      return false;
+    }
+  }
+
+  Future<bool> deleteById(int notificationId) async {
+    try {
+      final response = await http.delete(
+        '/notification/$notificationId',
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      return response.data;
+    } catch (e) {
+      logError(e.toString());
+      return false;
+    }
+  }
+
+  Future<NotificationEntity?> update(
       NotificationEntity notificationEntity) async {
     NotificationDto notificationDto =
         NotificationDto.fromEntity(notificationEntity);
 
     try {
-      final response = await http.post(
+      final response = await http.put(
         '/notification',
         body: notificationDto.toJson(),
       );

@@ -42,7 +42,9 @@ class CurrentAttendanceStudentList extends StatelessWidget {
                 ],
               ),
               subtitle: Text(
-                student["confirmed"] ? "Resposta validada" : "Valide essa resposta",
+                student["confirmed"]
+                    ? "Resposta validada"
+                    : "Valide essa resposta",
                 style: const TextStyle(
                   fontSize: 12,
                 ),
@@ -55,7 +57,9 @@ class CurrentAttendanceStudentList extends StatelessWidget {
                           ? Icons.close_outlined
                           : Icons.indeterminate_check_box,
                   color: student["confirmed"]
-                      ? student["status"] == StudentAtAttendanceState.present || student["status"] == StudentAtAttendanceState.justified
+                      ? student["status"] == StudentAtAttendanceState.present ||
+                              student["status"] ==
+                                  StudentAtAttendanceState.justified
                           ? AppColors.green1
                           : AppColors.red1
                       : AppColors.onSurfaceVariant,

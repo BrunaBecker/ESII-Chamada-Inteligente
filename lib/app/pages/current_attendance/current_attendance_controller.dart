@@ -44,7 +44,9 @@ class CurrentAttendanceController extends GetxController {
   }
 
   int answeredStudents() {
-    return _currentAttendance["students"].where((student) => student["answered"] as bool).length;
+    return _currentAttendance["students"]
+        .where((student) => student["answered"] as bool)
+        .length;
   }
 
   void changeStudentPresence({

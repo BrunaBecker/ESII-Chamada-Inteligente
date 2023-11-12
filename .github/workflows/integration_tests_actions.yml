@@ -5,7 +5,7 @@
 
 name: Run Integration Tests
 
-on: 
+on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
@@ -30,10 +30,11 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
-
+      
+      
       # Uncomment this step to verify the use of 'dart format' on each commit.
-      # - name: Verify formatting
-      #   run: dart format --output=none --set-exit-if-changed .
+      - name: Verify formatting
+        run: dart format --output=none --set-exit-if-changed .
 
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
@@ -46,5 +47,5 @@ jobs:
       # Your project will need to have tests in test/ and a dependency on
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
-      - name: Run tests
-        run: flutter drive --target=test_driver/test/integration/login_test.dart 2>&1 | tee drive_output.log
+      - name: Run Integration Tests
+        run: bash test/integration_test/scripts/run_integration_tests.sh

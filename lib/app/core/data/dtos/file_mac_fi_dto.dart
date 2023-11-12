@@ -46,7 +46,8 @@ class FileMacFiDto extends FileMacFiEntity {
     };
   }
 
-  factory FileMacFiDto.fromJson(String source) => FileMacFiDto.fromMap(json.decode(source));
+  factory FileMacFiDto.fromJson(String source) =>
+      FileMacFiDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

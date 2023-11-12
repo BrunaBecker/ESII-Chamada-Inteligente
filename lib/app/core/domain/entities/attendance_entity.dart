@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-
-import 'attendance_status_entity.dart';
 import 'classroom_entity.dart';
 import 'virtual_zone_entity.dart';
 
@@ -16,18 +13,16 @@ class AttendanceEntity {
     required this.isHappening,
     required this.virtualZone,
     required this.classroom,
-    required this.statusStudentAttendance,
   });
 
   int id;
   DateTime date;
   String supportingText;
-  TimeOfDay startHour;
-  TimeOfDay endHour;
+  DateTime startHour;
+  DateTime endHour;
   String duration;
   bool isAutomatic;
   bool isHappening;
   VirtualZoneEntity virtualZone;
   ClassroomEntity classroom;
-  List<AttendanceStatusEntity> statusStudentAttendance;
 }
