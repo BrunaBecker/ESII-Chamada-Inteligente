@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import '../unit_test/iniciar_chamada_test.dart';
 import 'package:mac_fi/main.dart' as app;
 import 'login_test.dart';
 
@@ -15,10 +16,7 @@ void main() {
 
       await login(tester);
 
-      final Finder beginRollCall =
-          find.byKey(const Key('iniciar_chamada_button'));
-      await tester.tap(beginRollCall);
-      await tester.pumpAndSettle();
+      await goToBeginRollCallPage(tester);
 
       final Finder dropdownClass = find.byKey(const Key('dropdown-class'));
       await tester.tap(dropdownClass);
@@ -85,10 +83,7 @@ void main() {
 
       await login(tester);
 
-      final Finder beginRollCall =
-      find.byKey(const Key('iniciar_chamada_button'));
-      await tester.tap(beginRollCall);
-      await tester.pumpAndSettle();
+      await goToBeginRollCallPage(tester);
 
       final Finder dropdownClass = find.byKey(const Key('dropdown-class'));
       await tester.tap(dropdownClass);
