@@ -163,83 +163,80 @@ void main() {
       //
       // expect((tester.widget(endFormFinder) as TextFormField).controller?.text, equals(currentHour));
     });
-  });
+    // TODO: broken
+    testWidgets('Toggle preset check state correctly',
+        (WidgetTester tester) async {
+      // Run the app
+      app.main();
+      await tester.pumpAndSettle();
 
-  // TODO: broken
-  testWidgets('Toggle preset check state correctly',
-      (WidgetTester tester) async {
-    // Run the app
-    app.main();
-    await tester.pumpAndSettle();
+      await login(tester);
+      await goToBeginRollCallPage(tester);
 
-    await login(tester);
-    await goToBeginRollCallPage(tester);
+      final checkFinder = find.byKey(const Key('preset check'));
 
-    final checkFinder = find.byKey(const Key('preset check'));
+      expect(checkFinder, findsOneWidget);
+      expect((tester.widget(checkFinder) as Checkbox).value, isFalse);
 
-    expect(checkFinder, findsOneWidget);
-    expect((tester.widget(checkFinder) as Checkbox).value, isFalse);
+      // await tester.tap(checkFinder);
+      // await tester.pumpAndSettle();
+      //
+      // expect((tester.widget(checkFinder) as Switch).value, isTrue);
+    });
 
-    // await tester.tap(checkFinder);
-    // await tester.pumpAndSettle();
-    //
-    // expect((tester.widget(checkFinder) as Switch).value, isTrue);
-  });
+    testWidgets('Toggle switch preset state correctly',
+        (WidgetTester tester) async {
+      // Run the app
+      app.main();
+      await tester.pumpAndSettle();
 
-  testWidgets('Toggle switch preset state correctly',
-          (WidgetTester tester) async {
-        // Run the app
-        app.main();
-        await tester.pumpAndSettle();
+      await login(tester);
+      await goToBeginRollCallPage(tester);
 
-        await login(tester);
-        await goToBeginRollCallPage(tester);
+      final toggleFinder = find.byKey(const Key('preset activate switch'));
 
-        final toggleFinder = find.byKey(const Key('preset activate switch'));
+      expect(toggleFinder, findsOneWidget);
+      expect((tester.widget(toggleFinder) as Switch).value, isFalse);
 
-        expect(toggleFinder, findsOneWidget);
-        expect((tester.widget(toggleFinder) as Switch).value, isFalse);
+      await tester.tap(toggleFinder);
+      await tester.pumpAndSettle();
 
-        await tester.tap(toggleFinder);
-        await tester.pumpAndSettle();
+      expect((tester.widget(toggleFinder) as Switch).value, isTrue);
 
-        expect((tester.widget(toggleFinder) as Switch).value, isTrue);
+      String currentDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
+      final dateFormFinder = find.byKey(const Key('date-form'));
+      expect((tester.widget(dateFormFinder) as TextFormField).controller?.text,
+          equals(currentDate));
 
-        String currentDate = DateFormat('dd/MM/yyyy').format(DateTime.now());
-        final dateFormFinder = find.byKey(const Key('date-form'));
-        expect((tester.widget(dateFormFinder) as TextFormField).controller?.text,
-            equals(currentDate));
+      final Finder startFormFinder = find.byKey(const Key('hour start form'));
+      expect((tester.widget(startFormFinder) as TextFormField).controller?.text,
+          equals('09:00'));
 
-        final Finder startFormFinder = find.byKey(const Key('hour start form'));
-        expect((tester.widget(startFormFinder) as TextFormField).controller?.text,
-            equals('09:00'));
+      final Finder endFormFinder = find.byKey(const Key('hour end form'));
+      expect((tester.widget(endFormFinder) as TextFormField).controller?.text,
+          equals('11:00'));
+    });
 
-        final Finder endFormFinder = find.byKey(const Key('hour end form'));
-        expect((tester.widget(endFormFinder) as TextFormField).controller?.text,
-            equals('11:00'));
-      });
+    // TODO: broken
+    testWidgets('Start call correctly', (WidgetTester tester) async {
+      // Run the app
+      app.main();
+      await tester.pumpAndSettle();
 
-  // TODO: broken
-  testWidgets('Start call correctly',
-  (WidgetTester tester) async {
-    // Run the app
-    app.main();
-    await tester.pumpAndSettle();
+      await login(tester);
+      await goToBeginRollCallPage(tester);
 
-    await login(tester);
-    await goToBeginRollCallPage(tester);
+      final toggleFinder = find.byKey(const Key('preset activate switch'));
+      await tester.tap(toggleFinder);
+      await tester.pumpAndSettle();
 
-    final toggleFinder = find.byKey(const Key('preset activate switch'));
-    await tester.tap(toggleFinder);
-    await tester.pumpAndSettle();
-
-    // await tester.tap(find.byKey(const Key('start roll call button')));
-    // await tester.pumpAndSettle();
-    //
-    // await tester.tap(find.text('Confirmar'));
-    // await tester.pumpAndSettle();
-    //
-    // expect(find.byKey(const Key('live icon')), findsOneWidget);
-
+      // await tester.tap(find.byKey(const Key('start roll call button')));
+      // await tester.pumpAndSettle();
+      //
+      // await tester.tap(find.text('Confirmar'));
+      // await tester.pumpAndSettle();
+      //
+      // expect(find.byKey(const Key('live icon')), findsOneWidget);
+    });
   });
 }
