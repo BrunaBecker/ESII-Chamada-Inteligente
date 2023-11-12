@@ -9,7 +9,6 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Initialize Roll Call Test Cases', () {
-
     testWidgets('Valid Roll Call', (WidgetTester tester) async {
       // Run the app
       app.main();
@@ -53,7 +52,8 @@ void main() {
       await tester.tap(find.text('OK'));
       await tester.pumpAndSettle();
 
-      final Finder selectStartClassButton = find.byKey(const Key('select start class button'));
+      final Finder selectStartClassButton =
+          find.byKey(const Key('select start class button'));
       await tester.tap(selectStartClassButton);
       await tester.pumpAndSettle();
 
@@ -74,7 +74,6 @@ void main() {
       // await tester.pumpAndSettle();
       //
       // expect(find.widgetWithText(Expanded, 'Chamada'), findsOneWidget);
-
     });
 
     testWidgets('Valid Roll Call Manual End', (WidgetTester tester) async {
@@ -91,7 +90,7 @@ void main() {
       await tester.pumpAndSettle();
 
       final Finder dropdownSelect =
-      find.byKey(const Key('dropdown-select')).at(5);
+          find.byKey(const Key('dropdown-select')).at(5);
       await tester.tap(dropdownSelect);
       await tester.pumpAndSettle();
 
@@ -120,7 +119,8 @@ void main() {
       await tester.tap(find.text('OK'));
       await tester.pumpAndSettle();
 
-      final Finder selectStartClassButton = find.byKey(const Key('select start class button'));
+      final Finder selectStartClassButton =
+          find.byKey(const Key('select start class button'));
       await tester.tap(selectStartClassButton);
       await tester.pumpAndSettle();
 
@@ -138,7 +138,6 @@ void main() {
       // await tester.pumpAndSettle();
       //
       // expect(find.widgetWithText(Expanded, 'Chamada'), findsOneWidget);
-
     });
   });
 }
