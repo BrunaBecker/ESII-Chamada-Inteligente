@@ -25,6 +25,7 @@ class ClassInfoWidget extends StatelessWidget {
             appBar: controller.isLoading
                 ? null
                 : AppBar(
+                    key: const Key('class page header'),
                     backgroundColor: AppColors.surfaceContainer,
                     title: Text(
                       controller.selectedClass["name"]!,
