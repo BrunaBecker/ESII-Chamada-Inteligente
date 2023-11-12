@@ -10,8 +10,7 @@ class ClassroomProvider extends BaseProvider {
 
   ClassroomProvider({required this.http});
 
-  Future<ClassroomEntity?> createClassroom(
-      ClassroomEntity classroomEntity) async {
+  Future<ClassroomEntity?> create(ClassroomEntity classroomEntity) async {
     ClassroomDto classroomDto = ClassroomDto.fromEntity(classroomEntity);
 
     try {
@@ -32,8 +31,7 @@ class ClassroomProvider extends BaseProvider {
     }
   }
 
-  Future<ClassroomEntity?> updateClassroom(
-      ClassroomEntity classroomEntity) async {
+  Future<ClassroomEntity?> update(ClassroomEntity classroomEntity) async {
     ClassroomDto classroomDto = ClassroomDto.fromEntity(classroomEntity);
 
     try {
@@ -54,11 +52,11 @@ class ClassroomProvider extends BaseProvider {
     }
   }
 
-  Future<List<ClassroomEntity>?> fetchClassroomsByProfessor(
-      Long professorId) async {
+  Future<List<ClassroomEntity>?> fetchByProfessorRegister(
+      Long professorRegister) async {
     try {
       final response = await http.get(
-        '/classroom/professor/$professorId',
+        '/classroom/professor/$professorRegister',
       );
 
       validateResponse(
@@ -79,11 +77,11 @@ class ClassroomProvider extends BaseProvider {
     }
   }
 
-  Future<List<ClassroomEntity>?> fetchClassroomsByStudent(
-      Long studentId) async {
+  Future<List<ClassroomEntity>?> fetchByStudentRegister(
+      Long studentRegister) async {
     try {
       final response = await http.get(
-        '/classroom/student/$studentId',
+        '/classroom/student/$studentRegister',
       );
 
       validateResponse(

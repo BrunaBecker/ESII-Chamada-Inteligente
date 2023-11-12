@@ -36,7 +36,8 @@ class CommentDto extends CommentEntity {
       id: map["id"],
       content: map["content"],
       author: person,
-      replyTo: CommentDto.fromMap(map["replyTo"]),
+      replyTo:
+          map["replyTo"] != null ? CommentDto.fromMap(map["replyTo"]) : null,
     );
   }
 
