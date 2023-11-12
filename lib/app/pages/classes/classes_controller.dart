@@ -22,13 +22,15 @@ class ClassesController extends GetxController {
         "name": "Aluno ${index + 1}",
         "status": StudentAtAttendanceState.fromInt(Random().nextInt(3)),
         "confirmed": Random().nextInt(3) != 1,
-        "registration": "120031${Random().nextInt(100).toString().padLeft(3, "0")}",
+        "registration":
+            "120031${Random().nextInt(100).toString().padLeft(3, "0")}",
         "justifications": [
           {
             "date": DateTime(2023, 10, 03),
             "file": null,
             "title": "Quebrei a perna",
-            "description": "Eu quebrei a perna, professor, não consigo ir até a faculdade.",
+            "description":
+                "Eu quebrei a perna, professor, não consigo ir até a faculdade.",
             "attach_file": null,
             "approved": null,
           },
@@ -36,7 +38,8 @@ class ClassesController extends GetxController {
             "date": DateTime(2023, 10, 05),
             "file": null,
             "title": "Quebrei o braço.",
-            "description": "Eu quebrei o braço, professor, não consigo ir até a faculdade.",
+            "description":
+                "Eu quebrei o braço, professor, não consigo ir até a faculdade.",
             "attach_file": null,
             "approved": null,
           },
@@ -52,7 +55,8 @@ class ClassesController extends GetxController {
         "attendances": List.generate(
           20,
           (index) => {
-            "date": AppDateUtils.appDateFormat.format(DateTime(2023, 3, index + 1)),
+            "date":
+                AppDateUtils.appDateFormat.format(DateTime(2023, 3, index + 1)),
             "description": "Aula ${index + 1} de Engenharia de Software $i",
             "average_time": Random().nextInt(180) + 50,
             "total_students": Random().nextInt(10) + 15,
@@ -70,7 +74,8 @@ class ClassesController extends GetxController {
   }
 
   void toggleAttendance(int index) {
-    classesList[index]["activeAttendance"] = !classesList[index]["activeAttendance"]!;
+    classesList[index]["activeAttendance"] =
+        !classesList[index]["activeAttendance"]!;
     update();
   }
 }

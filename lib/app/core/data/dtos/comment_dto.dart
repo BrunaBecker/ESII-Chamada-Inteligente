@@ -5,14 +5,12 @@ import '../../domain/entities/professor_entity.dart';
 import '../../domain/entities/student_entity.dart';
 import 'professor_dto.dart';
 import 'student_dto.dart';
-import 'waiver_dto.dart';
 
 class CommentDto extends CommentEntity {
   CommentDto({
     required super.id,
     required super.content,
     required super.author,
-    required super.waiver,
     super.replyTo,
   });
 
@@ -21,7 +19,6 @@ class CommentDto extends CommentEntity {
       id: entity.id,
       content: entity.content,
       author: entity.author,
-      waiver: entity.waiver,
       replyTo: entity.replyTo,
     );
   }
@@ -39,8 +36,8 @@ class CommentDto extends CommentEntity {
       id: map["id"],
       content: map["content"],
       author: person,
-      waiver: WaiverDto.fromMap(map["waiver"]),
-      replyTo: CommentDto.fromMap(map["replyTo"]),
+      replyTo:
+          map["replyTo"] != null ? CommentDto.fromMap(map["replyTo"]) : null,
     );
   }
 
@@ -57,12 +54,13 @@ class CommentDto extends CommentEntity {
       "id": id,
       "content": content,
       "author": personAsMap,
-      "waiver": WaiverDto.fromEntity(waiver).toMap(),
-      "replyTo": replyTo != null ? CommentDto.fromEntity(replyTo as CommentEntity).toMap() : null,
+      "replyTo":
+          replyTo != null ? CommentDto.fromEntity(replyTo!).toMap() : null,
     };
   }
 
-  factory CommentDto.fromJson(String source) => CommentDto.fromMap(json.decode(source));
+  factory CommentDto.fromJson(String source) =>
+      CommentDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

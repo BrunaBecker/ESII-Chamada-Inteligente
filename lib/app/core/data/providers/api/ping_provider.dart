@@ -27,4 +27,22 @@ class PingProvider extends BaseProvider {
       return null;
     }
   }
+
+  Future<PingEntity?> fetchById(int pingId) async {
+    try {
+      final response = await http.get(
+        '/ping/$pingId',
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      return PingDto.fromJson(response.data);
+    } catch (e) {
+      logError(e.toString());
+      return null;
+    }
+  }
 }

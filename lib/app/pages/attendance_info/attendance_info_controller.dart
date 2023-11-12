@@ -8,7 +8,9 @@ class AttendanceInfoController extends GetxController {
 
   bool get isLoading => _isLoading.value;
   Map<String, dynamic> get selectedAttendance => _selectedAttendance;
-  int get totalPresentStudents => selectedAttendance["students"].where((student) => student["status"] == 1).length;
+  int get totalPresentStudents => selectedAttendance["students"]
+      .where((student) => student["status"] == 1)
+      .length;
 
   @override
   void onReady() async {

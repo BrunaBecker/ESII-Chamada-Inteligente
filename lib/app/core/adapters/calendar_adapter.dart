@@ -47,8 +47,10 @@ class CalendarAdapter extends StatelessWidget {
         final appointments = calendarTapDetails.appointments ?? [];
         if (appointments.length == 1) {
           final appointment = appointments.first;
-          final startTime = AppDateUtils.dateTimeToTimeString(appointment["startTime"]);
-          final endTime = AppDateUtils.dateTimeToTimeString(appointment["endTime"]);
+          final startTime =
+              AppDateUtils.dateTimeToTimeString(appointment["startTime"]);
+          final endTime =
+              AppDateUtils.dateTimeToTimeString(appointment["endTime"]);
           showDialog(
             context: context,
             builder: (context) => EventInfoDialog(

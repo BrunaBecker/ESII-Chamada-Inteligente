@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'coordinate_entity.dart';
+import '../../domain/entities/coordinate_entity.dart';
 
 class CoordinateDto extends CoordinateEntity {
   CoordinateDto({
@@ -33,7 +33,8 @@ class CoordinateDto extends CoordinateEntity {
     };
   }
 
-  factory CoordinateDto.fromJson(String source) => CoordinateDto.fromMap(json.decode(source));
+  factory CoordinateDto.fromJson(String source) =>
+      CoordinateDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

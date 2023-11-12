@@ -6,8 +6,10 @@ class NotificationsController extends GetxController {
 
   bool get isLoading => _isLoading.value;
   List get notifications => _notifications.toList();
-  List get unreadNotifications => _notifications.where((element) => !element["isRead"]).toList();
-  List get readNotifications => _notifications.where((element) => element["isRead"]).toList();
+  List get unreadNotifications =>
+      _notifications.where((element) => !element["isRead"]).toList();
+  List get readNotifications =>
+      _notifications.where((element) => element["isRead"]).toList();
   int get totalUnreadNotifications => unreadNotifications.length;
 
   @override
@@ -18,7 +20,8 @@ class NotificationsController extends GetxController {
       _notifications.add({
         "id": i,
         "title": "Engenharia de Software $i - A1",
-        "description": "A chamada da turma Engenharia de Software $i - A1 foi iniciada!",
+        "description":
+            "A chamada da turma Engenharia de Software $i - A1 foi iniciada!",
         "isRead": false,
       });
     }

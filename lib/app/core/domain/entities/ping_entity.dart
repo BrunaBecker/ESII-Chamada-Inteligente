@@ -1,6 +1,4 @@
 import '../../enums/status_ping.dart';
-import 'attendance_status_entity.dart';
-import 'coordinate_entity.dart';
 
 class PingEntity {
   PingEntity({
@@ -9,8 +7,8 @@ class PingEntity {
     required this.date,
     required this.status,
     required this.isContinuous,
-    required this.coordinate,
-    required this.attendanceStatus,
+    required this.coordinateId,
+    required this.attendanceStatusId,
   });
 
   int id;
@@ -18,6 +16,6 @@ class PingEntity {
   DateTime date;
   StatusPing status;
   bool isContinuous;
-  CoordinateEntity coordinate;
-  AttendanceStatusEntity attendanceStatus;
+  int coordinateId;
+  int attendanceStatusId;
 }

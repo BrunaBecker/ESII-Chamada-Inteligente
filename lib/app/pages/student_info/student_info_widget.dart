@@ -128,10 +128,13 @@ class StudentInfoWidget extends StatelessWidget {
                         ),
                         Expanded(
                           child: ListView.builder(
-                            itemCount: controller.selectedStudent["justifications"].length,
+                            itemCount: controller
+                                .selectedStudent["justifications"].length,
                             itemBuilder: (context, index) {
-                              final justification = controller.selectedStudent["justifications"][index];
-                              return StudentInfoJustification(justification: justification);
+                              final justification = controller
+                                  .selectedStudent["justifications"][index];
+                              return StudentInfoJustification(
+                                  justification: justification);
                             },
                           ),
                         ),
