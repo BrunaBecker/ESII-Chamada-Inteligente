@@ -17,7 +17,7 @@ class LoginButton extends StatelessWidget {
         child: FilledButton(
           onPressed: () async {
             if (!controller.formKey.currentState!.validate()) return;
-            await controller.authenticate();
+            // await controller.authenticate();
             Get.offAllNamed(AppRoutes.home);
           },
           child: const Text("ENTRAR"),
