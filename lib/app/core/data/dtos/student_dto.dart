@@ -1,9 +1,8 @@
 import 'dart:convert';
 
-import '../../domain/entities/register_student_entity.dart';
 import '../../domain/entities/student_entity.dart';
 import '../../utils/app_date_utils.dart';
-import 'register_student_dto.dart';
+import 'register_college_id_dto.dart';
 
 class StudentDto extends StudentEntity {
   StudentDto({
@@ -30,7 +29,7 @@ class StudentDto extends StudentEntity {
       cpf: entity.cpf,
       email: entity.email,
       password: entity.password,
-      register: entity.register as RegisterStudentEntity,
+      register: entity.register,
       setting: entity.setting,
       profileImage: entity.profileImage,
     );
@@ -46,7 +45,7 @@ class StudentDto extends StudentEntity {
       cpf: map["cpf"],
       email: map["email"],
       password: map["password"],
-      register: RegisterStudentDto.fromMap(map["register"]),
+      register: RegisterCollegeIdDto.fromMap(map["register"]),
       setting: map["setting"],
       profileImage: map["profileImage"],
     );
@@ -62,8 +61,7 @@ class StudentDto extends StudentEntity {
       "cpf": cpf,
       "email": email,
       "password": password,
-      "register":
-          RegisterStudentDto.fromEntity(register as RegisterStudentDto).toMap(),
+      "register": RegisterCollegeIdDto.fromEntity(register).toMap(),
       "setting": setting,
       "profileImage": profileImage,
     };
