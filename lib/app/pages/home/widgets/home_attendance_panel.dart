@@ -99,28 +99,73 @@ class HomeAttendancePanel extends StatelessWidget {
                               ],
                             ),
                             actions: [
-                              OutlinedButton(
-                                onPressed: () {
-                                  Get.back();
-                                },
-                                style: OutlinedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: AppColors.outlineVariant,
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(20.0),
+                                  ),
                                 ),
-                                child: const IntrinsicWidth(
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(right: 8.0),
-                                        child: Icon(
-                                          Icons.arrow_drop_down_outlined,
-                                          size: 18,
+                                child: InkWell(
+                                  onTapDown: (details) {
+                                    showMenu(
+                                      context: context,
+                                      position: RelativeRect.fromLTRB(
+                                        details.globalPosition.dx,
+                                        details.globalPosition.dy,
+                                        details.globalPosition.dx,
+                                        details.globalPosition.dy,
+                                      ),
+                                      items: [
+                                        PopupMenuItem(
+                                          onTap: () {},
+                                          child: const ListTile(
+                                            leading: Icon(
+                                              Icons.indeterminate_check_box,
+                                            ),
+                                            title: Text("Falta Abonável"),
+                                          ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(right: 8.0),
-                                        child: Text("Falta"),
-                                      ),
-                                    ],
+                                        PopupMenuItem(
+                                          onTap: () {},
+                                          child: const ListTile(
+                                            leading: Icon(
+                                              Icons.close_outlined,
+                                            ),
+                                            title: Text("Falta"),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                  child: const IntrinsicWidth(
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 8.0),
+                                          child: Icon(
+                                            Icons.arrow_drop_down_outlined,
+                                            size: 18,
+                                            color: AppColors.primary,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 8.0),
+                                          child: Text(
+                                            "Falta",
+                                            style: TextStyle(
+                                              color: AppColors.primary,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
