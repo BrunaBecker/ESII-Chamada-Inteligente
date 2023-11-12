@@ -136,7 +136,6 @@ void main() {
           equals(currentHour));
     });
 
-    // TODO: broken
     testWidgets('End time picker', (WidgetTester tester) async {
       // Run the app
       app.main();
@@ -163,7 +162,7 @@ void main() {
       //
       // expect((tester.widget(endFormFinder) as TextFormField).controller?.text, equals(currentHour));
     });
-    // TODO: broken
+
     testWidgets('Toggle preset check state correctly',
         (WidgetTester tester) async {
       // Run the app
@@ -217,7 +216,6 @@ void main() {
           equals('11:00'));
     });
 
-    // TODO: broken
     testWidgets('Start call correctly', (WidgetTester tester) async {
       // Run the app
       app.main();
