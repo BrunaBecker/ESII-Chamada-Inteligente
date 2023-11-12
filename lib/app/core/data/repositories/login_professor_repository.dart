@@ -1,4 +1,4 @@
-import '../dtos/student_dto.dart';
+import '../dtos/professor_dto.dart';
 import '../providers/api/auth_provider.dart';
 
 class LoginProfessorRepository {
@@ -8,7 +8,8 @@ class LoginProfessorRepository {
 
   final AuthProvider _authProvider;
 
-  Future<StudentDto?> call(String professorRegister, String password) async {
-    return await _authProvider.loginProfessor(professorRegister, password);
+  Future<ProfessorDto?> call(String professorRegister, String password) async {
+    return await _authProvider.loginProfessor(professorRegister, password)
+        as ProfessorDto?;
   }
 }

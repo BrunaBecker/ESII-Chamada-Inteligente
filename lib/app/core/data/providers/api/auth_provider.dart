@@ -1,4 +1,6 @@
 import '../../../adapters/http_adapter.dart';
+import '../../../domain/entities/professor_entity.dart';
+import '../../../domain/entities/student_entity.dart';
 import '../../dtos/student_dto.dart';
 import '../base_provider.dart';
 
@@ -7,7 +9,7 @@ class AuthProvider extends BaseProvider {
 
   AuthProvider({required this.http});
 
-  Future<StudentDto?> loginStudent(
+  Future<StudentEntity?> loginStudent(
       String studentRegister, String password) async {
     try {
       final response = await http.post(
@@ -26,7 +28,7 @@ class AuthProvider extends BaseProvider {
     }
   }
 
-  Future<StudentDto?> loginProfessor(
+  Future<ProfessorEntity?> loginProfessor(
       String professorRegister, String password) async {
     try {
       final response = await http.post(

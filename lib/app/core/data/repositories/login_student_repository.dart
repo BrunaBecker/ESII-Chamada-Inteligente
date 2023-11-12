@@ -9,6 +9,7 @@ class LoginStudentRepository {
   final AuthProvider _authProvider;
 
   Future<StudentDto?> call(String studentRegister, String password) async {
-    return await _authProvider.loginStudent(studentRegister, password);
+    return await _authProvider.loginStudent(studentRegister, password)
+        as StudentDto?;
   }
 }
