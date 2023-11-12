@@ -10,7 +10,7 @@ class LocationProvider extends BaseProvider {
 
   LocationProvider({required this.http});
 
-  Future<LocationEntity?> createLocation(LocationEntity locationEntity) async {
+  Future<LocationEntity?> create(LocationEntity locationEntity) async {
     LocationDto locationDto = LocationDto.fromEntity(locationEntity);
     try {
       final response = await http.post(
@@ -30,7 +30,7 @@ class LocationProvider extends BaseProvider {
     }
   }
 
-  Future<LocationEntity?> updateLocation(LocationEntity locationEntity) async {
+  Future<LocationEntity?> update(LocationEntity locationEntity) async {
     LocationDto locationDto = LocationDto.fromEntity(locationEntity);
     try {
       final response = await http.put(
@@ -50,11 +50,13 @@ class LocationProvider extends BaseProvider {
     }
   }
 
-  Future<LocationEntity?> fetchLocationByProfessorIdentifier(
-      Long professorIdentifier) async {
+  Future<LocationEntity?> addVirtualZone(
+      LocationEntity locationEntity, int virtualZoneId) async {
+    LocationDto locationDto = LocationDto.fromEntity(locationEntity);
     try {
-      final response = await http.get(
-        '/location/byProfessor/$professorIdentifier',
+      final response = await http.put(
+        '/location/addVirtualZone/$virtualZoneId',
+        body: locationDto.toJson(),
       );
 
       validateResponse(
@@ -63,6 +65,31 @@ class LocationProvider extends BaseProvider {
       );
 
       return LocationDto.fromJson(response.data);
+    } catch (e) {
+      logError(e.toString());
+      return null;
+    }
+  }
+
+  Future<List<LocationEntity>?> fetchAllByProfessorRegister(
+      Long professorRegister) async {
+    try {
+      final response = await http.get(
+        '/location/byProfessor/$professorRegister',
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      List<LocationEntity> locations = response.data
+          .map<LocationDto>(
+            (location) => LocationDto.fromJson(location),
+          )
+          .toList();
+
+      return locations;
     } catch (e) {
       logError(e.toString());
       return null;

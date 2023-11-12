@@ -1,9 +1,8 @@
-import 'dart:ffi';
-
-import 'package:intl/intl.dart';
+import 'dart:core';
 
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/attendance_entity.dart';
+import '../../../utils/app_date_utils.dart';
 import '../../dtos/attendance_dto.dart';
 import '../base_provider.dart';
 
@@ -12,8 +11,7 @@ class AttendanceProvider extends BaseProvider {
 
   AttendanceProvider({required this.http});
 
-  Future<AttendanceEntity?> createAttendance(
-      AttendanceEntity attendanceEntity) async {
+  Future<AttendanceEntity?> create(AttendanceEntity attendanceEntity) async {
     try {
       AttendanceDto attendanceDto = AttendanceDto.fromEntity(attendanceEntity);
 
@@ -34,8 +32,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<AttendanceEntity?> fetchAttendanceFromClassroom(
-      Long classroomId) async {
+  Future<AttendanceEntity?> fetchByClassroomId(int classroomId) async {
     try {
       final response = await http.get(
         '/attendance/classroom/$classroomId',
@@ -53,10 +50,10 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<List<AttendanceEntity>?> fetchAttendancesByDate(
-      Long classroomId, DateTime date) async {
+  Future<List<AttendanceEntity>?> fetchByClassroomIdAndDate(
+      int classroomId, DateTime date) async {
     try {
-      String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+      String formattedDate = AppDateUtils.storageDateFormat.format(date);
 
       final response = await http.get(
         '/attendance/inClassroomByDate?classroomid=$classroomId&date=$formattedDate',
@@ -80,11 +77,11 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<List<AttendanceEntity>?> fetchAttendancesHappeningByClassroom(
-      Long classroomId) async {
+  Future<List<AttendanceEntity>?> fetchHappeningByClassroomId(
+      int classroomId) async {
     try {
       final response = await http.get(
-        '/attendance/allHappeningByClassroom/$classroomId',
+        '/attendance/happeningByClassroom/$classroomId',
       );
 
       validateResponse(
@@ -105,11 +102,11 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<List<AttendanceEntity>?> fetchAttendancesHappeningByStudent(
-      Long studentId) async {
+  Future<List<AttendanceEntity>?> fetchHappeningByStudentId(
+      int studentId) async {
     try {
       final response = await http.get(
-        '/attendance/HappeningByStudent/$studentId',
+        '/attendance/happeningByStudent/$studentId',
       );
 
       validateResponse(
@@ -124,6 +121,27 @@ class AttendanceProvider extends BaseProvider {
           .toList();
 
       return attendances;
+    } catch (e) {
+      logError(e.toString());
+      return null;
+    }
+  }
+
+  Future<AttendanceEntity?> update(AttendanceEntity attendanceEntity) async {
+    try {
+      AttendanceDto attendanceDto = AttendanceDto.fromEntity(attendanceEntity);
+
+      final response = await http.put(
+        '/attendance',
+        body: attendanceDto.toJson(),
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      return AttendanceDto.fromJson(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
