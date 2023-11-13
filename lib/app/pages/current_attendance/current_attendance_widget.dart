@@ -30,14 +30,18 @@ class CurrentAttendanceWidget extends StatelessWidget {
                         leading: Icon(
                           key: const Key('live icon'),
                           Icons.online_prediction_outlined,
-                          color: controller.currentAttendance["zone"] == null ? AppColors.red1 : AppColors.green1,
+                          color: controller.currentAttendance["zone"] == null
+                              ? AppColors.red1
+                              : AppColors.green1,
                         ),
                         actions: [
                           IconButton(
                             onPressed: () {
                               showModalBottomSheet(
                                 context: context,
-                                builder: (context) => controller.currentAttendance["virtualZone"] == null
+                                builder: (context) => controller
+                                            .currentAttendance["virtualZone"] ==
+                                        null
                                     ? const CurrentAttendanceLocalSheet(
                                         title: "Chamada local",
                                       )
@@ -54,7 +58,8 @@ class CurrentAttendanceWidget extends StatelessWidget {
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
-                                  icon: const Icon(Icons.warning_amber_outlined),
+                                  icon:
+                                      const Icon(Icons.warning_amber_outlined),
                                   title: const Text("FINALIZAR CHAMADA"),
                                   content: const Text(
                                     "Ao confirmar, sua chamada será finalizada e poderá ser acessada navegando em turmas.",
@@ -111,7 +116,8 @@ class CurrentAttendanceWidget extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (context) => GestureDetector(
-                        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+                        onTap: () =>
+                            FocusManager.instance.primaryFocus?.unfocus(),
                         child: AlertDialog(
                           icon: const Icon(Icons.add_outlined),
                           title: const Text("Adicione um aluno"),
@@ -125,7 +131,8 @@ class CurrentAttendanceWidget extends StatelessWidget {
                                   ),
                                   const Spacing(8.0),
                                   TextFormField(
-                                    validator: (val) => controller.validator.validateNotNullInput(val),
+                                    validator: (val) => controller.validator
+                                        .validateNotNullInput(val),
                                     controller: controller.nameController,
                                     decoration: const InputDecoration(
                                       labelText: "Nome completo do aluno",
@@ -138,10 +145,14 @@ class CurrentAttendanceWidget extends StatelessWidget {
                                   ),
                                   const Spacing(4.0),
                                   TextFormField(
-                                    validator: (val) => controller.validator.validateRegistration(val),
-                                    controller: controller.registrationController,
+                                    validator: (val) => controller.validator
+                                        .validateRegistration(val),
+                                    controller:
+                                        controller.registrationController,
                                     keyboardType: TextInputType.number,
-                                    inputFormatters: [controller.mask.registration],
+                                    inputFormatters: [
+                                      controller.mask.registration
+                                    ],
                                     decoration: const InputDecoration(
                                       labelText: "Matrícula",
                                       border: OutlineInputBorder(
@@ -164,7 +175,8 @@ class CurrentAttendanceWidget extends StatelessWidget {
                             ),
                             TextButton(
                               onPressed: () async {
-                                if (!controller.formKey.currentState!.validate()) return;
+                                if (!controller.formKey.currentState!
+                                    .validate()) return;
                                 controller.addStudent();
                                 Get.back();
                                 Get.snackbar(
