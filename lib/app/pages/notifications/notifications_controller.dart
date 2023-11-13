@@ -5,11 +5,15 @@ class NotificationsController extends GetxController {
   final _notifications = <Map<String, dynamic>>[].obs;
 
   bool get isLoading => _isLoading.value;
+
   List get notifications => _notifications.toList();
+
   List get unreadNotifications =>
       _notifications.where((element) => !element["isRead"]).toList();
+
   List get readNotifications =>
       _notifications.where((element) => element["isRead"]).toList();
+
   int get totalUnreadNotifications => unreadNotifications.length;
 
   @override

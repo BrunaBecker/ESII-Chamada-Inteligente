@@ -6,7 +6,9 @@ class ProfileController extends GetxController {
   late final bool _isStudent;
 
   bool get isLoading => _isLoading.value;
+
   Map<String, dynamic> get user => _user;
+
   bool get isStudent => _isStudent;
 
   @override

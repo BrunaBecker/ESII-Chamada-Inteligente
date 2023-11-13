@@ -12,7 +12,6 @@ class AttendanceFilterOptions extends StatelessWidget {
         AttendanceFilterItem(
           label: "Filtrar",
           leading: Icons.filter_alt_outlined,
-          trailing: Icons.arrow_drop_down_outlined,
           onTap: () {},
         ),
         AttendanceFilterItem(
@@ -23,7 +22,6 @@ class AttendanceFilterOptions extends StatelessWidget {
         AttendanceFilterItem(
           label: "Ordenar",
           leading: Icons.filter_alt_outlined,
-          trailing: Icons.arrow_drop_down_outlined,
           onTap: () {},
         ),
       ],

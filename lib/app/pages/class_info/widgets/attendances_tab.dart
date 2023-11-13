@@ -31,7 +31,15 @@ class AttendancesTab extends StatelessWidget {
                       SizedBox(
                         width: double.maxFinite,
                         child: FilledButton.icon(
-                          onPressed: () {},
+                          onPressed: () async {
+                            // TODO: refactor dates
+                            controller.selectedDateRange =
+                                await showDateRangePicker(
+                              context: context,
+                              firstDate: DateTime(2023, 11, 1),
+                              lastDate: DateTime.now(),
+                            );
+                          },
                           icon: const Icon(Icons.date_range_outlined),
                           label: const Text("Filtrar por data"),
                         ),

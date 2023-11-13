@@ -12,6 +12,8 @@ import 'pages/classes/classes_bindings.dart';
 import 'pages/classes/classes_widget.dart';
 import 'pages/current_attendance/current_attendance_bindings.dart';
 import 'pages/current_attendance/current_attendance_widget.dart';
+import 'pages/daily_warnings/daily_warnings_bindings.dart';
+import 'pages/daily_warnings/daily_warnings_screen.dart';
 import 'pages/home/home_bindings.dart';
 import 'pages/home/home_widget.dart';
 import 'pages/login/login_bindings.dart';
@@ -49,6 +51,8 @@ abstract class AppRoutes {
   static const studentInfo = "/student-info";
 
   static const profile = "/profile";
+
+  static const dailyWarnings = "/daily-warnings";
 
   static final routes = <GetPage>[
     GetPage(
@@ -110,6 +114,11 @@ abstract class AppRoutes {
       name: profile,
       page: () => const ProfileWidget(),
       binding: ProfileBindings(),
+    ),
+    GetPage(
+      name: dailyWarnings,
+      page: () => const DailyWarningsScreen(),
+      binding: DailyWarningsBindings(),
     ),
   ];
 }

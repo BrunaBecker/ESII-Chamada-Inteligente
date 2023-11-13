@@ -6,7 +6,9 @@ class StudentInfoController extends GetxController {
   late final Map<String, dynamic> _selectedClass;
 
   bool get isLoading => _isLoading.value;
+
   Map<String, dynamic> get selectedStudent => _selectedStudent;
+
   Map<String, dynamic> get selectedClass => _selectedClass;
 
   @override
