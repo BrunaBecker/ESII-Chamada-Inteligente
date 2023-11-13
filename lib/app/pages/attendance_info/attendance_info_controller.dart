@@ -11,12 +11,20 @@ class AttendanceInfoController extends GetxController {
   final _isAscending = true.obs;
 
   bool get isLoading => _isLoading.value;
+
   Map<String, dynamic> get selectedAttendance => _selectedAttendance;
+
   Map<String, dynamic> get filters => _filters;
+
   List get sortOptions => _sortOptions;
+
   String get sortMode => _sortMode.value;
+
   bool get isAscending => _isAscending.value;
-  int get totalPresentStudents => selectedAttendance["students"].where((student) => student["status"] == 1).length;
+
+  int get totalPresentStudents => selectedAttendance["students"]
+      .where((student) => student["status"] == 1)
+      .length;
 
   @override
   void onReady() async {

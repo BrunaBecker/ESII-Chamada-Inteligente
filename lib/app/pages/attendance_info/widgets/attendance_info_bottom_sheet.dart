@@ -94,7 +94,8 @@ class AttendanceInfoBottomSheet extends StatelessWidget {
                           children: [
                             ListTile(
                               leading: const Icon(Icons.upload_file_outlined),
-                              title: const Text("Exportar em Formato Excel (XLSX)"),
+                              title: const Text(
+                                  "Exportar em Formato Excel (XLSX)"),
                               onTap: () {},
                             ),
                             ListTile(
@@ -104,7 +105,8 @@ class AttendanceInfoBottomSheet extends StatelessWidget {
                             ),
                             ListTile(
                               leading: const Icon(Icons.mail_outlined),
-                              title: const Text("Enviar para email em Formato Excel"),
+                              title: const Text(
+                                  "Enviar para email em Formato Excel"),
                               onTap: () {},
                             ),
                           ],

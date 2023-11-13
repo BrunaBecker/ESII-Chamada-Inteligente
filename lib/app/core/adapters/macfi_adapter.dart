@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'geolocator_adapter.dart';
 import 'package:http/http.dart' as http;
+
+import 'geolocator_adapter.dart';
 
 class AttendenceData {
   // TODO: Add more fields

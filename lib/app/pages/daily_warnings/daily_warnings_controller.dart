@@ -6,7 +6,9 @@ class DailyWarningsController extends GetxController {
   final _events = <Map<String, dynamic>>[].obs;
 
   bool get isLoading => _isLoading.value;
+
   DateTime get day => _day;
+
   List<Map<String, dynamic>> get events => _events;
 
   @override

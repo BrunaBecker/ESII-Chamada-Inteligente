@@ -22,13 +22,21 @@ class CalendarController extends GetxController {
   final _selectedDayEvents = <Map<String, dynamic>>[].obs;
 
   ValidatorAdapter get validator => _validator;
+
   bool get isLoading => _isLoading.value;
+
   GlobalKey<FormState> get formKey => _formKey;
+
   TextEditingController get classNameController => _classNameController;
+
   TextEditingController get eventController => _eventController;
+
   TextEditingController get commentController => _commentController;
+
   DateTime? get selectedDate => _selectedDate.value;
+
   List<Map<String, dynamic>> get events => _events;
+
   List<Map<String, dynamic>> get selectedDayEvents => _selectedDayEvents;
 
   @override
@@ -84,7 +92,9 @@ class CalendarController extends GetxController {
       _selectedDayEvents.addAll(
         events.where(
           (event) {
-            return event["startTime"].day == date.day && event["startTime"].month == date.month && event["startTime"].year == date.year;
+            return event["startTime"].day == date.day &&
+                event["startTime"].month == date.month &&
+                event["startTime"].year == date.year;
           },
         ),
       );

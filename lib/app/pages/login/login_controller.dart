@@ -19,9 +19,13 @@ class LoginController extends GetxController {
   final _formKey = GlobalKey<FormState>();
 
   MaskAdapter get mask => _mask;
+
   ValidatorAdapter get validator => _validator;
+
   bool get isLoading => _isLoading.value;
+
   bool get isVisible => _isVisible.value;
+
   GlobalKey<FormState> get formKey => _formKey;
 
   void togglePasswordVisibility() {

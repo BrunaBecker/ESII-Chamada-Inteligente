@@ -33,7 +33,8 @@ class AttendancesTab extends StatelessWidget {
                         child: FilledButton.icon(
                           onPressed: () async {
                             // TODO: refactor dates
-                            controller.selectedDateRange = await showDateRangePicker(
+                            controller.selectedDateRange =
+                                await showDateRangePicker(
                               context: context,
                               firstDate: DateTime(2023, 11, 1),
                               lastDate: DateTime.now(),

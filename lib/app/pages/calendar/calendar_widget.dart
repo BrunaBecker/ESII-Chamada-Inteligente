@@ -30,7 +30,8 @@ class CalendarWidget extends StatelessWidget {
                           child: CalendarAdapter(
                             onSelectionChanged: (calendarSelectionDetails) {
                               if (calendarSelectionDetails.date == null) return;
-                              controller.changeDate(calendarSelectionDetails.date!);
+                              controller
+                                  .changeDate(calendarSelectionDetails.date!);
                             },
                             events: controller.events,
                           ),
@@ -49,15 +50,19 @@ class CalendarWidget extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      AppDateUtils.appDateFormat.format(controller.selectedDate!),
-                                      style: const TextStyle(color: AppColors.onSurface),
+                                      AppDateUtils.appDateFormat
+                                          .format(controller.selectedDate!),
+                                      style: const TextStyle(
+                                          color: AppColors.onSurface),
                                     ),
                                   ],
                                 ),
                                 subtitle: Obx(
                                   () => controller.selectedDayEvents.isNotEmpty
-                                      ? const Text("Ver avisos sobre as aulas do dia selecionado.")
-                                      : const Text("Nenhum aviso para o dia selecionado."),
+                                      ? const Text(
+                                          "Ver avisos sobre as aulas do dia selecionado.")
+                                      : const Text(
+                                          "Nenhum aviso para o dia selecionado."),
                                 ),
                                 leading: const Icon(Icons.calendar_today),
                                 onTap: () {

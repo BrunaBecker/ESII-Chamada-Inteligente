@@ -10,6 +10,7 @@ class ClassesController extends GetxController {
   final _classesList = <Map<String, dynamic>>[].obs;
 
   bool get isLoading => _isLoading.value;
+
   List<Map<String, dynamic>> get classesList => _classesList;
 
   @override

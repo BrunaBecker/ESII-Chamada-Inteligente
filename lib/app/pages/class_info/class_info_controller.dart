@@ -14,8 +14,11 @@ class ClassInfoController extends GetxController {
   DateTimeRange? _selectedDateRange;
 
   ChartAdapter get chart => _chart;
+
   bool get isLoading => _isLoading.value;
+
   Map<String, dynamic> get selectedClass => _selectedClass;
+
   DateTimeRange? get selectedDateRange => _selectedDateRange;
 
   set selectedDateRange(DateTimeRange? value) {

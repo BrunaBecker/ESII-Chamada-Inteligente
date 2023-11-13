@@ -22,11 +22,17 @@ class CurrentAttendanceController extends GetxController {
   final _registrationController = TextEditingController();
 
   MaskAdapter get mask => _mask;
+
   ValidatorAdapter get validator => _validator;
+
   bool get isLoading => _isLoading.value;
+
   Map<String, dynamic> get currentAttendance => _currentAttendance;
+
   GlobalKey<FormState> get formKey => _formKey;
+
   TextEditingController get nameController => _nameController;
+
   TextEditingController get registrationController => _registrationController;
 
   @override
