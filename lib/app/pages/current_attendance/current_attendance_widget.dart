@@ -28,6 +28,7 @@ class CurrentAttendanceWidget extends StatelessWidget {
                     ? null
                     : AppBar(
                         leading: Icon(
+                          key: const Key('live icon'),
                           Icons.online_prediction_outlined,
                           color: controller.currentAttendance["zone"] == null
                               ? AppColors.red1

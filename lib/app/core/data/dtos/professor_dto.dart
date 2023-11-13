@@ -2,12 +2,8 @@ import 'dart:convert';
 
 import '../../domain/entities/professor_entity.dart';
 import '../../utils/app_date_utils.dart';
-import 'classroom_dto.dart';
-import 'comment_dto.dart';
-import 'location_dto.dart';
-import 'notification_dto.dart';
 import 'picture_dto.dart';
-import 'register_professor_dto.dart';
+import 'register_college_id_dto.dart';
 import 'setting_dto.dart';
 
 class ProfessorDto extends ProfessorEntity {
@@ -20,7 +16,7 @@ class ProfessorDto extends ProfessorEntity {
     required super.cpf,
     required super.email,
     required super.password,
-    super.siape,
+    required super.register,
     super.setting,
     required super.profileImage,
   });
@@ -35,40 +31,13 @@ class ProfessorDto extends ProfessorEntity {
       cpf: entity.cpf,
       email: entity.email,
       password: entity.password,
-      siape: entity.siape,
+      register: entity.register,
       setting: entity.setting,
       profileImage: entity.profileImage,
     );
   }
 
   factory ProfessorDto.fromMap(Map<String, dynamic> map) {
-    // Mapping Comments
-    List<CommentDto> comments = [];
-    for (var comment in map["comments"]) {
-      comments.add(CommentDto.fromMap(comment));
-    }
-    // Mapping Notifications
-    List<NotificationDto> notifications = [];
-    for (var notification in map["notifications"]) {
-      notifications.add(NotificationDto.fromMap(notification));
-    }
-    // Mapping Locations
-    List<LocationDto> locations = [];
-    for (var location in map["locations"]) {
-      locations.add(LocationDto.fromMap(location));
-    }
-    // Mapping Classrooms
-    List<ClassroomDto> classrooms = [];
-    for (var classroom in map["classrooms"]) {
-      classrooms.add(ClassroomDto.fromMap(classroom));
-    }
-
-    // Checking non required fields
-    RegisterProfessorDto? siape;
-    if (map["siape"] != null) {
-      siape = RegisterProfessorDto.fromMap(map["siape"]);
-    }
-
     SettingDto? setting;
     if (map["setting"] != null) {
       setting = SettingDto.fromMap(map["setting"]);
@@ -83,7 +52,7 @@ class ProfessorDto extends ProfessorEntity {
       cpf: map["cpf"],
       email: map["email"],
       password: map["password"],
-      siape: siape,
+      register: RegisterCollegeIdDto.fromMap(map["register"]),
       setting: setting,
       profileImage: PictureDto.fromMap(map["profileImage"]),
     );
@@ -99,10 +68,7 @@ class ProfessorDto extends ProfessorEntity {
       "cpf": cpf,
       "email": email,
       "password": password,
-      "siape": siape != null
-          ? RegisterProfessorDto.fromEntity(siape as RegisterProfessorDto)
-              .toMap()
-          : null,
+      "register": RegisterCollegeIdDto.fromEntity(register).toMap(),
       "setting":
           setting != null ? SettingDto.fromEntity(setting!).toMap() : null,
       "profileImage": profileImage != null

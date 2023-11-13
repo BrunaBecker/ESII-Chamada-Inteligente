@@ -1,6 +1,6 @@
+import '../../enums/user_types.dart';
 import 'person_entity.dart';
 import 'picture_entity.dart';
-import 'register_college_id_entity.dart';
 import 'setting_entity.dart';
 
 class ProfessorEntity extends PersonEntity {
@@ -13,13 +13,13 @@ class ProfessorEntity extends PersonEntity {
     required super.cpf,
     required super.email,
     required this.password,
-    this.siape,
+    required super.register,
     this.setting,
     required this.profileImage,
   });
 
-  RegisterCollegeIdEntity? siape;
   SettingEntity? setting;
   PictureEntity? profileImage;
   String password;
+  final UserTypes type = UserTypes.professor;
 }
