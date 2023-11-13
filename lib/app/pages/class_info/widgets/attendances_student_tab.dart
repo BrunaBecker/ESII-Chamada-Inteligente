@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../app_routes.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/spacing.dart';
 import '../class_info_controller.dart';
+import 'student_attendance_trailing.dart';
 
-class AttendancesTab extends StatelessWidget {
-  const AttendancesTab({super.key});
+class AttendancesStudentTab extends StatelessWidget {
+  const AttendancesStudentTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,26 +49,18 @@ class AttendancesTab extends StatelessWidget {
                       ),
                       Expanded(
                         child: ListView.separated(
-                          itemCount:
-                              controller.selectedClass["attendances"].length,
+                          itemCount: controller.selectedClass["attendances"].length,
                           itemBuilder: (context, index) {
-                            final item =
-                                controller.selectedClass["attendances"][index];
+                            final item = controller.selectedClass["attendances"][index];
                             return ListTile(
                               title: Text(item["date"]),
                               subtitle: Text(item["description"]),
-                              trailing: IconButton(
-                                icon: const Icon(
-                                  Icons.mode_edit_outline_outlined,
+                              trailing: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: StudentAttendanceTrailing(
+                                  status: item["attendanceStatus"],
+                                  isVerified: item["statusVerified"],
                                 ),
-                                onPressed: () {
-                                  Get.toNamed(
-                                    AppRoutes.attendanceInfo,
-                                    arguments: {
-                                      "attendanceInfo": item,
-                                    },
-                                  );
-                                },
                               ),
                               contentPadding: const EdgeInsets.only(
                                 left: 16.0,

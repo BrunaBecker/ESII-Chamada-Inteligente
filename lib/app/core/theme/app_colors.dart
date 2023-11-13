@@ -46,4 +46,6 @@ abstract class AppColors {
   static const amberPastelDarker = Color(0xffE7C160);
 
   static const orange = Color(0xffF2994A);
+
+  static const yellow = Color(0xffF2C94C);
 }

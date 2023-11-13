@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import '../../../core/theme/app_colors.dart';
 import '../class_info_controller.dart';
 
-class StudentsTab extends StatelessWidget {
-  const StudentsTab({super.key});
+class StudentsProfessorTab extends StatelessWidget {
+  const StudentsProfessorTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +43,7 @@ class StudentsTab extends StatelessWidget {
                               ),
                             ),
                             style: ButtonStyle(
-                              iconColor: MaterialStateProperty.all(
-                                  AppColors.onSurface),
+                              iconColor: MaterialStateProperty.all(AppColors.onSurface),
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0),
@@ -77,11 +76,9 @@ class StudentsTab extends StatelessWidget {
                       ),
                       Expanded(
                         child: ListView.builder(
-                          itemCount:
-                              controller.selectedClass["students"].length,
+                          itemCount: controller.selectedClass["students"].length,
                           itemBuilder: (context, index) {
-                            final item =
-                                controller.selectedClass["students"][index];
+                            final item = controller.selectedClass["students"][index];
                             return ListTile(
                               leading: Container(
                                 width: 40,
