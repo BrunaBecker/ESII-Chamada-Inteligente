@@ -92,6 +92,7 @@ class AttendanceForm extends StatelessWidget {
                     ),
                     const Spacing(8.0),
                     TextFormField(
+                      key: const Key('hour start form'),
                       validator: (val) =>
                           controller.validator.validateNotNullInput(val),
                       controller: controller.startTimeController,
@@ -102,6 +103,7 @@ class AttendanceForm extends StatelessWidget {
                         labelText: "Início",
                         hintText: "09:30",
                         suffixIcon: IconButton(
+                          key: const Key('select start class button'),
                           onPressed: () async {
                             final time = await showTimePicker(
                               context: context,
@@ -128,6 +130,7 @@ class AttendanceForm extends StatelessWidget {
                       child: Row(
                         children: [
                           Switch(
+                            key: const Key('End call manually switch'),
                             value: controller.manualEnd,
                             onChanged: (_) => controller.toggleManualEnd(),
                           ),
@@ -149,6 +152,7 @@ class AttendanceForm extends StatelessWidget {
                     controller.manualEnd
                         ? const SizedBox()
                         : TextFormField(
+                            key: const Key('hour end form'),
                             validator: (val) =>
                                 controller.validator.validateNotNullInput(val),
                             controller: controller.endTimeController,
@@ -159,6 +163,7 @@ class AttendanceForm extends StatelessWidget {
                               labelText: "Fim",
                               hintText: "11:30",
                               suffixIcon: IconButton(
+                                key: const Key('select end class button'),
                                 onPressed: () async {
                                   final time = await showTimePicker(
                                     context: context,
@@ -183,6 +188,7 @@ class AttendanceForm extends StatelessWidget {
                       child: Row(
                         children: [
                           Checkbox(
+                            key: const Key('preset check'),
                             value: controller.saveSettings,
                             onChanged: (_) => controller.toggleSaveSettings(),
                           ),

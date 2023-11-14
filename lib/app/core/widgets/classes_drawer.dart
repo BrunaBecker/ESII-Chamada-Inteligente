@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../pages/classes/classes_controller.dart';
 import '../theme/app_colors.dart';
 import 'spacing.dart';
-import '../../pages/classes/classes_controller.dart';
 
 class ClassesDrawer extends StatelessWidget {
   const ClassesDrawer({super.key});
@@ -55,6 +55,7 @@ class ClassesDrawer extends StatelessWidget {
 
                       final item = controller.classesList[index];
                       return ListTile(
+                        key: const Key('drawer class tile'),
                         onTap: () {
                           controller.toggleAttendance(index);
                           debugPrint(item["activeAttendance"].toString());

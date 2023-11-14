@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import '../../app_routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/bottom_nav_bar.dart';
+import '../../core/widgets/classes_drawer.dart';
 import '../../core/widgets/profile_picture_button.dart';
 import 'classes_controller.dart';
-import '../../core/widgets/classes_drawer.dart';
 
 class ClassesWidget extends StatelessWidget {
   const ClassesWidget({super.key});
@@ -38,6 +38,7 @@ class ClassesWidget extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final item = controller.classesList[index];
                     return ListTile(
+                      key: const Key('list tile class'),
                       onTap: () {},
                       contentPadding: EdgeInsets.zero,
                       leading: Container(
@@ -76,6 +77,7 @@ class ClassesWidget extends StatelessWidget {
                       trailing: Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: PopupMenuButton(
+                          key: const Key('interact class ellipsis button'),
                           itemBuilder: (BuildContext context) => [
                             PopupMenuItem(
                               onTap: () {},
@@ -91,6 +93,7 @@ class ClassesWidget extends StatelessWidget {
                               ),
                             ),
                             PopupMenuItem(
+                              key: const Key('Ver mais button'),
                               onTap: () => Get.toNamed(
                                 AppRoutes.classInfo,
                                 arguments: {

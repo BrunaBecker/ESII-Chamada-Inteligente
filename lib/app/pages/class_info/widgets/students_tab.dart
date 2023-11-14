@@ -103,6 +103,8 @@ class StudentsTab extends StatelessWidget {
                               ),
                               title: Text(item["name"]),
                               trailing: IconButton(
+                                key: const Key(
+                                    'go to student information button'),
                                 icon: const Icon(Icons.arrow_right_outlined),
                                 onPressed: () {
                                   Get.toNamed(

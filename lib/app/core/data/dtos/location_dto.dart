@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import '../../domain/entities/location_entity.dart';
 import 'classroom_dto.dart';
 import 'coordinate_dto.dart';
-import '../../domain/entities/location_entity.dart';
 import 'professor_dto.dart';
 import 'virtual_zone_dto.dart';
 

@@ -29,9 +29,13 @@ class LoginController extends GetxController {
   final _passwordController = TextEditingController();
 
   MaskAdapter get mask => _mask;
+
   ValidatorAdapter get validator => _validator;
+
   bool get isLoading => _isLoading.value;
+
   bool get isVisible => _isVisible.value;
+
   GlobalKey<FormState> get formKey => _formKey;
   TextEditingController get registrationController => _registrationController;
   TextEditingController get passwordController => _passwordController;

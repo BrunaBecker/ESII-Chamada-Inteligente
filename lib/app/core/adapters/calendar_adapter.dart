@@ -10,14 +10,17 @@ class CalendarAdapter extends StatelessWidget {
   const CalendarAdapter({
     super.key,
     this.events = const [],
+    this.onSelectionChanged,
   });
 
   final List<Map<String, dynamic>> events;
+  final Function(CalendarSelectionDetails)? onSelectionChanged;
 
   @override
   Widget build(BuildContext context) {
     return SfCalendar(
       view: CalendarView.month,
+      onSelectionChanged: onSelectionChanged,
       firstDayOfWeek: 1,
       monthViewSettings: const MonthViewSettings(
         appointmentDisplayMode: MonthAppointmentDisplayMode.indicator,
