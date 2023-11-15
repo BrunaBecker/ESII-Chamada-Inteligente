@@ -27,7 +27,8 @@ void main() {
       await goToCalendarPage(tester);
 
       final Finder calendarControllerFinger = find.byType(SfCalendar);
-      CalendarController t = tester.widget(calendarControllerFinger) as CalendarController;
+      CalendarController t =
+          tester.widget(calendarControllerFinger) as CalendarController;
     });
   });
 }
