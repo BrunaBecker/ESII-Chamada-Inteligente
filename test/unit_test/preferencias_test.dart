@@ -6,7 +6,7 @@ import '../integration_test/login_test.dart';
 
 Future<void> goToPreferencesPage(WidgetTester tester) async {
   final Finder notificationButton =
-  find.byKey(const Key('preferências_button'));
+      find.byKey(const Key('preferências_button'));
   await tester.tap(notificationButton);
   await tester.pumpAndSettle();
 
@@ -17,7 +17,8 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Preferences page unit tests', () {
-    testWidgets('Proper functionality of preset switch', (WidgetTester tester) async {
+    testWidgets('Proper functionality of preset switch',
+        (WidgetTester tester) async {
       // Run the app
       app.main();
       await tester.pumpAndSettle();
@@ -25,7 +26,8 @@ void main() {
       await login(tester);
       await goToPreferencesPage(tester);
 
-      final presetSwitchFinder = find.byKey(const Key('preferences preset switch')).at(0);
+      final presetSwitchFinder =
+          find.byKey(const Key('preferences preset switch')).at(0);
 
       expect(presetSwitchFinder, findsOneWidget);
       expect((tester.widget(presetSwitchFinder) as Switch).value, isTrue);
@@ -34,10 +36,10 @@ void main() {
       await tester.pumpAndSettle();
 
       expect((tester.widget(presetSwitchFinder) as Switch).value, isFalse);
-
     });
 
-    testWidgets('Proper functionality of saving location', (WidgetTester tester) async {
+    testWidgets('Proper functionality of saving location',
+        (WidgetTester tester) async {
       // Run the app
       app.main();
       await tester.pumpAndSettle();
@@ -45,7 +47,8 @@ void main() {
       await login(tester);
       await goToPreferencesPage(tester);
 
-      final presetSwitchFinder = find.byKey(const Key('preferences preset switch')).at(1);
+      final presetSwitchFinder =
+          find.byKey(const Key('preferences preset switch')).at(1);
 
       expect(presetSwitchFinder, findsOneWidget);
       expect((tester.widget(presetSwitchFinder) as Switch).value, isTrue);
@@ -54,11 +57,10 @@ void main() {
       await tester.pumpAndSettle();
 
       expect((tester.widget(presetSwitchFinder) as Switch).value, isFalse);
-
     });
 
-
-    testWidgets('Proper functionality of silence notifications', (WidgetTester tester) async {
+    testWidgets('Proper functionality of silence notifications',
+        (WidgetTester tester) async {
       // Run the app
       app.main();
       await tester.pumpAndSettle();
@@ -66,7 +68,8 @@ void main() {
       await login(tester);
       await goToPreferencesPage(tester);
 
-      final presetSwitchFinder = find.byKey(const Key('preferences preset switch')).at(2);
+      final presetSwitchFinder =
+          find.byKey(const Key('preferences preset switch')).at(2);
 
       expect(presetSwitchFinder, findsOneWidget);
       expect((tester.widget(presetSwitchFinder) as Switch).value, isFalse);
@@ -75,7 +78,6 @@ void main() {
       await tester.pumpAndSettle();
 
       expect((tester.widget(presetSwitchFinder) as Switch).value, isTrue);
-
     });
 
     testWidgets('My locations option card', (WidgetTester tester) async {
@@ -91,7 +93,6 @@ void main() {
       expect(myLocationsFinder, findsOneWidget);
       await tester.tap(myLocationsFinder);
       await tester.pumpAndSettle();
-
     });
 
     testWidgets('Change app theme option card', (WidgetTester tester) async {
@@ -107,7 +108,6 @@ void main() {
       expect(themeFinder, findsOneWidget);
       await tester.tap(themeFinder);
       await tester.pumpAndSettle();
-
     });
 
     testWidgets('About application and help card', (WidgetTester tester) async {
@@ -123,7 +123,6 @@ void main() {
       expect(helpFinder, findsOneWidget);
       await tester.tap(helpFinder);
       await tester.pumpAndSettle();
-
     });
   });
 }
