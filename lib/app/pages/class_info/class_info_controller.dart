@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app_controller.dart';
@@ -15,12 +16,22 @@ class ClassInfoController extends GetxController {
   final _isLoading = true.obs;
   late final _selectedClass = <String, dynamic>{}.obs;
   final _selectedStudent = Rx<Map<String, dynamic>?>(null);
+  final _justificationFileNameController = TextEditingController();
+  final _justificationTitleController = TextEditingController();
+  final _justificationDescriptionController = TextEditingController();
 
   ChartAdapter get chart => _chart;
   bool get isLoading => _isLoading.value;
   Map<String, dynamic> get selectedClass => _selectedClass;
   Map<String, dynamic>? get selectedStudent => _selectedStudent.value;
-  bool get isProfessor => Get.find<AppController>().userType == UserType.professor;
+  bool get isProfessor =>
+      Get.find<AppController>().userType == UserType.professor;
+  TextEditingController get justificationFileNameController =>
+      _justificationFileNameController;
+  TextEditingController get justificationTitleController =>
+      _justificationTitleController;
+  TextEditingController get justificationDescriptionController =>
+      _justificationDescriptionController;
 
   @override
   void onReady() async {
@@ -31,13 +42,15 @@ class ClassInfoController extends GetxController {
       "name": "Aluno 1",
       "status": StudentAtAttendanceState.fromInt(Random().nextInt(3)),
       "confirmed": Random().nextInt(3) != 1,
-      "registration": "120031${Random().nextInt(100).toString().padLeft(3, "0")}",
+      "registration":
+          "120031${Random().nextInt(100).toString().padLeft(3, "0")}",
       "justifications": [
         {
           "date": DateTime(2023, 10, 03),
           "file": null,
           "title": "Quebrei a perna",
-          "description": "Eu quebrei a perna, professor, não consigo ir até a faculdade.",
+          "description":
+              "Eu quebrei a perna, professor, não consigo ir até a faculdade.",
           "attach_file": null,
           "approved": null,
         },
@@ -45,7 +58,8 @@ class ClassInfoController extends GetxController {
           "date": DateTime(2023, 10, 05),
           "file": null,
           "title": "Quebrei o braço.",
-          "description": "Eu quebrei o braço, professor, não consigo ir até a faculdade.",
+          "description":
+              "Eu quebrei o braço, professor, não consigo ir até a faculdade.",
           "attach_file": null,
           "approved": null,
         },

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../core/enums/student_at_attendance_state.dart';
 import '../../../core/theme/app_colors.dart';
 import '../class_info_controller.dart';
+import 'justification_dialog.dart';
 
 class StudentAttendanceTrailing extends StatelessWidget {
   const StudentAttendanceTrailing({
@@ -30,7 +31,12 @@ class StudentAttendanceTrailing extends StatelessWidget {
               ),
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  onTap: () {},
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => const JustificationDialog(),
+                    );
+                  },
                   child: const ListTile(
                     leading: Icon(
                       Icons.indeterminate_check_box,
