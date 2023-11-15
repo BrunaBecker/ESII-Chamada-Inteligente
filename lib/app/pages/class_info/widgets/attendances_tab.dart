@@ -31,19 +31,14 @@ class AttendancesTab extends StatelessWidget {
                       SizedBox(
                         width: double.maxFinite,
                         child: FilledButton.icon(
+                          key: const Key('filter by date button'),
                           onPressed: () async {
-                            final range = await showDateRangePicker(
+                            // TODO: refactor dates
+                            controller.selectedDateRange = await showDateRangePicker(
                               context: context,
-                              firstDate: DateTime(2021),
-                              lastDate: DateTime(2024),
-                              currentDate: DateTime.now(),
+                              firstDate: DateTime(2023, 11, 1),
+                              lastDate: DateTime.now(),
                             );
-                            if (range != null) {
-                              controller.filterAttendancesByDate(
-                                range.start,
-                                range.end,
-                              );
-                            }
                           },
                           icon: const Icon(Icons.date_range_outlined),
                           label: const Text("Filtrar por data"),
@@ -62,16 +57,15 @@ class AttendancesTab extends StatelessWidget {
                       ),
                       Expanded(
                         child: ListView.separated(
-                          itemCount:
-                              controller.selectedClass["attendances"].length,
+                          itemCount: controller.selectedClass["attendances"].length,
                           itemBuilder: (context, index) {
-                            final item =
-                                controller.selectedClass["attendances"][index];
+                            final item = controller.selectedClass["attendances"][index];
                             return ListTile(
                               title: Text(item["date"]),
                               subtitle: Text(item["description"]),
                               trailing: IconButton(
                                 icon: const Icon(
+                                  key: Key('edit roll call button'),
                                   Icons.mode_edit_outline_outlined,
                                 ),
                                 onPressed: () {

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/widgets/bottom_nav_bar.dart';
+import 'settings_controller.dart';
 import 'widgets/settings_options.dart';
 import 'widgets/settings_title.dart';
-import 'settings_controller.dart';
 
 class SettingsWidget extends StatelessWidget {
   const SettingsWidget({super.key});

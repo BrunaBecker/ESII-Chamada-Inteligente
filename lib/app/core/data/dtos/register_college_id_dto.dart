@@ -1,19 +1,19 @@
 import 'dart:convert';
 
-import '../../domain/entities/register_professor_entity.dart';
+import '../../domain/entities/register_college_id_entity.dart';
 import '../../utils/app_date_utils.dart';
 
-class RegisterProfessorDto extends RegisterProfessorEntity {
-  RegisterProfessorDto({
+class RegisterCollegeIdDto extends RegisterCollegeIdEntity {
+  RegisterCollegeIdDto({
     required super.id,
     required super.identifier,
     required super.dateStarted,
     required super.dateFinished,
-    required super.isActive,
+    super.isActive,
   });
 
-  factory RegisterProfessorDto.fromEntity(RegisterProfessorEntity entity) {
-    return RegisterProfessorDto(
+  factory RegisterCollegeIdDto.fromEntity(RegisterCollegeIdEntity entity) {
+    return RegisterCollegeIdDto(
       id: entity.id,
       identifier: entity.identifier,
       dateStarted: entity.dateStarted,
@@ -22,8 +22,8 @@ class RegisterProfessorDto extends RegisterProfessorEntity {
     );
   }
 
-  factory RegisterProfessorDto.fromMap(Map<String, dynamic> map) {
-    return RegisterProfessorDto(
+  factory RegisterCollegeIdDto.fromMap(Map<String, dynamic> map) {
+    return RegisterCollegeIdDto(
       id: map["id"],
       identifier: map["identifier"],
       dateStarted: AppDateUtils.storageDateFormat.parse(map["dateStarted"]),
@@ -42,8 +42,8 @@ class RegisterProfessorDto extends RegisterProfessorEntity {
     };
   }
 
-  factory RegisterProfessorDto.fromJson(String source) =>
-      RegisterProfessorDto.fromMap(json.decode(source));
+  factory RegisterCollegeIdDto.fromJson(String source) =>
+      RegisterCollegeIdDto.fromMap(json.decode(source));
 
   String toJson() => json.encode(toMap());
 }

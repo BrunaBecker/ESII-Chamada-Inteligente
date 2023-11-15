@@ -49,6 +49,7 @@ class AttendanceInfoWidget extends StatelessWidget {
                           child: AttendanceSearchForm(),
                         ),
                         Text(
+                          key: const Key('frequency richtext'),
                           "De ${controller.selectedAttendance["students"].length} alunos, ${controller.totalPresentStudents} estavam presentes",
                           style: const TextStyle(
                             color: AppColors.black,

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../app_routes.dart';
 import '../../core/adapters/calendar_adapter.dart';
-import '../../core/enums/event_status.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/utils/app_date_utils.dart';
 import '../../core/widgets/bottom_nav_bar.dart';
+import 'calendar_controller.dart';
+import 'widgets/event_form_dialog.dart';
 
 class CalendarWidget extends StatelessWidget {
   const CalendarWidget({super.key});
@@ -10,36 +15,102 @@ class CalendarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: Container(
-          alignment: Alignment.center,
-          child: CalendarAdapter(
-            events: [
-              {
-                "startTime": DateTime.now().add(const Duration(hours: -6)),
-                "endTime": DateTime.now().add(const Duration(hours: -4)),
-                "class": "Engenharia de Software II",
-                "status": EventStatus.classNormal,
-                "color": AppColors.green1,
-              },
-              {
-                "startTime": DateTime.now().add(const Duration(hours: -6)),
-                "endTime": DateTime.now().add(const Duration(hours: -4)),
-                "class": "Redes de Computadores II",
-                "status": EventStatus.classCancelled,
-                "color": AppColors.redDarker,
-              },
-              {
-                "startTime": DateTime.now().add(const Duration(hours: -6)),
-                "endTime": DateTime.now().add(const Duration(hours: -4)),
-                "class": "Lógica Para Ciência da Computação",
-                "status": EventStatus.classNormalRecurrent,
-                "color": AppColors.orange,
-              },
-            ],
+      child: GetBuilder<CalendarController>(
+        init: Get.find<CalendarController>(),
+        builder: (controller) => Scaffold(
+          body: Obx(
+            () => controller.isLoading
+                ? const CircularProgressIndicator()
+                : Container(
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 500,
+                          child: CalendarAdapter(
+                            onSelectionChanged: (calendarSelectionDetails) {
+                              if (calendarSelectionDetails.date == null) return;
+                              controller
+                                  .changeDate(calendarSelectionDetails.date!);
+                            },
+                            events: controller.events,
+                          ),
+                        ),
+                        controller.selectedDate != null
+                            ? ListTile(
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "Avisos",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.onSurfaceVariant,
+                                      ),
+                                    ),
+                                    Text(
+                                      AppDateUtils.appDateFormat
+                                          .format(controller.selectedDate!),
+                                      style: const TextStyle(
+                                          color: AppColors.onSurface),
+                                    ),
+                                  ],
+                                ),
+                                subtitle: Obx(
+                                  () => controller.selectedDayEvents.isNotEmpty
+                                      ? const Text(
+                                          "Ver avisos sobre as aulas do dia selecionado.")
+                                      : const Text(
+                                          "Nenhum aviso para o dia selecionado."),
+                                ),
+                                leading: const Icon(Icons.calendar_today),
+                                onTap: () {
+                                  if (controller.selectedDayEvents.isNotEmpty) {
+                                    Get.toNamed(
+                                      AppRoutes.dailyWarnings,
+                                      arguments: {
+                                        "day": controller.selectedDate,
+                                        "events": controller.selectedDayEvents,
+                                      },
+                                    );
+                                  }
+                                },
+                              )
+                            : Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12.0,
+                                  vertical: 28.0,
+                                ),
+                                alignment: Alignment.centerLeft,
+                                child: const Text(
+                                  "Selecione uma data para ver os avisos.",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.onSurfaceVariant,
+                                  ),
+                                ),
+                              ),
+                      ],
+                    ),
+                  ),
           ),
+          floatingActionButton: FloatingActionButton.small(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => const EventFormDialog(),
+              );
+            },
+            backgroundColor: AppColors.surfaceContainerHigh,
+            child: const Icon(
+              Icons.add,
+              color: AppColors.primary,
+            ),
+          ),
+          bottomNavigationBar: const BottomNavBar(),
         ),
-        bottomNavigationBar: const BottomNavBar(),
       ),
     );
   }
