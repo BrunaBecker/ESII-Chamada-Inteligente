@@ -32,18 +32,31 @@ class AttendanceSettingsController extends GetxController {
   final _endTimeController = TextEditingController().obs;
 
   MaskAdapter get mask => _mask;
+
   ValidatorAdapter get validator => _validator;
+
   bool get isLoading => _isLoading.value;
+
   bool get isCreatingAttendance => _isStartingAttendance.value;
+
   GlobalKey<FormState> get formKey => _formKey;
+
   List<String> get classList => _allClassList;
+
   List<String> get searchClassList => _searchClassList;
+
   String get selectedClass => _selectedClass.value;
+
   bool get usePreset => _usePreset.value;
+
   bool get manualEnd => _manualEnd.value;
+
   bool get saveSettings => _savePreset.value;
+
   TextEditingController get dateController => _dateController.value;
+
   TextEditingController get startTimeController => _startTimeController.value;
+
   TextEditingController get endTimeController => _endTimeController.value;
 
   @override

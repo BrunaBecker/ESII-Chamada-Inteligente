@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
+import 'attendance_info_bottom_sheet.dart';
 
 class AttendanceFilterItem extends StatelessWidget {
   const AttendanceFilterItem({
@@ -22,7 +23,14 @@ class AttendanceFilterItem extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4.0),
         child: OutlinedButton(
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return const AttendanceInfoBottomSheet();
+              },
+            );
+          },
           style: ButtonStyle(
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
@@ -39,6 +47,7 @@ class AttendanceFilterItem extends StatelessWidget {
                   ? Icon(
                       leading,
                       color: AppColors.black,
+                      size: 18,
                     )
                   : const SizedBox.shrink(),
               Padding(

@@ -11,6 +11,7 @@ class ClassesController extends GetxController {
   final _classesList = <Map<String, dynamic>>[].obs;
 
   bool get isLoading => _isLoading.value;
+
   List<Map<String, dynamic>> get classesList => _classesList;
   UserType? get userType => Get.find<AppController>().userType;
   bool get isProfessor => userType == UserType.professor;

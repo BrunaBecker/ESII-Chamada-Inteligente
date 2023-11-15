@@ -19,10 +19,21 @@ class ClassInfoController extends GetxController {
   final _justificationFileNameController = TextEditingController();
   final _justificationTitleController = TextEditingController();
   final _justificationDescriptionController = TextEditingController();
+  DateTimeRange? _selectedDateRange;
 
   ChartAdapter get chart => _chart;
+
   bool get isLoading => _isLoading.value;
+
   Map<String, dynamic> get selectedClass => _selectedClass;
+
+  DateTimeRange? get selectedDateRange => _selectedDateRange;
+
+  set selectedDateRange(DateTimeRange? value) {
+    _selectedDateRange = value;
+    update();
+  }
+
   Map<String, dynamic>? get selectedStudent => _selectedStudent.value;
   bool get isProfessor =>
       Get.find<AppController>().userType == UserType.professor;

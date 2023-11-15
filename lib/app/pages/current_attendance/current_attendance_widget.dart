@@ -6,6 +6,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/widgets/bottom_nav_bar.dart';
 import '../../core/widgets/spacing.dart';
 import 'current_attendance_controller.dart';
+import 'widgets/current_attendance_local_sheet.dart';
 import 'widgets/current_attendance_search_bar.dart';
 import 'widgets/current_attendance_student_list.dart';
 import 'widgets/current_attendance_title_bar.dart';
@@ -27,6 +28,7 @@ class CurrentAttendanceWidget extends StatelessWidget {
                     ? null
                     : AppBar(
                         leading: Icon(
+                          key: const Key('live icon'),
                           Icons.online_prediction_outlined,
                           color: controller.currentAttendance["zone"] == null
                               ? AppColors.red1
@@ -34,7 +36,19 @@ class CurrentAttendanceWidget extends StatelessWidget {
                         ),
                         actions: [
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (context) => controller
+                                            .currentAttendance["virtualZone"] ==
+                                        null
+                                    ? const CurrentAttendanceLocalSheet(
+                                        title: "Chamada local",
+                                      )
+                                    // TODO: virtual zone sheet
+                                    : const SizedBox.shrink(),
+                              );
+                            },
                             icon: const Icon(
                               Icons.map_outlined,
                             ),

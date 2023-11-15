@@ -1,19 +1,23 @@
+import 'register_college_id_entity.dart';
+
 abstract class PersonEntity {
   PersonEntity({
-    required this.id,
+    this.id,
     required this.name,
     required this.socialName,
     required this.birthDate,
-    required this.isActive,
+    this.isActive,
     required this.cpf,
     required this.email,
+    required this.register,
   });
 
-  int id;
+  int? id;
   String name;
   String socialName;
   DateTime birthDate;
-  bool isActive;
+  bool? isActive;
   String cpf;
   String email;
+  RegisterCollegeIdEntity register;
 }

@@ -31,7 +31,16 @@ class AttendancesProfessorTab extends StatelessWidget {
                       SizedBox(
                         width: double.maxFinite,
                         child: FilledButton.icon(
-                          onPressed: () {},
+                          key: const Key('filter by date button'),
+                          onPressed: () async {
+                            // TODO: refactor dates
+                            controller.selectedDateRange =
+                                await showDateRangePicker(
+                              context: context,
+                              firstDate: DateTime(2023, 11, 1),
+                              lastDate: DateTime.now(),
+                            );
+                          },
                           icon: const Icon(Icons.date_range_outlined),
                           label: const Text("Filtrar por data"),
                         ),
@@ -57,6 +66,7 @@ class AttendancesProfessorTab extends StatelessWidget {
                               subtitle: Text(item["description"]),
                               trailing: IconButton(
                                 icon: const Icon(
+                                  key: Key('edit roll call button'),
                                   Icons.mode_edit_outline_outlined,
                                 ),
                                 onPressed: () {

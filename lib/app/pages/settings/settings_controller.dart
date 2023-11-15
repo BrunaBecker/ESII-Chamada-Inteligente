@@ -7,8 +7,11 @@ class SettingsController extends GetxController {
   final _silentMode = false.obs;
 
   bool get isLoading => _isLoading.value;
+
   bool get usePreset => _usePreset.value;
+
   bool get saveLocation => _saveLocation.value;
+
   bool get silentMode => _silentMode.value;
 
   @override

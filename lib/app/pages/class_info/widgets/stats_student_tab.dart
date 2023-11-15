@@ -10,6 +10,7 @@ class StatsStudentTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
+      key: const Key('class info controller'),
       init: Get.find<ClassInfoController>(),
       builder: (controller) => Obx(
         () => controller.isLoading
