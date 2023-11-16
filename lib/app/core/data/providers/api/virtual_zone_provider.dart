@@ -22,7 +22,7 @@ class VirtualZoneProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return VirtualZoneDto.fromJson(response.data);
+      return VirtualZoneDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -43,7 +43,7 @@ class VirtualZoneProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return VirtualZoneDto.fromJson(response.data);
+      return VirtualZoneDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -61,7 +61,7 @@ class VirtualZoneProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return VirtualZoneDto.fromJson(response.data);
+      return VirtualZoneDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;

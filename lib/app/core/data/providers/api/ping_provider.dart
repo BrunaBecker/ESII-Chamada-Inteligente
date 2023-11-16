@@ -21,7 +21,7 @@ class PingProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return PingDto.fromJson(response.data);
+      return PingDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -39,7 +39,7 @@ class PingProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return PingDto.fromJson(response.data);
+      return PingDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;

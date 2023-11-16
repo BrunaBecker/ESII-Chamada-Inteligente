@@ -8,7 +8,7 @@ class RegisterCollegeIdDto extends RegisterCollegeIdEntity {
     required super.id,
     required super.identifier,
     required super.dateStarted,
-    required super.dateFinished,
+    super.dateFinished,
     super.isActive,
   });
 
@@ -23,12 +23,16 @@ class RegisterCollegeIdDto extends RegisterCollegeIdEntity {
   }
 
   factory RegisterCollegeIdDto.fromMap(Map<String, dynamic> map) {
+    DateTime? dateFinished = map["dateFinished"] == null
+        ? null
+        : AppDateUtils.storageDateFormat.parse(map["dateFinished"]);
+
     return RegisterCollegeIdDto(
       id: map["id"],
       identifier: map["identifier"],
       dateStarted: AppDateUtils.storageDateFormat.parse(map["dateStarted"]),
-      dateFinished: AppDateUtils.storageDateFormat.parse(map["dateFinished"]),
-      isActive: map["isActive"],
+      dateFinished: dateFinished,
+      isActive: map["active"],
     );
   }
 
@@ -37,8 +41,10 @@ class RegisterCollegeIdDto extends RegisterCollegeIdEntity {
       "id": id,
       "identifier": identifier,
       "dateStarted": AppDateUtils.storageDateFormat.format(dateStarted),
-      "dateFinished": AppDateUtils.storageDateFormat.format(dateFinished),
-      "isActive": isActive,
+      "dateFinished": dateFinished == null
+          ? null
+          : AppDateUtils.storageDateFormat.format(dateFinished!),
+      "active": isActive,
     };
   }
 

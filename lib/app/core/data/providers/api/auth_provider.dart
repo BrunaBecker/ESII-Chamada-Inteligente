@@ -13,8 +13,8 @@ class AuthProvider extends BaseProvider {
   Future<StudentEntity?> loginStudent(
       String studentRegister, String password) async {
     try {
-      final response = await http.post(
-        '/auth/login/student',
+      final response = await http.get(
+        '/auth/login/student?identifier=$studentRegister&password=$password',
       );
 
       validateResponse(
@@ -22,7 +22,7 @@ class AuthProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -32,12 +32,8 @@ class AuthProvider extends BaseProvider {
   Future<ProfessorEntity?> loginProfessor(
       String professorRegister, String password) async {
     try {
-      final response = await http.post(
-        '/auth/login/professor',
-        query: {
-          'identifier': professorRegister,
-          'password': password,
-        },
+      final response = await http.get(
+        '/auth/login/professor?identifier=$professorRegister&password=$password',
       );
 
       validateResponse(
@@ -45,7 +41,7 @@ class AuthProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return ProfessorDto.fromJson(response.data);
+      return ProfessorDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;

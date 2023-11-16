@@ -24,7 +24,7 @@ class WaiverProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return WaiverDto.fromJson(response.data);
+      return WaiverDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -43,7 +43,7 @@ class WaiverProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return WaiverDto.fromJson(response.data);
+      return WaiverDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -61,7 +61,7 @@ class WaiverProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return WaiverDto.fromJson(response.data);
+      return WaiverDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
