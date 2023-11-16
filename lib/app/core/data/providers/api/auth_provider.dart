@@ -14,7 +14,7 @@ class AuthProvider extends BaseProvider {
       String studentRegister, String password) async {
     try {
       final response = await http.post(
-        '/auth/login/student?identifier=$studentRegister&password=$password',
+        '/auth/login/student',
       );
 
       validateResponse(
@@ -33,7 +33,11 @@ class AuthProvider extends BaseProvider {
       String professorRegister, String password) async {
     try {
       final response = await http.post(
-        '/auth/login/professor?identifier=$professorRegister&password=$password',
+        '/auth/login/professor',
+        query: {
+          'identifier': professorRegister,
+          'password': password,
+        },
       );
 
       validateResponse(

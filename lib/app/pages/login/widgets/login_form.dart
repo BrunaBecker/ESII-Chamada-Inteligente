@@ -18,6 +18,7 @@ class LoginForm extends StatelessWidget {
           children: [
             TextFormField(
               key: const Key('matrícula_form'),
+              controller: controller.registrationController,
               keyboardType: TextInputType.number,
               validator: (val) =>
                   controller.validator.validateRegistration(val),
@@ -46,9 +47,10 @@ class LoginForm extends StatelessWidget {
             ),
             Obx(
               () => TextFormField(
+                key: const Key('senha_form'),
+                controller: controller.passwordController,
                 validator: (val) =>
                     controller.validator.validateNotNullInput(val),
-                key: const Key('senha_form'),
                 decoration: LoginInputDecoration(
                   labelText: "Senha",
                   hintText: "Senha",

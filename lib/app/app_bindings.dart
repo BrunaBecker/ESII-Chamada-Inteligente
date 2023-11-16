@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'app_controller.dart';
+import 'core/adapters/http_adapter.dart';
 import 'core/adapters/mask_adapter.dart';
 import 'core/adapters/validator_adapter.dart';
 import 'core/enums/mask.dart';
@@ -9,7 +11,10 @@ class AppBindings extends Bindings {
   @override
   void dependencies() {
     // Adapters
-    Get.put(
+    Get.put<Http>(
+      HttpAdapter(),
+    );
+    Get.put<MaskAdapter>(
       MaskAdapter(
         registration: Formatter(
           pattern: Mask.registration.pattern(),
@@ -29,11 +34,16 @@ class AppBindings extends Bindings {
         ),
       ),
     );
-    Get.put(
+    Get.put<ValidatorAdapter>(
       ValidatorAdapter(),
     );
 
     // Controllers
-    Get.put<NotificationsController>(NotificationsController());
+    Get.put<NotificationsController>(
+      NotificationsController(),
+    );
+    Get.put<AppController>(
+      AppController(),
+    );
   }
 }

@@ -8,103 +8,108 @@ class StudentInfoJustification extends StatelessWidget {
   const StudentInfoJustification({
     super.key,
     required this.justification,
+    this.showActions = true,
   });
 
   final Map<String, dynamic> justification;
+  final bool showActions;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        child: Theme(
-      data: Theme.of(context).copyWith(
-        dividerColor: Colors.transparent,
-      ),
-      child: ExpansionTile(
-        title: Text(
-          AppDateUtils.appDateFormat.format(justification["date"]),
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          dividerColor: Colors.transparent,
         ),
-        subtitle: Text(
-          justification["title"],
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 16.0,
-              bottom: 16.0,
+        child: ExpansionTile(
+          title: Text(
+            AppDateUtils.appDateFormat.format(justification["date"]),
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
             ),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.attach_file_outlined,
-                  color: AppColors.black,
-                ),
-                // TODO: get file name
-                Text(
-                  justification["attach_file"]?.name ?? "Sem anexo",
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
+          ),
+          subtitle: Text(
+            justification["title"],
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 16.0,
+                bottom: 16.0,
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.attach_file_outlined,
                     color: AppColors.black,
                   ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 16.0,
-              right: 16.0,
-              bottom: 16.0,
-            ),
-            child: Text(
-              justification["description"] ?? "-",
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
+                  // TODO: get file name
+                  Text(
+                    justification["attach_file"]?.name ?? "Sem anexo",
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.black,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              right: 8.0,
-              bottom: 4.0,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                OutlinedButton(
-                  onPressed: () {},
-                  child: const Text("Não aceitar"),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 16.0,
+                right: 16.0,
+                bottom: 16.0,
+              ),
+              child: Text(
+                justification["description"] ?? "-",
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
                 ),
-                const Spacing(4.0),
-                FilledButton(
-                  onPressed: () {},
-                  child: const Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(right: 8.0),
-                        child: Icon(
-                          Icons.check_outlined,
-                          size: 18,
+              ),
+            ),
+            showActions
+                ? Padding(
+                    padding: const EdgeInsets.only(
+                      right: 8.0,
+                      bottom: 4.0,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        OutlinedButton(
+                          onPressed: () {},
+                          child: const Text("Não aceitar"),
                         ),
-                      ),
-                      Text("Aceitar"),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+                        const Spacing(4.0),
+                        FilledButton(
+                          onPressed: () {},
+                          child: const Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(right: 8.0),
+                                child: Icon(
+                                  Icons.check_outlined,
+                                  size: 18,
+                                ),
+                              ),
+                              Text("Aceitar"),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : const SizedBox.shrink(),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

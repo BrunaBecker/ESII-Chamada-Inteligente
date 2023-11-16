@@ -6,9 +6,12 @@ import '../../core/widgets/bottom_nav_bar.dart';
 import '../../core/widgets/classes_drawer.dart';
 import '../../core/widgets/profile_picture_button.dart';
 import 'class_info_controller.dart';
-import 'widgets/attendances_tab.dart';
-import 'widgets/stats_tab.dart';
-import 'widgets/students_tab.dart';
+import 'widgets/attendances_professor_tab.dart';
+import 'widgets/attendances_student_tab.dart';
+import 'widgets/stats_professor_tab.dart';
+import 'widgets/stats_student_tab.dart';
+import 'widgets/student_info_tab.dart';
+import 'widgets/students_professor_tab.dart';
 
 class ClassInfoWidget extends StatelessWidget {
   const ClassInfoWidget({super.key});
@@ -28,7 +31,7 @@ class ClassInfoWidget extends StatelessWidget {
                     key: const Key('class page header'),
                     backgroundColor: AppColors.surfaceContainer,
                     title: Text(
-                      controller.selectedClass["name"]!,
+                      controller.selectedClass["name"],
                       style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
@@ -38,9 +41,9 @@ class ClassInfoWidget extends StatelessWidget {
                     actions: const [
                       ProfilePictureButton(),
                     ],
-                    bottom: const TabBar(
+                    bottom: TabBar(
                       tabs: [
-                        Tab(
+                        const Tab(
                           icon: Icon(
                             Icons.note_alt_outlined,
                           ),
@@ -48,13 +51,13 @@ class ClassInfoWidget extends StatelessWidget {
                           iconMargin: EdgeInsets.zero,
                         ),
                         Tab(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.supervisor_account_outlined,
                           ),
-                          text: "Meus alunos",
+                          text: controller.isProfessor ? "Meus alunos" : "Eu",
                           iconMargin: EdgeInsets.zero,
                         ),
-                        Tab(
+                        const Tab(
                           icon: Icon(
                             Icons.equalizer_outlined,
                           ),
@@ -64,12 +67,18 @@ class ClassInfoWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-            body: const TabBarView(
-              children: [
-                AttendancesTab(),
-                StudentsTab(),
-                StatsTab(),
-              ],
+            body: TabBarView(
+              children: controller.isProfessor
+                  ? [
+                      const AttendancesProfessorTab(),
+                      const StudentsProfessorTab(),
+                      const StatsProfessorTab(),
+                    ]
+                  : [
+                      const AttendancesStudentTab(),
+                      const StudentInfoTab(),
+                      const StatsStudentTab(),
+                    ],
             ),
             bottomNavigationBar: const BottomNavBar(),
           ),

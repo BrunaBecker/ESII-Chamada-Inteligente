@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import '../../../core/theme/app_colors.dart';
 import '../class_info_controller.dart';
 
-class StatsTab extends StatelessWidget {
-  const StatsTab({super.key});
+class StatsStudentTab extends StatelessWidget {
+  const StatsStudentTab({super.key});
 
   @override
   Widget build(BuildContext context) {
