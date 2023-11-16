@@ -21,7 +21,7 @@ class NotificationProvider extends BaseProvider {
 
       final notifications = response.data
           .map<NotificationDto>(
-            (notification) => NotificationDto.fromJson(notification),
+            (notification) => NotificationDto.fromMap(notification),
           )
           .toList();
 
@@ -48,7 +48,7 @@ class NotificationProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return NotificationDto.fromJson(response.data);
+      return NotificationDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -107,7 +107,7 @@ class NotificationProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return NotificationDto.fromJson(response.data);
+      return NotificationDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;

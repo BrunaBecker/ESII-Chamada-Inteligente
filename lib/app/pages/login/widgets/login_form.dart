@@ -20,7 +20,8 @@ class LoginForm extends StatelessWidget {
               key: const Key('matrícula_form'),
               controller: controller.registrationController,
               keyboardType: TextInputType.number,
-              validator: (val) => controller.validator.validateRegistration(val),
+              validator: (val) =>
+                  controller.validator.validateRegistration(val),
               inputFormatters: [controller.mask.registration],
               decoration: LoginInputDecoration(
                 labelText: "Matrícula/SIAPE",
@@ -48,7 +49,8 @@ class LoginForm extends StatelessWidget {
               () => TextFormField(
                 key: const Key('senha_form'),
                 controller: controller.passwordController,
-                validator: (val) => controller.validator.validateNotNullInput(val),
+                validator: (val) =>
+                    controller.validator.validateNotNullInput(val),
                 decoration: LoginInputDecoration(
                   labelText: "Senha",
                   hintText: "Senha",
@@ -57,7 +59,9 @@ class LoginForm extends StatelessWidget {
                       controller.togglePasswordVisibility();
                     },
                     icon: Icon(
-                      controller.isVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                      controller.isVisible
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
                       color: AppColors.black,
                     ),
                   ),

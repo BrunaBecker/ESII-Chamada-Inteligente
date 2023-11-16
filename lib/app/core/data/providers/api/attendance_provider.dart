@@ -25,7 +25,7 @@ class AttendanceProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return AttendanceDto.fromJson(response.data);
+      return AttendanceDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -43,7 +43,7 @@ class AttendanceProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return AttendanceDto.fromJson(response.data);
+      return AttendanceDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -66,7 +66,7 @@ class AttendanceProvider extends BaseProvider {
 
       final attendances = response.data
           .map<AttendanceDto>(
-            (attendance) => AttendanceDto.fromJson(attendance),
+            (attendance) => AttendanceDto.fromMap(attendance),
           )
           .toList();
 
@@ -91,7 +91,7 @@ class AttendanceProvider extends BaseProvider {
 
       final attendances = response.data
           .map<AttendanceDto>(
-            (attendance) => AttendanceDto.fromJson(attendance),
+            (attendance) => AttendanceDto.fromMap(attendance),
           )
           .toList();
 
@@ -116,7 +116,7 @@ class AttendanceProvider extends BaseProvider {
 
       final attendances = response.data
           .map<AttendanceDto>(
-            (attendance) => AttendanceDto.fromJson(attendance),
+            (attendance) => AttendanceDto.fromMap(attendance),
           )
           .toList();
 
@@ -141,7 +141,7 @@ class AttendanceProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return AttendanceDto.fromJson(response.data);
+      return AttendanceDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;

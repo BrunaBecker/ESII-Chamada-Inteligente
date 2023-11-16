@@ -19,7 +19,7 @@ class CalendarProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return CalendarDto.fromJson(response.data);
+      return CalendarDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -40,7 +40,7 @@ class CalendarProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return CalendarDto.fromJson(response.data);
+      return CalendarDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -61,7 +61,7 @@ class CalendarProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return CalendarDto.fromJson(response.data);
+      return CalendarDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return calendarEntity;

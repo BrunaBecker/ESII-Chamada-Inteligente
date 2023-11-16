@@ -78,40 +78,49 @@ class ClassesWidget extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 8.0),
                         child: PopupMenuButton(
                           key: const Key('interact class ellipsis button'),
-                          itemBuilder: (BuildContext context) => [
-                            PopupMenuItem(
-                              onTap: () {},
-                              child: const ListTile(
-                                contentPadding: EdgeInsets.zero,
-                                title: Text(
-                                  "Iniciar Chamada",
+                          itemBuilder: (BuildContext context) {
+                            final items = <PopupMenuEntry>[];
+                            if (controller.isProfessor) {
+                              items.add(
+                                PopupMenuItem(
+                                  onTap: () {},
+                                  child: const ListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    title: Text(
+                                      "Iniciar Chamada",
+                                    ),
+                                    subtitle: Text(
+                                      "Comece uma chamada",
+                                    ),
+                                    trailing: Icon(Icons.arrow_right),
+                                  ),
                                 ),
-                                subtitle: Text(
-                                  "Comece uma chamada",
+                              );
+                            }
+
+                            return items
+                              ..add(
+                                PopupMenuItem(
+                                  key: const Key('Ver mais button'),
+                                  onTap: () => Get.toNamed(
+                                    AppRoutes.classInfo,
+                                    arguments: {
+                                      "classInfo": item,
+                                    },
+                                  ),
+                                  child: const ListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    title: Text(
+                                      "Ver mais",
+                                    ),
+                                    subtitle: Text(
+                                      "Interaja com a turma",
+                                    ),
+                                    trailing: Icon(Icons.arrow_right),
+                                  ),
                                 ),
-                                trailing: Icon(Icons.arrow_right),
-                              ),
-                            ),
-                            PopupMenuItem(
-                              key: const Key('Ver mais button'),
-                              onTap: () => Get.toNamed(
-                                AppRoutes.classInfo,
-                                arguments: {
-                                  "classInfo": item,
-                                },
-                              ),
-                              child: const ListTile(
-                                contentPadding: EdgeInsets.zero,
-                                title: Text(
-                                  "Ver mais",
-                                ),
-                                subtitle: Text(
-                                  "Interaja com a turma",
-                                ),
-                                trailing: Icon(Icons.arrow_right),
-                              ),
-                            ),
-                          ],
+                              );
+                          },
                         ),
                       ),
                     );

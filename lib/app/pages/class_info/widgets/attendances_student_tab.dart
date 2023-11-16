@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../app_routes.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/spacing.dart';
 import '../class_info_controller.dart';
+import 'student_attendance_trailing.dart';
 
-class AttendancesTab extends StatelessWidget {
-  const AttendancesTab({super.key});
+class AttendancesStudentTab extends StatelessWidget {
+  const AttendancesStudentTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +31,7 @@ class AttendancesTab extends StatelessWidget {
                       SizedBox(
                         width: double.maxFinite,
                         child: FilledButton.icon(
-                          key: const Key('filter by date button'),
-                          onPressed: () async {
-                            // TODO: refactor dates
-                            controller.selectedDateRange =
-                                await showDateRangePicker(
-                              context: context,
-                              firstDate: DateTime(2023, 11, 1),
-                              lastDate: DateTime.now(),
-                            );
-                          },
+                          onPressed: () {},
                           icon: const Icon(Icons.date_range_outlined),
                           label: const Text("Filtrar por data"),
                         ),
@@ -66,19 +57,12 @@ class AttendancesTab extends StatelessWidget {
                             return ListTile(
                               title: Text(item["date"]),
                               subtitle: Text(item["description"]),
-                              trailing: IconButton(
-                                icon: const Icon(
-                                  key: Key('edit roll call button'),
-                                  Icons.mode_edit_outline_outlined,
+                              trailing: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: StudentAttendanceTrailing(
+                                  status: item["attendanceStatus"],
+                                  isVerified: item["statusVerified"],
                                 ),
-                                onPressed: () {
-                                  Get.toNamed(
-                                    AppRoutes.attendanceInfo,
-                                    arguments: {
-                                      "attendanceInfo": item,
-                                    },
-                                  );
-                                },
                               ),
                               contentPadding: const EdgeInsets.only(
                                 left: 16.0,

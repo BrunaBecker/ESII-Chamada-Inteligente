@@ -19,6 +19,7 @@ class OptionItem extends StatelessWidget {
     return Row(
       children: [
         Switch(
+          key: const Key('preferences preset switch'),
           value: value,
           onChanged: onChanged,
         ),

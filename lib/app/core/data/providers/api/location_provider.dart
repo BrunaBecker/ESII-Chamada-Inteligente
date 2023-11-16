@@ -23,7 +23,7 @@ class LocationProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return LocationDto.fromJson(response.data);
+      return LocationDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -43,7 +43,7 @@ class LocationProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return LocationDto.fromJson(response.data);
+      return LocationDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -64,7 +64,7 @@ class LocationProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return LocationDto.fromJson(response.data);
+      return LocationDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -85,7 +85,7 @@ class LocationProvider extends BaseProvider {
 
       List<LocationEntity> locations = response.data
           .map<LocationDto>(
-            (location) => LocationDto.fromJson(location),
+            (location) => LocationDto.fromMap(location),
           )
           .toList();
 
