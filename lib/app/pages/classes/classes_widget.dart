@@ -5,7 +5,6 @@ import '../../app_routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/bottom_nav_bar.dart';
 import '../../core/widgets/classes_drawer.dart';
-import '../../core/widgets/classes_drawer.dart';
 import '../../core/widgets/profile_picture_button.dart';
 import 'classes_controller.dart';
 

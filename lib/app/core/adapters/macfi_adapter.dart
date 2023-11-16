@@ -48,7 +48,7 @@ class MacFiAdapter {
 
   Future<Map<String, dynamic>> generateAttendenceData(String type) async {
     position = await geolocatorAdapter.determinePosition();
-    DateTime dateTime = position!.timestamp!;
+    DateTime dateTime = position!.timestamp;
 
     return {
       'userId': userId,
