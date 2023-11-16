@@ -23,7 +23,7 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -43,7 +43,7 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -64,7 +64,7 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -83,7 +83,7 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -102,7 +102,7 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -121,7 +121,7 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -141,7 +141,7 @@ class StudentProvider extends BaseProvider {
 
       final students = response.data
           .map<StudentDto>(
-            (student) => StudentDto.fromJson(student),
+            (student) => StudentDto.fromMap(student),
           )
           .toList();
 
@@ -165,7 +165,7 @@ class StudentProvider extends BaseProvider {
 
       final students = response.data
           .map<StudentDto>(
-            (student) => StudentDto.fromJson(student),
+            (student) => StudentDto.fromMap(student),
           )
           .toList();
 
@@ -189,7 +189,7 @@ class StudentProvider extends BaseProvider {
 
       final students = response.data
           .map<StudentDto>(
-            (student) => StudentDto.fromJson(student),
+            (student) => StudentDto.fromMap(student),
           )
           .toList();
 
@@ -211,7 +211,7 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -229,7 +229,7 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -250,7 +250,7 @@ class StudentProvider extends BaseProvider {
 
       final students = response.data
           .map<StudentDto>(
-            (student) => StudentDto.fromJson(student),
+            (student) => StudentDto.fromMap(student),
           )
           .toList();
 
@@ -272,7 +272,7 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -290,7 +290,7 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;

@@ -19,7 +19,7 @@ class SettingProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return SettingDto.fromJson(response.data);
+      return SettingDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -40,7 +40,7 @@ class SettingProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return SettingDto.fromJson(response.data);
+      return SettingDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -61,7 +61,7 @@ class SettingProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return SettingDto.fromJson(response.data);
+      return SettingDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -79,7 +79,7 @@ class SettingProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return SettingDto.fromJson(response.data);
+      return SettingDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;

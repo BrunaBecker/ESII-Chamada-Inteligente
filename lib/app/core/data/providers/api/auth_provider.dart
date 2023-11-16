@@ -22,7 +22,7 @@ class AuthProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -41,7 +41,7 @@ class AuthProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return ProfessorDto.fromJson(response.data);
+      return ProfessorDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;

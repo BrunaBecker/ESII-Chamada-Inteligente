@@ -23,7 +23,7 @@ class EventProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return EventDto.fromJson(response.data);
+      return EventDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -44,7 +44,7 @@ class EventProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return EventDto.fromJson(response.data);
+      return EventDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -69,7 +69,7 @@ class EventProvider extends BaseProvider {
 
       List<EventEntity> events = response.data
           .map<EventEntity>(
-            (event) => EventDto.fromJson(event),
+            (event) => EventDto.fromMap(event),
           )
           .toList();
 

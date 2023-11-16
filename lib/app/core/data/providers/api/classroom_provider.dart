@@ -24,7 +24,7 @@ class ClassroomProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return ClassroomDto.fromJson(response.data);
+      return ClassroomDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -45,7 +45,7 @@ class ClassroomProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return ClassroomDto.fromJson(response.data);
+      return ClassroomDto.fromMap(response.data);
     } catch (e) {
       logError(e.toString());
       return null;
@@ -66,7 +66,7 @@ class ClassroomProvider extends BaseProvider {
 
       final classrooms = response.data
           .map<ClassroomDto>(
-            (classroom) => ClassroomDto.fromJson(classroom),
+            (classroom) => ClassroomDto.fromMap(classroom),
           )
           .toList();
 
@@ -91,7 +91,7 @@ class ClassroomProvider extends BaseProvider {
 
       final classrooms = response.data
           .map<ClassroomDto>(
-            (classroom) => ClassroomDto.fromJson(classroom),
+            (classroom) => ClassroomDto.fromMap(classroom),
           )
           .toList();
 
