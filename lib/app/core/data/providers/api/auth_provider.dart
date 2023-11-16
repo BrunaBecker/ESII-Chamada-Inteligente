@@ -13,7 +13,7 @@ class AuthProvider extends BaseProvider {
   Future<StudentEntity?> loginStudent(
       String studentRegister, String password) async {
     try {
-      final response = await http.post(
+      final response = await http.get(
         '/auth/login/student?identifier=$studentRegister&password=$password',
       );
 
@@ -32,7 +32,7 @@ class AuthProvider extends BaseProvider {
   Future<ProfessorEntity?> loginProfessor(
       String professorRegister, String password) async {
     try {
-      final response = await http.post(
+      final response = await http.get(
         '/auth/login/professor?identifier=$professorRegister&password=$password',
       );
 
