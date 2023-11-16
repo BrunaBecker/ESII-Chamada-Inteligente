@@ -60,13 +60,17 @@ class HomeAttendancePanel extends StatelessWidget {
                                   ),
                                   trailing: Icon(
                                     Icons.online_prediction_outlined,
-                                    color: controller.hasAttendance ? AppColors.red1 : AppColors.green1,
+                                    color: controller.hasAttendance
+                                        ? AppColors.red1
+                                        : AppColors.green1,
                                   ),
                                 ),
                                 controller.hasAttendance
                                     ? Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Container(
                                             height: 150,
@@ -95,12 +99,14 @@ class HomeAttendancePanel extends StatelessWidget {
                                           ),
                                         ],
                                       )
-                                    : const Text("A chamada não possui localização definida."),
+                                    : const Text(
+                                        "A chamada não possui localização definida."),
                               ],
                             ),
                             actions: [
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
                                 height: 40,
                                 decoration: BoxDecoration(
                                   border: Border.all(
@@ -174,7 +180,8 @@ class HomeAttendancePanel extends StatelessWidget {
                                   Get.back();
                                 },
                                 style: OutlinedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
                                 ),
                                 child: const IntrinsicWidth(
                                   child: Row(

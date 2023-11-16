@@ -10,7 +10,8 @@ class AuthProvider extends BaseProvider {
 
   AuthProvider({required this.http});
 
-  Future<StudentEntity?> loginStudent(String studentRegister, String password) async {
+  Future<StudentEntity?> loginStudent(
+      String studentRegister, String password) async {
     try {
       final response = await http.post(
         '/auth/login/student',
@@ -28,7 +29,8 @@ class AuthProvider extends BaseProvider {
     }
   }
 
-  Future<ProfessorEntity?> loginProfessor(String professorRegister, String password) async {
+  Future<ProfessorEntity?> loginProfessor(
+      String professorRegister, String password) async {
     try {
       final response = await http.post(
         '/auth/login/professor',

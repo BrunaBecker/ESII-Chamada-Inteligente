@@ -43,7 +43,8 @@ class StudentsProfessorTab extends StatelessWidget {
                               ),
                             ),
                             style: ButtonStyle(
-                              iconColor: MaterialStateProperty.all(AppColors.onSurface),
+                              iconColor: MaterialStateProperty.all(
+                                  AppColors.onSurface),
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0),
@@ -76,9 +77,11 @@ class StudentsProfessorTab extends StatelessWidget {
                       ),
                       Expanded(
                         child: ListView.builder(
-                          itemCount: controller.selectedClass["students"].length,
+                          itemCount:
+                              controller.selectedClass["students"].length,
                           itemBuilder: (context, index) {
-                            final item = controller.selectedClass["students"][index];
+                            final item =
+                                controller.selectedClass["students"][index];
                             return ListTile(
                               leading: Container(
                                 width: 40,

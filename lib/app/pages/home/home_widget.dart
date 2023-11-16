@@ -55,7 +55,8 @@ class HomeWidget extends StatelessWidget {
                               child: const Icon(Icons.notifications_outlined),
                             ),
                             Obx(
-                              () => controller.isLoading || controller.totalUnreadNotifications < 1
+                              () => controller.isLoading ||
+                                      controller.totalUnreadNotifications < 1
                                   ? const SizedBox()
                                   : Positioned(
                                       top: 12,
@@ -63,7 +64,9 @@ class HomeWidget extends StatelessWidget {
                                       child: Badge(
                                         smallSize: 16,
                                         largeSize: 16,
-                                        label: Text(controller.totalUnreadNotifications.toString()),
+                                        label: Text(controller
+                                            .totalUnreadNotifications
+                                            .toString()),
                                       ),
                                     ),
                             ),
@@ -76,7 +79,10 @@ class HomeWidget extends StatelessWidget {
                 body: Container(
                   alignment: Alignment.center,
                   child: Center(
-                    child: Get.find<AppController>().userType == UserType.professor ? const StartButton() : const HomeAttendancePanel(),
+                    child:
+                        Get.find<AppController>().userType == UserType.professor
+                            ? const StartButton()
+                            : const HomeAttendancePanel(),
                   ),
                 ),
                 bottomNavigationBar: const BottomNavBar(),

@@ -39,7 +39,8 @@ class HomeController extends GetxController {
       "status": StudentAtAttendanceState.present,
       "answered": false,
       "justifications": [],
-      "address": "Av. Gal. Milton Tavares de Souza, s/n - São Domingos, Niterói - RJ, 24210-310",
+      "address":
+          "Av. Gal. Milton Tavares de Souza, s/n - São Domingos, Niterói - RJ, 24210-310",
       "latitude": -22.90627,
       "longitude": -43.13323,
     };
