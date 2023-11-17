@@ -1,6 +1,8 @@
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/professor_entity.dart';
 import '../../../domain/entities/student_entity.dart';
+import '../../../exceptions/entity_not_found_exception.dart';
+import '../../../exceptions/no_api_response_exception.dart';
 import '../../dtos/professor_dto.dart';
 import '../../dtos/student_dto.dart';
 import '../base_provider.dart';
@@ -23,6 +25,10 @@ class AuthProvider extends BaseProvider {
       );
 
       return StudentDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -42,6 +48,10 @@ class AuthProvider extends BaseProvider {
       );
 
       return ProfessorDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
