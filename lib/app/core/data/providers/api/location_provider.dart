@@ -2,6 +2,8 @@ import 'dart:ffi';
 
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/location_entity.dart';
+import '../../../exceptions/entity_not_found_exception.dart';
+import '../../../exceptions/no_api_response_exception.dart';
 import '../../dtos/location_dto.dart';
 import '../base_provider.dart';
 
@@ -24,6 +26,10 @@ class LocationProvider extends BaseProvider {
       );
 
       return LocationDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -44,6 +50,10 @@ class LocationProvider extends BaseProvider {
       );
 
       return LocationDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -65,6 +75,10 @@ class LocationProvider extends BaseProvider {
       );
 
       return LocationDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -90,6 +104,10 @@ class LocationProvider extends BaseProvider {
           .toList();
 
       return locations;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;

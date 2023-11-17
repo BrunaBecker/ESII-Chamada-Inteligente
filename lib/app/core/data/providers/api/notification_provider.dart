@@ -1,5 +1,7 @@
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/notification_entity.dart';
+import '../../../exceptions/entity_not_found_exception.dart';
+import '../../../exceptions/no_api_response_exception.dart';
 import '../../dtos/notification_dto.dart';
 import '../base_provider.dart';
 
@@ -26,6 +28,10 @@ class NotificationProvider extends BaseProvider {
           .toList();
 
       return notifications;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -49,6 +55,10 @@ class NotificationProvider extends BaseProvider {
       );
 
       return NotificationDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -67,6 +77,10 @@ class NotificationProvider extends BaseProvider {
       );
 
       return response.data;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return false;
@@ -85,6 +99,10 @@ class NotificationProvider extends BaseProvider {
       );
 
       return response.data;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return false;
@@ -108,6 +126,10 @@ class NotificationProvider extends BaseProvider {
       );
 
       return NotificationDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
