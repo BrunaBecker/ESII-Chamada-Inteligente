@@ -22,72 +22,75 @@ class JustificationDialog extends StatelessWidget {
               : AlertDialog(
                   title: const Text("Adicionar atestado"),
                   content: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                          "Informe ao seu professor sobre sua ausência justificada.",
-                        ),
-                        const Spacing(8.0),
-                        TextFormField(
-                          controller:
-                              controller.justificationFileNameController,
-                          readOnly: true,
-                          decoration: LoginInputDecoration(
-                            labelText: "Atestado",
-                            hintText: "Insira o atestado",
-                            suffixIcon: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.upload_file_outlined,
+                    child: Form(
+                      key: controller.formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text(
+                            "Informe ao seu professor sobre sua ausência justificada.",
+                          ),
+                          const Spacing(8.0),
+                          TextFormField(
+                            validator: (val) => controller.validator.validateNotNullInput(val),
+                            controller: controller.justificationFileNameController,
+                            readOnly: true,
+                            decoration: LoginInputDecoration(
+                              labelText: "Atestado",
+                              hintText: "Insira o atestado",
+                              suffixIcon: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.upload_file_outlined,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        const Spacing(8.0),
-                        TextFormField(
-                          controller: controller.justificationTitleController,
-                          decoration: LoginInputDecoration(
-                            labelText: "Título",
-                            hintText: "Insira o título",
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(
-                            top: 4.0,
-                            left: 16.0,
-                            bottom: 16.0,
-                          ),
-                          child: const Text(
-                            "Até 40 caracteres",
-                            style: TextStyle(
-                              fontSize: 12,
+                          const Spacing(8.0),
+                          TextFormField(
+                            validator: (val) => controller.validator.validateNotNullInput(val),
+                            controller: controller.justificationTitleController,
+                            decoration: LoginInputDecoration(
+                              labelText: "Título",
+                              hintText: "Insira o título",
                             ),
                           ),
-                        ),
-                        TextFormField(
-                          controller:
-                              controller.justificationDescriptionController,
-                          decoration: LoginInputDecoration(
-                            labelText: "Descrição",
-                            hintText: "Insira a descrição",
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(
-                            top: 4.0,
-                            left: 16.0,
-                          ),
-                          child: const Text(
-                            "Até 300 caracteres",
-                            style: TextStyle(
-                              fontSize: 12,
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            padding: const EdgeInsets.only(
+                              top: 4.0,
+                              left: 16.0,
+                              bottom: 16.0,
+                            ),
+                            child: const Text(
+                              "Até 40 caracteres",
+                              style: TextStyle(
+                                fontSize: 12,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          TextFormField(
+                            controller: controller.justificationDescriptionController,
+                            decoration: LoginInputDecoration(
+                              labelText: "Descrição",
+                              hintText: "Insira a descrição",
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            padding: const EdgeInsets.only(
+                              top: 4.0,
+                              left: 16.0,
+                            ),
+                            child: const Text(
+                              "Até 300 caracteres",
+                              style: TextStyle(
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   actions: [
@@ -98,7 +101,9 @@ class JustificationDialog extends StatelessWidget {
                       child: const Text("Cancelar"),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (!controller.formKey.currentState!.validate()) return;
+                      },
                       child: const Text("Enviar"),
                     ),
                   ],
