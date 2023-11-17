@@ -22,7 +22,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
 
       final Finder notificationButton =
           find.byKey(const Key('notification_button'));
@@ -38,7 +38,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
 
       final Finder notificationButton =
           find.byKey(const Key('notification_button'));
