@@ -14,7 +14,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
 
       await goToBeginRollCallPage(tester);
 
@@ -81,7 +81,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
 
       await goToBeginRollCallPage(tester);
 

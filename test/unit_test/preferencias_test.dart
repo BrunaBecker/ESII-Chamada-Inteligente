@@ -23,7 +23,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToPreferencesPage(tester);
 
       final presetSwitchFinder =
@@ -44,7 +44,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToPreferencesPage(tester);
 
       final presetSwitchFinder =
@@ -65,7 +65,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToPreferencesPage(tester);
 
       final presetSwitchFinder =
@@ -85,7 +85,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToPreferencesPage(tester);
 
       final myLocationsFinder = find.byType(ListTile).at(0);
@@ -100,7 +100,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToPreferencesPage(tester);
 
       final themeFinder = find.byType(ListTile).at(1);
@@ -115,7 +115,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToPreferencesPage(tester);
 
       final helpFinder = find.byType(ListTile).at(2);

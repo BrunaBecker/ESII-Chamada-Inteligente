@@ -3,10 +3,27 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mac_fi/main.dart' as app;
 
-Future<void> login(WidgetTester tester) async {
+Future<void> loginProfessor(WidgetTester tester) async {
   // Enter text in the email field
   final Finder emailField = find.byKey(const Key('matrícula_form'));
-  await tester.enterText(emailField, '111111111');
+  await tester.enterText(emailField, '1234567');
+  await tester.pumpAndSettle();
+
+  // Enter text in the password field
+  final Finder passwordField = find.byKey(const Key('senha_form'));
+  await tester.enterText(passwordField, 'password123');
+  await tester.pumpAndSettle();
+
+  // Tap on the login button
+  final Finder loginButton = find.byKey(const Key('entrar_button'));
+  await tester.tap(loginButton);
+  await tester.pumpAndSettle();
+}
+
+Future<void> loginAluno(WidgetTester tester) async {
+  // Enter text in the email field
+  final Finder emailField = find.byKey(const Key('matrícula_form'));
+  await tester.enterText(emailField, '123456789');
   await tester.pumpAndSettle();
 
   // Enter text in the password field
@@ -69,7 +86,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Expect to find the home screen
-      expect(find.byKey(const Key('iniciar_chamada_button')), findsOneWidget);
+      expect(find.text('Registre sua presença!'), findsOneWidget);
     });
 
     testWidgets('Login Invalid', (WidgetTester tester) async {

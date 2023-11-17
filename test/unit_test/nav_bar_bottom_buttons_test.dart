@@ -14,7 +14,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
 
       final Finder navHomeButton = find.byKey(const Key('início_button'));
       await tester.tap(navHomeButton);
@@ -28,7 +28,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
 
       final Finder navClassButton = find.byKey(const Key('turmas_button'));
       await tester.tap(navClassButton);
@@ -59,7 +59,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
 
       final Finder navCalendarButton =
           find.byKey(const Key('calendário_button'));
@@ -83,7 +83,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
 
       final Finder navSettingsButton =
           find.byKey(const Key('preferências_button'));

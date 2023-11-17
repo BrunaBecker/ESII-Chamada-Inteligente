@@ -29,7 +29,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToMinhasTurmasPage(tester);
       await goToClassPage(tester);
 
@@ -54,7 +54,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToMinhasTurmasPage(tester);
       await goToClassPage(tester);
 
@@ -72,7 +72,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToMinhasTurmasPage(tester);
       await goToClassPage(tester);
 
@@ -87,7 +87,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToMinhasTurmasPage(tester);
       await goToClassPage(tester);
 
@@ -102,7 +102,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToMinhasTurmasPage(tester);
       await goToClassPage(tester);
 
@@ -120,7 +120,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToMinhasTurmasPage(tester);
       await goToClassPage(tester);
 

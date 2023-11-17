@@ -22,7 +22,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       expect(find.byKey(const Key('dropdown-class')), findsOneWidget);
@@ -60,7 +60,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       final dateFormFinder = find.byKey(const Key('date-form'));
@@ -91,7 +91,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       final toggleFinder = find.byKey(const Key('End call manually switch'));
@@ -110,7 +110,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       final Finder startFormFinder = find.byKey(const Key('hour start form'));
@@ -141,7 +141,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       final Finder endFormFinder = find.byKey(const Key('hour end form'));
@@ -169,7 +169,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       final checkFinder = find.byKey(const Key('preset check'));
@@ -189,7 +189,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       final toggleFinder = find.byKey(const Key('preset activate switch'));
@@ -221,7 +221,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       final toggleFinder = find.byKey(const Key('preset activate switch'));
