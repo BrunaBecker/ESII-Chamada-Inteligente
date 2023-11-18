@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/theme/app_assets.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/spacing.dart';
 import '../login_controller.dart';
@@ -21,10 +22,11 @@ class LoginErrorPanel extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: 200,
-              height: 200,
-              color: AppColors.lightGray,
+            SizedBox(
+              child: Image.asset(
+                ImageAssets.loginErrorIcon,
+                fit: BoxFit.contain,
+              ),
             ),
             const Spacing(4.0),
             Text(
