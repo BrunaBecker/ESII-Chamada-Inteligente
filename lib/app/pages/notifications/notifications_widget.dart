@@ -42,30 +42,32 @@ class NotificationsWidget extends StatelessWidget {
                           const EdgeInsets.symmetric(horizontal: 16),
                       leading: IconButton(
                         onPressed: () {},
-                        icon: Icon(notification["isRead"]
+                        icon: Icon(notification.isRead
                             ? Icons.notifications_outlined
                             : Icons.notifications_active),
                       ),
-                      title: Text(notification["title"]),
-                      subtitle: Text(notification["description"]),
+                      title: Text(notification.title),
+                      subtitle: Text(notification.supportingText),
                       trailing: PopupMenuButton(
                         key: const Key('ellipsis menu'),
                         itemBuilder: (BuildContext context) => [
                           PopupMenuItem(
                             key: const Key('mark as read'),
                             onTap: () => controller
-                                .toggleReadNotification(notification["id"]),
+                                .toggleReadNotification(notification.id),
                             child: ListTile(
                               leading: const Icon(Icons.cut_outlined),
-                              title: Text(notification["isRead"]
-                                  ? "Marcar como não lida"
-                                  : "Marcar como lida"),
+                              title: Text(
+                                notification.isRead
+                                    ? "Marcar como não lida"
+                                    : "Marcar como lida",
+                              ),
                             ),
                           ),
                           PopupMenuItem(
                             key: const Key('delete notification'),
-                            onTap: () => controller
-                                .removeNotification(notification["id"]),
+                            onTap: () =>
+                                controller.removeNotification(notification.id),
                             child: const ListTile(
                               leading: Icon(Icons.delete_outline),
                               title: Text("Excluir"),

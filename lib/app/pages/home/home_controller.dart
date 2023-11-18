@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import '../../app_controller.dart';
 import '../../core/enums/student_at_attendance_state.dart';
+import '../notifications/notifications_controller.dart';
 
 class HomeController extends GetxController {
   final _isLoading = true.obs;
@@ -19,6 +20,8 @@ class HomeController extends GetxController {
   void onReady() {
     super.onReady();
 
+    final notificationsController = Get.find<NotificationsController>();
+    notificationsController.fetch();
     fetchUser();
     fetchAttendance();
 

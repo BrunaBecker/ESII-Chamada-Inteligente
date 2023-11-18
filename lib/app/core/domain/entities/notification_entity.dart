@@ -8,7 +8,7 @@ class NotificationEntity {
     required this.statusNotification,
     required this.isActive,
     required this.isRead,
-    required this.person,
+    required this.personId,
   });
 
   int id;
@@ -17,5 +17,5 @@ class NotificationEntity {
   StatusNotification statusNotification;
   bool isActive;
   bool isRead;
-  int person;
+  int personId;
 }
