@@ -233,7 +233,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Expect to find error message
-      expect(find.text('Infelizmente não encontramos o seu cadastro'), findsOneWidget);
+      expect(find.text('Infelizmente não encontramos o seu cadastro'),
+          findsOneWidget);
     });
 
     testWidgets('Login not registered student', (WidgetTester tester) async {
@@ -257,7 +258,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Expect to find error message
-      expect(find.text('Infelizmente não encontramos o seu cadastro'), findsOneWidget);
+      expect(find.text('Infelizmente não encontramos o seu cadastro'),
+          findsOneWidget);
     });
   });
 }
