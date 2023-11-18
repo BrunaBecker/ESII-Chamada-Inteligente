@@ -1,5 +1,7 @@
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/attendance_status_entity.dart';
+import '../../../exceptions/entity_not_found_exception.dart';
+import '../../../exceptions/no_api_response_exception.dart';
 import '../../dtos/attendance_status_dto.dart';
 import '../base_provider.dart';
 
@@ -25,6 +27,10 @@ class AttendanceStatusProvider extends BaseProvider {
       );
 
       return AttendanceStatusDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
     }
@@ -48,6 +54,10 @@ class AttendanceStatusProvider extends BaseProvider {
       );
 
       return AttendanceStatusDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
     }
@@ -66,6 +76,10 @@ class AttendanceStatusProvider extends BaseProvider {
       );
 
       return AttendanceStatusDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -91,6 +105,10 @@ class AttendanceStatusProvider extends BaseProvider {
           .toList();
 
       return attendanceStatus;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -110,6 +128,10 @@ class AttendanceStatusProvider extends BaseProvider {
       );
 
       return AttendanceStatusDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;

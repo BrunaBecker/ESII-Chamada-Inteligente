@@ -1,5 +1,7 @@
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/virtual_zone_entity.dart';
+import '../../../exceptions/entity_not_found_exception.dart';
+import '../../../exceptions/no_api_response_exception.dart';
 import '../../dtos/virtual_zone_dto.dart';
 import '../base_provider.dart';
 
@@ -23,6 +25,10 @@ class VirtualZoneProvider extends BaseProvider {
       );
 
       return VirtualZoneDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -44,6 +50,10 @@ class VirtualZoneProvider extends BaseProvider {
       );
 
       return VirtualZoneDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -62,6 +72,10 @@ class VirtualZoneProvider extends BaseProvider {
       );
 
       return VirtualZoneDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;

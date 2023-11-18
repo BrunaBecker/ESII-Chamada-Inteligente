@@ -1,5 +1,7 @@
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/event_entity.dart';
+import '../../../exceptions/entity_not_found_exception.dart';
+import '../../../exceptions/no_api_response_exception.dart';
 import '../../../utils/app_date_utils.dart';
 import '../../dtos/event_dto.dart';
 import '../base_provider.dart';
@@ -24,6 +26,10 @@ class EventProvider extends BaseProvider {
       );
 
       return EventDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -45,6 +51,10 @@ class EventProvider extends BaseProvider {
       );
 
       return EventDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -74,6 +84,10 @@ class EventProvider extends BaseProvider {
           .toList();
 
       return events;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;

@@ -2,6 +2,8 @@ import 'dart:ffi';
 
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/classroom_entity.dart';
+import '../../../exceptions/entity_not_found_exception.dart';
+import '../../../exceptions/no_api_response_exception.dart';
 import '../../dtos/classroom_dto.dart';
 import '../base_provider.dart';
 
@@ -25,6 +27,10 @@ class ClassroomProvider extends BaseProvider {
       );
 
       return ClassroomDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -46,6 +52,10 @@ class ClassroomProvider extends BaseProvider {
       );
 
       return ClassroomDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -71,6 +81,10 @@ class ClassroomProvider extends BaseProvider {
           .toList();
 
       return classrooms;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -96,6 +110,10 @@ class ClassroomProvider extends BaseProvider {
           .toList();
 
       return classrooms;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
