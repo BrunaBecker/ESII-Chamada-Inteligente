@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import '../../domain/entities/student_entity.dart';
 import '../../utils/app_date_utils.dart';
+import 'picture_dto.dart';
 import 'register_college_id_dto.dart';
+import 'setting_dto.dart';
 
 class StudentDto extends StudentEntity {
   StudentDto({
@@ -46,8 +48,8 @@ class StudentDto extends StudentEntity {
       email: map["email"],
       password: map["password"],
       register: RegisterCollegeIdDto.fromMap(map["register"]),
-      setting: map["setting"],
-      profileImage: map["profileImage"],
+      setting: SettingDto.fromMap(map["setting"]),
+      profileImage: PictureDto.fromMap(map["profileImage"]),
     );
   }
 
@@ -62,8 +64,8 @@ class StudentDto extends StudentEntity {
       "email": email,
       "password": password,
       "register": RegisterCollegeIdDto.fromEntity(register).toMap(),
-      "setting": setting,
-      "profileImage": profileImage,
+      "setting": SettingDto.fromEntity(setting).toMap(),
+      "profileImage": PictureDto.fromEntity(profileImage).toMap(),
     };
   }
 
