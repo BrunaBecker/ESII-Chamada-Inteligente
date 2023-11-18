@@ -46,7 +46,7 @@ abstract class BaseProvider {
 
     if (!statusCodes.contains(response.statusCode)) {
       switch (response.statusCode) {
-        case 400:
+        case 204:
           throw EntityNotFoundException();
         case null:
           throw NoApiResponseException();
