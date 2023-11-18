@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../app_controller.dart';
 import 'profile_controller.dart';
 
 class ProfileBindings extends Bindings {
@@ -7,7 +8,9 @@ class ProfileBindings extends Bindings {
   void dependencies() {
     // Controller
     Get.lazyPut(
-      () => ProfileController(),
+      () => ProfileController(
+        appController: Get.find<AppController>(),
+      ),
     );
   }
 }

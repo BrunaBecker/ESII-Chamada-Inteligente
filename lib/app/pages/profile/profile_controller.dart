@@ -1,14 +1,18 @@
 import 'package:get/get.dart';
 
 class ProfileController extends GetxController {
+  ProfileController({
+    required appController,
+  }) : _appController = appController;
+
+  final _appController;
+
   final _isLoading = true.obs;
   late final Map<String, dynamic> _user;
   late final bool _isStudent;
 
   bool get isLoading => _isLoading.value;
-
   Map<String, dynamic> get user => _user;
-
   bool get isStudent => _isStudent;
 
   @override
@@ -24,5 +28,10 @@ class ProfileController extends GetxController {
     };
 
     _isLoading.value = false;
+  }
+
+  void logout() {
+    _appController.userId = null;
+    _appController.userType = null;
   }
 }
