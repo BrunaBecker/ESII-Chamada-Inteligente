@@ -12,7 +12,7 @@ class AppWidget extends StatelessWidget {
     return GetMaterialApp(
       title: "MAC-FI",
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(useMaterial3: true, fontFamily: 'Minecraft'),
       getPages: AppRoutes.routes,
       initialRoute: AppRoutes.login,
       initialBinding: AppBindings(),

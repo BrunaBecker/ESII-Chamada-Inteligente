@@ -112,4 +112,11 @@ flutter:
           weight: 600
         - asset: assets/fonts/Poppins/Poppins-Bold.ttf
           weight: 700
-  
+    - family: ComicSans
+      fonts:
+        - asset: assets/fonts/ComicSans/LDFComicSansBold.ttf
+          weight: 600
+    - family: Minecraft
+      fonts:
+        - asset: assets/fonts/Minecraft/Minecraftia-Regular.ttf
+          weight: 400
