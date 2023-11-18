@@ -26,7 +26,8 @@ class EventFormDialog extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                content: const Text("Por favor, selecione uma data para criar um novo evento."),
+                content: const Text(
+                    "Por favor, selecione uma data para criar um novo evento."),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -56,7 +57,8 @@ class EventFormDialog extends StatelessWidget {
                           child: Column(
                             children: [
                               TextFormField(
-                                validator: (val) => controller.validator.validateNotNullInput(val),
+                                validator: (val) => controller.validator
+                                    .validateNotNullInput(val),
                                 controller: controller.classNameController,
                                 decoration: LoginInputDecoration(
                                   labelText: "Turma",
@@ -66,9 +68,11 @@ class EventFormDialog extends StatelessWidget {
                               const Spacing(8.0),
                               SizedBox(
                                 child: DropdownButtonFormField(
-                                  validator: (val) => controller.validator.validateNotNullEvent(val),
+                                  validator: (val) => controller.validator
+                                      .validateNotNullEvent(val),
                                   onChanged: (value) {
-                                    controller.eventController.text = value!.toLongText();
+                                    controller.eventController.text =
+                                        value!.toLongText();
                                   },
                                   items: List.generate(
                                     EventStatus.values.length,
@@ -77,7 +81,8 @@ class EventFormDialog extends StatelessWidget {
                                       child: SizedBox(
                                         width: 200,
                                         child: Text(
-                                          EventStatus.values[index].toLongText(),
+                                          EventStatus.values[index]
+                                              .toLongText(),
                                           style: const TextStyle(
                                             fontSize: 14,
                                             overflow: TextOverflow.ellipsis,
@@ -90,7 +95,8 @@ class EventFormDialog extends StatelessWidget {
                                   decoration: LoginInputDecoration(
                                     labelText: "Tipo de Evento",
                                     hintText: "Informe o tipo de evento",
-                                    suffixIcon: const Icon(Icons.arrow_drop_down_outlined),
+                                    suffixIcon: const Icon(
+                                        Icons.arrow_drop_down_outlined),
                                   ),
                                 ),
                               ),

@@ -32,8 +32,10 @@ class JustificationDialog extends StatelessWidget {
                           ),
                           const Spacing(8.0),
                           TextFormField(
-                            validator: (val) => controller.validator.validateNotNullInput(val),
-                            controller: controller.justificationFileNameController,
+                            validator: (val) =>
+                                controller.validator.validateNotNullInput(val),
+                            controller:
+                                controller.justificationFileNameController,
                             readOnly: true,
                             decoration: LoginInputDecoration(
                               labelText: "Atestado",
@@ -48,7 +50,8 @@ class JustificationDialog extends StatelessWidget {
                           ),
                           const Spacing(8.0),
                           TextFormField(
-                            validator: (val) => controller.validator.validateNotNullInput(val),
+                            validator: (val) =>
+                                controller.validator.validateNotNullInput(val),
                             controller: controller.justificationTitleController,
                             decoration: LoginInputDecoration(
                               labelText: "Título",
@@ -70,7 +73,8 @@ class JustificationDialog extends StatelessWidget {
                             ),
                           ),
                           TextFormField(
-                            controller: controller.justificationDescriptionController,
+                            controller:
+                                controller.justificationDescriptionController,
                             decoration: LoginInputDecoration(
                               labelText: "Descrição",
                               hintText: "Insira a descrição",
@@ -102,7 +106,8 @@ class JustificationDialog extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        if (!controller.formKey.currentState!.validate()) return;
+                        if (!controller.formKey.currentState!.validate())
+                          return;
                       },
                       child: const Text("Enviar"),
                     ),
