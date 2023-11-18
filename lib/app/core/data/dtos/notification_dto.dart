@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../../domain/entities/notification_entity.dart';
+import '../../enums/status_notification.dart';
 
 class NotificationDto extends NotificationEntity {
   NotificationDto({
@@ -10,7 +11,7 @@ class NotificationDto extends NotificationEntity {
     required super.statusNotification,
     required super.isActive,
     required super.isRead,
-    required super.person,
+    required super.personId,
   });
 
   factory NotificationDto.fromEntity(NotificationEntity entity) {
@@ -21,7 +22,7 @@ class NotificationDto extends NotificationEntity {
       statusNotification: entity.statusNotification,
       isActive: entity.isActive,
       isRead: entity.isRead,
-      person: entity.person,
+      personId: entity.personId,
     );
   }
 
@@ -30,10 +31,11 @@ class NotificationDto extends NotificationEntity {
       id: map["id"],
       title: map["title"],
       supportingText: map["supportingText"],
-      statusNotification: map["statusNotification"],
-      isActive: map["isActive"],
-      isRead: map["isRead"],
-      person: map["person"],
+      statusNotification:
+          StatusNotification.fromText(map["statusNotification"]),
+      isActive: map["active"],
+      isRead: map["read"],
+      personId: map["personId"],
     );
   }
 
@@ -42,10 +44,10 @@ class NotificationDto extends NotificationEntity {
       "id": id,
       "title": title,
       "supportingText": supportingText,
-      "statusNotification": statusNotification,
-      "isActive": isActive,
-      "isRead": isRead,
-      "person": person,
+      "statusNotification": statusNotification.toText(),
+      "active": isActive,
+      "read": isRead,
+      "personId": personId,
     };
   }
 
