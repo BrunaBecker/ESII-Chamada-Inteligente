@@ -83,6 +83,7 @@ void main() {
     });
 
     testWidgets('Check statistics button', (WidgetTester tester) async {
+      await tester.binding.setSurfaceSize(const Size(1080, 1920));
       // Run the app
       app.main();
       await tester.pumpAndSettle();
