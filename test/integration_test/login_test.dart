@@ -6,12 +6,12 @@ import 'package:mac_fi/main.dart' as app;
 Future<void> loginProfessor(WidgetTester tester) async {
   // Enter text in the email field
   final Finder emailField = find.byKey(const Key('matrícula_form'));
-  await tester.enterText(emailField, '1234567');
+  await tester.enterText(emailField, '1234560');
   await tester.pumpAndSettle();
 
   // Enter text in the password field
   final Finder passwordField = find.byKey(const Key('senha_form'));
-  await tester.enterText(passwordField, 'password123');
+  await tester.enterText(passwordField, 'senha');
   await tester.pumpAndSettle();
 
   // Tap on the login button
@@ -23,12 +23,12 @@ Future<void> loginProfessor(WidgetTester tester) async {
 Future<void> loginAluno(WidgetTester tester) async {
   // Enter text in the email field
   final Finder emailField = find.byKey(const Key('matrícula_form'));
-  await tester.enterText(emailField, '123456789');
+  await tester.enterText(emailField, '123456710');
   await tester.pumpAndSettle();
 
   // Enter text in the password field
   final Finder passwordField = find.byKey(const Key('senha_form'));
-  await tester.enterText(passwordField, 'password123');
+  await tester.enterText(passwordField, 'senha');
   await tester.pumpAndSettle();
 
   // Tap on the login button
@@ -48,12 +48,12 @@ void main() {
 
       // Enter text in the email field
       final Finder emailField = find.byKey(const Key('matrícula_form'));
-      await tester.enterText(emailField, '1234567');
+      await tester.enterText(emailField, '1234560');
       await tester.pumpAndSettle();
 
       // Enter text in the password field
       final Finder passwordField = find.byKey(const Key('senha_form'));
-      await tester.enterText(passwordField, 'password123');
+      await tester.enterText(passwordField, 'senha');
       await tester.pumpAndSettle();
 
       // Tap on the login button
@@ -61,7 +61,7 @@ void main() {
       await tester.tap(loginButton);
       await tester.pumpAndSettle();
 
-      // Expect to find the home screen
+      // Expect to find the teacher's home screen
       expect(find.byKey(const Key('iniciar_chamada_button')), findsOneWidget);
     });
 
@@ -72,12 +72,12 @@ void main() {
 
       // Enter text in the email field
       final Finder emailField = find.byKey(const Key('matrícula_form'));
-      await tester.enterText(emailField, '123456789');
+      await tester.enterText(emailField, '123456710');
       await tester.pumpAndSettle();
 
       // Enter text in the password field
       final Finder passwordField = find.byKey(const Key('senha_form'));
-      await tester.enterText(passwordField, 'password123');
+      await tester.enterText(passwordField, 'senha');
       await tester.pumpAndSettle();
 
       // Tap on the login button
@@ -85,7 +85,7 @@ void main() {
       await tester.tap(loginButton);
       await tester.pumpAndSettle();
 
-      // Expect to find the home screen
+      // Expect to find the student's home screen
       expect(find.text('Registre sua presença!'), findsOneWidget);
     });
 
@@ -112,7 +112,7 @@ void main() {
       await tester.tap(loginButton);
       await tester.pumpAndSettle();
 
-      // Expect to find the home screen
+      // Expect to find the error message
       expect(errorMatricula, findsOneWidget);
     });
 
@@ -139,7 +139,7 @@ void main() {
       await tester.tap(loginButton);
       await tester.pumpAndSettle();
 
-      // Expect to find the home screen
+      // Expect to find the error message
       expect(errorMatricula, findsOneWidget);
     });
 
@@ -165,7 +165,7 @@ void main() {
       await tester.tap(loginButton);
       await tester.pumpAndSettle();
 
-      // Expect to find the home screen
+      // Expect to find the error message
       expect(errorPassword, findsOneWidget);
     });
 
@@ -176,12 +176,12 @@ void main() {
 
       // Enter text in the email field
       final Finder emailField = find.byKey(const Key('matrícula_form'));
-      await tester.enterText(emailField, '111111111');
+      await tester.enterText(emailField, '1234560');
       await tester.pumpAndSettle();
 
       // Enter text in the password field
       final Finder passwordField = find.byKey(const Key('senha_form'));
-      await tester.enterText(passwordField, 'password123');
+      await tester.enterText(passwordField, 'senha');
       await tester.pumpAndSettle();
 
       // Tap on the login button
@@ -210,6 +210,54 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(emailField, findsOneWidget);
+    });
+
+    testWidgets('Login not registered teacher', (WidgetTester tester) async {
+      // Run the app
+      app.main();
+      await tester.pumpAndSettle();
+
+      // Enter text in the email field
+      final Finder emailField = find.byKey(const Key('matrícula_form'));
+      await tester.enterText(emailField, '1111111');
+      await tester.pumpAndSettle();
+
+      // Enter text in the password field
+      final Finder passwordField = find.byKey(const Key('senha_form'));
+      await tester.enterText(passwordField, '12');
+      await tester.pumpAndSettle();
+
+      // Tap on the login button
+      final Finder loginButton = find.byKey(const Key('entrar_button'));
+      await tester.tap(loginButton);
+      await tester.pumpAndSettle();
+
+      // Expect to find error message
+      expect(find.text('Infelizmente não encontramos o seu cadastro'), findsOneWidget);
+    });
+
+    testWidgets('Login not registered student', (WidgetTester tester) async {
+      // Run the app
+      app.main();
+      await tester.pumpAndSettle();
+
+      // Enter text in the email field
+      final Finder emailField = find.byKey(const Key('matrícula_form'));
+      await tester.enterText(emailField, '111111111');
+      await tester.pumpAndSettle();
+
+      // Enter text in the password field
+      final Finder passwordField = find.byKey(const Key('senha_form'));
+      await tester.enterText(passwordField, '12');
+      await tester.pumpAndSettle();
+
+      // Tap on the login button
+      final Finder loginButton = find.byKey(const Key('entrar_button'));
+      await tester.tap(loginButton);
+      await tester.pumpAndSettle();
+
+      // Expect to find error message
+      expect(find.text('Infelizmente não encontramos o seu cadastro'), findsOneWidget);
     });
   });
 }
