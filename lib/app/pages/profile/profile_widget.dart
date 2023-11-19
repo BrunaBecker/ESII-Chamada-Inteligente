@@ -96,7 +96,7 @@ class ProfileWidget extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "${controller.isProfessor ? "Matrícula" : "SIAPE"}: ${controller.user!.register.identifier}",
+                                "${controller.isProfessor ? "SIAPE" : "Matrícula"}: ${controller.user!.register.identifier}",
                                 style: const TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.w400,
