@@ -18,7 +18,7 @@ class LoginButton extends StatelessWidget {
           onPressed: () async {
             if (!controller.formKey.currentState!.validate()) return;
             await controller.authenticate();
-            if (controller.appController.userId != null) {
+            if (controller.appController.user != null) {
               Get.offAllNamed(AppRoutes.home);
             }
           },

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app_controller.dart';
-import '../../core/adapters/log_adapter.dart';
 import '../../core/adapters/mask_adapter.dart';
 import '../../core/adapters/validator_adapter.dart';
 import '../../core/domain/entities/professor_entity.dart';
@@ -62,7 +61,6 @@ class LoginController extends GetxController {
   }
 
   Future<void> authenticate() async {
-    // TODO: validate form and authentication
     _isLoading.value = true;
     try {
       if (registrationController.text.length == 7) {
@@ -71,7 +69,7 @@ class LoginController extends GetxController {
           passwordController.text,
         );
         if (professor != null) {
-          _appController.userId = professor.id;
+          _appController.user = professor;
           _appController.userType = UserType.professor;
         }
       } else {
@@ -80,9 +78,8 @@ class LoginController extends GetxController {
           passwordController.text,
         );
         if (student != null) {
-          _appController.userId = student.id;
+          _appController.user = student;
           _appController.userType = UserType.student;
-          appLog("Student");
         }
       }
     } on EntityNotFoundException {
