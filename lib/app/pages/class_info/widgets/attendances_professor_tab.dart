@@ -6,8 +6,8 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/spacing.dart';
 import '../class_info_controller.dart';
 
-class AttendancesTab extends StatelessWidget {
-  const AttendancesTab({super.key});
+class AttendancesProfessorTab extends StatelessWidget {
+  const AttendancesProfessorTab({super.key});
 
   @override
   Widget build(BuildContext context) {

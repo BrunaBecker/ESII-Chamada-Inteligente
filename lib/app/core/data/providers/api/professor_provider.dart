@@ -3,6 +3,8 @@ import 'dart:ffi';
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/classroom_entity.dart';
 import '../../../domain/entities/professor_entity.dart';
+import '../../../exceptions/entity_not_found_exception.dart';
+import '../../../exceptions/no_api_response_exception.dart';
 import '../../dtos/classroom_dto.dart';
 import '../../dtos/professor_dto.dart';
 import '../base_provider.dart';
@@ -25,7 +27,11 @@ class ProfessorProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return ProfessorDto.fromJson(response.data);
+      return ProfessorDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -46,7 +52,11 @@ class ProfessorProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return ProfessorDto.fromJson(response.data);
+      return ProfessorDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -68,7 +78,11 @@ class ProfessorProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return ProfessorDto.fromJson(response.data);
+      return ProfessorDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -86,7 +100,11 @@ class ProfessorProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return ProfessorDto.fromJson(response.data);
+      return ProfessorDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -104,7 +122,11 @@ class ProfessorProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return ProfessorDto.fromJson(response.data);
+      return ProfessorDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -122,7 +144,11 @@ class ProfessorProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return ProfessorDto.fromJson(response.data);
+      return ProfessorDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;

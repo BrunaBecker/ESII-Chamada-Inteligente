@@ -1,5 +1,7 @@
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/ping_entity.dart';
+import '../../../exceptions/entity_not_found_exception.dart';
+import '../../../exceptions/no_api_response_exception.dart';
 import '../../dtos/ping_dto.dart';
 import '../base_provider.dart';
 
@@ -21,7 +23,11 @@ class PingProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return PingDto.fromJson(response.data);
+      return PingDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -39,7 +45,11 @@ class PingProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return PingDto.fromJson(response.data);
+      return PingDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;

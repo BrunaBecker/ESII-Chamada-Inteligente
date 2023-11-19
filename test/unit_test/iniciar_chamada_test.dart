@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import '../integration_test/login_test.dart';
-import 'package:mac_fi/main.dart' as app;
 import 'package:intl/intl.dart';
+import 'package:mac_fi/main.dart' as app;
+
+import '../integration_test/login_test.dart';
 
 Future<void> goToBeginRollCallPage(WidgetTester tester) async {
   final Finder beginRollCall = find.byKey(const Key('iniciar_chamada_button'));
@@ -22,7 +23,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       expect(find.byKey(const Key('dropdown-class')), findsOneWidget);
@@ -60,7 +61,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       final dateFormFinder = find.byKey(const Key('date-form'));
@@ -91,7 +92,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       final toggleFinder = find.byKey(const Key('End call manually switch'));
@@ -110,7 +111,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       final Finder startFormFinder = find.byKey(const Key('hour start form'));
@@ -137,11 +138,12 @@ void main() {
     });
 
     testWidgets('End time picker', (WidgetTester tester) async {
+      await tester.binding.setSurfaceSize(const Size(1080, 1920));
       // Run the app
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       final Finder endFormFinder = find.byKey(const Key('hour end form'));
@@ -151,25 +153,27 @@ void main() {
       expect((tester.widget(endFormFinder) as TextFormField).controller?.text,
           equals((tester.widget(endFormFinder) as TextFormField).initialValue));
 
-      // final endTimeFinder = find.byKey(const Key('select end class button'));
-      // await tester.tap(endTimeFinder);
-      // await tester.pumpAndSettle();
-      //
-      // await tester.tap(find.text('OK'));
-      // await tester.pumpAndSettle();
-      //
-      // String currentHour = DateFormat('HH:mm').format(DateTime.now());
-      //
-      // expect((tester.widget(endFormFinder) as TextFormField).controller?.text, equals(currentHour));
+      final endTimeFinder = find.byKey(const Key('select end class button'));
+      await tester.tap(endTimeFinder);
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+
+      String currentHour = DateFormat('HH:mm').format(DateTime.now());
+
+      expect((tester.widget(endFormFinder) as TextFormField).controller?.text,
+          equals(currentHour));
     });
 
     testWidgets('Toggle preset check state correctly',
         (WidgetTester tester) async {
+      await tester.binding.setSurfaceSize(const Size(1080, 1920));
       // Run the app
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       final checkFinder = find.byKey(const Key('preset check'));
@@ -177,10 +181,10 @@ void main() {
       expect(checkFinder, findsOneWidget);
       expect((tester.widget(checkFinder) as Checkbox).value, isFalse);
 
-      // await tester.tap(checkFinder);
-      // await tester.pumpAndSettle();
-      //
-      // expect((tester.widget(checkFinder) as Switch).value, isTrue);
+      await tester.tap(checkFinder);
+      await tester.pumpAndSettle();
+
+      expect((tester.widget(checkFinder) as Checkbox).value, isTrue);
     });
 
     testWidgets('Toggle switch preset state correctly',
@@ -189,7 +193,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       final toggleFinder = find.byKey(const Key('preset activate switch'));
@@ -217,24 +221,25 @@ void main() {
     });
 
     testWidgets('Start call correctly', (WidgetTester tester) async {
+      await tester.binding.setSurfaceSize(const Size(1080, 1920));
       // Run the app
       app.main();
       await tester.pumpAndSettle();
 
-      await login(tester);
+      await loginProfessor(tester);
       await goToBeginRollCallPage(tester);
 
       final toggleFinder = find.byKey(const Key('preset activate switch'));
       await tester.tap(toggleFinder);
       await tester.pumpAndSettle();
 
-      // await tester.tap(find.byKey(const Key('start roll call button')));
-      // await tester.pumpAndSettle();
-      //
-      // await tester.tap(find.text('Confirmar'));
-      // await tester.pumpAndSettle();
-      //
-      // expect(find.byKey(const Key('live icon')), findsOneWidget);
+      await tester.tap(find.byKey(const Key('start roll call button')));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Confirmar'));
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('live icon')), findsOneWidget);
     });
   });
 }

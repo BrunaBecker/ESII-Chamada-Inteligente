@@ -86,6 +86,7 @@ flutter:
 
   assets:
     - assets/images/app-logo.png
+    - assets/images/login-error-icon.png
 
   fonts:
     - family: Quicksand

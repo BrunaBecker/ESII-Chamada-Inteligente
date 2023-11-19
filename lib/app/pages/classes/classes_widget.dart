@@ -13,22 +13,30 @@ class ClassesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: const ClassesDrawer(),
-      appBar: AppBar(
-        key: const Key('class_page_header'),
-        title: const Text("Minhas turmas"),
-        centerTitle: true,
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 8.0),
-            child: ProfilePictureButton(),
-          ),
-        ],
-      ),
-      body: GetBuilder(
-        init: Get.find<ClassesController>(),
-        builder: (controller) => Obx(
+    return GetBuilder(
+      init: Get.find<ClassesController>(),
+      builder: (controller) => Scaffold(
+        drawer: const ClassesDrawer(),
+        bottomNavigationBar: const BottomNavBar(),
+        appBar: AppBar(
+          key: const Key('class_page_header'),
+          title: const Text("Minhas turmas"),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Container(
+                width: 24,
+                height: 24,
+                margin: const EdgeInsets.all(10.0),
+                child: ProfilePictureButton(
+                  image: controller.userProfileImage,
+                ),
+              ),
+            ),
+          ],
+        ),
+        body: Obx(
           () => controller.isLoading
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -78,40 +86,49 @@ class ClassesWidget extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 8.0),
                         child: PopupMenuButton(
                           key: const Key('interact class ellipsis button'),
-                          itemBuilder: (BuildContext context) => [
-                            PopupMenuItem(
-                              onTap: () {},
-                              child: const ListTile(
-                                contentPadding: EdgeInsets.zero,
-                                title: Text(
-                                  "Iniciar Chamada",
+                          itemBuilder: (BuildContext context) {
+                            final items = <PopupMenuEntry>[];
+                            if (controller.isProfessor) {
+                              items.add(
+                                PopupMenuItem(
+                                  onTap: () {},
+                                  child: const ListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    title: Text(
+                                      "Iniciar Chamada",
+                                    ),
+                                    subtitle: Text(
+                                      "Comece uma chamada",
+                                    ),
+                                    trailing: Icon(Icons.arrow_right),
+                                  ),
                                 ),
-                                subtitle: Text(
-                                  "Comece uma chamada",
+                              );
+                            }
+
+                            return items
+                              ..add(
+                                PopupMenuItem(
+                                  key: const Key('Ver mais button'),
+                                  onTap: () => Get.toNamed(
+                                    AppRoutes.classInfo,
+                                    arguments: {
+                                      "classInfo": item,
+                                    },
+                                  ),
+                                  child: const ListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    title: Text(
+                                      "Ver mais",
+                                    ),
+                                    subtitle: Text(
+                                      "Interaja com a turma",
+                                    ),
+                                    trailing: Icon(Icons.arrow_right),
+                                  ),
                                 ),
-                                trailing: Icon(Icons.arrow_right),
-                              ),
-                            ),
-                            PopupMenuItem(
-                              key: const Key('Ver mais button'),
-                              onTap: () => Get.toNamed(
-                                AppRoutes.classInfo,
-                                arguments: {
-                                  "classInfo": item,
-                                },
-                              ),
-                              child: const ListTile(
-                                contentPadding: EdgeInsets.zero,
-                                title: Text(
-                                  "Ver mais",
-                                ),
-                                subtitle: Text(
-                                  "Interaja com a turma",
-                                ),
-                                trailing: Icon(Icons.arrow_right),
-                              ),
-                            ),
-                          ],
+                              );
+                          },
                         ),
                       ),
                     );
@@ -119,7 +136,6 @@ class ClassesWidget extends StatelessWidget {
                 ),
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

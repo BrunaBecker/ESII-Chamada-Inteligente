@@ -2,6 +2,8 @@ import 'dart:ffi';
 
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/waiver_entity.dart';
+import '../../../exceptions/entity_not_found_exception.dart';
+import '../../../exceptions/no_api_response_exception.dart';
 import '../../dtos/waiver_dto.dart';
 import '../base_provider.dart';
 
@@ -24,7 +26,11 @@ class WaiverProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return WaiverDto.fromJson(response.data);
+      return WaiverDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -43,7 +49,11 @@ class WaiverProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return WaiverDto.fromJson(response.data);
+      return WaiverDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -61,7 +71,11 @@ class WaiverProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return WaiverDto.fromJson(response.data);
+      return WaiverDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;

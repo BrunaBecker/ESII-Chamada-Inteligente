@@ -57,6 +57,8 @@ class EventFormDialog extends StatelessWidget {
                           child: Column(
                             children: [
                               TextFormField(
+                                validator: (val) => controller.validator
+                                    .validateNotNullInput(val),
                                 controller: controller.classNameController,
                                 decoration: LoginInputDecoration(
                                   labelText: "Turma",
@@ -66,6 +68,8 @@ class EventFormDialog extends StatelessWidget {
                               const Spacing(8.0),
                               SizedBox(
                                 child: DropdownButtonFormField(
+                                  validator: (val) => controller.validator
+                                      .validateNotNullEvent(val),
                                   onChanged: (value) {
                                     controller.eventController.text =
                                         value!.toLongText();

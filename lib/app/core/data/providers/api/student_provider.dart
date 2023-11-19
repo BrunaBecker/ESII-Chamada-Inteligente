@@ -1,6 +1,8 @@
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/classroom_entity.dart';
 import '../../../domain/entities/student_entity.dart';
+import '../../../exceptions/entity_not_found_exception.dart';
+import '../../../exceptions/no_api_response_exception.dart';
 import '../../dtos/classroom_dto.dart';
 import '../../dtos/student_dto.dart';
 import '../base_provider.dart';
@@ -23,7 +25,11 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -43,7 +49,11 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -64,7 +74,11 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -83,7 +97,11 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -102,7 +120,11 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -121,7 +143,11 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -141,11 +167,15 @@ class StudentProvider extends BaseProvider {
 
       final students = response.data
           .map<StudentDto>(
-            (student) => StudentDto.fromJson(student),
+            (student) => StudentDto.fromMap(student),
           )
           .toList();
 
       return students;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -165,11 +195,15 @@ class StudentProvider extends BaseProvider {
 
       final students = response.data
           .map<StudentDto>(
-            (student) => StudentDto.fromJson(student),
+            (student) => StudentDto.fromMap(student),
           )
           .toList();
 
       return students;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -189,11 +223,15 @@ class StudentProvider extends BaseProvider {
 
       final students = response.data
           .map<StudentDto>(
-            (student) => StudentDto.fromJson(student),
+            (student) => StudentDto.fromMap(student),
           )
           .toList();
 
       return students;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -211,7 +249,11 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -229,7 +271,11 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -250,11 +296,15 @@ class StudentProvider extends BaseProvider {
 
       final students = response.data
           .map<StudentDto>(
-            (student) => StudentDto.fromJson(student),
+            (student) => StudentDto.fromMap(student),
           )
           .toList();
 
       return students;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -272,7 +322,11 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -290,7 +344,11 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromJson(response.data);
+      return StudentDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;

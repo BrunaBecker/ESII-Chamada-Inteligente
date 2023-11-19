@@ -2,6 +2,8 @@ import 'dart:core';
 
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/attendance_entity.dart';
+import '../../../exceptions/entity_not_found_exception.dart';
+import '../../../exceptions/no_api_response_exception.dart';
 import '../../../utils/app_date_utils.dart';
 import '../../dtos/attendance_dto.dart';
 import '../base_provider.dart';
@@ -25,7 +27,11 @@ class AttendanceProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return AttendanceDto.fromJson(response.data);
+      return AttendanceDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -43,7 +49,11 @@ class AttendanceProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return AttendanceDto.fromJson(response.data);
+      return AttendanceDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -66,11 +76,15 @@ class AttendanceProvider extends BaseProvider {
 
       final attendances = response.data
           .map<AttendanceDto>(
-            (attendance) => AttendanceDto.fromJson(attendance),
+            (attendance) => AttendanceDto.fromMap(attendance),
           )
           .toList();
 
       return attendances;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -91,11 +105,15 @@ class AttendanceProvider extends BaseProvider {
 
       final attendances = response.data
           .map<AttendanceDto>(
-            (attendance) => AttendanceDto.fromJson(attendance),
+            (attendance) => AttendanceDto.fromMap(attendance),
           )
           .toList();
 
       return attendances;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -116,11 +134,15 @@ class AttendanceProvider extends BaseProvider {
 
       final attendances = response.data
           .map<AttendanceDto>(
-            (attendance) => AttendanceDto.fromJson(attendance),
+            (attendance) => AttendanceDto.fromMap(attendance),
           )
           .toList();
 
       return attendances;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;
@@ -141,7 +163,11 @@ class AttendanceProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return AttendanceDto.fromJson(response.data);
+      return AttendanceDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     } catch (e) {
       logError(e.toString());
       return null;

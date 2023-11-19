@@ -14,7 +14,8 @@ class BottomNavBar extends StatelessWidget {
       case AppRoutes.classes ||
             AppRoutes.classInfo ||
             AppRoutes.attendanceInfo ||
-            AppRoutes.studentInfo:
+            AppRoutes.studentInfo ||
+            AppRoutes.profile:
         return 1;
       case AppRoutes.calendar || AppRoutes.dailyWarnings:
         return 2;
