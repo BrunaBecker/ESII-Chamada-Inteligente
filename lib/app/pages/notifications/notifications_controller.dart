@@ -42,10 +42,10 @@ class NotificationsController extends GetxController {
   void fetch() async {
     _isLoading.value = true;
     final appController = Get.find<AppController>();
-    if (appController.userId == null) return;
+    if (appController.user == null) return;
     _notifications.clear();
     final newNotifications =
-        await _getPersonNotifications(appController.userId!);
+        await _getPersonNotifications(appController.user!.id!);
     if (newNotifications?.isNotEmpty ?? false) {
       _notifications.addAll(newNotifications!);
     }

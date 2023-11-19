@@ -38,8 +38,12 @@ class ClassInfoWidget extends StatelessWidget {
                       ),
                     ),
                     centerTitle: true,
-                    actions: const [
-                      ProfilePictureButton(),
+                    actions: [
+                      ProfilePictureButton(
+                        image: controller.isLoading
+                            ? ""
+                            : controller.userProfileImage,
+                      ),
                     ],
                     bottom: TabBar(
                       tabs: [

@@ -6,18 +6,23 @@ import 'package:get/get.dart';
 import '../../app_controller.dart';
 import '../../core/adapters/chart_adapter.dart';
 import '../../core/adapters/validator_adapter.dart';
+import '../../core/domain/entities/person_entity.dart';
 import '../../core/enums/student_at_attendance_state.dart';
 
 class ClassInfoController extends GetxController {
   ClassInfoController({
+    required appController,
     required ChartAdapter chart,
     required validator,
-  })  : _chart = chart,
+  })  : _appController = appController,
+        _chart = chart,
         _validator = validator;
 
+  final AppController _appController;
   final ChartAdapter _chart;
-  final _isLoading = true.obs;
   final ValidatorAdapter _validator;
+
+  final _isLoading = true.obs;
   late final _selectedClass = <String, dynamic>{}.obs;
   final _selectedStudent = Rx<Map<String, dynamic>?>(null);
   final _justificationFileNameController = TextEditingController();
@@ -27,16 +32,14 @@ class ClassInfoController extends GetxController {
   DateTimeRange? _selectedDateRange;
 
   ChartAdapter get chart => _chart;
-
   ValidatorAdapter get validator => _validator;
 
   GlobalKey<FormState> get formKey => _formKey;
-
   bool get isLoading => _isLoading.value;
-
   Map<String, dynamic> get selectedClass => _selectedClass;
-
   DateTimeRange? get selectedDateRange => _selectedDateRange;
+  PersonEntity get user => _appController.user!;
+  String get userProfileImage => _appController.userProfileImage;
 
   set selectedDateRange(DateTimeRange? value) {
     _selectedDateRange = value;

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app_routes.dart';
+import '../../core/domain/entities/professor_entity.dart';
+import '../../core/domain/entities/student_entity.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/bottom_nav_bar.dart';
 import '../../core/widgets/spacing.dart';
 import 'profile_controller.dart';
-import 'widgets/profile_picture.dart';
+import '../../core/widgets/profile_picture.dart';
 
 class ProfileWidget extends StatelessWidget {
   const ProfileWidget({super.key});
@@ -61,45 +63,64 @@ class ProfileWidget extends StatelessWidget {
                   ? const Center(
                       child: CircularProgressIndicator(),
                     )
-                  : Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const ProfilePicture(),
-                          const Spacing(8.0),
-                          Text(
-                            controller.user["name"] ?? "-",
-                            style: const TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.w700,
-                            ),
+                  : controller.user == null
+                      ? const Center(
+                          child: Text(
+                            "Não foi possível recuperar as informações do usuário",
                           ),
-                          Text(
-                            "${controller.isStudent ? "Matrícula" : "SIAPE"}: ${controller.user["registration"] ?? "-"}",
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Row(
+                        )
+                      : Center(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(Icons.email_outlined),
-                              const Spacing(2.0),
-                              Flexible(
-                                child: Text(
-                                  controller.user["email"] ?? "-",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                              SizedBox(
+                                width: 256,
+                                height: 256,
+                                child: ProfilePicture(
+                                  imageUrl: controller.isProfessor
+                                      ? (controller.user! as ProfessorEntity)
+                                              .profileImage
+                                              ?.linkFile ??
+                                          ""
+                                      : (controller.user! as StudentEntity)
+                                          .profileImage
+                                          .linkFile,
                                 ),
+                              ),
+                              const Spacing(8.0),
+                              Text(
+                                controller.user!.name,
+                                style: const TextStyle(
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              Text(
+                                "${controller.isProfessor ? "SIAPE" : "Matrícula"}: ${controller.user!.register.identifier}",
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.email_outlined),
+                                  const Spacing(2.0),
+                                  Flexible(
+                                    child: Text(
+                                      controller.user!.email,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
             ),
           ),
         ),
