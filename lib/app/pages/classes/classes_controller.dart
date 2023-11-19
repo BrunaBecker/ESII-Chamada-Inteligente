@@ -3,10 +3,17 @@ import 'dart:math';
 import 'package:get/get.dart';
 
 import '../../app_controller.dart';
+import '../../core/domain/entities/person_entity.dart';
 import '../../core/enums/student_at_attendance_state.dart';
 import '../../core/utils/app_date_utils.dart';
 
 class ClassesController extends GetxController {
+  ClassesController({
+    required appController,
+  }) : _appController = appController;
+
+  final AppController _appController;
+
   final _isLoading = false.obs;
   final _classesList = <Map<String, dynamic>>[].obs;
 
@@ -15,6 +22,8 @@ class ClassesController extends GetxController {
   List<Map<String, dynamic>> get classesList => _classesList;
   UserType? get userType => Get.find<AppController>().userType;
   bool get isProfessor => userType == UserType.professor;
+  PersonEntity get user => _appController.user!;
+  String get userProfileImage => _appController.userProfileImage;
 
   @override
   void onReady() {

@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 
 import 'core/domain/entities/person_entity.dart';
+import 'core/domain/entities/professor_entity.dart';
+import 'core/domain/entities/student_entity.dart';
 
 enum UserType { student, professor }
 
@@ -17,4 +19,9 @@ class AppController extends GetxController {
   UserType? get userType => _userType.value;
 
   set userType(UserType? userType) => _userType.value = userType;
+
+  bool get isProfessor => userType == UserType.professor;
+  String get userProfileImage => isProfessor
+      ? (user as ProfessorEntity).profileImage?.linkFile ?? ""
+      : (user as StudentEntity).profileImage.linkFile;
 }

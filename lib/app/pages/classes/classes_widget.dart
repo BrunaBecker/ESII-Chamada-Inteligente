@@ -13,22 +13,30 @@ class ClassesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: const ClassesDrawer(),
-      appBar: AppBar(
-        key: const Key('class_page_header'),
-        title: const Text("Minhas turmas"),
-        centerTitle: true,
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 8.0),
-            child: ProfilePictureButton(),
-          ),
-        ],
-      ),
-      body: GetBuilder(
-        init: Get.find<ClassesController>(),
-        builder: (controller) => Obx(
+    return GetBuilder(
+      init: Get.find<ClassesController>(),
+      builder: (controller) => Scaffold(
+        drawer: const ClassesDrawer(),
+        bottomNavigationBar: const BottomNavBar(),
+        appBar: AppBar(
+          key: const Key('class_page_header'),
+          title: const Text("Minhas turmas"),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Container(
+                width: 24,
+                height: 24,
+                margin: const EdgeInsets.all(10.0),
+                child: ProfilePictureButton(
+                  image: controller.userProfileImage,
+                ),
+              ),
+            ),
+          ],
+        ),
+        body: Obx(
           () => controller.isLoading
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -128,7 +136,6 @@ class ClassesWidget extends StatelessWidget {
                 ),
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }
