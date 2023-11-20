@@ -61,7 +61,7 @@ class StudentProvider extends BaseProvider {
   }
 
   Future<StudentEntity?> addClassroom(
-      int studentIdentifier, ClassroomEntity classroomEntity) async {
+      String studentIdentifier, ClassroomEntity classroomEntity) async {
     ClassroomDto classroomDto = ClassroomDto.fromEntity(classroomEntity);
     try {
       final response = await http.put(
