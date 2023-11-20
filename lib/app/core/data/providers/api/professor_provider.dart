@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/classroom_entity.dart';
 import '../../../domain/entities/professor_entity.dart';
@@ -64,7 +62,7 @@ class ProfessorProvider extends BaseProvider {
   }
 
   Future<ProfessorEntity?> addClassroom(
-      Long professorRegister, ClassroomEntity classroomEntity) async {
+      int professorRegister, ClassroomEntity classroomEntity) async {
     ClassroomDto classroomDto = ClassroomDto.fromEntity(classroomEntity);
 
     try {
