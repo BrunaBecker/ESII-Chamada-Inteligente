@@ -1,20 +1,19 @@
 import '../../enums/event_status.dart';
-import 'classroom_entity.dart';
 
 class EventEntity {
   EventEntity({
-    required this.id,
+    this.id,
     required this.name,
     required this.date,
     required this.description,
-    required this.classroom,
+    required this.classroomId,
     required this.status,
   });
 
-  int id;
+  int? id;
   String name;
   DateTime date;
   String description;
-  ClassroomEntity classroom;
+  int classroomId;
   EventStatus status;
 }

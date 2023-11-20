@@ -3,16 +3,14 @@ import 'dart:convert';
 import '../../domain/entities/event_entity.dart';
 import '../../enums/event_status.dart';
 import '../../utils/app_date_utils.dart';
-import 'calendar_dto.dart';
-import 'classroom_dto.dart';
 
 class EventDto extends EventEntity {
   EventDto({
-    required super.id,
+    super.id,
     required super.name,
     required super.date,
     required super.description,
-    required super.classroom,
+    required super.classroomId,
     required super.status,
   });
 
@@ -22,38 +20,30 @@ class EventDto extends EventEntity {
       name: entity.name,
       date: entity.date,
       description: entity.description,
-      classroom: entity.classroom,
+      classroomId: entity.classroomId,
       status: entity.status,
     );
   }
 
   factory EventDto.fromMap(Map<String, dynamic> map) {
-    // Mapping Calendars
-    List<CalendarDto> calendars = [];
-    for (var calendarMap in map["calendars"]) {
-      calendars.add(CalendarDto.fromMap(calendarMap));
-    }
-
     return EventDto(
       id: map["id"],
       name: map["name"],
       date: AppDateUtils.storageDateFormat.parse(map["date"]),
       description: map["description"],
-      classroom: ClassroomDto.fromMap(map["classroom"]),
-      status: EventStatus.values[map["status"]],
+      classroomId: map["classroomId"],
+      status: EventStatus.fromText(map["status"]),
     );
   }
 
   Map<String, dynamic> toMap() {
-    // Mapping Calendars
-
     return {
       "id": id,
       "name": name,
       "date": AppDateUtils.storageDateFormat.format(date),
       "description": description,
-      "classroom": ClassroomDto.fromEntity(classroom).toMap(),
-      "status": status.index,
+      "classroomId": classroomId,
+      "status": status.toText(),
     };
   }
 

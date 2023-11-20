@@ -5,17 +5,17 @@ import 'student_entity.dart';
 
 class AttendanceStatusEntity {
   AttendanceStatusEntity({
-    required this.id,
+    this.id,
     required this.studentState,
-    required this.studentHasResponded,
-    required this.validated,
+    this.studentHasResponded = false,
+    this.validated = false,
     required this.student,
     required this.attendance,
     required this.successfulPings,
     required this.unsuccessfulPings,
   });
 
-  int id;
+  int? id;
   StudentAtAttendanceState studentState;
   bool studentHasResponded;
   bool validated;

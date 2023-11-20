@@ -4,7 +4,7 @@ import '../../domain/entities/course_entity.dart';
 
 class CourseDto extends CourseEntity {
   CourseDto({
-    required super.id,
+    super.id,
     required super.code,
     required super.name,
   });

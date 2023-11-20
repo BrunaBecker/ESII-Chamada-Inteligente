@@ -34,8 +34,7 @@ class AttendancesProfessorTab extends StatelessWidget {
                           key: const Key('filter by date button'),
                           onPressed: () async {
                             // TODO: refactor dates
-                            controller.selectedDateRange =
-                                await showDateRangePicker(
+                            controller.selectedDateRange = await showDateRangePicker(
                               context: context,
                               firstDate: DateTime(2023, 11, 1),
                               lastDate: DateTime.now(),
@@ -58,11 +57,9 @@ class AttendancesProfessorTab extends StatelessWidget {
                       ),
                       Expanded(
                         child: ListView.separated(
-                          itemCount:
-                              controller.selectedClass["attendances"].length,
+                          itemCount: controller.selectedClass["attendances"].length,
                           itemBuilder: (context, index) {
-                            final item =
-                                controller.selectedClass["attendances"][index];
+                            final item = controller.selectedClass["attendances"][index];
                             return ListTile(
                               title: Text(item["date"]),
                               subtitle: Text(item["description"]),

@@ -4,7 +4,7 @@ import '../../domain/entities/coordinate_entity.dart';
 
 class CoordinateDto extends CoordinateEntity {
   CoordinateDto({
-    required super.id,
+    super.id,
     required super.latitude,
     required super.longitude,
   });

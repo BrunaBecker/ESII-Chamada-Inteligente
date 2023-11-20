@@ -7,15 +7,16 @@ import 'professor_dto.dart';
 import 'virtual_zone_dto.dart';
 
 class LocationDto extends LocationEntity {
-  LocationDto(
-      {required super.id,
-      required super.title,
-      required super.description,
-      required super.isActive,
-      super.coordinate,
-      super.professor,
-      super.virtualZones,
-      super.classroom});
+  LocationDto({
+    super.id,
+    required super.title,
+    required super.description,
+    super.isActive = true,
+    super.coordinate,
+    super.professor,
+    super.virtualZones,
+    super.classroom,
+  });
 
   factory LocationDto.fromEntity(LocationEntity entity) {
     return LocationDto(
@@ -60,7 +61,7 @@ class LocationDto extends LocationEntity {
       id: map["id"],
       title: map["title"],
       description: map["description"],
-      isActive: map["isActive"],
+      isActive: map["active"],
       coordinate: coordinate,
       professor: professor,
       virtualZones: virtualZones,
@@ -69,29 +70,42 @@ class LocationDto extends LocationEntity {
   }
 
   Map<String, dynamic> toMap() {
+    // Mapping Coordinate
+    Map<String, dynamic>? coordinateAsMap;
+    if (coordinate != null) {
+      coordinateAsMap = CoordinateDto.fromEntity(coordinate!).toMap();
+    }
+
+    // Mapping Professor
+    Map<String, dynamic>? professorAsMap;
+    if (professor != null) {
+      professorAsMap = ProfessorDto.fromEntity(professor!).toMap();
+    }
+
     // Mapping VirtualZones
-    List<Map<String, dynamic>> mappedVirtualZones = [];
+    List<Map<String, dynamic>>? virtualZonesAsMap;
     if (virtualZones != null) {
+      virtualZonesAsMap = [];
       for (var virtualZone in virtualZones!) {
-        mappedVirtualZones.add(VirtualZoneDto.fromEntity(virtualZone).toMap());
+        virtualZonesAsMap.add(VirtualZoneDto.fromEntity(virtualZone).toMap());
       }
+    }
+
+    // Mapping Classroom
+    Map<String, dynamic>? classroomAsMap;
+    if (classroom != null) {
+      classroomAsMap = ClassroomDto.fromEntity(classroom!).toMap();
     }
 
     return {
       "id": id,
       "title": title,
       "description": description,
-      "isActive": isActive,
-      "coordinate": coordinate != null
-          ? CoordinateDto.fromEntity(coordinate!).toMap()
-          : null,
-      "professor": professor != null
-          ? ProfessorDto.fromEntity(professor!).toMap()
-          : null,
-      "virtualZones": virtualZones != null ? mappedVirtualZones : null,
-      "classroom": classroom != null
-          ? ClassroomDto.fromEntity(classroom!).toMap()
-          : null,
+      "active": isActive,
+      "coordinate": coordinateAsMap,
+      "professor": professorAsMap,
+      "virtualZones": virtualZonesAsMap,
+      "classroom": classroomAsMap,
     };
   }
 

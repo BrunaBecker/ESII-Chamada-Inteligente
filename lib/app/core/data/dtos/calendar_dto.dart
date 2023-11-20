@@ -5,7 +5,7 @@ import 'event_dto.dart';
 
 class CalendarDto extends CalendarEntity {
   CalendarDto({
-    required super.id,
+    super.id,
     required super.events,
   });
 

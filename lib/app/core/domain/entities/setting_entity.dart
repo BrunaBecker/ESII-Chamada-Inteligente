@@ -1,12 +1,12 @@
 class SettingEntity {
   SettingEntity({
-    required this.id,
+    this.id,
     required this.automaticSaveLocalization,
     required this.usePredefinedCalendarForAttendance,
     required this.silentMode,
   });
 
-  int id;
+  int? id;
   bool automaticSaveLocalization;
   bool usePredefinedCalendarForAttendance;
   bool silentMode;

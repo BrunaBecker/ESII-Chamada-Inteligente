@@ -2,16 +2,16 @@ import '../../enums/status_notification.dart';
 
 class NotificationEntity {
   NotificationEntity({
-    required this.id,
+    this.id,
     required this.title,
     required this.supportingText,
     required this.statusNotification,
-    required this.isActive,
-    required this.isRead,
+    this.isActive = true,
+    this.isRead = false,
     required this.personId,
   });
 
-  int id;
+  int? id;
   String title;
   String supportingText;
   StatusNotification statusNotification;

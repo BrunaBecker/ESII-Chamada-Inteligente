@@ -3,7 +3,7 @@ import 'virtual_zone_entity.dart';
 
 class AttendanceEntity {
   AttendanceEntity({
-    required this.id,
+    this.id,
     required this.date,
     required this.supportingText,
     required this.startHour,
@@ -15,7 +15,7 @@ class AttendanceEntity {
     required this.classroom,
   });
 
-  int id;
+  int? id;
   DateTime date;
   String supportingText;
   DateTime startHour;
@@ -23,6 +23,6 @@ class AttendanceEntity {
   String duration;
   bool isAutomatic;
   bool isHappening;
-  VirtualZoneEntity virtualZone;
-  ClassroomEntity classroom;
+  VirtualZoneEntity? virtualZone;
+  ClassroomEntity? classroom;
 }

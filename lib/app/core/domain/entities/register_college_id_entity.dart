@@ -1,15 +1,15 @@
 abstract class RegisterCollegeIdEntity {
   RegisterCollegeIdEntity({
-    required this.id,
+    this.id,
     required this.identifier,
     required this.dateStarted,
     this.dateFinished,
-    this.isActive,
+    this.isActive = true,
   });
 
-  int id;
+  int? id;
   String identifier;
   DateTime dateStarted;
   DateTime? dateFinished;
-  bool? isActive;
+  bool isActive;
 }

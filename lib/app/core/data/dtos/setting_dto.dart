@@ -4,7 +4,7 @@ import '../../domain/entities/setting_entity.dart';
 
 class SettingDto extends SettingEntity {
   SettingDto({
-    required super.id,
+    super.id,
     required super.automaticSaveLocalization,
     required super.usePredefinedCalendarForAttendance,
     required super.silentMode,

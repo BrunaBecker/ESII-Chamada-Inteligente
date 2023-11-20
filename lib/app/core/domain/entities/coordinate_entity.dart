@@ -1,11 +1,11 @@
 class CoordinateEntity {
   CoordinateEntity({
-    required this.id,
+    this.id,
     required this.latitude,
     required this.longitude,
   });
 
-  int id;
+  int? id;
   double latitude;
   double longitude;
 }
