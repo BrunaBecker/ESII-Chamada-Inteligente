@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app_routes.dart';
-import '../../core/domain/entities/professor_entity.dart';
-import '../../core/domain/entities/student_entity.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/bottom_nav_bar.dart';
+import '../../core/widgets/profile_picture.dart';
 import '../../core/widgets/spacing.dart';
 import 'profile_controller.dart';
-import '../../core/widgets/profile_picture.dart';
 
 class ProfileWidget extends StatelessWidget {
   const ProfileWidget({super.key});
@@ -77,14 +75,7 @@ class ProfileWidget extends StatelessWidget {
                                 width: 256,
                                 height: 256,
                                 child: ProfilePicture(
-                                  imageUrl: controller.isProfessor
-                                      ? (controller.user! as ProfessorEntity)
-                                              .profileImage
-                                              ?.linkFile ??
-                                          ""
-                                      : (controller.user! as StudentEntity)
-                                          .profileImage
-                                          .linkFile,
+                                  imageUrl: controller.profileImage,
                                 ),
                               ),
                               const Spacing(8.0),

@@ -5,7 +5,7 @@ import '../../utils/app_date_utils.dart';
 
 class PictureDto extends PictureEntity {
   PictureDto({
-    required super.id,
+    super.id,
     required super.linkFile,
     required super.nameFile,
     required super.typeFile,

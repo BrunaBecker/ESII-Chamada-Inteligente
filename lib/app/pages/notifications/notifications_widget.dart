@@ -53,8 +53,9 @@ class NotificationsWidget extends StatelessWidget {
                         itemBuilder: (BuildContext context) => [
                           PopupMenuItem(
                             key: const Key('mark as read'),
-                            onTap: () => controller
-                                .toggleReadNotification(notification.id),
+                            onTap: () => controller.toggleReadNotification(
+                              notification.id!,
+                            ),
                             child: ListTile(
                               leading: const Icon(Icons.cut_outlined),
                               title: Text(
@@ -66,8 +67,9 @@ class NotificationsWidget extends StatelessWidget {
                           ),
                           PopupMenuItem(
                             key: const Key('delete notification'),
-                            onTap: () =>
-                                controller.removeNotification(notification.id),
+                            onTap: () => controller.removeNotification(
+                              notification.id!,
+                            ),
                             child: const ListTile(
                               leading: Icon(Icons.delete_outline),
                               title: Text("Excluir"),

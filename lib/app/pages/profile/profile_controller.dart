@@ -24,6 +24,7 @@ class ProfileController extends GetxController {
   bool get isLoading => _isLoading.value;
   PersonEntity? get user => _user.value;
   bool get isProfessor => _appController.userType == UserType.professor;
+  String get profileImage => _appController.userProfileImage;
 
   @override
   void onInit() async {

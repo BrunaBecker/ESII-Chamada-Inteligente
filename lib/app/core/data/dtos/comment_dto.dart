@@ -8,54 +8,48 @@ import 'student_dto.dart';
 
 class CommentDto extends CommentEntity {
   CommentDto({
-    required super.id,
+    super.id,
     required super.content,
-    required super.author,
-    super.replyTo,
+    required super.personId,
+    super.comment,
   });
 
   factory CommentDto.fromEntity(CommentEntity entity) {
     return CommentDto(
       id: entity.id,
       content: entity.content,
-      author: entity.author,
-      replyTo: entity.replyTo,
+      personId: entity.personId,
+      comment: entity.comment,
     );
   }
 
   factory CommentDto.fromMap(Map<String, dynamic> map) {
-    final dynamic person;
-    // Checking person type
-    if ((map["person"] as Map).containsKey("siape")) {
-      person = ProfessorDto.fromMap(map["person"]);
-    } else {
-      person = StudentDto.fromMap(map["person"]);
-    }
+    // Mapping Comment
 
     return CommentDto(
       id: map["id"],
       content: map["content"],
-      author: person,
-      replyTo:
-          map["replyTo"] != null ? CommentDto.fromMap(map["replyTo"]) : null,
+      personId: map["personId"],
+      comment:
+          map["comment"] != null ? CommentDto.fromMap(map["comment"]) : null,
     );
   }
 
   Map<String, dynamic> toMap() {
     final dynamic personAsMap;
     // Checking person type
-    if (author is ProfessorDto) {
-      personAsMap = ProfessorDto.fromEntity(author as ProfessorEntity);
+    if (personId is ProfessorDto) {
+      personAsMap = ProfessorDto.fromEntity(personId as ProfessorEntity);
     } else {
-      personAsMap = StudentDto.fromEntity(author as StudentEntity);
+      personAsMap = StudentDto.fromEntity(personId as StudentEntity);
     }
 
     return {
       "id": id,
       "content": content,
-      "author": personAsMap,
-      "replyTo":
-          replyTo != null ? CommentDto.fromEntity(replyTo!).toMap() : null,
+      "personId": personAsMap,
+      "comment":
+          comment != null ? CommentDto.fromEntity(comment!).toMap() : null,
     };
   }
 

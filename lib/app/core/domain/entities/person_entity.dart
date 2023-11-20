@@ -1,4 +1,6 @@
+import 'picture_entity.dart';
 import 'register_college_id_entity.dart';
+import 'setting_entity.dart';
 
 abstract class PersonEntity {
   PersonEntity({
@@ -6,9 +8,12 @@ abstract class PersonEntity {
     required this.name,
     required this.socialName,
     required this.birthDate,
-    this.isActive,
+    this.isActive = true,
     required this.cpf,
     required this.email,
+    required this.password,
+    this.setting,
+    this.profileImage,
     required this.register,
   });
 
@@ -16,8 +21,11 @@ abstract class PersonEntity {
   String name;
   String socialName;
   DateTime birthDate;
-  bool? isActive;
+  bool isActive;
   String cpf;
   String email;
+  String password;
+  SettingEntity? setting;
+  PictureEntity? profileImage;
   RegisterCollegeIdEntity register;
 }

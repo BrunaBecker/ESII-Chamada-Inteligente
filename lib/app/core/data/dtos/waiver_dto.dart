@@ -8,13 +8,13 @@ import 'student_dto.dart';
 
 class WaiverDto extends WaiverEntity {
   WaiverDto({
-    required super.id,
+    super.id,
     required super.file,
     required super.description,
     required super.sendDate,
-    required super.acceptionDate,
-    required super.isAccepted,
-    required super.comment,
+    super.acceptionDate,
+    super.isAccepted = false,
+    super.comment,
     required super.student,
     required super.attendanceStatusId,
   });
@@ -34,28 +34,55 @@ class WaiverDto extends WaiverEntity {
   }
 
   factory WaiverDto.fromMap(Map<String, dynamic> map) {
+    // Mapping Acception Date
+    DateTime? acceptionDate;
+    if (map["acceptionDate"] != null) {
+      acceptionDate = AppDateUtils.storageDateFormat.parse(
+        map["acceptionDate"],
+      );
+    }
+    // Mapping comment
+    CommentDto? comment;
+    if (map["comment"] != null) {
+      comment = CommentDto.fromMap(map["comment"]);
+    }
+
     return WaiverDto(
       id: map["id"],
       file: FileMacFiDto.fromMap(map["file"]),
       description: map["description"],
       sendDate: AppDateUtils.storageDateFormat.parse(map["sendDate"]),
-      acceptionDate: AppDateUtils.storageDateFormat.parse(map["acceptionDate"]),
-      isAccepted: map["isAccepted"],
-      comment: CommentDto.fromMap(map["comment"]),
+      acceptionDate: acceptionDate,
+      isAccepted: map["accepted"],
+      comment: comment,
       student: StudentDto.fromMap(map["student"]),
       attendanceStatusId: map["attendanceStatusId"],
     );
   }
 
   Map<String, dynamic> toMap() {
+    // Mapping Acception Date
+    String? acceptionDateAsString;
+    if (acceptionDate != null) {
+      acceptionDateAsString = AppDateUtils.storageDateFormat.format(
+        acceptionDate!,
+      );
+    }
+
+    // Mapping Comment
+    Map<String, dynamic>? commentAsMap;
+    if (comment != null) {
+      commentAsMap = CommentDto.fromEntity(comment!).toMap();
+    }
+
     return {
       "id": id,
       "file": FileMacFiDto.fromEntity(file).toMap(),
       "description": description,
       "sendDate": AppDateUtils.storageDateFormat.format(sendDate),
-      "acceptionDate": AppDateUtils.storageDateFormat.format(acceptionDate),
-      "isAccepted": isAccepted,
-      "comment": CommentDto.fromEntity(comment).toMap(),
+      "acceptionDate": acceptionDateAsString,
+      "accepted": isAccepted,
+      "comment": commentAsMap,
       "student": StudentDto.fromEntity(student).toMap(),
       "attendanceStatusId": attendanceStatusId,
     };

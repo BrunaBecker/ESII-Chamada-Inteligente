@@ -1,11 +1,11 @@
 class CourseEntity {
   CourseEntity({
-    required this.id,
+    this.id,
     required this.code,
     required this.name,
   });
 
-  int id;
+  int? id;
   String code;
   String name;
 }

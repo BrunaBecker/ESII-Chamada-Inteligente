@@ -7,7 +7,7 @@ import 'virtual_zone_dto.dart';
 
 class AttendanceDto extends AttendanceEntity {
   AttendanceDto({
-    required super.id,
+    super.id,
     required super.date,
     required super.supportingText,
     required super.startHour,
@@ -15,8 +15,8 @@ class AttendanceDto extends AttendanceEntity {
     required super.duration,
     required super.isAutomatic,
     required super.isHappening,
-    required super.virtualZone,
-    required super.classroom,
+    super.virtualZone,
+    super.classroom,
   });
 
   factory AttendanceDto.fromEntity(AttendanceEntity entity) {
@@ -35,6 +35,18 @@ class AttendanceDto extends AttendanceEntity {
   }
 
   factory AttendanceDto.fromMap(Map<String, dynamic> map) {
+    // Mapping Virtual Zone
+    VirtualZoneDto? virtualZone;
+    if (map["virtualZoneDto"] != null) {
+      virtualZone = VirtualZoneDto.fromMap(map["virtualZoneDto"]);
+    }
+
+    // Mapping Classroom
+    ClassroomDto? classroom;
+    if (map["classroomDto"] != null) {
+      classroom = ClassroomDto.fromMap(map["classroomDto"]);
+    }
+
     return AttendanceDto(
       id: map["id"],
       date: AppDateUtils.storageDateFormat.parse(map["date"]),
@@ -42,14 +54,26 @@ class AttendanceDto extends AttendanceEntity {
       startHour: AppDateUtils.storageDateFormat.parse(map["startHour"]),
       endHour: AppDateUtils.storageDateFormat.parse(map["endHour"]),
       duration: map["duration"],
-      isAutomatic: map["isAutomatic"],
-      isHappening: map["isHappening"],
-      virtualZone: map["virtualZone"],
-      classroom: map["classroom"],
+      isAutomatic: map["automatic"],
+      isHappening: map["happening"],
+      virtualZone: virtualZone,
+      classroom: classroom,
     );
   }
 
   Map<String, dynamic> toMap() {
+    // Mapping Virtual Zone
+    Map<String, dynamic>? virtualZoneAsMap;
+    if (virtualZone != null) {
+      virtualZoneAsMap = VirtualZoneDto.fromEntity(virtualZone!).toMap();
+    }
+
+    // Mapping Classroom
+    Map<String, dynamic>? classroomAsMap;
+    if (classroom != null) {
+      classroomAsMap = ClassroomDto.fromEntity(classroom!).toMap();
+    }
+
     return {
       "id": id,
       "date": AppDateUtils.storageDateFormat.format(date),
@@ -57,10 +81,10 @@ class AttendanceDto extends AttendanceEntity {
       "startHour": startHour.toString(),
       "endHour": endHour.toString(),
       "duration": duration,
-      "isAutomatic": isAutomatic,
-      "isHappening": isHappening,
-      "virtualZone": VirtualZoneDto.fromEntity(virtualZone).toMap(),
-      "classroom": ClassroomDto.fromEntity(classroom).toMap(),
+      "automatic": isAutomatic,
+      "happening": isHappening,
+      "virtualZoneDto": virtualZoneAsMap,
+      "classroomDto": classroomAsMap,
     };
   }
 

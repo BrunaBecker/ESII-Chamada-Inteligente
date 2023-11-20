@@ -4,24 +4,24 @@ import 'student_entity.dart';
 
 class WaiverEntity {
   WaiverEntity({
-    required this.id,
+    this.id,
     required this.file,
     required this.description,
     required this.sendDate,
-    required this.acceptionDate,
-    required this.isAccepted,
-    required this.comment,
+    this.acceptionDate,
+    this.isAccepted = false,
+    this.comment,
     required this.student,
     required this.attendanceStatusId,
   });
 
-  int id;
+  int? id;
   FileMacFiEntity file;
   String description;
   DateTime sendDate;
-  DateTime acceptionDate;
+  DateTime? acceptionDate;
   bool isAccepted;
-  CommentEntity comment;
+  CommentEntity? comment;
   StudentEntity student;
   int attendanceStatusId;
 }

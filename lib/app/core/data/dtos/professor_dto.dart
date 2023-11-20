@@ -8,17 +8,17 @@ import 'setting_dto.dart';
 
 class ProfessorDto extends ProfessorEntity {
   ProfessorDto({
-    required super.id,
+    super.id,
     required super.name,
     required super.socialName,
     required super.birthDate,
-    required super.isActive,
+    super.isActive = true,
     required super.cpf,
     required super.email,
     required super.password,
-    required super.register,
     super.setting,
-    required super.profileImage,
+    super.profileImage,
+    required super.register,
   });
 
   factory ProfessorDto.fromEntity(ProfessorEntity entity) {
@@ -38,9 +38,16 @@ class ProfessorDto extends ProfessorEntity {
   }
 
   factory ProfessorDto.fromMap(Map<String, dynamic> map) {
+    // Mapping Setting
     SettingDto? setting;
     if (map["setting"] != null) {
       setting = SettingDto.fromMap(map["setting"]);
+    }
+
+    // Mapping Profile Image
+    PictureDto? profileImage;
+    if (map["profileImage"] != null) {
+      profileImage = PictureDto.fromMap(map["profileImage"]);
     }
 
     return ProfessorDto(
@@ -54,11 +61,23 @@ class ProfessorDto extends ProfessorEntity {
       password: map["password"],
       register: RegisterCollegeIdDto.fromMap(map["register"]),
       setting: setting,
-      profileImage: PictureDto.fromMap(map["profileImage"]),
+      profileImage: profileImage,
     );
   }
 
   Map<String, dynamic> toMap() {
+    // Mapping Setting
+    SettingDto? settingAsMap;
+    if (setting != null) {
+      settingAsMap = SettingDto.fromEntity(setting!);
+    }
+
+    // Mapping Profile Image
+    PictureDto? profileImageAsMap;
+    if (profileImage != null) {
+      profileImageAsMap = PictureDto.fromEntity(profileImage!);
+    }
+
     return {
       "id": id,
       "name": name,
@@ -69,11 +88,8 @@ class ProfessorDto extends ProfessorEntity {
       "email": email,
       "password": password,
       "register": RegisterCollegeIdDto.fromEntity(register).toMap(),
-      "setting":
-          setting != null ? SettingDto.fromEntity(setting!).toMap() : null,
-      "profileImage": profileImage != null
-          ? PictureDto.fromEntity(profileImage!).toMap()
-          : null,
+      "setting": settingAsMap,
+      "profileImage": profileImageAsMap,
     };
   }
 

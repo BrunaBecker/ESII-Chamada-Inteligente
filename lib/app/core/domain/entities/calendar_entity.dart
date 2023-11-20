@@ -2,10 +2,10 @@ import 'event_entity.dart';
 
 class CalendarEntity {
   CalendarEntity({
-    required this.id,
+    this.id,
     required this.events,
   });
 
-  int id;
+  int? id;
   List<EventEntity> events;
 }

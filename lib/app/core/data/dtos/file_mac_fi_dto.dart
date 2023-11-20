@@ -5,7 +5,7 @@ import '../../utils/app_date_utils.dart';
 
 class FileMacFiDto extends FileMacFiEntity {
   FileMacFiDto({
-    required super.id,
+    super.id,
     required super.linkFile,
     required super.nameFile,
     required super.typeFile,

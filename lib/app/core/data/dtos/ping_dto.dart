@@ -5,13 +5,13 @@ import '../../utils/app_date_utils.dart';
 
 class PingDto extends PingEntity {
   PingDto({
-    required super.id,
+    super.id,
     required super.ip,
     required super.date,
     required super.status,
     required super.isContinuous,
-    required super.coordinateId,
-    required super.attendanceStatusId,
+    super.coordinateId,
+    super.attendanceStatusId,
   });
 
   factory PingDto.fromEntity(PingEntity entity) {
@@ -32,7 +32,7 @@ class PingDto extends PingEntity {
       ip: map["ip"],
       date: AppDateUtils.storageDateFormat.parse(map["date"]),
       status: map["status"],
-      isContinuous: map["isContinuous"],
+      isContinuous: map["continuos"],
       coordinateId: map["coordinateId"],
       attendanceStatusId: map["attendanceStatusId"],
     );
@@ -40,11 +40,11 @@ class PingDto extends PingEntity {
 
   Map<String, dynamic> toMap() {
     return {
-      "ip": ip,
       "id": id,
+      "ip": ip,
       "date": AppDateUtils.storageDateFormat.format(date),
       "status": status,
-      "isContinuous": isContinuous,
+      "continuos": isContinuous,
       "coordinateId": coordinateId,
       "attendanceStatusId": attendanceStatusId,
     };
