@@ -61,10 +61,10 @@ class ClassroomProvider extends BaseProvider {
   }
 
   Future<List<ClassroomEntity>?> fetchByProfessorRegister(
-      int professorRegister) async {
+      String professorIdentifier) async {
     try {
       final response = await http.get(
-        '/classroom/professor/$professorRegister',
+        '/classroom/professor/$professorIdentifier',
       );
 
       validateResponse(
@@ -90,10 +90,10 @@ class ClassroomProvider extends BaseProvider {
   }
 
   Future<List<ClassroomEntity>?> fetchByStudentRegister(
-      int studentRegister) async {
+      String studentIdentifier) async {
     try {
       final response = await http.get(
-        '/classroom/student/$studentRegister',
+        '/classroom/student/$studentIdentifier',
       );
 
       validateResponse(

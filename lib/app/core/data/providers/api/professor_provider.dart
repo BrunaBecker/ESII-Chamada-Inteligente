@@ -62,12 +62,12 @@ class ProfessorProvider extends BaseProvider {
   }
 
   Future<ProfessorEntity?> addClassroom(
-      int professorRegister, ClassroomEntity classroomEntity) async {
+      String professorIdentifier, ClassroomEntity classroomEntity) async {
     ClassroomDto classroomDto = ClassroomDto.fromEntity(classroomEntity);
 
     try {
       final response = await http.put(
-        '/professor/$professorRegister/class',
+        '/professor/$professorIdentifier/class',
         body: classroomDto.toJson(),
       );
 
