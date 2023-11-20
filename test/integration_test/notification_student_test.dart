@@ -8,8 +8,8 @@ import 'login_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('Notifications Integration Tests', () {
-    testWidgets('Mark notification as read', (WidgetTester tester) async {
+  group('Student: Notifications Integration Tests', () {
+    testWidgets('[S] Mark notification as read', (WidgetTester tester) async {
       // Run the app
       app.main();
       await tester.pumpAndSettle();
@@ -61,7 +61,7 @@ void main() {
       expect(isReadIconAfter, !isReadIcon);
     });
 
-    testWidgets('Delete notification', (WidgetTester tester) async {
+    testWidgets('[S] Delete notification', (WidgetTester tester) async {
       // Run the app
       // app.main();
       // await tester.pumpAndSettle();
@@ -103,7 +103,7 @@ void main() {
       // expect(originalClass, afterClass);
     });
 
-    testWidgets('Return to main page', (WidgetTester tester) async {
+    testWidgets('[S] Return to main page', (WidgetTester tester) async {
       // Run the app
       app.main();
       await tester.pumpAndSettle();
