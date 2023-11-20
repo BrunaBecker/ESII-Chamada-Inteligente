@@ -10,6 +10,33 @@ class AttendanceStatusProvider extends BaseProvider {
 
   AttendanceStatusProvider({required this.http});
 
+  Future<List<AttendanceStatusEntity>?> fetchAll() async {
+    try {
+      final response = await http.get(
+        '/attendanceStatus',
+      );
+
+      validateResponse(
+        response: response,
+      );
+
+      final attendanceStatus = response.data
+          .map<AttendanceStatusDto>(
+            (attendanceStatus) => AttendanceStatusDto.fromMap(attendanceStatus),
+          )
+          .toList();
+
+      return attendanceStatus;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logError(e.toString());
+      return null;
+    }
+  }
+
   Future<AttendanceStatusEntity?> create(
       AttendanceStatusEntity attendanceStatusEntity) async {
     AttendanceStatusDto attendanceStatusDto =
@@ -23,7 +50,6 @@ class AttendanceStatusProvider extends BaseProvider {
 
       validateResponse(
         response: response,
-        statusCodes: [200],
       );
 
       return AttendanceStatusDto.fromMap(response.data);
@@ -50,7 +76,6 @@ class AttendanceStatusProvider extends BaseProvider {
 
       validateResponse(
         response: response,
-        statusCodes: [200],
       );
 
       return AttendanceStatusDto.fromMap(response.data);
@@ -72,7 +97,6 @@ class AttendanceStatusProvider extends BaseProvider {
 
       validateResponse(
         response: response,
-        statusCodes: [200],
       );
 
       return AttendanceStatusDto.fromMap(response.data);
@@ -95,7 +119,6 @@ class AttendanceStatusProvider extends BaseProvider {
 
       validateResponse(
         response: response,
-        statusCodes: [200],
       );
 
       final attendanceStatus = response.data
@@ -118,13 +141,14 @@ class AttendanceStatusProvider extends BaseProvider {
   Future<AttendanceStatusEntity?> fetchByAttendanceAndStudent(
       int studentId, int attendanceId) async {
     try {
-      final response = await http.get(
-        '/attendanceStatus/byAttendanceAndStudent?attendanceid=$attendanceId&studentid=$studentId',
-      );
+      final response =
+          await http.get('/attendanceStatus/byAttendanceAndStudent', query: {
+        'attendanceid': attendanceId,
+        'studentid': studentId,
+      });
 
       validateResponse(
         response: response,
-        statusCodes: [200],
       );
 
       return AttendanceStatusDto.fromMap(response.data);
@@ -135,6 +159,204 @@ class AttendanceStatusProvider extends BaseProvider {
     } catch (e) {
       logError(e.toString());
       return null;
+    }
+  }
+
+  Future<AttendanceStatusEntity?> invalidate(int id) async {
+    try {
+      final response = await http.put(
+        '/attendanceStatus/invalidate/$id',
+      );
+
+      validateResponse(
+        response: response,
+      );
+
+      return AttendanceStatusDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logError(e.toString());
+    }
+    return null;
+  }
+
+  Future<AttendanceStatusEntity?> respond(int id) async {
+    try {
+      final response = await http.put(
+        '/attendanceStatus/respond/$id',
+      );
+
+      validateResponse(
+        response: response,
+      );
+
+      return AttendanceStatusDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logError(e.toString());
+    }
+    return null;
+  }
+
+  Future<AttendanceStatusEntity?> setWaiver(int id, int waiverId) async {
+    try {
+      final response = await http.put(
+        '/attendanceStatus/setWaiver',
+        query: {
+          'idAttendanceStatus': id,
+          'idWaiver': waiverId,
+        },
+      );
+
+      validateResponse(
+        response: response,
+      );
+
+      return AttendanceStatusDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logError(e.toString());
+    }
+    return null;
+  }
+
+  Future<AttendanceStatusEntity?> setSuccessfulPing(int id, int pingId) async {
+    try {
+      final response = await http.put(
+        '/attendanceStatus/setSuccessfulPing',
+        query: {
+          'idAttendanceStatus': id,
+          'idPing': pingId,
+        },
+      );
+
+      validateResponse(
+        response: response,
+      );
+
+      return AttendanceStatusDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logError(e.toString());
+
+      return null;
+    }
+  }
+
+  Future<AttendanceStatusEntity?> setUnsuccessfulPing(
+      int id, int pingId) async {
+    try {
+      final response = await http.put(
+        '/attendanceStatus/setUnsuccessfulPing',
+        query: {
+          'idAttendanceStatus': id,
+          'idPing': pingId,
+        },
+      );
+
+      validateResponse(
+        response: response,
+      );
+
+      return AttendanceStatusDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logError(e.toString());
+
+      return null;
+    }
+  }
+
+  Future<AttendanceStatusEntity?> removeSuccessfulPing(
+      int id, int pingId) async {
+    try {
+      final response = await http.put(
+        '/attendanceStatus/removeSuccessfulPing',
+        query: {
+          'idAttendanceStatus': id,
+          'idPing': pingId,
+        },
+      );
+
+      validateResponse(
+        response: response,
+      );
+
+      return AttendanceStatusDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logError(e.toString());
+
+      return null;
+    }
+  }
+
+  Future<AttendanceStatusEntity?> removeUnsuccessfulPing(
+      int id, int pingId) async {
+    try {
+      final response = await http.put(
+        '/attendanceStatus/removeUnsuccessfulPing',
+        query: {
+          'idAttendanceStatus': id,
+          'idPing': pingId,
+        },
+      );
+
+      validateResponse(
+        response: response,
+      );
+
+      return AttendanceStatusDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    }
+  }
+
+  Future<List<AttendanceStatusEntity>?> fetchAllByStudentId(
+      int studentId) async {
+    try {
+      final response = await http.get(
+        '/attendanceStatus/byStudent',
+        query: {
+          'idStudent': studentId,
+        },
+      );
+
+      validateResponse(
+        response: response,
+      );
+
+      final attendanceStatus = response.data
+          .map<AttendanceStatusDto>(
+            (attendanceStatus) => AttendanceStatusDto.fromMap(attendanceStatus),
+          )
+          .toList();
+
+      return attendanceStatus;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
     }
   }
 }
