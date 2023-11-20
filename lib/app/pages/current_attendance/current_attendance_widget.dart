@@ -50,6 +50,7 @@ class CurrentAttendanceWidget extends StatelessWidget {
                               );
                             },
                             icon: const Icon(
+                              key: Key('map outlined icon'),
                               Icons.map_outlined,
                             ),
                           ),
@@ -93,6 +94,7 @@ class CurrentAttendanceWidget extends StatelessWidget {
                               );
                             },
                             icon: const Icon(
+                              key: Key('close roll call'),
                               Icons.close_outlined,
                             ),
                           ),
@@ -111,6 +113,7 @@ class CurrentAttendanceWidget extends StatelessWidget {
                       ),
                 bottomNavigationBar: const BottomNavBar(),
                 floatingActionButton: FloatingActionButton.small(
+                  key: const Key('add student icon'),
                   backgroundColor: AppColors.surfaceContainerHigh,
                   onPressed: () {
                     showDialog(
@@ -131,6 +134,7 @@ class CurrentAttendanceWidget extends StatelessWidget {
                                   ),
                                   const Spacing(8.0),
                                   TextFormField(
+                                    key: const Key('student name add form'),
                                     validator: (val) => controller.validator
                                         .validateNotNullInput(val),
                                     controller: controller.nameController,
@@ -145,6 +149,8 @@ class CurrentAttendanceWidget extends StatelessWidget {
                                   ),
                                   const Spacing(4.0),
                                   TextFormField(
+                                    key:
+                                        const Key('registration name add form'),
                                     validator: (val) => controller.validator
                                         .validateRegistration(val),
                                     controller:

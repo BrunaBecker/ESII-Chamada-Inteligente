@@ -50,7 +50,9 @@ class CurrentAttendanceStudentList extends StatelessWidget {
                 ),
               ),
               trailing: PopupMenuButton(
+                key: const Key('student status popup menu button'),
                 icon: Icon(
+                  key: const Key('student status icon'),
                   student["status"] == StudentAtAttendanceState.present
                       ? Icons.check_outlined
                       : student["status"] == StudentAtAttendanceState.absent

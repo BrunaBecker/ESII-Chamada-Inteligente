@@ -46,6 +46,7 @@ class CurrentAttendanceSearchBar extends StatelessWidget {
               ),
             ),
             Text(
+              key: const Key('number of students answer'),
               "De ${controller.totalStudents()} alunos, ${controller.answeredStudents()} responderam essa chamada",
               style: const TextStyle(
                 fontSize: 12,

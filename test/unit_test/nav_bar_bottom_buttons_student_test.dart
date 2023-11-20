@@ -15,13 +15,13 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await loginProfessor(tester);
+      await loginAluno(tester);
 
       final Finder navHomeButton = find.byKey(const Key('início_button'));
       await tester.tap(navHomeButton);
       await tester.pumpAndSettle();
 
-      expect(find.byKey(const Key('iniciar_chamada_button')), findsOneWidget);
+      expect(find.text('Registre sua presença!'), findsOneWidget);
     });
 
     testWidgets('Class Navigation', (WidgetTester tester) async {
@@ -29,7 +29,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await loginProfessor(tester);
+      await loginAluno(tester);
 
       final Finder navClassButton = find.byKey(const Key('turmas_button'));
       await tester.tap(navClassButton);
@@ -61,7 +61,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await loginProfessor(tester);
+      await loginAluno(tester);
 
       final Finder navCalendarButton =
           find.byKey(const Key('calendário_button'));
@@ -85,7 +85,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await loginProfessor(tester);
+      await loginAluno(tester);
 
       final Finder navSettingsButton =
           find.byKey(const Key('preferências_button'));
