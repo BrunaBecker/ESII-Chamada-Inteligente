@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/location_entity.dart';
 import '../../../exceptions/entity_not_found_exception.dart';
@@ -86,7 +84,7 @@ class LocationProvider extends BaseProvider {
   }
 
   Future<List<LocationEntity>?> fetchAllByProfessorRegister(
-      Long professorRegister) async {
+      int professorRegister) async {
     try {
       final response = await http.get(
         '/location/byProfessor/$professorRegister',

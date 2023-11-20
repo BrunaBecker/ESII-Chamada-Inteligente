@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/waiver_entity.dart';
 import '../../../exceptions/entity_not_found_exception.dart';
@@ -38,7 +36,7 @@ class WaiverProvider extends BaseProvider {
   }
 
   Future<WaiverDto?> fetchByStudentAndClassroom(
-      Long studentId, Long classroomId) async {
+      int studentId, int classroomId) async {
     try {
       final response = await http.get(
         '/waiver/student/$studentId/classroom/$classroomId',

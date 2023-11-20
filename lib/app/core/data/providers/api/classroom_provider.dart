@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/classroom_entity.dart';
 import '../../../exceptions/entity_not_found_exception.dart';
@@ -63,7 +61,7 @@ class ClassroomProvider extends BaseProvider {
   }
 
   Future<List<ClassroomEntity>?> fetchByProfessorRegister(
-      Long professorRegister) async {
+      int professorRegister) async {
     try {
       final response = await http.get(
         '/classroom/professor/$professorRegister',
@@ -92,7 +90,7 @@ class ClassroomProvider extends BaseProvider {
   }
 
   Future<List<ClassroomEntity>?> fetchByStudentRegister(
-      Long studentRegister) async {
+      int studentRegister) async {
     try {
       final response = await http.get(
         '/classroom/student/$studentRegister',
