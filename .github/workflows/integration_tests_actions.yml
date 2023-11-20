@@ -45,3 +45,6 @@
        # want to change this to 'flutter test'.
        - name: Run Integration Tests
          run: flutter test --coverage
+
+       - name: Main Batch Tests
+         run: bash test/scripts/run_tests.sh

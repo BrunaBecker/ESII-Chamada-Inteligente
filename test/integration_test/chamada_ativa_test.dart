@@ -210,55 +210,6 @@ void main() {
       expect(find.text("Chamada local"), findsOneWidget);
     });
 
-    testWidgets('Check statistics update', (WidgetTester tester) async {
-      await tester.binding.setSurfaceSize(const Size(1080, 1920));
-
-      // Run the app
-      app.main();
-      await tester.pumpAndSettle();
-
-      await loginProfessor(tester);
-
-      await iniciarChamada(tester);
-
-      Finder studentsPresenceStringFinder =
-          find.byKey(const Key('number of students answer'));
-
-      final Element selectedElement =
-          studentsPresenceStringFinder.evaluate().first;
-      final String? stringStudentsStatistics =
-          (selectedElement.widget as Text).data;
-
-      String? numberStudents = stringStudentsStatistics?.split(" ")[3];
-      int numberOfPresentStudentsAfter = int.parse(numberStudents!) + 1;
-
-      Finder popupMenuButtonFinder =
-          find.byKey(const Key('student status popup menu button'));
-      final Finder iconFinder = find
-          .descendant(
-            of: popupMenuButtonFinder,
-            matching: find.byWidgetPredicate((widget) {
-              return widget is Icon &&
-                  widget.icon == Icons.indeterminate_check_box &&
-                  widget.color == AppColors.onSurfaceVariant;
-            }),
-          )
-          .first;
-
-      await markAs(tester, "present", iconFinder);
-
-      final Element newSelectedElement =
-          studentsPresenceStringFinder.evaluate().first;
-      final String? newStringStudentsStatistics =
-          (newSelectedElement.widget as Text).data;
-
-      String? newNumberStudents = newStringStudentsStatistics?.split(" ")[3];
-      int newNumberOfPresentStudentsAfter = int.parse(newNumberStudents!);
-
-      expect(newNumberOfPresentStudentsAfter,
-          equals(numberOfPresentStudentsAfter));
-    });
-
     testWidgets('Check finish roll call', (WidgetTester tester) async {
       await tester.binding.setSurfaceSize(const Size(1080, 1920));
 
@@ -311,6 +262,55 @@ void main() {
 
       expect(find.text('Novo Aluno'), findsOneWidget);
 
+    });
+
+    testWidgets('Check statistics update', (WidgetTester tester) async {
+      await tester.binding.setSurfaceSize(const Size(1080, 1920));
+
+      // Run the app
+      app.main();
+      await tester.pumpAndSettle();
+
+      await loginProfessor(tester);
+
+      await iniciarChamada(tester);
+
+      Finder studentsPresenceStringFinder =
+      find.byKey(const Key('number of students answer'));
+
+      final Element selectedElement =
+          studentsPresenceStringFinder.evaluate().first;
+      final String? stringStudentsStatistics =
+          (selectedElement.widget as Text).data;
+
+      String? numberStudents = stringStudentsStatistics?.split(" ")[3];
+      int numberOfPresentStudentsAfter = int.parse(numberStudents!) + 1;
+
+      Finder popupMenuButtonFinder =
+      find.byKey(const Key('student status popup menu button'));
+      final Finder iconFinder = find
+          .descendant(
+        of: popupMenuButtonFinder,
+        matching: find.byWidgetPredicate((widget) {
+          return widget is Icon &&
+              widget.icon == Icons.indeterminate_check_box &&
+              widget.color == AppColors.onSurfaceVariant;
+        }),
+      )
+          .first;
+
+      await markAs(tester, "present", iconFinder);
+
+      final Element newSelectedElement =
+          studentsPresenceStringFinder.evaluate().first;
+      final String? newStringStudentsStatistics =
+          (newSelectedElement.widget as Text).data;
+
+      String? newNumberStudents = newStringStudentsStatistics?.split(" ")[3];
+      int newNumberOfPresentStudentsAfter = int.parse(newNumberStudents!);
+
+      expect(newNumberOfPresentStudentsAfter,
+          equals(numberOfPresentStudentsAfter));
     });
   });
 }
