@@ -14,7 +14,7 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await loginProfessor(tester);
+      await loginAluno(tester);
 
       await goToNotificationPage(tester);
 
@@ -108,17 +108,17 @@ void main() {
       app.main();
       await tester.pumpAndSettle();
 
-      await loginProfessor(tester);
+      await loginAluno(tester);
 
       await goToNotificationPage(tester);
 
       final Finder notificationButton =
-          find.byKey(const Key('notification_button_pressed'));
+      find.byKey(const Key('notification_button_pressed'));
 
       await tester.tap(notificationButton);
       await tester.pumpAndSettle();
 
-      expect(find.byKey(const Key('iniciar_chamada_button')), findsOneWidget);
+      expect(find.text('Registre sua presença!'), findsOneWidget);
     });
   });
 }
