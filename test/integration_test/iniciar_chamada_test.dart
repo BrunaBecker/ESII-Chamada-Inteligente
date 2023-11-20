@@ -6,6 +6,24 @@ import 'package:mac_fi/main.dart' as app;
 import '../unit_test/iniciar_chamada_test.dart';
 import 'login_test.dart';
 
+Future<void> iniciarChamada(WidgetTester tester) async {
+  await goToBeginRollCallPage(tester);
+
+  final Finder presetSwitch = find.byKey(const Key('preset activate switch'));
+  await tester.tap(presetSwitch);
+  await tester.pumpAndSettle();
+
+  final Finder startRollCallFinger =
+      find.byKey(const Key('start roll call button'));
+  await tester.tap(startRollCallFinger);
+  await tester.pumpAndSettle();
+
+  await tester.tap(find.text('Confirmar'));
+  await tester.pumpAndSettle();
+
+  expect(find.widgetWithText(Expanded, 'Chamada'), findsOneWidget);
+}
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
