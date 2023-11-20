@@ -4,7 +4,7 @@ import '../../domain/entities/virtual_zone_entity.dart';
 
 class VirtualZoneDto extends VirtualZoneEntity {
   VirtualZoneDto({
-    required super.id,
+    super.id,
     required super.locationId,
     required super.attendanceId,
   });

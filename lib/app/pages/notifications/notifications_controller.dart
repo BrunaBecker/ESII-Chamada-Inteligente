@@ -70,7 +70,7 @@ class NotificationsController extends GetxController {
       final notification = _notifications[index]..isActive = false;
       _notifications.removeAt(index);
       try {
-        _deletePersonNotification(notification.id);
+        _deletePersonNotification(notification.id!);
       } catch (_) {}
     }
     update();

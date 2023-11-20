@@ -5,12 +5,12 @@ import '../../enums/status_notification.dart';
 
 class NotificationDto extends NotificationEntity {
   NotificationDto({
-    required super.id,
+    super.id,
     required super.title,
     required super.supportingText,
     required super.statusNotification,
-    required super.isActive,
-    required super.isRead,
+    super.isActive = true,
+    super.isRead = false,
     required super.personId,
   });
 

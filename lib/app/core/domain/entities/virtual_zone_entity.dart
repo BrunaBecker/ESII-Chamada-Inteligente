@@ -1,11 +1,11 @@
 class VirtualZoneEntity {
   VirtualZoneEntity({
-    required this.id,
+    this.id,
     required this.locationId,
     required this.attendanceId,
   });
 
-  int id;
+  int? id;
   int locationId;
   int attendanceId;
 }

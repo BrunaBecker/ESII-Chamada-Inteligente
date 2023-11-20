@@ -26,4 +26,28 @@ enum EventStatus {
         return EventStatus.classNormal;
     }
   }
+
+  String toText() {
+    switch (this) {
+      case EventStatus.classNormal:
+        return "classNormal";
+      case EventStatus.classCancelled:
+        return "classCancelled";
+      case EventStatus.classNormalRecurrent:
+        return "classNormalRecurrent";
+    }
+  }
+
+  static fromText(String text) {
+    switch (text) {
+      case "classNormal":
+        return EventStatus.classNormal;
+      case "classCancelled":
+        return EventStatus.classCancelled;
+      case "classNormalRecurrent":
+        return EventStatus.classNormalRecurrent;
+      default:
+        return EventStatus.classNormal;
+    }
+  }
 }

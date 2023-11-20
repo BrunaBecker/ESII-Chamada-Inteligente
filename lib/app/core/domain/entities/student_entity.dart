@@ -1,25 +1,17 @@
-import '../../enums/user_types.dart';
 import 'person_entity.dart';
-import 'picture_entity.dart';
-import 'setting_entity.dart';
 
 class StudentEntity extends PersonEntity {
   StudentEntity({
-    required super.id,
+    super.id,
     required super.name,
     required super.socialName,
     required super.birthDate,
-    required super.isActive,
+    super.isActive = true,
     required super.cpf,
     required super.email,
-    required this.password,
+    required super.password,
+    super.setting,
+    super.profileImage,
     required super.register,
-    required this.setting,
-    required this.profileImage,
   });
-
-  String password;
-  SettingEntity setting;
-  PictureEntity profileImage;
-  final UserTypes type = UserTypes.student;
 }

@@ -7,10 +7,10 @@ import 'student_dto.dart';
 
 class AttendanceStatusDto extends AttendanceStatusEntity {
   AttendanceStatusDto({
-    required super.id,
+    super.id,
     required super.studentState,
-    required super.studentHasResponded,
-    required super.validated,
+    super.studentHasResponded = false,
+    super.validated = false,
     required super.student,
     required super.attendance,
     required super.successfulPings,

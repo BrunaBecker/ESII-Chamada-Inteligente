@@ -1,15 +1,13 @@
-import 'person_entity.dart';
-
 class CommentEntity {
   CommentEntity({
-    required this.id,
+    this.id,
     required this.content,
-    required this.author,
-    this.replyTo,
+    required this.personId,
+    this.comment,
   });
 
-  int id;
+  int? id;
   String content;
-  PersonEntity author;
-  CommentEntity? replyTo;
+  int personId;
+  CommentEntity? comment;
 }

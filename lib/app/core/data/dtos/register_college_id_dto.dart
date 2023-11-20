@@ -5,11 +5,11 @@ import '../../utils/app_date_utils.dart';
 
 class RegisterCollegeIdDto extends RegisterCollegeIdEntity {
   RegisterCollegeIdDto({
-    required super.id,
+    super.id,
     required super.identifier,
     required super.dateStarted,
     super.dateFinished,
-    super.isActive,
+    super.isActive = true,
   });
 
   factory RegisterCollegeIdDto.fromEntity(RegisterCollegeIdEntity entity) {
