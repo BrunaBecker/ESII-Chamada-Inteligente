@@ -4,6 +4,7 @@ import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/attendance_entity.dart';
 import '../../../exceptions/entity_not_found_exception.dart';
 import '../../../exceptions/no_api_response_exception.dart';
+import '../../../exceptions/unexpected_api_exception.dart';
 import '../../../utils/app_date_utils.dart';
 import '../../dtos/attendance_dto.dart';
 import '../base_provider.dart';
@@ -21,6 +22,7 @@ class AttendanceProvider extends BaseProvider {
 
       validateResponse(
         response: response,
+        statusCodes: [200],
       );
 
       final attendances = response.data
@@ -36,7 +38,7 @@ class AttendanceProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
@@ -46,12 +48,10 @@ class AttendanceProvider extends BaseProvider {
 
       final response = await http.post(
         '/attendance',
-        body: attendanceDto.toJson(),
+        body: attendanceDto.toMap(),
       );
 
-      validateResponse(
-        response: response,
-      );
+      validateResponse(response: response, statusCodes: [201]);
 
       return AttendanceDto.fromMap(response.data);
     } on EntityNotFoundException {
@@ -60,7 +60,7 @@ class AttendanceProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
@@ -72,6 +72,7 @@ class AttendanceProvider extends BaseProvider {
 
       validateResponse(
         response: response,
+        statusCodes: [200],
       );
 
       return AttendanceDto.fromMap(response.data);
@@ -81,21 +82,26 @@ class AttendanceProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
   Future<List<AttendanceEntity>?> fetchByClassroomIdAndDate(
-      int classroomId, DateTime date) async {
+    int classroomId,
+    String date,
+  ) async {
     try {
-      String formattedDate = AppDateUtils.storageDateFormat.format(date);
-
       final response = await http.get(
-        '/attendance/inClassroomByDate?classroomid=$classroomId&date=$formattedDate',
+        '/attendance/getClassroomByDate?',
+        query: {
+          'idClassroom': classroomId,
+          'date': date,
+        },
       );
 
       validateResponse(
         response: response,
+        statusCodes: [200],
       );
 
       final attendances = response.data
@@ -111,7 +117,7 @@ class AttendanceProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
@@ -123,6 +129,7 @@ class AttendanceProvider extends BaseProvider {
 
       validateResponse(
         response: response,
+        statusCodes: [200],
       );
 
       final attendances = response.data
@@ -138,7 +145,7 @@ class AttendanceProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
@@ -151,6 +158,7 @@ class AttendanceProvider extends BaseProvider {
 
       validateResponse(
         response: response,
+        statusCodes: [200],
       );
 
       final attendances = response.data
@@ -166,7 +174,36 @@ class AttendanceProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
+    }
+  }
+
+  Future<List<AttendanceEntity>?> fetchHappeningByProfessorId(
+      int professorId) async {
+    try {
+      final response = await http.get(
+        '/attendance/happeningByProfessor/$professorId',
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      final attendances = response.data
+          .map<AttendanceDto>(
+            (attendance) => AttendanceDto.fromMap(attendance),
+          )
+          .toList();
+
+      return attendances;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logContent(e.toString());
+      throw UnexpectedApiException();
     }
   }
 
@@ -179,6 +216,7 @@ class AttendanceProvider extends BaseProvider {
 
       validateResponse(
         response: response,
+        statusCodes: [200],
       );
 
       final attendances = response.data
@@ -194,7 +232,7 @@ class AttendanceProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
@@ -206,6 +244,7 @@ class AttendanceProvider extends BaseProvider {
 
       validateResponse(
         response: response,
+        statusCodes: [200],
       );
 
       return AttendanceDto.fromMap(response.data);
@@ -215,8 +254,7 @@ class AttendanceProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
@@ -226,11 +264,12 @@ class AttendanceProvider extends BaseProvider {
 
       final response = await http.put(
         '/attendance',
-        body: attendanceDto.toJson(),
+        body: attendanceDto.toMap(),
       );
 
       validateResponse(
         response: response,
+        statusCodes: [200],
       );
 
       return AttendanceDto.fromMap(response.data);
@@ -240,11 +279,11 @@ class AttendanceProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<AttendanceEntity?> start(int id) async {
+  Future<AttendanceEntity?> startAttendance(int id) async {
     try {
       final response = await http.put(
         '/attendance/start/$id',
@@ -252,6 +291,7 @@ class AttendanceProvider extends BaseProvider {
 
       validateResponse(
         response: response,
+        statusCodes: [200],
       );
 
       return AttendanceDto.fromMap(response.data);
@@ -261,11 +301,11 @@ class AttendanceProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<AttendanceEntity?> end(int id) async {
+  Future<AttendanceEntity?> endAttendance(int id) async {
     try {
       final response = await http.put(
         '/attendance/end/$id',
@@ -273,6 +313,7 @@ class AttendanceProvider extends BaseProvider {
 
       validateResponse(
         response: response,
+        statusCodes: [200],
       );
 
       return AttendanceDto.fromMap(response.data);
@@ -282,8 +323,7 @@ class AttendanceProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
@@ -299,6 +339,7 @@ class AttendanceProvider extends BaseProvider {
 
       validateResponse(
         response: response,
+        statusCodes: [200],
       );
 
       return AttendanceDto.fromMap(response.data);
@@ -308,8 +349,7 @@ class AttendanceProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logContent(e.toString());
-
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
@@ -326,6 +366,7 @@ class AttendanceProvider extends BaseProvider {
 
       validateResponse(
         response: response,
+        statusCodes: [200],
       );
 
       return AttendanceDto.fromMap(response.data);
@@ -335,8 +376,7 @@ class AttendanceProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logContent(e.toString());
-
-      return null;
+      throw UnexpectedApiException();
     }
   }
 }
