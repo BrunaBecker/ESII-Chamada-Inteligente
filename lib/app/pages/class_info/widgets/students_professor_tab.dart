@@ -56,7 +56,7 @@ class StudentsProfessorTab extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "${controller.selectedClass["students"].length} Alunos",
+                            "${controller.selectedClassroom.students?.length ?? 0} ${controller.selectedClassroom.students?.length == 1 ? "Aluno" : "Alunos"}",
                             style: const TextStyle(
                               color: AppColors.onSecondaryFixedVariant,
                               fontWeight: FontWeight.w700,
@@ -78,10 +78,11 @@ class StudentsProfessorTab extends StatelessWidget {
                       Expanded(
                         child: ListView.builder(
                           itemCount:
-                              controller.selectedClass["students"].length,
+                              controller.selectedClassroom.students?.length ??
+                                  0,
                           itemBuilder: (context, index) {
                             final item =
-                                controller.selectedClass["students"][index];
+                                controller.selectedClassroom.students![index];
                             return ListTile(
                               leading: Container(
                                 width: 40,
@@ -93,7 +94,7 @@ class StudentsProfessorTab extends StatelessWidget {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    item["name"].substring(0, 1),
+                                    item.name.substring(0, 1),
                                     style: const TextStyle(
                                       fontSize: 16,
                                       color: AppColors.onPrimaryContainer,
@@ -101,7 +102,7 @@ class StudentsProfessorTab extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              title: Text(item["name"]),
+                              title: Text(item.name),
                               trailing: IconButton(
                                 key: const Key(
                                     'go to student information button'),
@@ -111,7 +112,7 @@ class StudentsProfessorTab extends StatelessWidget {
                                     "/student-info",
                                     arguments: {
                                       "studentInfo": item,
-                                      "classInfo": controller.selectedClass,
+                                      "classInfo": controller.selectedClassroom,
                                     },
                                   );
                                 },

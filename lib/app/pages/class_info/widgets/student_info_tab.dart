@@ -29,7 +29,7 @@ class StudentInfoTab extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            controller.selectedStudent!["name"],
+                            controller.selectedStudent.name,
                             style: const TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w700,
@@ -37,7 +37,7 @@ class StudentInfoTab extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            controller.selectedStudent!["registration"],
+                            controller.selectedStudent.register.identifier,
                             style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               color: AppColors.onSurfaceVariant,
@@ -111,12 +111,12 @@ class StudentInfoTab extends StatelessWidget {
                     ),
                     Expanded(
                       child: ListView.builder(
-                        itemCount: controller
-                            .selectedStudent!["justifications"].length,
+                        // itemCount: controller.selectedStudent!["justifications"].length,
+                        itemCount: 0,
                         itemBuilder: (context, index) {
-                          final justification = controller
-                              .selectedStudent!["justifications"][index];
-                          return StudentInfoJustification(
+                          // final justification = controller.selectedStudent!["justifications"][index];
+                          const justification = {"": ""};
+                          return const StudentInfoJustification(
                             justification: justification,
                             showActions: false,
                           );

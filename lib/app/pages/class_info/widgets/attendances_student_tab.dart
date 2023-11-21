@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_date_utils.dart';
 import '../../../core/widgets/spacing.dart';
 import '../class_info_controller.dart';
 import 'student_attendance_trailing.dart';
@@ -40,7 +41,7 @@ class AttendancesStudentTab extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          "Total de chamadas: ${controller.selectedClass["attendances"].length}",
+                          "Total de chamadas: ${controller.attendances.length}",
                           style: const TextStyle(
                             color: AppColors.black,
                             fontWeight: FontWeight.w500,
@@ -49,19 +50,25 @@ class AttendancesStudentTab extends StatelessWidget {
                       ),
                       Expanded(
                         child: ListView.separated(
-                          itemCount:
-                              controller.selectedClass["attendances"].length,
+                          itemCount: controller.attendances.length,
                           itemBuilder: (context, index) {
-                            final item =
-                                controller.selectedClass["attendances"][index];
+                            final item = controller.attendances[index];
                             return ListTile(
-                              title: Text(item["date"]),
-                              subtitle: Text(item["description"]),
+                              title: Text(
+                                AppDateUtils.appDateFormat.format(item.date),
+                              ),
+                              subtitle: Text(item.supportingText),
                               trailing: Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: StudentAttendanceTrailing(
-                                  status: item["attendanceStatus"],
-                                  isVerified: item["statusVerified"],
+                                  status: controller
+                                      .getSelectedStudentAttendanceStatus(
+                                    attendanceId: item.id!,
+                                  ),
+                                  isVerified: controller
+                                      .getSelectedStudentAttendanceStatusVerified(
+                                    attendanceId: item.id!,
+                                  ),
                                 ),
                               ),
                               contentPadding: const EdgeInsets.only(
