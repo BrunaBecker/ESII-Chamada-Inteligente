@@ -14,7 +14,7 @@ class AttendanceProvider extends BaseProvider {
 
   AttendanceProvider({required this.http});
 
-  Future<List<AttendanceEntity>?> fetchAll() async {
+  Future<List<AttendanceEntity>> fetchAll() async {
     try {
       final response = await http.get(
         '/attendance',
@@ -42,7 +42,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<AttendanceEntity?> create(AttendanceEntity attendanceEntity) async {
+  Future<AttendanceEntity> create(AttendanceEntity attendanceEntity) async {
     try {
       AttendanceDto attendanceDto = AttendanceDto.fromEntity(attendanceEntity);
 
@@ -64,7 +64,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<AttendanceEntity?> fetchByClassroomId(int classroomId) async {
+  Future<List<AttendanceEntity>> fetchByClassroomId(int classroomId) async {
     try {
       final response = await http.get(
         '/attendance/classroom/$classroomId',
@@ -74,8 +74,11 @@ class AttendanceProvider extends BaseProvider {
         response: response,
         statusCodes: [200],
       );
-
-      return AttendanceDto.fromMap(response.data);
+      return List<AttendanceEntity>.from(
+        response.data.map(
+          (attendance) => AttendanceDto.fromMap(attendance),
+        ),
+      );
     } on EntityNotFoundException {
       rethrow;
     } on NoApiResponseException {
@@ -86,7 +89,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<List<AttendanceEntity>?> fetchByClassroomIdAndDate(
+  Future<List<AttendanceEntity>> fetchByClassroomIdAndDate(
     int classroomId,
     String date,
   ) async {
@@ -121,7 +124,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<List<AttendanceEntity>?> fetchAllHappening() async {
+  Future<List<AttendanceEntity>> fetchAllHappening() async {
     try {
       final response = await http.get(
         '/attendance/happening',
@@ -149,7 +152,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<List<AttendanceEntity>?> fetchHappeningByClassroomId(
+  Future<List<AttendanceEntity>> fetchHappeningByClassroomId(
       int classroomId) async {
     try {
       final response = await http.get(
@@ -178,7 +181,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<List<AttendanceEntity>?> fetchHappeningByProfessorId(
+  Future<List<AttendanceEntity>> fetchHappeningByProfessorId(
       int professorId) async {
     try {
       final response = await http.get(
@@ -207,7 +210,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<List<AttendanceEntity>?> fetchHappeningByStudentId(
+  Future<List<AttendanceEntity>> fetchHappeningByStudentId(
       int studentId) async {
     try {
       final response = await http.get(
@@ -236,7 +239,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<AttendanceEntity?> fetchById(int id) async {
+  Future<AttendanceEntity> fetchById(int id) async {
     try {
       final response = await http.get(
         '/attendance/$id',
@@ -258,7 +261,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<AttendanceEntity?> update(AttendanceEntity attendanceEntity) async {
+  Future<AttendanceEntity> update(AttendanceEntity attendanceEntity) async {
     try {
       AttendanceDto attendanceDto = AttendanceDto.fromEntity(attendanceEntity);
 
@@ -283,7 +286,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<AttendanceEntity?> startAttendance(int id) async {
+  Future<AttendanceEntity> startAttendance(int id) async {
     try {
       final response = await http.put(
         '/attendance/start/$id',
@@ -305,7 +308,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<AttendanceEntity?> endAttendance(int id) async {
+  Future<AttendanceEntity> endAttendance(int id) async {
     try {
       final response = await http.put(
         '/attendance/end/$id',
@@ -327,7 +330,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<AttendanceEntity?> setVirtualZone(int id, int virtualZoneId) async {
+  Future<AttendanceEntity> setVirtualZone(int id, int virtualZoneId) async {
     try {
       final response = await http.put(
         '/attendance/setVirtualZone',
@@ -353,7 +356,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<AttendanceEntity?> setAttendanceStatus(
+  Future<AttendanceEntity> setAttendanceStatus(
       int id, int attendanceStatusId) async {
     try {
       final response = await http.put(
