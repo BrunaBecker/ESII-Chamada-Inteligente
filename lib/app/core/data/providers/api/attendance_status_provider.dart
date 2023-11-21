@@ -374,7 +374,8 @@ class AttendanceStatusProvider extends BaseProvider {
     }
   }
 
-  Future<List<AttendanceStatusEntity>> fetchAllByStudentIdAndClassroomId(int studentId, int classroomId) async {
+  Future<List<AttendanceStatusEntity>> fetchAllByStudentIdAndClassroomId(
+      int studentId, int classroomId) async {
     try {
       final response = await http.get(
         '/attendanceStatus/byStudentAndClassroom',
@@ -405,5 +406,4 @@ class AttendanceStatusProvider extends BaseProvider {
       throw UnexpectedApiException();
     }
   }
-
 }

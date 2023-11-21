@@ -137,12 +137,10 @@ class LocationProvider extends BaseProvider {
     }
   }
 
-  Future<LocationEntity> setCoordinate(
-      int id, int coordinateId) async {
-   
+  Future<LocationEntity> setCoordinate(int id, int coordinateId) async {
     try {
       final response = await http.put(
-        '/location/setCoordinate?',
+        '/location/setCoordinate',
         query: {
           'id': id,
           'coordinateId': coordinateId,
@@ -165,7 +163,8 @@ class LocationProvider extends BaseProvider {
     }
   }
 
-  Future<LocationEntity> addCoordinate(int id, CoordinateEntity coordinateEntity) async {
+  Future<LocationEntity> addCoordinate(
+      int id, CoordinateEntity coordinateEntity) async {
     CoordinateDto coordinateDto = CoordinateDto.fromEntity(coordinateEntity);
     try {
       final response = await http.put(
@@ -238,7 +237,7 @@ class LocationProvider extends BaseProvider {
       rethrow;
     } on NoApiResponseException {
       rethrow;
-    } catch (e) { 
+    } catch (e) {
       logError(e.toString());
       throw UnexpectedApiException();
     }

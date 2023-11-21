@@ -130,7 +130,7 @@ class SettingProvider extends BaseProvider {
   Future<SettingEntity> setPerson(int id, int personId) async {
     try {
       final response = await http.put(
-        '/setting/setPerson?',
+        '/setting/setPerson',
         query: {
           'id': id,
           'personId': personId,
@@ -152,5 +152,4 @@ class SettingProvider extends BaseProvider {
       throw UnexpectedApiException();
     }
   }
-
 }

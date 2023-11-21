@@ -119,7 +119,8 @@ class StudentProvider extends BaseProvider {
     }
   }
 
-  Future<StudentEntity> setAttendanceStatus(int id, int attendanceStatusId) async {
+  Future<StudentEntity> setAttendanceStatus(
+      int id, int attendanceStatusId) async {
     try {
       final response = await http.put(
         '/student/setAttendanceStatus',
@@ -139,15 +140,17 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } on NoApiResponseException {
       rethrow;
-    } catch(e) {
+    } catch (e) {
       logError(e.toString());
       throw UnexpectedApiException();
     }
   }
 
-  Future<StudentEntity> addAttendanceStatus(int id, AttendanceStatusEntity attendanceStatusEntity) async {
-    AttendanceStatusDto attendanceStatusDto = AttendanceStatusDto.fromEntity(attendanceStatusEntity);
-    
+  Future<StudentEntity> addAttendanceStatus(
+      int id, AttendanceStatusEntity attendanceStatusEntity) async {
+    AttendanceStatusDto attendanceStatusDto =
+        AttendanceStatusDto.fromEntity(attendanceStatusEntity);
+
     try {
       final response = await http.put(
         '/student/addAttendanceStatus',
@@ -167,7 +170,7 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } on NoApiResponseException {
       rethrow;
-    } catch(e) {
+    } catch (e) {
       logError(e.toString());
       throw UnexpectedApiException();
     }
@@ -193,7 +196,7 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } on NoApiResponseException {
       rethrow;
-    } catch(e) {
+    } catch (e) {
       logError(e.toString());
       throw UnexpectedApiException();
     }
@@ -201,7 +204,7 @@ class StudentProvider extends BaseProvider {
 
   Future<StudentEntity> addWaiver(int id, WaiverEntity waiverEntity) async {
     WaiverDto waiverDto = WaiverDto.fromEntity(waiverEntity);
-    
+
     try {
       final response = await http.put(
         '/student/addWaiver',
@@ -221,7 +224,7 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } on NoApiResponseException {
       rethrow;
-    } catch(e) {
+    } catch (e) {
       logError(e.toString());
       throw UnexpectedApiException();
     }
