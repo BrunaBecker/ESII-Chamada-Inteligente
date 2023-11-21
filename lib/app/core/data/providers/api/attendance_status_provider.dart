@@ -373,4 +373,37 @@ class AttendanceStatusProvider extends BaseProvider {
       rethrow;
     }
   }
+
+  Future<List<AttendanceStatusEntity>> fetchAllByStudentIdAndClassroomId(int studentId, int classroomId) async {
+    try {
+      final response = await http.get(
+        '/attendanceStatus/byStudentAndClassroom',
+        query: {
+          'idStudent': studentId,
+          'idClassroom': classroomId,
+        },
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      final attendanceStatus = response.data
+          .map<AttendanceStatusDto>(
+            (attendanceStatus) => AttendanceStatusDto.fromMap(attendanceStatus),
+          )
+          .toList();
+
+      return attendanceStatus;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logContent(e.toString());
+      throw UnexpectedApiException();
+    }
+  }
+
 }
