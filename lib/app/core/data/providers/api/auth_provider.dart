@@ -3,6 +3,7 @@ import '../../../domain/entities/professor_entity.dart';
 import '../../../domain/entities/student_entity.dart';
 import '../../../exceptions/entity_not_found_exception.dart';
 import '../../../exceptions/no_api_response_exception.dart';
+import '../../../exceptions/unexpected_api_exception.dart';
 import '../../dtos/professor_dto.dart';
 import '../../dtos/student_dto.dart';
 import '../base_provider.dart';
@@ -16,7 +17,11 @@ class AuthProvider extends BaseProvider {
       String studentRegister, String password) async {
     try {
       final response = await http.get(
-        '/auth/login/student?identifier=$studentRegister&password=$password',
+        '/auth/login/student',
+        query: {
+          'identifier': studentRegister,
+          'password': password,
+        },
       );
 
       validateResponse(
@@ -31,7 +36,7 @@ class AuthProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
@@ -39,7 +44,11 @@ class AuthProvider extends BaseProvider {
       String professorRegister, String password) async {
     try {
       final response = await http.get(
-        '/auth/login/professor?identifier=$professorRegister&password=$password',
+        '/auth/login/professor',
+        query: {
+          'identifier': professorRegister,
+          'password': password,
+        },
       );
 
       validateResponse(
@@ -54,7 +63,7 @@ class AuthProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 }

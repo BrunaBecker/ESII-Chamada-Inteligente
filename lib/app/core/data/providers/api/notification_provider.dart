@@ -2,6 +2,7 @@ import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/notification_entity.dart';
 import '../../../exceptions/entity_not_found_exception.dart';
 import '../../../exceptions/no_api_response_exception.dart';
+import '../../../exceptions/unexpected_api_exception.dart';
 import '../../dtos/notification_dto.dart';
 import '../base_provider.dart';
 
@@ -10,7 +11,7 @@ class NotificationProvider extends BaseProvider {
 
   NotificationProvider({required this.http});
 
-  Future<List<NotificationEntity>?> fetchActivesByPersonId(int personId) async {
+  Future<List<NotificationEntity>> fetchActivesByPersonId(int personId) async {
     try {
       final response = await http.get(
         '/notification/$personId',
@@ -34,11 +35,11 @@ class NotificationProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<NotificationEntity?> create(
+  Future<NotificationEntity> create(
       NotificationEntity notificationEntity) async {
     NotificationDto notificationDto =
         NotificationDto.fromEntity(notificationEntity);
@@ -46,12 +47,12 @@ class NotificationProvider extends BaseProvider {
     try {
       final response = await http.post(
         '/notification',
-        body: notificationDto.toJson(),
+        body: notificationDto.toMap(),
       );
 
       validateResponse(
         response: response,
-        statusCodes: [200],
+        statusCodes: [201],
       );
 
       return NotificationDto.fromMap(response.data);
@@ -61,14 +62,17 @@ class NotificationProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
   Future<bool> delete(NotificationEntity notification) async {
+    NotificationDto notificationDto = NotificationDto.fromEntity(notification);
+
     try {
       final response = await http.delete(
-        '/notification/${notification.id}',
+        '/notification',
+        body: notificationDto.toMap(),
       );
 
       validateResponse(
@@ -109,7 +113,7 @@ class NotificationProvider extends BaseProvider {
     }
   }
 
-  Future<NotificationEntity?> update(
+  Future<NotificationEntity> update(
       NotificationEntity notificationEntity) async {
     NotificationDto notificationDto =
         NotificationDto.fromEntity(notificationEntity);
@@ -117,7 +121,7 @@ class NotificationProvider extends BaseProvider {
     try {
       final response = await http.put(
         '/notification',
-        body: notificationDto.toJson(),
+        body: notificationDto.toMap(),
       );
 
       validateResponse(
@@ -132,7 +136,29 @@ class NotificationProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
+    }
+  }
+
+  Future<NotificationEntity> setReadNotification(int id) async {
+    try {
+      final response = await http.put(
+        '/notification/setReadNotification/$id',
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      return NotificationDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logError(e.toString());
+      throw UnexpectedApiException();
     }
   }
 }

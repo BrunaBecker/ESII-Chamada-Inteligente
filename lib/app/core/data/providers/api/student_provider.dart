@@ -1,10 +1,15 @@
 import '../../../adapters/http_adapter.dart';
+import '../../../domain/entities/attendance_status_entity.dart';
 import '../../../domain/entities/classroom_entity.dart';
 import '../../../domain/entities/student_entity.dart';
+import '../../../domain/entities/waiver_entity.dart';
 import '../../../exceptions/entity_not_found_exception.dart';
 import '../../../exceptions/no_api_response_exception.dart';
+import '../../../exceptions/unexpected_api_exception.dart';
+import '../../dtos/attendance_status_dto.dart';
 import '../../dtos/classroom_dto.dart';
 import '../../dtos/student_dto.dart';
+import '../../dtos/waiver_dto.dart';
 import '../base_provider.dart';
 
 class StudentProvider extends BaseProvider {
@@ -12,17 +17,17 @@ class StudentProvider extends BaseProvider {
 
   StudentProvider({required this.http});
 
-  Future<StudentEntity?> createStudent(StudentEntity studentEntity) async {
+  Future<StudentEntity> createStudent(StudentEntity studentEntity) async {
     StudentDto studentDto = StudentDto.fromEntity(studentEntity);
     try {
       final response = await http.post(
         '/student',
-        body: studentDto.toJson(),
+        body: studentDto.toMap(),
       );
 
       validateResponse(
         response: response,
-        statusCodes: [200],
+        statusCodes: [201],
       );
 
       return StudentDto.fromMap(response.data);
@@ -32,16 +37,16 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<StudentEntity?> updateStudent(StudentEntity studentEntity) async {
+  Future<StudentEntity> updateStudent(StudentEntity studentEntity) async {
     StudentDto studentDto = StudentDto.fromEntity(studentEntity);
     try {
       final response = await http.put(
         '/student',
-        body: studentDto.toJson(),
+        body: studentDto.toMap(),
       );
 
       validateResponse(
@@ -56,17 +61,20 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<StudentEntity?> addClassroom(
-      int studentIdentifier, ClassroomEntity classroomEntity) async {
+  Future<StudentEntity> addClassroom(
+      int id, ClassroomEntity classroomEntity) async {
     ClassroomDto classroomDto = ClassroomDto.fromEntity(classroomEntity);
     try {
       final response = await http.put(
-        '/$studentIdentifier/class',
-        body: classroomDto.toJson(),
+        '/student/addClassroom',
+        query: {
+          'id': id,
+        },
+        body: classroomDto.toMap(),
       );
 
       validateResponse(
@@ -81,15 +89,18 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<StudentEntity?> addClassroomByClassroomId(
-      int studentIdenfitifer, int classroomId) async {
+  Future<StudentEntity> setClassroom(int id, int classroomId) async {
     try {
       final response = await http.put(
-        '/$studentIdenfitifer/class/$classroomId',
+        '/student/setClassroom',
+        query: {
+          'id': id,
+          'idClassroom': classroomId,
+        },
       );
 
       validateResponse(
@@ -104,15 +115,19 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<StudentEntity?> addAttendance(
-      String studentIdentifier, int attendanceId) async {
+  Future<StudentEntity> setAttendanceStatus(
+      int id, int attendanceStatusId) async {
     try {
       final response = await http.put(
-        '/$studentIdentifier/attendance/$attendanceId',
+        '/student/setAttendanceStatus',
+        query: {
+          'id': id,
+          'idAttendanceStatus': attendanceStatusId,
+        },
       );
 
       validateResponse(
@@ -127,15 +142,22 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<StudentEntity?> addWaiver(
-      String studentIdentifier, int waiverId) async {
+  Future<StudentEntity> addAttendanceStatus(
+      int id, AttendanceStatusEntity attendanceStatusEntity) async {
+    AttendanceStatusDto attendanceStatusDto =
+        AttendanceStatusDto.fromEntity(attendanceStatusEntity);
+
     try {
       final response = await http.put(
-        '/$studentIdentifier/waiver/$waiverId',
+        '/student/addAttendanceStatus',
+        query: {
+          'id': id,
+        },
+        body: attendanceStatusDto.toMap(),
       );
 
       validateResponse(
@@ -150,11 +172,65 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<List<StudentEntity>?> fetchByClassroomId(int classroomId) async {
+  Future<StudentEntity> setWaiver(int id, int waiverId) async {
+    try {
+      final response = await http.put(
+        '/student/setWaiver',
+        query: {
+          'id': id,
+          'idWaiver': waiverId,
+        },
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      return StudentDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logError(e.toString());
+      throw UnexpectedApiException();
+    }
+  }
+
+  Future<StudentEntity> addWaiver(int id, WaiverEntity waiverEntity) async {
+    WaiverDto waiverDto = WaiverDto.fromEntity(waiverEntity);
+
+    try {
+      final response = await http.put(
+        '/student/addWaiver',
+        query: {
+          'id': id,
+        },
+        body: waiverDto.toMap(),
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      return StudentDto.fromMap(response.data);
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logError(e.toString());
+      throw UnexpectedApiException();
+    }
+  }
+
+  Future<List<StudentEntity>> fetchByClassroomId(int classroomId) async {
     try {
       final response = await http.get(
         '/student/classroom/$classroomId',
@@ -178,11 +254,11 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<List<StudentEntity>?> fetchByAttendanceId(int attendanceId) async {
+  Future<List<StudentEntity>> fetchByAttendanceId(int attendanceId) async {
     try {
       final response = await http.get(
         '/student/attendance/$attendanceId',
@@ -206,11 +282,11 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<List<StudentDto>?> fetchByWaiverId(int waiverId) async {
+  Future<List<StudentDto>> fetchByWaiverId(int waiverId) async {
     try {
       final response = await http.get(
         '/student/waiver/$waiverId',
@@ -234,11 +310,11 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<StudentEntity?> fetchById(int id) async {
+  Future<StudentEntity> fetchById(int id) async {
     try {
       final response = await http.get(
         '/student/$id',
@@ -256,11 +332,11 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<StudentEntity?> fetchByIdentifier(int studentIdentifier) async {
+  Future<StudentEntity> fetchByIdentifier(int studentIdentifier) async {
     try {
       final response = await http.get(
         '/student/byIdentifier/$studentIdentifier',
@@ -278,11 +354,11 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<List<StudentEntity>?> fetchByAttendanceHappeningId(
+  Future<List<StudentEntity>> fetchByAttendanceHappeningId(
       int attendanceHappeningId) async {
     try {
       final response = await http.get(
@@ -307,11 +383,11 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<StudentEntity?> fetchByEmail(String email) async {
+  Future<StudentEntity> fetchByEmail(String email) async {
     try {
       final response = await http.get(
         '/student/byEmail/$email',
@@ -329,14 +405,20 @@ class StudentProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<StudentEntity?> fetchByClassroomCode(String classroomCode) async {
+  Future<List<StudentEntity>> fetchAllByClassroomInfos(
+      String code, String className, String semester) async {
     try {
       final response = await http.get(
-        '/student/classroomCode/$classroomCode',
+        '/student/classroomByCodeClassNameSemester',
+        query: {
+          'code': code,
+          'className': className,
+          'semester': semester,
+        },
       );
 
       validateResponse(
@@ -344,14 +426,21 @@ class StudentProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      return StudentDto.fromMap(response.data);
+      final students = response.data
+          .map<StudentDto>(
+            (student) => StudentDto.fromMap(student),
+          )
+          .toList();
+
+      return students;
     } on EntityNotFoundException {
       rethrow;
     } on NoApiResponseException {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+
+      throw UnexpectedApiException();
     }
   }
 }

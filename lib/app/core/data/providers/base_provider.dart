@@ -38,7 +38,7 @@ abstract class BaseProvider {
 
   void validateResponse({
     required dynamic response,
-    List<int> statusCodes = const [200],
+    List<int> statusCodes = const [200, 201],
   }) {
     if (response == null || response?.data == null) {
       throw NoApiResponseException();
