@@ -67,9 +67,8 @@ class NotificationProvider extends BaseProvider {
   }
 
   Future<bool> delete(NotificationEntity notification) async {
-    NotificationDto notificationDto =
-        NotificationDto.fromEntity(notification);
-    
+    NotificationDto notificationDto = NotificationDto.fromEntity(notification);
+
     try {
       final response = await http.delete(
         '/notification',
@@ -141,8 +140,7 @@ class NotificationProvider extends BaseProvider {
     }
   }
 
-  Future<NotificationEntity> setReadNotification(
-     int id) async {
+  Future<NotificationEntity> setReadNotification(int id) async {
     try {
       final response = await http.put(
         '/notification/setReadNotification/$id',

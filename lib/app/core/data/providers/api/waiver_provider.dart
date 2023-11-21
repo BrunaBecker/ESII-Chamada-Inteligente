@@ -88,7 +88,6 @@ class WaiverProvider extends BaseProvider {
     }
   }
 
-  //todo setAttendanceStatus addAttendanceStatus setAccepted setRejected addComment setComment setFile addFile setAcceptionDate
   Future<WaiverEntity> setAttendanceStatus(
       int waiverId, int attendanceStatusId) async {
     try {
@@ -115,9 +114,11 @@ class WaiverProvider extends BaseProvider {
       throw UnexpectedApiException();
     }
   }
+
   Future<WaiverEntity> addAttendanceStatus(
-        int waiverId, AttendanceStatusEntity attendanceStatusEntity) async {
-        AttendanceStatusDto attendanceStatusDto = AttendanceStatusDto.fromEntity(attendanceStatusEntity);
+      int waiverId, AttendanceStatusEntity attendanceStatusEntity) async {
+    AttendanceStatusDto attendanceStatusDto =
+        AttendanceStatusDto.fromEntity(attendanceStatusEntity);
     try {
       final response = await http.put(
         '/waiver/addAttendanceStatus',
@@ -143,7 +144,7 @@ class WaiverProvider extends BaseProvider {
     }
   }
 
-  Future<WaiverDto> setAccepted(int waiverId) async { 
+  Future<WaiverDto> setAccepted(int waiverId) async {
     try {
       final response = await http.put(
         '/waiver/setAccepted',
@@ -168,7 +169,7 @@ class WaiverProvider extends BaseProvider {
     }
   }
 
-  Future<WaiverDto> setRejected(int waiverId) async { 
+  Future<WaiverDto> setRejected(int waiverId) async {
     try {
       final response = await http.put(
         '/waiver/setRejected',
@@ -187,12 +188,14 @@ class WaiverProvider extends BaseProvider {
       rethrow;
     } on NoApiResponseException {
       rethrow;
-    } catch (e) { 
+    } catch (e) {
       logError(e.toString());
       throw UnexpectedApiException();
     }
   }
-  Future<WaiverDto> addComment(int waiverId, CommentEntity commentEntity) async { 
+
+  Future<WaiverDto> addComment(
+      int waiverId, CommentEntity commentEntity) async {
     CommentDto commentDto = CommentDto.fromEntity(commentEntity);
     try {
       final response = await http.put(
@@ -213,12 +216,11 @@ class WaiverProvider extends BaseProvider {
       rethrow;
     } on NoApiResponseException {
       rethrow;
-    } catch (e) { 
+    } catch (e) {
       logError(e.toString());
       throw UnexpectedApiException();
     }
   }
-
 
   Future<WaiverDto> setComment(int waiverId, int commentId) async {
     try {
@@ -240,7 +242,7 @@ class WaiverProvider extends BaseProvider {
       rethrow;
     } on NoApiResponseException {
       rethrow;
-    } catch (e) { 
+    } catch (e) {
       logError(e.toString());
       throw UnexpectedApiException();
     }
@@ -272,10 +274,10 @@ class WaiverProvider extends BaseProvider {
     }
   }
 
-  Future<WaiverDto> addFile(int waiverId, FileMacFiEntity fileMacFiEntity) async {
-    
+  Future<WaiverDto> addFile(
+      int waiverId, FileMacFiEntity fileMacFiEntity) async {
     FileMacFiDto fileMacFiDto = FileMacFiDto.fromEntity(fileMacFiEntity);
-    
+
     try {
       final response = await http.put(
         '/waiver/addFile',

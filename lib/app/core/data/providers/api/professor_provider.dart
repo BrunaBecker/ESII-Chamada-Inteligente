@@ -125,6 +125,7 @@ class ProfessorProvider extends BaseProvider {
       throw UnexpectedApiException();
     }
   }
+
   Future<ProfessorEntity> fetchById(int id) async {
     try {
       final response = await http.get(
@@ -191,13 +192,12 @@ class ProfessorProvider extends BaseProvider {
     }
   }
 
-  //todo setClassroom setLocation addLocation  setSetting addSetting setProfileImage addProfileImage addComment setComment addNotification setNotification 
+  //todo setClassroom setLocation addLocation  setSetting addSetting setProfileImage addProfileImage addComment setComment addNotification setNotification
   //
-  Future<ProfessorEntity> setClassroom(
-      int id, int classroomId) async {
+  Future<ProfessorEntity> setClassroom(int id, int classroomId) async {
     try {
       final response = await http.put(
-        '/professor/setClassroom?',
+        '/professor/setClassroom',
         query: {
           'id': id,
           'classroomId': classroomId,
@@ -220,11 +220,10 @@ class ProfessorProvider extends BaseProvider {
     }
   }
 
-  Future<ProfessorEntity> setLocation(
-      int id, int locationId) async {
+  Future<ProfessorEntity> setLocation(int id, int locationId) async {
     try {
       final response = await http.put(
-        '/professor/setLocation?',
+        '/professor/setLocation',
         query: {
           'id': id,
           'locationId': locationId,
@@ -247,12 +246,13 @@ class ProfessorProvider extends BaseProvider {
     }
   }
 
-  Future<ProfessorEntity> addLocation(int id, LocationEntity locationEntity) async {
+  Future<ProfessorEntity> addLocation(
+      int id, LocationEntity locationEntity) async {
     LocationDto locationDto = LocationDto.fromEntity(locationEntity);
 
     try {
       final response = await http.put(
-        '/professor/addLocation?',
+        '/professor/addLocation',
         query: {
           'id': id,
         },
@@ -278,7 +278,7 @@ class ProfessorProvider extends BaseProvider {
   Future<ProfessorEntity> setSetting(int id, int settingId) async {
     try {
       final response = await http.put(
-        '/professor/setSetting?',
+        '/professor/setSetting',
         query: {
           'id': id,
           'settingId': settingId,
@@ -301,11 +301,12 @@ class ProfessorProvider extends BaseProvider {
     }
   }
 
-  Future<ProfessorEntity> addSetting(int id, SettingEntity settingEntity) async {
+  Future<ProfessorEntity> addSetting(
+      int id, SettingEntity settingEntity) async {
     SettingDto settingDto = SettingDto.fromEntity(settingEntity);
     try {
       final response = await http.put(
-        '/professor/addSetting?',
+        '/professor/addSetting',
         query: {
           'id': id,
         },
@@ -328,11 +329,10 @@ class ProfessorProvider extends BaseProvider {
     }
   }
 
-
   Future<ProfessorEntity> setProfileImage(int id, int pictureId) async {
     try {
       final response = await http.put(
-        '/professor/setProfileImage?',
+        '/professor/setProfileImage',
         query: {
           'id': id,
           'pictureId': pictureId,
@@ -353,15 +353,14 @@ class ProfessorProvider extends BaseProvider {
       logError(e.toString());
       throw UnexpectedApiException();
     }
-
   }
 
-  Future<ProfessorEntity> addProfileImagem(int id, PictureEntity pictureEntity) async {
-    
+  Future<ProfessorEntity> addProfileImagem(
+      int id, PictureEntity pictureEntity) async {
     PictureDto pictureDto = PictureDto.fromEntity(pictureEntity);
     try {
       final response = await http.put(
-        '/professor/addProfileImage?',
+        '/professor/addProfileImage',
         query: {
           'id': id,
         },
@@ -378,18 +377,19 @@ class ProfessorProvider extends BaseProvider {
       rethrow;
     } on NoApiResponseException {
       rethrow;
-    } catch(e) {
+    } catch (e) {
       logError(e.toString());
       throw UnexpectedApiException();
     }
   }
 
-  Future<ProfessorEntity> addComment(int id, CommentEntity commentEntity) async {
+  Future<ProfessorEntity> addComment(
+      int id, CommentEntity commentEntity) async {
     CommentDto commentDto = CommentDto.fromEntity(commentEntity);
-    
+
     try {
       final response = await http.put(
-        '/professor/addComment?',
+        '/professor/addComment',
         query: {
           'id': id,
         },
@@ -406,17 +406,16 @@ class ProfessorProvider extends BaseProvider {
       rethrow;
     } on NoApiResponseException {
       rethrow;
-    } catch(e) {
+    } catch (e) {
       logError(e.toString());
       throw UnexpectedApiException();
     }
   }
 
-
   Future<ProfessorEntity> setComment(int id, int commentId) async {
     try {
       final response = await http.put(
-        '/professor/setComment?',
+        '/professor/setComment',
         query: {
           'id': id,
           'commentId': commentId,
@@ -433,18 +432,20 @@ class ProfessorProvider extends BaseProvider {
       rethrow;
     } on NoApiResponseException {
       rethrow;
-    } catch(e) {
+    } catch (e) {
       logError(e.toString());
       throw UnexpectedApiException();
     }
   }
 
-  Future<ProfessorEntity> addNotification(int id, NotificationEntity notificationEntity) async {
-    NotificationDto notificationDto = NotificationDto.fromEntity(notificationEntity);
-    
+  Future<ProfessorEntity> addNotification(
+      int id, NotificationEntity notificationEntity) async {
+    NotificationDto notificationDto =
+        NotificationDto.fromEntity(notificationEntity);
+
     try {
       final response = await http.put(
-        '/professor/addNotification?',
+        '/professor/addNotification',
         query: {
           'id': id,
         },
@@ -461,7 +462,7 @@ class ProfessorProvider extends BaseProvider {
       rethrow;
     } on NoApiResponseException {
       rethrow;
-    } catch(e) {
+    } catch (e) {
       logError(e.toString());
       throw UnexpectedApiException();
     }
@@ -470,7 +471,7 @@ class ProfessorProvider extends BaseProvider {
   Future<ProfessorEntity> setNotification(int id, int notificationId) async {
     try {
       final response = await http.put(
-        '/professor/setNotification?',
+        '/professor/setNotification',
         query: {
           'id': id,
           'notificationId': notificationId,
@@ -487,10 +488,9 @@ class ProfessorProvider extends BaseProvider {
       rethrow;
     } on NoApiResponseException {
       rethrow;
-    } catch(e) {
+    } catch (e) {
       logError(e.toString());
       throw UnexpectedApiException();
     }
   }
-
 }

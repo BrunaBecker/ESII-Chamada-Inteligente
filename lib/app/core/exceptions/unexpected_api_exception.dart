@@ -1,5 +1,5 @@
 class UnexpectedApiException implements Exception {
-   UnexpectedApiException({
+  UnexpectedApiException({
     this.message = "An unexpected error in server, check your server side",
   });
 

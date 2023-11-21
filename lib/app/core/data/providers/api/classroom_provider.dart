@@ -272,7 +272,6 @@ class ClassroomProvider extends BaseProvider {
     } on NoApiResponseException {
       rethrow;
     } catch (e) {
-      print(e);
       logError(e.toString());
       throw UnexpectedApiException();
     }

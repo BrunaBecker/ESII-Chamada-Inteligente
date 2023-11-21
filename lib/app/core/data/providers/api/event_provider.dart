@@ -90,12 +90,11 @@ class EventProvider extends BaseProvider {
   }
 
   Future<List<EventEntity>> fetchAllBetweenDates(
-
       String startDate, String endDate) async {
     try {
       final response = await http.get(
         '/event/byDateBetween',
-         query: {
+        query: {
           'startDate': startDate,
           'endDate': endDate,
         },
@@ -123,7 +122,8 @@ class EventProvider extends BaseProvider {
     }
   }
 
-  Future<List<EventEntity>> fetchAllBetweenDatesAndClassroomId(String startDate, String endDate, int classroomId) async {
+  Future<List<EventEntity>> fetchAllBetweenDatesAndClassroomId(
+      String startDate, String endDate, int classroomId) async {
     try {
       final response = await http.get(
         '/event/byDateBetweenAndClassroomId',

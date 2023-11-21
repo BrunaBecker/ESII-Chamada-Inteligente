@@ -94,7 +94,7 @@ class AttendanceProvider extends BaseProvider {
   ) async {
     try {
       final response = await http.get(
-        '/attendance/getClassroomByDate?',
+        '/attendance/getClassroomByDate',
         query: {
           'idClassroom': classroomId,
           'date': date,
