@@ -2,6 +2,7 @@ import '../../../adapters/http_adapter.dart';
 import '../../../domain/entities/event_entity.dart';
 import '../../../exceptions/entity_not_found_exception.dart';
 import '../../../exceptions/no_api_response_exception.dart';
+import '../../../exceptions/unexpected_api_exception.dart';
 import '../../../utils/app_date_utils.dart';
 import '../../dtos/event_dto.dart';
 import '../base_provider.dart';
@@ -11,13 +12,41 @@ class EventProvider extends BaseProvider {
 
   EventProvider({required this.http});
 
-  Future<EventEntity?> create(EventEntity eventEntity) async {
+  Future<List<EventEntity>> fetchAll() async {
+    try {
+      final response = await http.get(
+        '/event',
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      final events = response.data
+          .map<EventDto>(
+            (event) => EventDto.fromMap(event),
+          )
+          .toList();
+
+      return events;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logError(e.toString());
+      throw UnexpectedApiException();
+    }
+  }
+
+  Future<EventEntity> create(EventEntity eventEntity) async {
     EventDto eventDto = EventDto.fromEntity(eventEntity);
 
     try {
       final response = await http.post(
         '/event',
-        body: eventDto.toJson(),
+        body: eventDto.toMap(),
       );
 
       validateResponse(
@@ -32,17 +61,17 @@ class EventProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<EventEntity?> update(EventEntity eventEntity) async {
+  Future<EventEntity> update(EventEntity eventEntity) async {
     EventDto eventDto = EventDto.fromEntity(eventEntity);
 
     try {
       final response = await http.put(
         '/event',
-        body: eventDto.toJson(),
+        body: eventDto.toMap(),
       );
 
       validateResponse(
@@ -57,19 +86,20 @@ class EventProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
     }
   }
 
-  Future<List<EventEntity>?> fetchAllBetweenDates(
-      DateTime startDate, DateTime endDate) async {
-    try {
-      String formattedStartDate =
-          AppDateUtils.storageDateFormat.format(startDate);
-      String formattedEndDate = AppDateUtils.storageDateFormat.format(endDate);
+  Future<List<EventEntity>> fetchAllBetweenDates(
 
+      String startDate, String endDate) async {
+    try {
       final response = await http.get(
-        '/event/byDateBetween?startDate=$formattedStartDate&endDate=$formattedEndDate',
+        '/event/byDateBetween',
+         query: {
+          'startDate': startDate,
+          'endDate': endDate,
+        },
       );
 
       validateResponse(
@@ -90,7 +120,40 @@ class EventProvider extends BaseProvider {
       rethrow;
     } catch (e) {
       logError(e.toString());
-      return null;
+      throw UnexpectedApiException();
+    }
+  }
+
+  Future<List<EventEntity>> fetchAllBetweenDatesAndClassroomId(String startDate, String endDate, int classroomId) async {
+    try {
+      final response = await http.get(
+        '/event/byDateBetweenAndClassroomId',
+        query: {
+          'startDate': startDate,
+          'endDate': endDate,
+          'classroomId': classroomId,
+        },
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      List<EventEntity> events = response.data
+          .map<EventEntity>(
+            (event) => EventDto.fromMap(event),
+          )
+          .toList();
+
+      return events;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logError(e.toString());
+      throw UnexpectedApiException();
     }
   }
 }
