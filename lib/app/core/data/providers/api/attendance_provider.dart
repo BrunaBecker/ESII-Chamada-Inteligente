@@ -5,7 +5,6 @@ import '../../../domain/entities/attendance_entity.dart';
 import '../../../exceptions/entity_not_found_exception.dart';
 import '../../../exceptions/no_api_response_exception.dart';
 import '../../../exceptions/unexpected_api_exception.dart';
-import '../../../utils/app_date_utils.dart';
 import '../../dtos/attendance_dto.dart';
 import '../base_provider.dart';
 
