@@ -54,7 +54,7 @@ class ClassroomProvider extends BaseProvider {
 
       validateResponse(
         response: response,
-        statusCodes: [200],
+        statusCodes: [201],
       );
 
       return ClassroomDto.fromMap(response.data);

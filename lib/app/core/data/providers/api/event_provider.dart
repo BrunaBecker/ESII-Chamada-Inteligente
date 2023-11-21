@@ -3,7 +3,6 @@ import '../../../domain/entities/event_entity.dart';
 import '../../../exceptions/entity_not_found_exception.dart';
 import '../../../exceptions/no_api_response_exception.dart';
 import '../../../exceptions/unexpected_api_exception.dart';
-import '../../../utils/app_date_utils.dart';
 import '../../dtos/event_dto.dart';
 import '../base_provider.dart';
 
@@ -51,7 +50,7 @@ class EventProvider extends BaseProvider {
 
       validateResponse(
         response: response,
-        statusCodes: [200],
+        statusCodes: [201],
       );
 
       return EventDto.fromMap(response.data);
