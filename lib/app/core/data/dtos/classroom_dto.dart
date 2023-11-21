@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import '../../domain/entities/classroom_entity.dart';
-import '../../utils/app_date_utils.dart';
 import 'event_dto.dart';
 import 'location_dto.dart';
 import 'professor_dto.dart';
@@ -67,8 +66,8 @@ class ClassroomDto extends ClassroomEntity {
       className: map["className"],
       code: map["code"],
       semester: map["semester"],
-      startHour: AppDateUtils.storageDateFormat.parse(map["startHour"]),
-      endHour: AppDateUtils.storageDateFormat.parse(map["endHour"]),
+      startHour: map["startHour"],
+      endHour: map["endHour"],
       professor: ProfessorDto.fromMap(map["professor"]),
       defaultLocation: defaultLocation,
       events: events,
@@ -105,8 +104,8 @@ class ClassroomDto extends ClassroomEntity {
       "className": className,
       "code": code,
       "semester": semester,
-      "startHour": AppDateUtils.storageDateFormat.format(startHour),
-      "endHour": AppDateUtils.storageDateFormat.format(endHour),
+      "startHour": startHour,
+      "endHour": endHour,
       "professor": ProfessorDto.fromEntity(professor).toMap(),
       "defaultLocation": defaultLocationAsMap,
       "events": eventsAsMap,

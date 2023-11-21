@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../../domain/entities/ping_entity.dart';
+import '../../enums/status_ping.dart';
 import '../../utils/app_date_utils.dart';
 
 class PingDto extends PingEntity {
@@ -31,7 +32,7 @@ class PingDto extends PingEntity {
       id: map["id"],
       ip: map["ip"],
       date: AppDateUtils.storageDateFormat.parse(map["date"]),
-      status: map["status"],
+      status: StatusPing.fromText(map["status"]),
       isContinuous: map["continuos"],
       coordinateId: map["coordinateId"],
       attendanceStatusId: map["attendanceStatusId"],
@@ -43,7 +44,7 @@ class PingDto extends PingEntity {
       "id": id,
       "ip": ip,
       "date": AppDateUtils.storageDateFormat.format(date),
-      "status": status,
+      "status": status.toText(),
       "continuos": isContinuous,
       "coordinateId": coordinateId,
       "attendanceStatusId": attendanceStatusId,

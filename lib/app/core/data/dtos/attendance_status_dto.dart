@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../../domain/entities/attendance_status_entity.dart';
+import '../../enums/student_at_attendance_state.dart';
 import 'attendance_dto.dart';
 import 'ping_dto.dart';
 import 'student_dto.dart';
@@ -43,7 +44,7 @@ class AttendanceStatusDto extends AttendanceStatusEntity {
 
     return AttendanceStatusDto(
       id: map["id"],
-      studentState: map["studentState"],
+      studentState: StudentAtAttendanceState.fromText(map["studentState"]),
       studentHasResponded: map["studentHasResponded"],
       validated: map["validated"],
       student: StudentDto.fromMap(map["student"]),
@@ -66,7 +67,7 @@ class AttendanceStatusDto extends AttendanceStatusEntity {
 
     return {
       "id": id,
-      "studentState": studentState,
+      "studentState": studentState.toText(),
       "studentHasResponded": studentHasResponded,
       "validated": validated,
       "student": StudentDto.fromEntity(student).toMap(),
