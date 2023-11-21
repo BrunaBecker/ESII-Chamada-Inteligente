@@ -20,6 +20,12 @@ abstract class Http {
     Map<String, dynamic>? query,
   });
 
+  Future<dynamic> getBytes(
+    dynamic endpoint, {
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? query,
+  });
+
   Future<dynamic> patch(
     dynamic endpoint, {
     dynamic body,
@@ -74,8 +80,11 @@ class HttpAdapter extends Interceptor implements Http {
         onError: (dioError, handler) async {
           try {
             var message = "++++++++++ API ERROR +++++++++++++++++++++++++++++\n"
+                "request: ${dioError.requestOptions.uri}\n"
                 "Status Code: ${dioError.response?.statusCode}\n"
                 "Data: ${dioError.response != null ? jsonEncode(dioError.response!.data) : "null"}\n"
+                "message: ${dioError.message}\n"
+                "message: ${dioError.error}\n"
                 "---------- API ERROR -----------------------------";
             appLog(message, color: AnsiColor.red);
           } catch (_) {}
@@ -196,6 +205,24 @@ class HttpAdapter extends Interceptor implements Http {
         queryParameters: query,
         options: Options(
           headers: headers,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Future<dynamic> getBytes(
+    dynamic endpoint, {
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? query,
+  }) async {
+    return await requestWithRetry(
+      () => dio.get(
+        endpoint,
+        queryParameters: query,
+        options: Options(
+          headers: headers,
+          responseType: ResponseType.bytes,
         ),
       ),
     );
