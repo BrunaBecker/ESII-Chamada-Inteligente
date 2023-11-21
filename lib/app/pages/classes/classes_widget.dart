@@ -15,36 +15,39 @@ class ClassesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder(
       init: Get.find<ClassesController>(),
-      builder: (controller) => Scaffold(
-        drawer: const ClassesDrawer(),
-        bottomNavigationBar: const BottomNavBar(),
-        appBar: AppBar(
-          key: const Key('class_page_header'),
-          title: const Text("Minhas turmas"),
-          centerTitle: true,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Container(
-                width: 24,
-                height: 24,
-                margin: const EdgeInsets.all(10.0),
-                child: ProfilePictureButton(
-                  image: controller.userProfileImage,
+      builder: (controller) => Obx(
+        () => controller.isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Scaffold(
+                drawer: ClassesDrawer(
+                  classrooms: controller.classrooms,
+                  activeAttendanceClassroomId: controller.currentAttendance?.id,
                 ),
-              ),
-            ),
-          ],
-        ),
-        body: Obx(
-          () => controller.isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : ListView.builder(
-                  itemCount: controller.classesList.length,
+                bottomNavigationBar: const BottomNavBar(),
+                appBar: AppBar(
+                  key: const Key('class_page_header'),
+                  title: const Text("Minhas turmas"),
+                  centerTitle: true,
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Container(
+                        width: 24,
+                        height: 24,
+                        margin: const EdgeInsets.all(10.0),
+                        child: ProfilePictureButton(
+                          image: controller.userProfileImage,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                body: ListView.builder(
+                  itemCount: controller.classrooms.length,
                   itemBuilder: (context, index) {
-                    final item = controller.classesList[index];
+                    final item = controller.classrooms[index];
                     return ListTile(
                       key: const Key('list tile class'),
                       onTap: () {},
@@ -59,7 +62,7 @@ class ClassesWidget extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            item["class"]!,
+                            item.className,
                             style: const TextStyle(
                               fontSize: 16,
                               color: AppColors.onPrimaryContainer,
@@ -68,7 +71,7 @@ class ClassesWidget extends StatelessWidget {
                         ),
                       ),
                       title: Text(
-                        item["code"]!,
+                        item.code,
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
@@ -76,7 +79,7 @@ class ClassesWidget extends StatelessWidget {
                         ),
                       ),
                       subtitle: Text(
-                        "${item["name"]} - ${item["class"]}",
+                        "${item.courseName} - ${item.className}",
                         style: const TextStyle(
                           fontSize: 16,
                           color: AppColors.onSurface,
@@ -113,6 +116,9 @@ class ClassesWidget extends StatelessWidget {
                                   onTap: () => Get.toNamed(
                                     AppRoutes.classInfo,
                                     arguments: {
+                                      "classrooms": controller.classrooms,
+                                      "activeAttendance":
+                                          controller.currentAttendance,
                                       "classInfo": item,
                                     },
                                   ),
@@ -134,7 +140,7 @@ class ClassesWidget extends StatelessWidget {
                     );
                   },
                 ),
-        ),
+              ),
       ),
     );
   }

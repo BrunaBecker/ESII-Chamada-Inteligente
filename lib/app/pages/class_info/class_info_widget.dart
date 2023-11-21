@@ -21,17 +21,23 @@ class ClassInfoWidget extends StatelessWidget {
     return GetBuilder(
       init: Get.find<ClassInfoController>(),
       builder: (controller) => Obx(
-        () => DefaultTabController(
-          length: 3,
-          child: Scaffold(
-            drawer: const ClassesDrawer(),
-            appBar: controller.isLoading
-                ? null
-                : AppBar(
+        () => controller.isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : DefaultTabController(
+                length: 3,
+                child: Scaffold(
+                  drawer: ClassesDrawer(
+                    activeAttendanceClassroomId:
+                        controller.currentAttendance?.id,
+                    classrooms: controller.classrooms,
+                  ),
+                  appBar: AppBar(
                     key: const Key('class page header'),
                     backgroundColor: AppColors.surfaceContainer,
                     title: Text(
-                      controller.selectedClass["name"],
+                      "${controller.selectedClassroom.courseName} - ${controller.selectedClassroom.className}",
                       style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
@@ -71,22 +77,22 @@ class ClassInfoWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-            body: TabBarView(
-              children: controller.isProfessor
-                  ? [
-                      const AttendancesProfessorTab(),
-                      const StudentsProfessorTab(),
-                      const StatsProfessorTab(),
-                    ]
-                  : [
-                      const AttendancesStudentTab(),
-                      const StudentInfoTab(),
-                      const StatsStudentTab(),
-                    ],
-            ),
-            bottomNavigationBar: const BottomNavBar(),
-          ),
-        ),
+                  body: TabBarView(
+                    children: controller.isProfessor
+                        ? [
+                            const AttendancesProfessorTab(),
+                            const StudentsProfessorTab(),
+                            const StatsProfessorTab(),
+                          ]
+                        : [
+                            const AttendancesStudentTab(),
+                            const StudentInfoTab(),
+                            const StatsStudentTab(),
+                          ],
+                  ),
+                  bottomNavigationBar: const BottomNavBar(),
+                ),
+              ),
       ),
     );
   }

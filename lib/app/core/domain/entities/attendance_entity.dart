@@ -18,8 +18,8 @@ class AttendanceEntity {
   int? id;
   DateTime date;
   String supportingText;
-  DateTime startHour;
-  DateTime endHour;
+  String startHour;
+  String endHour;
   String duration;
   bool isAutomatic;
   bool isHappening;

@@ -23,8 +23,8 @@ class ClassroomEntity {
   String className;
   String code;
   String semester;
-  DateTime startHour;
-  DateTime endHour;
+  String startHour;
+  String endHour;
   ProfessorEntity professor;
   LocationEntity? defaultLocation;
   List<EventEntity>? events;

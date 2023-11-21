@@ -26,4 +26,28 @@ enum StudentAtAttendanceState {
         return 2;
     }
   }
+
+  String toText() {
+    switch (this) {
+      case StudentAtAttendanceState.present:
+        return 'present';
+      case StudentAtAttendanceState.absent:
+        return 'absent';
+      case StudentAtAttendanceState.justified:
+        return 'justified';
+    }
+  }
+
+  static StudentAtAttendanceState fromText(String text) {
+    switch (text) {
+      case 'present':
+        return StudentAtAttendanceState.present;
+      case 'absent':
+        return StudentAtAttendanceState.absent;
+      case 'justified':
+        return StudentAtAttendanceState.justified;
+      default:
+        return StudentAtAttendanceState.absent;
+    }
+  }
 }

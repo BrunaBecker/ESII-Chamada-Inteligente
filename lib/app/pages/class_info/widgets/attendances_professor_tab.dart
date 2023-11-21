@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../app_routes.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_date_utils.dart';
 import '../../../core/widgets/spacing.dart';
 import '../class_info_controller.dart';
 
@@ -34,7 +35,8 @@ class AttendancesProfessorTab extends StatelessWidget {
                           key: const Key('filter by date button'),
                           onPressed: () async {
                             // TODO: refactor dates
-                            controller.selectedDateRange = await showDateRangePicker(
+                            controller.selectedDateRange =
+                                await showDateRangePicker(
                               context: context,
                               firstDate: DateTime(2023, 11, 1),
                               lastDate: DateTime.now(),
@@ -48,7 +50,7 @@ class AttendancesProfessorTab extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          "Total de chamadas: ${controller.selectedClass["attendances"].length}",
+                          "Total de chamadas: ${controller.attendances.length}",
                           style: const TextStyle(
                             color: AppColors.black,
                             fontWeight: FontWeight.w500,
@@ -57,12 +59,14 @@ class AttendancesProfessorTab extends StatelessWidget {
                       ),
                       Expanded(
                         child: ListView.separated(
-                          itemCount: controller.selectedClass["attendances"].length,
+                          itemCount: controller.attendances.length,
                           itemBuilder: (context, index) {
-                            final item = controller.selectedClass["attendances"][index];
+                            final item = controller.attendances[index];
                             return ListTile(
-                              title: Text(item["date"]),
-                              subtitle: Text(item["description"]),
+                              title: Text(
+                                AppDateUtils.appDateFormat.format(item.date),
+                              ),
+                              subtitle: Text(item.supportingText),
                               trailing: IconButton(
                                 icon: const Icon(
                                   key: Key('edit roll call button'),

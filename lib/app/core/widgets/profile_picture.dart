@@ -12,8 +12,19 @@ class ProfilePicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipOval(
-      child: Image.network(
+    Widget errorIcon = Container(
+      decoration: const BoxDecoration(
+        color: AppColors.lightGray,
+        shape: BoxShape.circle,
+      ),
+    );
+
+    if (imageUrl.isEmpty) {
+      return errorIcon;
+    }
+
+    try {
+      return Image.network(
         imageUrl,
         fit: BoxFit.cover,
         loadingBuilder: (context, child, loadingProgress) {
@@ -25,13 +36,12 @@ class ProfilePicture extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         },
-        errorBuilder: (context, error, stackTrace) => Container(
-          decoration: const BoxDecoration(
-            color: AppColors.lightGray,
-            shape: BoxShape.circle,
-          ),
-        ),
-      ),
+        errorBuilder: (context, error, stackTrace) => errorIcon,
+      );
+    } catch (_) {}
+
+    return ClipOval(
+      child: errorIcon,
     );
   }
 }
