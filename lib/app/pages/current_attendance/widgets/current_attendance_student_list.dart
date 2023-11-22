@@ -16,8 +16,12 @@ class CurrentAttendanceStudentList extends StatelessWidget {
         child: ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: controller.currentAttendance["students"].length,
+          itemCount: controller.currentAttendance["students"].length + 2,
           itemBuilder: (context, index) {
+            if (index >= controller.currentAttendance["students"].length) {
+              return const ListTile();
+            }
+
             final student = controller.currentAttendance["students"][index];
             return ListTile(
               leading: CircleAvatar(
