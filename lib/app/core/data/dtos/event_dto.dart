@@ -3,6 +3,7 @@ import 'dart:convert';
 import '../../domain/entities/event_entity.dart';
 import '../../enums/event_status.dart';
 import '../../utils/app_date_utils.dart';
+import 'classroom_dto.dart';
 
 class EventDto extends EventEntity {
   EventDto({
@@ -10,7 +11,7 @@ class EventDto extends EventEntity {
     required super.name,
     required super.date,
     required super.description,
-    required super.classroomId,
+    required super.classroom,
     required super.status,
   });
 
@@ -20,7 +21,7 @@ class EventDto extends EventEntity {
       name: entity.name,
       date: entity.date,
       description: entity.description,
-      classroomId: entity.classroomId,
+      classroom: entity.classroom,
       status: entity.status,
     );
   }
@@ -31,7 +32,7 @@ class EventDto extends EventEntity {
       name: map["name"],
       date: AppDateUtils.storageDateFormat.parse(map["date"]),
       description: map["description"],
-      classroomId: map["classroomId"],
+      classroom: ClassroomDto.fromMap(map["classroom"]),
       status: EventStatus.fromText(map["status"]),
     );
   }
@@ -42,7 +43,7 @@ class EventDto extends EventEntity {
       "name": name,
       "date": AppDateUtils.storageDateFormat.format(date),
       "description": description,
-      "classroomId": classroomId,
+      "classroom": ClassroomDto.fromEntity(classroom).toMap(),
       "status": status.toText(),
     };
   }

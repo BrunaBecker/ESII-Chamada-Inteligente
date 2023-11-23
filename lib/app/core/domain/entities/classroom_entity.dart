@@ -1,4 +1,3 @@
-import 'event_entity.dart';
 import 'location_entity.dart';
 import 'professor_entity.dart';
 import 'student_entity.dart';
@@ -14,7 +13,6 @@ class ClassroomEntity {
     required this.endHour,
     required this.professor,
     this.defaultLocation,
-    this.events,
     this.students,
   });
 
@@ -27,6 +25,5 @@ class ClassroomEntity {
   String endHour;
   ProfessorEntity professor;
   LocationEntity? defaultLocation;
-  List<EventEntity>? events;
   List<StudentEntity>? students;
 }

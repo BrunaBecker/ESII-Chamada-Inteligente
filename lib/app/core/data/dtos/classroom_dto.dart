@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import '../../domain/entities/classroom_entity.dart';
-import 'event_dto.dart';
 import 'location_dto.dart';
 import 'professor_dto.dart';
 import 'student_dto.dart';
@@ -17,7 +16,6 @@ class ClassroomDto extends ClassroomEntity {
     required super.endHour,
     required super.professor,
     super.defaultLocation,
-    super.events,
     super.students,
   });
 
@@ -32,7 +30,6 @@ class ClassroomDto extends ClassroomEntity {
       endHour: entity.endHour,
       professor: entity.professor,
       defaultLocation: entity.defaultLocation,
-      events: entity.events,
       students: entity.students,
     );
   }
@@ -42,12 +39,6 @@ class ClassroomDto extends ClassroomEntity {
     LocationDto? defaultLocation;
     if (map["defaultLocation"] != null) {
       defaultLocation = LocationDto.fromMap(map["defaultLocation"]);
-    }
-
-    // Mapping Events
-    List<EventDto> events = [];
-    for (var eventMap in map["events"]) {
-      events.add(EventDto.fromMap(eventMap));
     }
 
     List<StudentDto>? students = [];
@@ -70,7 +61,6 @@ class ClassroomDto extends ClassroomEntity {
       endHour: map["endHour"],
       professor: ProfessorDto.fromMap(map["professor"]),
       defaultLocation: defaultLocation,
-      events: events,
       students: students,
     );
   }
@@ -90,14 +80,6 @@ class ClassroomDto extends ClassroomEntity {
       }
     }
 
-    // Mapping Events
-    List<Map<String, dynamic>> eventsAsMap = [];
-    if (events != null) {
-      for (var event in events!) {
-        eventsAsMap.add(EventDto.fromEntity(event).toMap());
-      }
-    }
-
     return {
       "id": id,
       "courseName": courseName,
@@ -108,7 +90,6 @@ class ClassroomDto extends ClassroomEntity {
       "endHour": endHour,
       "professor": ProfessorDto.fromEntity(professor).toMap(),
       "defaultLocation": defaultLocationAsMap,
-      "events": eventsAsMap,
       "students": studentsAsMap,
     };
   }
