@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../app_controller.dart';
 import '../../core/adapters/validator_adapter.dart';
-import '../../core/enums/event_status.dart';
-import '../../core/theme/app_colors.dart';
+import '../../core/domain/entities/event_entity.dart';
+import '../../core/domain/usecases/get_professor_events_between_dates_usecase.dart';
+import '../../core/domain/usecases/get_students_event_between_dates_usecase.dart';
 
 class CalendarController extends GetxController {
   CalendarController({
+    required appController,
     required validator,
-  }) : _validator = validator;
+    required GetProfessorEventsBetweenDatesUsecase
+        getProfessorEventsBetweenDates,
+    required GetStudentEventsBetweenDatesUsecase getStudentEventsBetweenDates,
+  })  : _appController = appController,
+        _validator = validator,
+        _getProfessorEventsBetweenDates = getProfessorEventsBetweenDates,
+        _getStudentEventsBetweenDates = getStudentEventsBetweenDates;
 
+  final AppController _appController;
   final ValidatorAdapter _validator;
+  final GetProfessorEventsBetweenDatesUsecase _getProfessorEventsBetweenDates;
+  final GetStudentEventsBetweenDatesUsecase _getStudentEventsBetweenDates;
 
   final _isLoading = true.obs;
   final _formKey = GlobalKey<FormState>();
@@ -18,61 +30,31 @@ class CalendarController extends GetxController {
   final _eventController = TextEditingController();
   final _commentController = TextEditingController();
   final _selectedDate = Rx<DateTime?>(null);
-  final _events = <Map<String, dynamic>>[].obs;
-  final _selectedDayEvents = <Map<String, dynamic>>[].obs;
+  final _events = <EventEntity>[].obs;
+  final _selectedDayEvents = <EventEntity>[].obs;
+  bool skipDate = true;
 
+  AppController get appController => _appController;
   ValidatorAdapter get validator => _validator;
 
   bool get isLoading => _isLoading.value;
-
   GlobalKey<FormState> get formKey => _formKey;
-
   TextEditingController get classNameController => _classNameController;
-
   TextEditingController get eventController => _eventController;
-
   TextEditingController get commentController => _commentController;
-
   DateTime? get selectedDate => _selectedDate.value;
-
-  List<Map<String, dynamic>> get events => _events;
-
-  List<Map<String, dynamic>> get selectedDayEvents => _selectedDayEvents;
+  List<EventEntity> get events => _events;
+  List<EventEntity> get selectedDayEvents => _selectedDayEvents;
 
   @override
   void onReady() async {
+    _isLoading.value = true;
     super.onReady();
-    // TODO: get events
-    events.addAll(
-      [
-        {
-          "startTime": DateTime.now().add(const Duration(hours: -6)),
-          "endTime": DateTime.now().add(const Duration(hours: -4)),
-          "class": "Engenharia de Software II",
-          "status": EventStatus.classNormal,
-          "color": AppColors.green1,
-          "code": "TCC00001",
-          "description": "Aula 5 - Git",
-        },
-        {
-          "startTime": DateTime.now().add(const Duration(hours: -6)),
-          "endTime": DateTime.now().add(const Duration(hours: -4)),
-          "class": "Redes de Computadores II",
-          "status": EventStatus.classCancelled,
-          "color": AppColors.redDarker,
-          "code": "TCC00002",
-          "description": "Não teremos aula porque terei que ir ao médico.",
-        },
-        {
-          "startTime": DateTime.now().add(const Duration(hours: -6)),
-          "endTime": DateTime.now().add(const Duration(hours: -4)),
-          "class": "Lógica Para Ciência da Computação",
-          "status": EventStatus.classNormalRecurrent,
-          "color": AppColors.orange,
-          "code": "TCC00003",
-          "description": "Aula 9 - Árvore de Refutação",
-        },
-      ],
+
+    if (_appController.user?.id == null) return;
+    await fetchEvents(
+      start: DateTime.now().subtract(const Duration(days: 30)),
+      end: DateTime.now().add(const Duration(days: 30)),
     );
 
     _isLoading.value = false;
@@ -92,13 +74,33 @@ class CalendarController extends GetxController {
       _selectedDayEvents.addAll(
         events.where(
           (event) {
-            return event["startTime"].day == date.day &&
-                event["startTime"].month == date.month &&
-                event["startTime"].year == date.year;
+            return event.date.day == date.day &&
+                event.date.month == date.month &&
+                event.date.year == date.year;
           },
         ),
       );
     }
+  }
+
+  Future<void> fetchEvents({
+    required DateTime start,
+    required DateTime end,
+  }) async {
+    events.clear();
+    events.addAll(
+      _appController.isProfessor
+          ? await _getProfessorEventsBetweenDates(
+              id: _appController.user!.id!,
+              start: start,
+              end: end,
+            )
+          : await _getStudentEventsBetweenDates(
+              id: _appController.user!.id!,
+              start: start,
+              end: end,
+            ),
+    );
     update();
   }
 }

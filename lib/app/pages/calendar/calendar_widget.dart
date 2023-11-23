@@ -20,7 +20,7 @@ class CalendarWidget extends StatelessWidget {
         builder: (controller) => Scaffold(
           body: Obx(
             () => controller.isLoading
-                ? const CircularProgressIndicator()
+                ? const Center(child: CircularProgressIndicator())
                 : Container(
                     alignment: Alignment.center,
                     child: Column(
@@ -30,8 +30,19 @@ class CalendarWidget extends StatelessWidget {
                           child: CalendarAdapter(
                             onSelectionChanged: (calendarSelectionDetails) {
                               if (calendarSelectionDetails.date == null) return;
-                              controller
-                                  .changeDate(calendarSelectionDetails.date!);
+                              controller.changeDate(
+                                calendarSelectionDetails.date!,
+                              );
+                            },
+                            onViewChanged: (viewChangedDetails) async {
+                              if (controller.skipDate) {
+                                controller.skipDate = false;
+                                return;
+                              }
+                              controller.fetchEvents(
+                                start: viewChangedDetails.visibleDates.first,
+                                end: viewChangedDetails.visibleDates.last,
+                              );
                             },
                             events: controller.events,
                           ),
