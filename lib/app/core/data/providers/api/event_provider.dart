@@ -123,7 +123,10 @@ class EventProvider extends BaseProvider {
   }
 
   Future<List<EventEntity>> fetchAllBetweenDatesAndClassroomId(
-      String startDate, String endDate, int classroomId) async {
+    String startDate,
+    String endDate,
+    int classroomId,
+  ) async {
     try {
       final response = await http.get(
         '/event/byDateBetweenAndClassroomId',
@@ -131,6 +134,111 @@ class EventProvider extends BaseProvider {
           'startDate': startDate,
           'endDate': endDate,
           'classroomId': classroomId,
+        },
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      List<EventEntity> events = response.data
+          .map<EventEntity>(
+            (event) => EventDto.fromMap(event),
+          )
+          .toList();
+
+      return events;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logError(e.toString());
+      throw UnexpectedApiException();
+    }
+  }
+
+  Future<List<EventEntity>> fetchAllByClassroomId(int classroomId) async {
+    try {
+      final response = await http.get(
+        '/event/byClassroomId',
+        query: {
+          'classroomId': classroomId,
+        },
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      List<EventEntity> events = response.data
+          .map<EventEntity>(
+            (event) => EventDto.fromMap(event),
+          )
+          .toList();
+
+      return events;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logError(e.toString());
+      throw UnexpectedApiException();
+    }
+  }
+
+  Future<List<EventEntity>> fetchAllBetweenDatesAndStudentId(
+    int studentId,
+    String startDate,
+    String endDate,
+  ) async {
+    try {
+      final response = await http.get(
+        '/event/byDateBetweenAndStudentId',
+        query: {
+          'startDate': startDate,
+          'endDate': endDate,
+          'studentId': studentId,
+        },
+      );
+
+      validateResponse(
+        response: response,
+        statusCodes: [200],
+      );
+
+      List<EventEntity> events = response.data
+          .map<EventEntity>(
+            (event) => EventDto.fromMap(event),
+          )
+          .toList();
+
+      return events;
+    } on EntityNotFoundException {
+      rethrow;
+    } on NoApiResponseException {
+      rethrow;
+    } catch (e) {
+      logError(e.toString());
+      throw UnexpectedApiException();
+    }
+  }
+
+  Future<List<EventEntity>> fetchAllBetweenDatesAndProfessorId(
+    int professorId,
+    String startDate,
+    String endDate,
+  ) async {
+    try {
+      final response = await http.get(
+        '/event/byDateBetweenAndProfessorId',
+        query: {
+          'startDate': startDate,
+          'endDate': endDate,
+          'professorId': professorId,
         },
       );
 

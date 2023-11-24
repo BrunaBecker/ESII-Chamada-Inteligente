@@ -6,6 +6,8 @@ import '../constants.dart';
 abstract class AppDateUtils {
   static final appDateFormat = DateFormat(appDatePattern);
   static final storageDateFormat = DateFormat(storageDatePattern);
+  static final appDateTimeFormat = DateFormat(appDateTimePattern);
+  static final storageDateTimeFormat = DateFormat(storageDateTimePattern);
 
   static String convertAppToStorage(String date) {
     return storageDateFormat.format(AppDateUtils.appDateFormat.parse(date));
@@ -97,5 +99,10 @@ abstract class AppDateUtils {
       seconds: seconds,
       milliseconds: milliseconds,
     );
+  }
+
+  static DateTime combineDateTime(DateTime date, String hour) {
+    return storageDateTimeFormat
+        .parse("${storageDateFormat.format(date)} $hour");
   }
 }

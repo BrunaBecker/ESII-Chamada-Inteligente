@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+import '../domain/entities/event_entity.dart';
 import '../enums/event_status.dart';
 import '../theme/app_colors.dart';
 import '../utils/app_date_utils.dart';
+import '../widgets/event_info_dialog.dart';
 
 class CalendarAdapter extends StatelessWidget {
   const CalendarAdapter({
     super.key,
     this.events = const [],
     this.onSelectionChanged,
+    this.onViewChanged,
   });
 
-  final List<Map<String, dynamic>> events;
+  final List<EventEntity> events;
   final Function(CalendarSelectionDetails)? onSelectionChanged;
+  final Function(ViewChangedDetails)? onViewChanged;
 
   @override
   Widget build(BuildContext context) {
     return SfCalendar(
       view: CalendarView.month,
       onSelectionChanged: onSelectionChanged,
+      onViewChanged: onViewChanged,
       firstDayOfWeek: 1,
       monthViewSettings: const MonthViewSettings(
         appointmentDisplayMode: MonthAppointmentDisplayMode.indicator,
@@ -49,17 +53,15 @@ class CalendarAdapter extends StatelessWidget {
       onTap: (calendarTapDetails) {
         final appointments = calendarTapDetails.appointments ?? [];
         if (appointments.length == 1) {
-          final appointment = appointments.first;
-          final startTime =
-              AppDateUtils.dateTimeToTimeString(appointment["startTime"]);
-          final endTime =
-              AppDateUtils.dateTimeToTimeString(appointment["endTime"]);
+          final appointment = appointments.first as EventEntity;
+          final startTime = appointment.classroom.startHour;
+          final endTime = appointment.classroom.endHour;
           showDialog(
             context: context,
             builder: (context) => EventInfoDialog(
-              title: appointment["class"],
+              title: appointment.classroom.courseName,
               description: "$startTime - $endTime",
-              status: appointment["status"],
+              status: appointment.status,
               center: true,
             ),
           );
@@ -95,81 +97,43 @@ class AttendanceDataItem {
 class AttendanceDataSource extends CalendarDataSource {
   @override
   Color getColor(int index) {
-    return getAppointment(index)["color"] as Color? ?? AppColors.lightGray;
+    return getAppointment(index).status == EventStatus.classNormal
+        ? AppColors.green1
+        : getAppointment(index).status == EventStatus.classCancelled
+            ? AppColors.redDarker
+            : AppColors.orange;
   }
 
   @override
   DateTime getStartTime(int index) {
-    return getAppointment(index)["startTime"] as DateTime;
+    final appointment = getAppointment(index);
+    final start = AppDateUtils.combineDateTime(
+      appointment.date,
+      appointment.classroom.startHour,
+    );
+    return start;
   }
 
   @override
   DateTime getEndTime(int index) {
-    return getAppointment(index)["endTime"] as DateTime;
+    final appointment = getAppointment(index);
+    final end = AppDateUtils.combineDateTime(
+      appointment.date,
+      appointment.classroom.endHour,
+    );
+    return end;
   }
 
   @override
   String getSubject(int index) {
-    return getAppointment(index)["class"] as String;
+    return getAppointment(index).name;
   }
 
-  Map<String, dynamic> getAppointment(int index) {
+  EventEntity getAppointment(int index) {
     return appointments![index];
   }
 
   AttendanceDataSource(List source) {
     appointments = source;
-  }
-}
-
-class EventInfoDialog extends StatelessWidget {
-  const EventInfoDialog({
-    super.key,
-    required this.title,
-    required this.description,
-    required this.status,
-    this.center = false,
-  }) : color = status == EventStatus.classNormal
-            ? AppColors.green1
-            : status == EventStatus.classCancelled
-                ? AppColors.redDarker
-                : AppColors.orange;
-
-  final String title;
-  final String description;
-  final EventStatus status;
-  final Color color;
-  final bool center;
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      icon: Icon(
-        status == EventStatus.classNormal
-            ? Icons.check_outlined
-            : status == EventStatus.classCancelled
-                ? Icons.close_outlined
-                : Icons.schedule_outlined,
-        color: color,
-      ),
-      title: Text(
-        title,
-        style: TextStyle(
-          color: color,
-        ),
-      ),
-      content: Text(
-        description,
-        textAlign: center ? TextAlign.center : TextAlign.start,
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Get.back();
-          },
-          child: const Text("Ok"),
-        ),
-      ],
-    );
   }
 }

@@ -1,15 +1,17 @@
 import 'package:get/get.dart';
 
+import '../../core/domain/entities/event_entity.dart';
+
 class DailyWarningsController extends GetxController {
   final _isLoading = true.obs;
   late final DateTime _day;
-  final _events = <Map<String, dynamic>>[].obs;
+  final _events = <EventEntity>[].obs;
 
   bool get isLoading => _isLoading.value;
 
   DateTime get day => _day;
 
-  List<Map<String, dynamic>> get events => _events;
+  List<EventEntity> get events => _events;
 
   @override
   void onReady() async {

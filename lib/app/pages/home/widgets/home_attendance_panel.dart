@@ -43,29 +43,29 @@ class HomeAttendancePanel extends StatelessWidget {
                                   leading: CircleAvatar(
                                     backgroundColor: AppColors.primary,
                                     child: Text(
-                                      controller.attendance!["name"],
+                                      controller.classroom?.courseName ?? "",
                                       style: const TextStyle(
                                         color: AppColors.white,
                                       ),
                                     ),
                                   ),
                                   title: Text(
-                                    controller.attendance!["class"],
+                                    controller.classroom?.className ?? "",
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                   subtitle: Text(
-                                    controller.attendance!["code"],
+                                    controller.classroom?.code ?? "",
                                   ),
                                   trailing: Icon(
                                     Icons.online_prediction_outlined,
-                                    color: controller.hasAttendance
+                                    color: controller.virtualZone != null
                                         ? AppColors.red1
                                         : AppColors.green1,
                                   ),
                                 ),
-                                controller.hasAttendance
+                                controller.virtualZone != null
                                     ? Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
@@ -92,15 +92,20 @@ class HomeAttendancePanel extends StatelessWidget {
                                           ),
                                           ListTile(
                                             subtitle: Text(
-                                              "${controller.attendance!["address"]}\n"
-                                              "Latitude: ${controller.attendance!["latitude"]}\n"
-                                              "Longitude: ${controller.attendance!["longitude"]}",
+                                              // TODO: address text
+                                              "${controller.address ?? "-"}\n"
+                                              "Latitude: ${controller.location?.coordinate?.latitude ?? "-"}\n"
+                                              "Longitude: ${controller.location?.coordinate?.longitude ?? "-"}",
                                             ),
                                           ),
                                         ],
                                       )
-                                    : const Text(
-                                        "A chamada não possui localização definida."),
+                                    : Container(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: const Text(
+                                          "A chamada não possui localização definida.",
+                                        ),
+                                      ),
                               ],
                             ),
                             actions: [

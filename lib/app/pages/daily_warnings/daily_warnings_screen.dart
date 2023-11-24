@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/adapters/calendar_adapter.dart';
 import '../../core/enums/event_status.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/app_date_utils.dart';
 import '../../core/widgets/bottom_nav_bar.dart';
+import '../../core/widgets/event_info_dialog.dart';
 import 'daily_warnings_controller.dart';
 
 class DailyWarningsScreen extends StatelessWidget {
@@ -36,7 +36,7 @@ class DailyWarningsScreen extends StatelessWidget {
                     itemCount: controller.events.length,
                     itemBuilder: (context, index) {
                       final event = controller.events[index];
-                      final status = event["status"];
+                      final status = event.status;
                       return ListTile(
                         leading: Icon(
                           status == EventStatus.classNormal
@@ -54,18 +54,18 @@ class DailyWarningsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              event["code"],
+                              event.classroom.code,
                               style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: AppColors.onSurfaceVariant,
                               ),
                             ),
-                            Text(event["class"]),
+                            Text(event.classroom.courseName),
                           ],
                         ),
                         subtitle: Text(
-                          event["description"],
+                          event.description,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -74,9 +74,9 @@ class DailyWarningsScreen extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (context) => EventInfoDialog(
-                              title: event["class"],
-                              description: event["description"],
-                              status: event["status"],
+                              title: event.classroom.courseName,
+                              description: event.description,
+                              status: event.status,
                               center: false,
                             ),
                           );
