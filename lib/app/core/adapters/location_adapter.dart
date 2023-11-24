@@ -1,4 +1,6 @@
+import 'package:geocoding/geocoding.dart' as geocoding;
 import 'package:location/location.dart';
+import '../domain/entities/coordinate_entity.dart';
 
 class LocationAdapter {
   Location location = Location();
@@ -38,5 +40,22 @@ class LocationAdapter {
 
     _locationData = await location.getLocation();
     return _locationData;
+  }
+
+  // get placemark with geocoding
+  Future<String?> getPlacemarkFromLocationData(
+      CoordinateEntity coordinate) async {
+    List<geocoding.Placemark> placemarks = [];
+    try {
+      placemarks = await geocoding.placemarkFromCoordinates(
+          coordinate.latitude, coordinate.longitude);
+    } catch (e) {
+      return null;
+    }
+    if (placemarks.isNotEmpty) {
+      geocoding.Placemark place = placemarks.first;
+      return "${place.thoroughfare} - ${place.subLocality}, ${place.subAdministrativeArea} - ${place.administrativeArea}, ${place.postalCode} - ${place.country}";
+    }
+    return null;
   }
 }
