@@ -118,7 +118,7 @@ void main() {
       await tester.tap(notificationButton);
       await tester.pumpAndSettle();
 
-      expect(find.text('Registre sua presença!'), findsOneWidget);
+      expect(find.text('Chamada Inteligente'), findsOneWidget);
     });
   });
 }

@@ -9,7 +9,7 @@ import 'minhas_turmas_test.dart';
 
 Future<void> goToClassPage(WidgetTester tester) async {
   final Finder interactClassButtonFinder =
-      find.byKey(const Key('interact class ellipsis button')).at(2);
+      find.byKey(const Key('interact class ellipsis button')).first;
   await tester.tap(interactClassButtonFinder);
   await tester.pumpAndSettle();
 
@@ -108,7 +108,7 @@ void main() {
       await goToClassPage(tester);
 
       final Finder editFinder =
-          find.byKey(const Key('edit roll call button')).at(2);
+          find.byKey(const Key('edit roll call button')).first;
       await tester.tap(editFinder);
       await tester.pumpAndSettle();
 
@@ -129,7 +129,7 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester
-          .tap(find.byKey(const Key('go to student information button')).at(4));
+          .tap(find.byKey(const Key('go to student information button')).first);
       await tester.pumpAndSettle();
 
       expect(find.text('Presença'), findsOneWidget);

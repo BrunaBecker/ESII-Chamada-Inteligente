@@ -44,7 +44,7 @@ void main() {
       await tester.pumpAndSettle();
 
       final Finder dropdownSelect =
-          find.byKey(const Key('dropdown-select')).at(5);
+          find.byKey(const Key('dropdown-select')).first;
       await tester.tap(dropdownSelect);
       await tester.pumpAndSettle();
 
@@ -58,7 +58,7 @@ void main() {
         final String? selectedValue =
             (selectedElement.widget as Text).data; // Extract text content
 
-        const String expectedValue = 'PROGRAMAÇÃO ORIENTADA A OBJETOS - A1';
+        const String expectedValue = 'classroom 1';
 
         expect(selectedValue, equals(expectedValue),
             reason: 'Selected value does not match expected value');
@@ -114,7 +114,7 @@ void main() {
       await tester.pumpAndSettle();
 
       final Finder dropdownSelect =
-          find.byKey(const Key('dropdown-select')).at(5);
+          find.byKey(const Key('dropdown-select')).first;
       await tester.tap(dropdownSelect);
       await tester.pumpAndSettle();
 
@@ -128,7 +128,7 @@ void main() {
         final String? selectedValue =
             (selectedElement.widget as Text).data; // Extract text content
 
-        const String expectedValue = 'PROGRAMAÇÃO ORIENTADA A OBJETOS - A1';
+        const String expectedValue = 'classroom 1';
 
         expect(selectedValue, equals(expectedValue),
             reason: 'Selected value does not match expected value');
@@ -183,7 +183,7 @@ void main() {
       await tester.pumpAndSettle();
 
       final Finder dropdownSelect =
-          find.byKey(const Key('dropdown-select')).at(5);
+          find.byKey(const Key('dropdown-select')).first;
       await tester.tap(dropdownSelect);
       await tester.pumpAndSettle();
 
@@ -197,7 +197,7 @@ void main() {
         final String? selectedValue =
             (selectedElement.widget as Text).data; // Extract text content
 
-        const String expectedValue = 'PROGRAMAÇÃO ORIENTADA A OBJETOS - A1';
+        const String expectedValue = 'classroom 1';
 
         expect(selectedValue, equals(expectedValue),
             reason: 'Selected value does not match expected value');

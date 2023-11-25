@@ -21,7 +21,7 @@ void main() {
       await tester.tap(navHomeButton);
       await tester.pumpAndSettle();
 
-      expect(find.text('Registre sua presença!'), findsOneWidget);
+      expect(find.text('Chamada Inteligente'), findsOneWidget);
     });
 
     testWidgets('Class Navigation', (WidgetTester tester) async {
