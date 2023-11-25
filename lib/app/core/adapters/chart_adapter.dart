@@ -30,8 +30,17 @@ class ChartAdapter {
             xValueMapper: (attendance, _) => AppDateUtils.appDateFormat
                 .format(attendance.date)
                 .substring(0, 5),
-            yValueMapper: (attendance, _) =>
-                AppDateUtils.parseJavaDuration(attendance.duration).inMinutes,
+            yValueMapper: (attendance, _) => AppDateUtils.combineDateTime(
+              attendance.date,
+              attendance.startHour,
+            )
+                .difference(
+                  AppDateUtils.combineDateTime(
+                    attendance.date,
+                    attendance.endHour,
+                  ),
+                )
+                .inMinutes,
             color: AppColors.primary,
             markerSettings: const MarkerSettings(
               isVisible: true,

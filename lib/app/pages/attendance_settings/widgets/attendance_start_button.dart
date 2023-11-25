@@ -36,6 +36,16 @@ class AttendanceStartButton extends StatelessWidget {
                         // TODO: start attendance
                         final attendance = await controller.startAttendance();
 
+                        if (attendance == null) {
+                          Get.snackbar(
+                            "Erro",
+                            "Não foi possível iniciar a chamada!",
+                            snackPosition: SnackPosition.BOTTOM,
+                            margin: const EdgeInsets.all(88.0),
+                          );
+                          return;
+                        }
+
                         Get.snackbar(
                           "Chamada",
                           "Chamada iniciada com sucesso!",

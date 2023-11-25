@@ -6,32 +6,24 @@ import '../../exceptions/no_api_response_exception.dart';
 abstract class BaseProvider {
   void logContent(String message) {
     const color = AnsiColor.blue;
-    appLog(
-      "++++++++++ PROVIDER CONTENT ++++++++++++++++++++++",
-      color: color,
-    );
+    message = ""
+        "++++++++++ PROVIDER CONTENT ++++++++++++++++++++++\n"
+        "$message\n"
+        "--------------------------------------------------\n";
     appLog(
       message,
-      color: color,
-    );
-    appLog(
-      "--------------------------------------------------",
       color: color,
     );
   }
 
   void logError(String message) {
     const color = AnsiColor.red;
-    appLog(
-      "++++++++++ PROVIDER ERROR ++++++++++++++++++++++++",
-      color: color,
-    );
+    message = ""
+        "++++++++++ PROVIDER ERROR ++++++++++++++++++++++++\n"
+        "$message\n"
+        "--------------------------------------------------\n";
     appLog(
       message,
-      color: color,
-    );
-    appLog(
-      "--------------------------------------------------",
       color: color,
     );
   }

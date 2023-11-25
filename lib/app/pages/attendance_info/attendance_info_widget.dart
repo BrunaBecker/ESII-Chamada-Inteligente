@@ -28,7 +28,7 @@ class AttendanceInfoWidget extends StatelessWidget {
                         : AppBar(
                             backgroundColor: AppColors.surfaceContainer,
                             title: Text(
-                              "Chamada ${controller.selectedAttendance["description"]}",
+                              controller.selectedAttendance.supportingText,
                               style: const TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w700,
@@ -50,7 +50,7 @@ class AttendanceInfoWidget extends StatelessWidget {
                         ),
                         Text(
                           key: const Key('frequency richtext'),
-                          "De ${controller.selectedAttendance["students"].length} alunos, ${controller.totalPresentStudents} estavam presentes",
+                          "De ${controller.totalStudents} alunos, ${controller.totalPresentStudents} estavam presentes",
                           style: const TextStyle(
                             color: AppColors.black,
                             fontWeight: FontWeight.w500,
@@ -64,32 +64,39 @@ class AttendanceInfoWidget extends StatelessWidget {
                         const AttendanceFilterOptions(),
                         Expanded(
                           child: ListView.builder(
-                            itemCount: controller
-                                .selectedAttendance["students"].length,
+                            itemCount: controller.totalStudents,
                             itemBuilder: (context, index) {
-                              final item = controller
-                                  .selectedAttendance["students"][index];
+                              final item = controller.selectedAttendance
+                                  .classroom!.students![index];
+                              final status = controller.getStudentStatus(
+                                item,
+                              );
+
+                              if (status == null) {
+                                return const SizedBox.shrink();
+                              }
+
                               return ListTile(
-                                title: Text(item["name"]),
+                                title: Text(item.name),
                                 subtitle: Text(
-                                  item["confirmed"]
+                                  status.validated
                                       ? "Resposta validada"
                                       : "Valide essa resposta",
                                 ),
                                 trailing: PopupMenuButton(
                                   icon: Icon(
-                                    item["status"] ==
+                                    status.studentState ==
                                             StudentAtAttendanceState.present
                                         ? Icons.check_outlined
-                                        : item["status"] ==
+                                        : status.studentState ==
                                                 StudentAtAttendanceState.absent
                                             ? Icons.close_outlined
                                             : Icons.indeterminate_check_box,
-                                    color: item["confirmed"]
-                                        ? item["status"] ==
+                                    color: status.validated
+                                        ? status.studentState ==
                                                     StudentAtAttendanceState
                                                         .present ||
-                                                item["status"] ==
+                                                status.studentState ==
                                                     StudentAtAttendanceState
                                                         .justified
                                             ? AppColors.green1
@@ -100,7 +107,7 @@ class AttendanceInfoWidget extends StatelessWidget {
                                     PopupMenuItem(
                                       onTap: () {
                                         controller.changeStudentPresence(
-                                          student: item,
+                                          attendanceStatus: status,
                                           presence:
                                               StudentAtAttendanceState.present,
                                         );
@@ -117,7 +124,7 @@ class AttendanceInfoWidget extends StatelessWidget {
                                     PopupMenuItem(
                                       onTap: () {
                                         controller.changeStudentPresence(
-                                          student: item,
+                                          attendanceStatus: status,
                                           presence:
                                               StudentAtAttendanceState.absent,
                                         );
@@ -134,7 +141,7 @@ class AttendanceInfoWidget extends StatelessWidget {
                                     PopupMenuItem(
                                       onTap: () {
                                         controller.changeStudentPresence(
-                                          student: item,
+                                          attendanceStatus: status,
                                           presence: StudentAtAttendanceState
                                               .justified,
                                         );

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app_controller.dart';
+import '../../app_routes.dart';
 import '../../core/adapters/location_adapter.dart';
-import '../../core/adapters/log_adapter.dart';
 import '../../core/adapters/validator_adapter.dart';
 import '../../core/domain/entities/attendance_entity.dart';
 import '../../core/domain/entities/attendance_status_entity.dart';
@@ -14,18 +14,20 @@ import '../../core/domain/entities/student_entity.dart';
 import '../../core/domain/entities/virtual_zone_entity.dart';
 import '../../core/domain/usecases/create_student_attendance_status_usecase.dart';
 import '../../core/domain/usecases/get_location_by_id_usecase.dart';
+import '../../core/domain/usecases/get_professor_attendance_happening_usecase.dart';
+import '../../core/domain/usecases/get_student_attendance_happening_usecase.dart';
 import '../../core/domain/usecases/get_student_attendance_status_by_attendance_usecase.dart';
-import '../../core/domain/usecases/get_student_attendances_usecase.dart';
 import '../../core/enums/student_at_attendance_state.dart';
-import '../../core/exceptions/unexpected_api_exception.dart';
 import '../notifications/notifications_controller.dart';
 
 class HomeController extends GetxController {
   HomeController({
-    required appController,
-    required validator,
-    required locationUtils,
-    required GetStudentAttendancesUsecase getStudentAttendances,
+    required AppController appController,
+    required ValidatorAdapter validator,
+    required LocationAdapter locationUtils,
+    required GetProfessorAttendanceHappeningUsecase
+        getProfessorAttendanceHappening,
+    required GetStudentAttendanceHappeningUsecase getStudentAttendanceHappening,
     required GetLocationByIdUsecase getLocationById,
     required GetStudentAttendanceStatusByAttendanceUsecase
         getStudentAttendanceStatusByAttendance,
@@ -33,7 +35,8 @@ class HomeController extends GetxController {
   })  : _appController = appController,
         _validator = validator,
         _locationUtils = locationUtils,
-        _getStudentAttendances = getStudentAttendances,
+        _getProfessorAttendanceHappening = getProfessorAttendanceHappening,
+        _getStudentAttendanceHappening = getStudentAttendanceHappening,
         _getLocationById = getLocationById,
         _getStudentAttendanceStatusByAttendance =
             getStudentAttendanceStatusByAttendance,
@@ -42,7 +45,8 @@ class HomeController extends GetxController {
   final AppController _appController;
   final ValidatorAdapter _validator;
   final LocationAdapter _locationUtils;
-  final GetStudentAttendancesUsecase _getStudentAttendances;
+  final GetProfessorAttendanceHappeningUsecase _getProfessorAttendanceHappening;
+  final GetStudentAttendanceHappeningUsecase _getStudentAttendanceHappening;
   final GetLocationByIdUsecase _getLocationById;
   final GetStudentAttendanceStatusByAttendanceUsecase
       _getStudentAttendanceStatusByAttendance;
@@ -58,6 +62,7 @@ class HomeController extends GetxController {
   final _waiverDescriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  AppController get appController => _appController;
   ValidatorAdapter get validator => _validator;
   bool get isLoading => _isLoading.value;
   UserType? get userType => _appController.userType;
@@ -83,6 +88,15 @@ class HomeController extends GetxController {
     await notificationsController.fetch();
     await fetch();
 
+    if (appController.isProfessor && attendance != null) {
+      Get.offAllNamed(
+        AppRoutes.currentAttendance,
+        arguments: {
+          "currentAttendance": attendance!,
+        },
+      );
+    }
+
     _isLoading.value = false;
   }
 
@@ -95,14 +109,14 @@ class HomeController extends GetxController {
 
   Future<void> fetchAttendance() async {
     try {
-      final attendancesResult = await _getStudentAttendances(
-        studentId: user.id!,
-      );
-      if (attendancesResult != null && attendancesResult.isNotEmpty) {
-        _attendance.value = attendancesResult.first;
-      } else {
-        throw UnexpectedApiException();
-      }
+      final attendancesResult = _appController.isProfessor
+          ? await _getProfessorAttendanceHappening(
+              professorId: user.id!,
+            )
+          : await _getStudentAttendanceHappening(
+              studentId: user.id!,
+            );
+      _attendance.value = attendancesResult;
     } catch (_) {
       _attendance.value = null;
     }
@@ -122,6 +136,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> fetchAttendanceStatus() async {
+    if (_appController.isProfessor) return;
     try {
       if (attendance != null) {
         final attendanceStatusResult =
@@ -148,7 +163,6 @@ class HomeController extends GetxController {
   }
 
   Future<void> createAttendanceStatus(StudentAtAttendanceState state) async {
-    appLog(attendance.toString());
     _attendanceStatus.value = await _createStudentAttendanceStatus(
       attendanceStatus: AttendanceStatusEntity(
         attendance: attendance!,

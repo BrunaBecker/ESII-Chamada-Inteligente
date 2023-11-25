@@ -105,4 +105,11 @@ abstract class AppDateUtils {
     return storageDateTimeFormat
         .parse("${storageDateFormat.format(date)} $hour");
   }
+
+  static String storageToAppHour(String hour) {
+    if (hour.length == 8) {
+      return hour.substring(0, 5);
+    }
+    return hour;
+  }
 }

@@ -1,29 +1,44 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../app_controller.dart';
 import '../../core/adapters/mask_adapter.dart';
 import '../../core/adapters/validator_adapter.dart';
-import '../../core/enums/student_at_attendance_state.dart';
+import '../../core/domain/entities/attendance_entity.dart';
+import '../../core/domain/entities/classroom_entity.dart';
+import '../../core/domain/entities/professor_entity.dart';
+import '../../core/domain/entities/virtual_zone_entity.dart';
+import '../../core/domain/usecases/create_attendance_usecase.dart';
+import '../../core/domain/usecases/get_classrooms_by_professor_identifier_usecase.dart';
 import '../../core/utils/app_date_utils.dart';
 
 class AttendanceSettingsController extends GetxController {
   AttendanceSettingsController({
+    required appController,
     required mask,
     required validator,
-  })  : _mask = mask,
-        _validator = validator;
+    required getClassroomsByProfessorIdentifier,
+    required createAttendance,
+  })  : _appController = appController,
+        _mask = mask,
+        _validator = validator,
+        _getClassroomsByProfessorIdentifier =
+            getClassroomsByProfessorIdentifier,
+        _createAttendance = createAttendance;
 
+  final AppController _appController;
   final MaskAdapter _mask;
   final ValidatorAdapter _validator;
+  final GetClassroomsByProfessorIdentifierUsecase
+      _getClassroomsByProfessorIdentifier;
+  final CreateAttendanceUsecase _createAttendance;
 
   final _isLoading = true.obs;
   final _isStartingAttendance = false.obs;
   final _formKey = GlobalKey<FormState>();
-  final _allClassList = <String>[].obs;
-  final _searchClassList = <String>[].obs;
-  final _selectedClass = "".obs;
+  final _allClassroomList = <ClassroomEntity>[].obs;
+  final _searchClassroomList = <ClassroomEntity>[].obs;
+  late final _selectedClassroom = Rx<ClassroomEntity?>(null);
   final _usePreset = false.obs;
   final _manualEnd = false.obs;
   final _savePreset = false.obs;
@@ -32,73 +47,65 @@ class AttendanceSettingsController extends GetxController {
   final _endTimeController = TextEditingController().obs;
 
   MaskAdapter get mask => _mask;
-
   ValidatorAdapter get validator => _validator;
 
   bool get isLoading => _isLoading.value;
-
   bool get isCreatingAttendance => _isStartingAttendance.value;
-
   GlobalKey<FormState> get formKey => _formKey;
-
-  List<String> get classList => _allClassList;
-
-  List<String> get searchClassList => _searchClassList;
-
-  String get selectedClass => _selectedClass.value;
-
+  List<ClassroomEntity> get classroomList => _allClassroomList;
+  List<ClassroomEntity> get searchClassroomList => _searchClassroomList;
+  ClassroomEntity? get selectedClassroom => _selectedClassroom.value;
   bool get usePreset => _usePreset.value;
-
   bool get manualEnd => _manualEnd.value;
-
   bool get saveSettings => _savePreset.value;
-
   TextEditingController get dateController => _dateController.value;
-
   TextEditingController get startTimeController => _startTimeController.value;
-
   TextEditingController get endTimeController => _endTimeController.value;
+  ProfessorEntity get professor => _appController.user as ProfessorEntity;
 
   @override
   void onReady() async {
     super.onReady();
 
     // TODO: get classes
-    await Future.delayed(const Duration(seconds: 1));
-    _allClassList.addAll([
-      "ENGENHARIA DE SOFTWARE II - A1",
-      "PROGRAMAÇÃO I - A1",
-      "PROGRAMAÇÃO I - B1",
-      "PROGRAMAÇÃO I - C1",
-      "PROGRAMAÇÃO ORIENTADA A OBJETOS - A1",
-      "PROGRAMAÇÃO ORIENTADA A OBJETOS - B1",
-      "PROGRAMAÇÃO ORIENTADA A OBJETOS - C1",
-      "ESTRUTURAS DE DADOS E SEUS ALGORITMOS - A1",
-      "ESTRUTURAS DE DADOS E SEUS ALGORITMOS - B1",
-    ]);
-    if (_allClassList.isNotEmpty) {
-      _selectedClass.value = _allClassList.first;
-      _searchClassList.addAll(_allClassList);
+    // await Future.delayed(const Duration(seconds: 1));
+    // _allClassList.addAll([
+    //   "ENGENHARIA DE SOFTWARE II - A1",
+    //   "PROGRAMAÇÃO I - A1",
+    //   "PROGRAMAÇÃO I - B1",
+    //   "PROGRAMAÇÃO I - C1",
+    //   "PROGRAMAÇÃO ORIENTADA A OBJETOS - A1",
+    //   "PROGRAMAÇÃO ORIENTADA A OBJETOS - B1",
+    //   "PROGRAMAÇÃO ORIENTADA A OBJETOS - C1",
+    //   "ESTRUTURAS DE DADOS E SEUS ALGORITMOS - A1",
+    //   "ESTRUTURAS DE DADOS E SEUS ALGORITMOS - B1",
+    // ]);
+    final classroomsResult = await _getClassroomsByProfessorIdentifier(
+      professor.register.identifier,
+    );
+    _allClassroomList.addAll(classroomsResult);
+    if (_allClassroomList.isNotEmpty) {
+      _selectedClassroom.value = _allClassroomList.first;
+      _searchClassroomList.addAll(_allClassroomList);
     }
 
     _isLoading.value = false;
   }
 
   void searchClass(String query) {
-    _searchClassList.clear();
-    _searchClassList.addAll(_allClassList.where((element) {
-      return element.toLowerCase().contains(query.toLowerCase());
+    _searchClassroomList.clear();
+    _searchClassroomList.addAll(_allClassroomList.where((element) {
+      return element.courseName.toLowerCase().contains(query.toLowerCase());
     }));
   }
 
   toggleUsePreset() {
     _usePreset.value = !_usePreset.value;
 
-    if (usePreset && selectedClass.isNotEmpty) {
-      // TODO: get class settings
+    if (usePreset && selectedClassroom != null) {
       dateController.text = AppDateUtils.appDateFormat.format(DateTime.now());
-      startTimeController.text = "09:00";
-      endTimeController.text = "11:00";
+      startTimeController.text = parseHour(selectedClassroom!.startHour);
+      endTimeController.text = parseHour(selectedClassroom!.endHour);
     }
   }
 
@@ -111,56 +118,43 @@ class AttendanceSettingsController extends GetxController {
   }
 
   void toggleSaveSettings() {
+    // TODO: save settings
     _savePreset.value = !_savePreset.value;
   }
 
-  void changeClass(String value) {
-    _selectedClass.value = value;
+  void changeClassroom(ClassroomEntity value) {
+    _selectedClassroom.value = value;
   }
 
-  Future<Map<String, dynamic>> startAttendance() async {
+  Future<AttendanceEntity?> startAttendance() async {
     _isStartingAttendance.value = true;
-    await Future.delayed(const Duration(seconds: 2));
-    final attendance = {
-      "name": selectedClass,
-      "date": dateController.text,
-      "start": startTimeController.text,
-      "end": endTimeController.text,
-      "zone": null,
-      "students": List.generate(
-        Random().nextInt(10) + 15,
-        (index) => {
-          "name": "Aluno ${index + 1}",
-          "status": StudentAtAttendanceState.fromInt(Random().nextInt(3)),
-          "answered": Random().nextInt(3) != 1,
-          "confirmed": Random().nextInt(3) != 1,
-          "registration":
-              "120031${Random().nextInt(100).toString().padLeft(3, "0")}",
-          "justifications": [
-            {
-              "date": AppDateUtils.appDateFormat.parse(dateController.text),
-              "file": null,
-              "title": "Quebrei a perna",
-              "description":
-                  "Eu quebrei a perna, professor, não consigo ir até a faculdade.",
-              "attach_file": null,
-              "approved": null,
-            },
-            {
-              "date": AppDateUtils.appDateFormat.parse(dateController.text),
-              "file": null,
-              "title": "Quebrei o braço.",
-              "description":
-                  "Eu quebrei o braço, professor, não consigo ir até a faculdade.",
-              "attach_file": null,
-              "approved": null,
-            },
-          ],
-        },
-      ),
-    };
+    // TODO: get location
+    final virtualZone = selectedClassroom!.defaultLocation != null
+        ? VirtualZoneEntity(
+            locationId: selectedClassroom!.defaultLocation!.id!,
+          )
+        : null;
+    final attendance = AttendanceEntity(
+      date: AppDateUtils.appDateFormat.parse(dateController.text),
+      supportingText: "",
+      startHour: startTimeController.text,
+      endHour: endTimeController.text,
+      isAutomatic: false,
+      isHappening: true,
+      virtualZone: virtualZone,
+      classroom: selectedClassroom,
+    );
 
-    _isStartingAttendance.value = false;
+    try {
+      await _createAttendance(
+        attendance: attendance,
+      );
+    } catch (_) {
+      return null;
+    } finally {
+      _isStartingAttendance.value = false;
+    }
+
     return attendance;
   }
 
@@ -176,5 +170,9 @@ class AttendanceSettingsController extends GetxController {
   void changeEndTime(TimeOfDay time) {
     endTimeController.text = AppDateUtils.timeOfDayToAppString(time);
     disableUsePreset();
+  }
+
+  String parseHour(String hour) {
+    return AppDateUtils.storageToAppHour(hour);
   }
 }

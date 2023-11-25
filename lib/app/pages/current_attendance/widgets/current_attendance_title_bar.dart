@@ -15,11 +15,10 @@ class CurrentAttendanceTitleBar extends StatelessWidget {
         flexibleSpace: Column(
           children: [
             Text(
-              controller.currentAttendance["name"],
+              "CH - ${controller.currentAttendance.classroom?.courseName ?? ""} - ${controller.currentAttendance.classroom?.id ?? ""}",
               style: const TextStyle(
                 fontSize: 22,
               ),
-              textAlign: TextAlign.center,
             ),
             const Spacing(8.0),
             const LinearProgressIndicator(

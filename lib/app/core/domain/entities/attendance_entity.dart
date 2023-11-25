@@ -8,7 +8,6 @@ class AttendanceEntity {
     required this.supportingText,
     required this.startHour,
     required this.endHour,
-    required this.duration,
     required this.isAutomatic,
     required this.isHappening,
     required this.virtualZone,
@@ -20,7 +19,6 @@ class AttendanceEntity {
   String supportingText;
   String startHour;
   String endHour;
-  String duration;
   bool isAutomatic;
   bool isHappening;
   VirtualZoneEntity? virtualZone;

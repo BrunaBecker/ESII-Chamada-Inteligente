@@ -1,81 +1,43 @@
-import 'dart:math';
-
 import 'package:get/get.dart';
 
+import '../../core/domain/entities/attendance_entity.dart';
+import '../../core/domain/entities/attendance_status_entity.dart';
+import '../../core/domain/entities/student_entity.dart';
+import '../../core/domain/usecases/get_attendance_statuses_by_attendance_usecase.dart';
 import '../../core/enums/student_at_attendance_state.dart';
-import '../../core/utils/app_date_utils.dart';
 
 class AttendanceInfoController extends GetxController {
+  AttendanceInfoController({
+    required GetAttendanceStatusesByAttendanceUsecase
+        getAttendanceStatusesByAttendance,
+  }) : _getAttendanceStatusesByAttendance = getAttendanceStatusesByAttendance;
+
+  final GetAttendanceStatusesByAttendanceUsecase
+      _getAttendanceStatusesByAttendance;
+
   final _isLoading = true.obs;
-  late final Map<String, dynamic> _selectedAttendance;
+  late final AttendanceEntity _selectedAttendance;
+  final _attendanceStatuses = <AttendanceStatusEntity>[].obs;
   final _filters = <String, dynamic>{}.obs;
   final _sortOptions = [].obs;
   final _sortMode = "".obs;
   final _isAscending = true.obs;
 
   bool get isLoading => _isLoading.value;
-  Map<String, dynamic> get selectedAttendance => _selectedAttendance;
+  AttendanceEntity get selectedAttendance => _selectedAttendance;
+  List<AttendanceStatusEntity> get attendanceStatuses => _attendanceStatuses;
   Map<String, dynamic> get filters => _filters;
   List get sortOptions => _sortOptions;
   String get sortMode => _sortMode.value;
   bool get isAscending => _isAscending.value;
-  int get totalPresentStudents => selectedAttendance["students"]
-      .where((student) => student["status"] == 1)
-      .length;
+  int get totalStudents => _selectedAttendance.classroom?.students?.length ?? 0;
+  int get totalPresentStudents => 0;
 
   @override
   void onReady() async {
     _isLoading.value = true;
 
-    _selectedAttendance = {
-      "date": AppDateUtils.appDateFormat.format(DateTime(2023, 3, 1)),
-      "description": "Aula 1 de Engenharia de Software 2",
-      "average_time": Random().nextInt(180) + 50,
-      "total_students": Random().nextInt(10) + 15,
-      "students": List.generate(
-        Random().nextInt(10) + 15,
-        (index) => {
-          "name": "Aluno ${index + 1}",
-          "status": StudentAtAttendanceState.fromInt(Random().nextInt(3)),
-          "confirmed": Random().nextInt(3) != 1,
-          "registration":
-              "120031${Random().nextInt(100).toString().padLeft(3, "0")}",
-          "justifications": [
-            {
-              "date": DateTime(2023, 10, 03),
-              "file": null,
-              "title": "Quebrei a perna",
-              "description":
-                  "Eu quebrei a perna, professor, não consigo ir até a faculdade.",
-              "attach_file": null,
-              "approved": null,
-            },
-            {
-              "date": DateTime(2023, 10, 05),
-              "file": null,
-              "title": "Quebrei o braço.",
-              "description":
-                  "Eu quebrei o braço, professor, não consigo ir até a faculdade.",
-              "attach_file": null,
-              "approved": null,
-            },
-          ],
-        },
-      ),
-      "attendanceStatus": StudentAtAttendanceState.fromInt(Random().nextInt(3)),
-      "statusVerified": Random().nextInt(3) != 1,
-    };
-    _filters.value = {
-      "Presença": 0,
-      "Faltas": 0,
-      "Faltas abonadas": 0,
-    };
-    _sortOptions.value = [
-      "Alfabeticamente",
-      "Presença",
-      "Faltas",
-      "Faltas abonadas",
-    ];
+    await fetch();
     _sortMode.value = sortOptions.first;
 
     _isLoading.value = false;
@@ -83,11 +45,11 @@ class AttendanceInfoController extends GetxController {
   }
 
   void changeStudentPresence({
-    required Map<String, dynamic> student,
+    required AttendanceStatusEntity attendanceStatus,
     required StudentAtAttendanceState presence,
   }) {
-    student["status"] = presence;
-    student["confirmed"] = true;
+    attendanceStatus.studentState = presence;
+    attendanceStatus.validated = true;
     update();
   }
 
@@ -110,5 +72,25 @@ class AttendanceInfoController extends GetxController {
       _isAscending.value = true;
     }
     update();
+  }
+
+  Future<void> fetch() async {
+    await fetchAttendanceStatuses();
+  }
+
+  Future<void> fetchAttendanceStatuses() async {
+    attendanceStatuses.clear();
+    try {
+      final attendanceStatusesResult = await _getAttendanceStatusesByAttendance(
+        _selectedAttendance.id!,
+      );
+      attendanceStatuses.addAll(attendanceStatusesResult);
+    } catch (_) {}
+  }
+
+  AttendanceStatusEntity? getStudentStatus(StudentEntity student) {
+    return attendanceStatuses.firstWhereOrNull(
+      (element) => element.student.id == student.id,
+    );
   }
 }
