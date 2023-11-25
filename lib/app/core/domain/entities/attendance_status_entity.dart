@@ -11,8 +11,8 @@ class AttendanceStatusEntity {
     this.validated = false,
     required this.student,
     required this.attendance,
-    required this.successfulPings,
-    required this.unsuccessfulPings,
+    this.successfulPings = const [],
+    this.unsuccessfulPings = const [],
   });
 
   int? id;

@@ -6,14 +6,12 @@ class VirtualZoneDto extends VirtualZoneEntity {
   VirtualZoneDto({
     super.id,
     required super.locationId,
-    required super.attendanceId,
   });
 
   factory VirtualZoneDto.fromEntity(VirtualZoneEntity entity) {
     return VirtualZoneDto(
       id: entity.id,
       locationId: entity.locationId,
-      attendanceId: entity.attendanceId,
     );
   }
 
@@ -21,7 +19,6 @@ class VirtualZoneDto extends VirtualZoneEntity {
     return VirtualZoneDto(
       id: map["id"],
       locationId: map["locationId"],
-      attendanceId: map["attendanceId"],
     );
   }
 
@@ -29,7 +26,6 @@ class VirtualZoneDto extends VirtualZoneEntity {
     return {
       "id": id,
       "locationId": locationId,
-      "attendanceId": attendanceId,
     };
   }
 
