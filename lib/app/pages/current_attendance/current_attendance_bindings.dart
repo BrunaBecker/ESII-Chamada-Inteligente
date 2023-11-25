@@ -3,13 +3,16 @@ import 'package:get/get.dart';
 import '../../core/adapters/http_adapter.dart';
 import '../../core/adapters/mask_adapter.dart';
 import '../../core/adapters/validator_adapter.dart';
+import '../../core/data/providers/api/attendance_provider.dart';
 import '../../core/data/providers/api/attendance_status_provider.dart';
 import '../../core/data/providers/api/student_provider.dart';
 import '../../core/data/repositories/create_student_attendance_status_repository.dart';
+import '../../core/data/repositories/end_attendance_repository.dart';
 import '../../core/data/repositories/get_attendance_statuses_by_attendance_repository.dart';
 import '../../core/data/repositories/get_student_by_identifier_repository.dart';
 import '../../core/data/repositories/update_attendance_status_repository.dart';
 import '../../core/domain/usecases/create_student_attendance_status_usecase.dart';
+import '../../core/domain/usecases/end_attendance_usecase.dart';
 import '../../core/domain/usecases/get_attendance_statuses_by_attendance_usecase.dart';
 import '../../core/domain/usecases/get_student_by_identifier_usecase.dart';
 import '../../core/domain/usecases/update_attendance_status_usecase.dart';
@@ -26,6 +29,11 @@ class CurrentAttendanceBindings extends Bindings {
     );
     Get.lazyPut(
       () => StudentProvider(
+        http: Get.find<Http>(),
+      ),
+    );
+    Get.lazyPut(
+      () => AttendanceProvider(
         http: Get.find<Http>(),
       ),
     );
@@ -74,6 +82,17 @@ class CurrentAttendanceBindings extends Bindings {
         Get.find<UpdateAttendanceStatusRepository>(),
       ),
     );
+    // End Attendance
+    Get.lazyPut(
+      () => EndAttendanceRepository(
+        attendanceProvider: Get.find<AttendanceProvider>(),
+      ),
+    );
+    Get.lazyPut(
+      () => EndAttendanceUsecase(
+        Get.find<EndAttendanceRepository>(),
+      ),
+    );
 
     // Controller
     Get.lazyPut(
@@ -86,6 +105,7 @@ class CurrentAttendanceBindings extends Bindings {
             Get.find<CreateStudentAttendanceStatusUsecase>(),
         getStudentByIdentifier: Get.find<GetStudentByIdentifierUsecase>(),
         updateAttendanceStatus: Get.find<UpdateAttendanceStatusUsecase>(),
+        endAttendance: Get.find<EndAttendanceUsecase>(),
       ),
     );
   }

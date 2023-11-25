@@ -8,6 +8,7 @@ import '../../core/domain/entities/attendance_status_entity.dart';
 import '../../core/domain/entities/student_entity.dart';
 import '../../core/domain/entities/virtual_zone_entity.dart';
 import '../../core/domain/usecases/create_student_attendance_status_usecase.dart';
+import '../../core/domain/usecases/end_attendance_usecase.dart';
 import '../../core/domain/usecases/get_attendance_statuses_by_attendance_usecase.dart';
 import '../../core/domain/usecases/get_student_by_identifier_usecase.dart';
 import '../../core/domain/usecases/update_attendance_status_usecase.dart';
@@ -22,12 +23,14 @@ class CurrentAttendanceController extends GetxController {
     required CreateStudentAttendanceStatusUsecase createStudentAttendanceStatus,
     required GetStudentByIdentifierUsecase getStudentByIdentifier,
     required UpdateAttendanceStatusUsecase updateAttendanceStatus,
+    required EndAttendanceUsecase endAttendance,
   })  : _mask = mask,
         _validator = validator,
         _getAttendanceStatusesByAttendance = getAttendanceStatusesByAttendance,
         _createStudentAttendanceStatus = createStudentAttendanceStatus,
         _getStudentByIdentifier = getStudentByIdentifier,
-        _updateAttendanceStatus = updateAttendanceStatus;
+        _updateAttendanceStatus = updateAttendanceStatus,
+        _endAttendance = endAttendance;
 
   final MaskAdapter _mask;
   final ValidatorAdapter _validator;
@@ -36,6 +39,7 @@ class CurrentAttendanceController extends GetxController {
   final CreateStudentAttendanceStatusUsecase _createStudentAttendanceStatus;
   final GetStudentByIdentifierUsecase _getStudentByIdentifier;
   final UpdateAttendanceStatusUsecase _updateAttendanceStatus;
+  final EndAttendanceUsecase _endAttendance;
 
   final _isLoading = true.obs;
   late final AttendanceEntity _currentAttendance;
@@ -174,5 +178,17 @@ class CurrentAttendanceController extends GetxController {
       return element.name.toLowerCase().contains(query.toLowerCase());
     }));
     update();
+  }
+
+  Future<bool> endAttendance() async {
+    _isLoading.value = true;
+    try {
+      await _endAttendance(attendanceId: currentAttendance.id!);
+    } catch (_) {
+      return false;
+    } finally {
+      _isLoading.value = false;
+    }
+    return true;
   }
 }
