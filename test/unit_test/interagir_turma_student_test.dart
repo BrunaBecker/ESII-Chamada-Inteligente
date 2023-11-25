@@ -9,7 +9,7 @@ import 'minhas_turmas_test.dart';
 
 Future<void> goToClassPage(WidgetTester tester) async {
   final Finder interactClassButtonFinder =
-      find.byKey(const Key('interact class ellipsis button')).at(2);
+      find.byKey(const Key('interact class ellipsis button')).first;
   await tester.tap(interactClassButtonFinder);
   await tester.pumpAndSettle();
 
@@ -79,7 +79,7 @@ void main() {
       await tester.tap(find.text('Eu'));
       await tester.pumpAndSettle();
 
-      expect(find.text('Aluno 1'), findsOneWidget);
+      expect(find.text('Aluno 11'), findsOneWidget);
     });
 
     testWidgets('Check statistics button', (WidgetTester tester) async {
