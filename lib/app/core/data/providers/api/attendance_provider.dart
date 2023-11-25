@@ -162,13 +162,7 @@ class AttendanceProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      final attendances = response.data
-          .map<AttendanceDto>(
-            (attendance) => AttendanceDto.fromMap(attendance),
-          )
-          .toList();
-
-      return attendances;
+      return AttendanceDto.fromMap(response.data);
     } on EntityNotFoundException {
       rethrow;
     } on NoApiResponseException {
@@ -212,13 +206,7 @@ class AttendanceProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      final attendances = response.data
-          .map<AttendanceDto>(
-            (attendance) => AttendanceDto.fromMap(attendance),
-          )
-          .toList();
-
-      return attendances;
+      return AttendanceDto.fromMap(response.data);
     } on EntityNotFoundException {
       rethrow;
     } on NoApiResponseException {
