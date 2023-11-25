@@ -336,7 +336,7 @@ class StudentProvider extends BaseProvider {
     }
   }
 
-  Future<StudentEntity> fetchByIdentifier(int studentIdentifier) async {
+  Future<StudentEntity> fetchByIdentifier(String studentIdentifier) async {
     try {
       final response = await http.get(
         '/student/byIdentifier/$studentIdentifier',

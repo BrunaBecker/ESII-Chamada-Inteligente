@@ -22,14 +22,31 @@ class CurrentAttendanceStudentList extends StatelessWidget {
               return const ListTile();
             }
 
-            final student =
-                controller.currentAttendance.classroom?.students?[index];
-
-            if (student == null) {
-              return const SizedBox.shrink();
-            }
-
+            final student = controller.students[index];
             final status = controller.getStudentStatus(student);
+
+            late final IconData? icon;
+            Color? color;
+            switch (status?.studentState) {
+              case StudentAtAttendanceState.present:
+                icon = Icons.check_outlined;
+                color = AppColors.green1;
+                break;
+              case StudentAtAttendanceState.absent:
+                icon = Icons.close_outlined;
+                color = AppColors.red1;
+                break;
+              case StudentAtAttendanceState.justified:
+                icon = Icons.indeterminate_check_box;
+                color = AppColors.green1;
+                break;
+              default:
+                icon = null;
+                color = null;
+            }
+            if (status != null && status.validated == false) {
+              color = AppColors.onSurfaceVariant;
+            }
 
             return ListTile(
               leading: CircleAvatar(
@@ -53,36 +70,27 @@ class CurrentAttendanceStudentList extends StatelessWidget {
                   ),
                 ],
               ),
-              subtitle: Text(
-                status?.validated ?? false
-                    ? "Resposta validada"
-                    : "Valide essa resposta",
-                style: const TextStyle(
-                  fontSize: 12,
-                ),
-              ),
+              subtitle: status == null
+                  ? null
+                  : Text(
+                      status.validated
+                          ? "Resposta validada"
+                          : "Valide essa resposta",
+                      style: const TextStyle(
+                        fontSize: 12,
+                      ),
+                    ),
               trailing: PopupMenuButton(
                 key: const Key('student status popup menu button'),
                 icon: Icon(
                   key: const Key('student status icon'),
-                  status?.studentState == StudentAtAttendanceState.present
-                      ? Icons.check_outlined
-                      : status?.studentState == StudentAtAttendanceState.absent
-                          ? Icons.close_outlined
-                          : Icons.indeterminate_check_box,
-                  color: status?.validated ?? false
-                      ? status?.studentState ==
-                                  StudentAtAttendanceState.present ||
-                              status?.studentState ==
-                                  StudentAtAttendanceState.justified
-                          ? AppColors.green1
-                          : AppColors.red1
-                      : AppColors.onSurfaceVariant,
+                  icon,
+                  color: color,
                 ),
                 itemBuilder: (context) => [
                   PopupMenuItem(
-                    onTap: () {
-                      controller.changeStudentPresence(
+                    onTap: () async {
+                      await controller.changeStudentPresence(
                         attendanceStatus: status,
                         student: student,
                         presence: StudentAtAttendanceState.present,
@@ -98,8 +106,8 @@ class CurrentAttendanceStudentList extends StatelessWidget {
                     ),
                   ),
                   PopupMenuItem(
-                    onTap: () {
-                      controller.changeStudentPresence(
+                    onTap: () async {
+                      await controller.changeStudentPresence(
                         attendanceStatus: status,
                         student: student,
                         presence: StudentAtAttendanceState.absent,
@@ -115,8 +123,8 @@ class CurrentAttendanceStudentList extends StatelessWidget {
                     ),
                   ),
                   PopupMenuItem(
-                    onTap: () {
-                      controller.changeStudentPresence(
+                    onTap: () async {
+                      await controller.changeStudentPresence(
                         attendanceStatus: status,
                         student: student,
                         presence: StudentAtAttendanceState.justified,

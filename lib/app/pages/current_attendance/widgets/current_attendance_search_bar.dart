@@ -25,10 +25,13 @@ class CurrentAttendanceSearchBar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(28.0),
               ),
               child: TextFormField(
+                controller: controller.searchController,
                 decoration: InputDecoration(
                   labelText: "Pesquise algum aluno",
                   suffixIcon: IconButton(
-                    onPressed: () {},
+                    onPressed: () => controller.searchStudent(
+                      controller.searchController.text,
+                    ),
                     icon: const Icon(
                       Icons.search_outlined,
                     ),

@@ -66,20 +66,26 @@ class CurrentAttendanceWidget extends StatelessWidget {
                                   ),
                                   actions: [
                                     TextButton(
-                                      onPressed: () {
-                                        Get.back();
-                                      },
+                                      onPressed: () {},
                                       child: const Text("Cancelar"),
                                     ),
                                     TextButton(
                                       onPressed: () async {
-                                        Get.snackbar(
-                                          "Chamada",
-                                          "Chamada finalizada com sucesso!",
-                                          snackPosition: SnackPosition.BOTTOM,
-                                          margin: const EdgeInsets.all(88.0),
-                                        );
-                                        Get.offAllNamed(AppRoutes.home);
+                                        Get.back();
+                                        if (await controller.endAttendance()) {
+                                          Get.offAllNamed(AppRoutes.home);
+                                          Get.snackbar(
+                                            "Chamada",
+                                            "Chamada finalizada com sucesso!",
+                                            snackPosition: SnackPosition.BOTTOM,
+                                          );
+                                        } else {
+                                          Get.snackbar(
+                                            "Erro",
+                                            "Não foi possível finalizar a chamada",
+                                            snackPosition: SnackPosition.BOTTOM,
+                                          );
+                                        }
                                       },
                                       child: const Text(
                                         "Confirmar",
@@ -132,7 +138,6 @@ class CurrentAttendanceWidget extends StatelessWidget {
                                     "Essa ação realizará a criação de um aluno nessa chamada, você estará automaticamente marcando presença validada no mesmo.",
                                   ),
                                   const Spacing(8.0),
-                                  // TODO: remove student name field
                                   TextFormField(
                                     key: const Key('student name add form'),
                                     validator: (val) => controller.validator
@@ -183,7 +188,7 @@ class CurrentAttendanceWidget extends StatelessWidget {
                               onPressed: () async {
                                 if (!controller.formKey.currentState!
                                     .validate()) return;
-                                controller.addStudent();
+                                await controller.addStudent();
                                 Get.back();
                                 Get.snackbar(
                                   "Adicionar aluno",
