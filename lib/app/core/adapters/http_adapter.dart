@@ -54,7 +54,8 @@ class HttpAdapter extends Interceptor implements Http {
       InterceptorsWrapper(
         onRequest: (request, handler) {
           try {
-            var message = "++++++++++ API REQUEST +++++++++++++++++++++++++++\n"
+            var message = ""
+                "++++++++++ API REQUEST +++++++++++++++++++++++++++\n"
                 "Method: ${request.method}\n"
                 "Path: ${request.path}\n"
                 "Base URL: ${request.baseUrl}\n"
@@ -63,30 +64,41 @@ class HttpAdapter extends Interceptor implements Http {
                 "Query Params: ${request.queryParameters.toString()}\n"
                 "Body: ${jsonEncode(request.data)}\n"
                 "---------- API REQUEST ---------------------------";
-            appLog(message, color: AnsiColor.lightBlue);
+            appLog(
+              message,
+              color: AnsiColor.lightBlue,
+            );
           } catch (_) {}
           handler.next(request);
         },
         onResponse: (response, handler) {
           try {
-            var message = "++++++++++ API RESPONSE ++++++++++++++++++++++++++\n"
+            var message = ""
+                "++++++++++ API RESPONSE ++++++++++++++++++++++++++\n"
                 "Status Code: ${response.statusCode}\n"
                 "Data: ${jsonEncode(response.data)}\n"
                 "---------- API RESPONSE --------------------------";
-            appLog(message, color: AnsiColor.green);
+            appLog(
+              message,
+              color: AnsiColor.green,
+            );
           } catch (_) {}
           handler.next(response);
         },
         onError: (dioError, handler) async {
           try {
-            var message = "++++++++++ API ERROR +++++++++++++++++++++++++++++\n"
-                "request: ${dioError.requestOptions.uri}\n"
+            var message = ""
+                "++++++++++ API ERROR +++++++++++++++++++++++++++++\n"
+                "URI: ${dioError.requestOptions.uri}\n"
                 "Status Code: ${dioError.response?.statusCode}\n"
                 "Data: ${dioError.response != null ? jsonEncode(dioError.response!.data) : "null"}\n"
-                "message: ${dioError.message}\n"
-                "message: ${dioError.error}\n"
+                "Message: ${dioError.message}\n"
+                "Error: ${dioError.error}\n"
                 "---------- API ERROR -----------------------------";
-            appLog(message, color: AnsiColor.red);
+            appLog(
+              message,
+              color: AnsiColor.red,
+            );
           } catch (_) {}
           handler.next(await errorHandler(dioError));
         },
