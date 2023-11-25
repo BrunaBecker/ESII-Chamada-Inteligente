@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import 'app_controller.dart';
 import 'core/adapters/http_adapter.dart';
+import 'core/adapters/location_adapter.dart';
 import 'core/adapters/mask_adapter.dart';
 import 'core/adapters/validator_adapter.dart';
 import 'core/data/providers/api/notification_provider.dart';
@@ -43,6 +44,9 @@ class AppBindings extends Bindings {
     );
     Get.put<ValidatorAdapter>(
       ValidatorAdapter(),
+    );
+    Get.put<LocationAdapter>(
+      LocationAdapter(),
     );
 
     // Providers

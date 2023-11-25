@@ -39,7 +39,7 @@ class NotificationsController extends GetxController {
     super.onReady();
   }
 
-  void fetch() async {
+  Future<void> fetch() async {
     _isLoading.value = true;
     final appController = Get.find<AppController>();
     if (appController.user == null) return;
