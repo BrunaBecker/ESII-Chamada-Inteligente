@@ -134,28 +134,26 @@ class AttendanceSettingsController extends GetxController {
             locationId: selectedClassroom!.defaultLocation!.id!,
           )
         : null;
-    final attendance = AttendanceEntity(
-      date: AppDateUtils.appDateFormat.parse(dateController.text),
-      supportingText: "",
-      startHour: startTimeController.text,
-      endHour: endTimeController.text,
-      isAutomatic: false,
-      isHappening: true,
-      virtualZone: virtualZone,
-      classroom: selectedClassroom,
-    );
 
     try {
-      await _createAttendance(
-        attendance: attendance,
+      final attendance = await _createAttendance(
+        attendance: AttendanceEntity(
+          date: AppDateUtils.appDateFormat.parse(dateController.text),
+          supportingText: "",
+          startHour: startTimeController.text,
+          endHour: endTimeController.text,
+          isAutomatic: false,
+          isHappening: true,
+          virtualZone: virtualZone,
+          classroom: selectedClassroom,
+        ),
       );
+      return attendance;
     } catch (_) {
       return null;
     } finally {
       _isStartingAttendance.value = false;
     }
-
-    return attendance;
   }
 
   void changeDate(DateTime date) {

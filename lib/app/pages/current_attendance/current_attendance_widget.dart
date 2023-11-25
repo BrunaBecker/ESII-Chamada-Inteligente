@@ -132,7 +132,6 @@ class CurrentAttendanceWidget extends StatelessWidget {
                                     "Essa ação realizará a criação de um aluno nessa chamada, você estará automaticamente marcando presença validada no mesmo.",
                                   ),
                                   const Spacing(8.0),
-                                  // TODO: remove student name field
                                   TextFormField(
                                     key: const Key('student name add form'),
                                     validator: (val) => controller.validator
@@ -183,7 +182,7 @@ class CurrentAttendanceWidget extends StatelessWidget {
                               onPressed: () async {
                                 if (!controller.formKey.currentState!
                                     .validate()) return;
-                                controller.addStudent();
+                                await controller.addStudent();
                                 Get.back();
                                 Get.snackbar(
                                   "Adicionar aluno",
