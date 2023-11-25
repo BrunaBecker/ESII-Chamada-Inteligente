@@ -151,8 +151,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<List<AttendanceEntity>> fetchHappeningByClassroomId(
-      int classroomId) async {
+  Future<AttendanceEntity> fetchHappeningByClassroomId(int classroomId) async {
     try {
       final response = await http.get(
         '/attendance/happeningByClassroom/$classroomId',
@@ -180,8 +179,7 @@ class AttendanceProvider extends BaseProvider {
     }
   }
 
-  Future<List<AttendanceEntity>> fetchHappeningByProfessorId(
-      int professorId) async {
+  Future<AttendanceEntity> fetchHappeningByProfessorId(int professorId) async {
     try {
       final response = await http.get(
         '/attendance/happeningByProfessor/$professorId',
@@ -192,25 +190,18 @@ class AttendanceProvider extends BaseProvider {
         statusCodes: [200],
       );
 
-      final attendances = response.data
-          .map<AttendanceDto>(
-            (attendance) => AttendanceDto.fromMap(attendance),
-          )
-          .toList();
-
-      return attendances;
+      return AttendanceDto.fromMap(response.data);
     } on EntityNotFoundException {
       rethrow;
     } on NoApiResponseException {
       rethrow;
     } catch (e) {
-      logContent(e.toString());
+      logError(e.toString());
       throw UnexpectedApiException();
     }
   }
 
-  Future<List<AttendanceEntity>> fetchHappeningByStudentId(
-      int studentId) async {
+  Future<AttendanceEntity> fetchHappeningByStudentId(int studentId) async {
     try {
       final response = await http.get(
         '/attendance/happeningByStudent/$studentId',
@@ -350,7 +341,7 @@ class AttendanceProvider extends BaseProvider {
     } on NoApiResponseException {
       rethrow;
     } catch (e) {
-      logContent(e.toString());
+      logError(e.toString());
       throw UnexpectedApiException();
     }
   }
@@ -377,7 +368,7 @@ class AttendanceProvider extends BaseProvider {
     } on NoApiResponseException {
       rethrow;
     } catch (e) {
-      logContent(e.toString());
+      logError(e.toString());
       throw UnexpectedApiException();
     }
   }
