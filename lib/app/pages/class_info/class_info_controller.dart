@@ -46,9 +46,9 @@ class ClassInfoController extends GetxController {
   final _classrooms = <ClassroomEntity>[].obs;
   final _attendances = <AttendanceEntity>[].obs;
   final _attendanceStatuses = <AttendanceStatusEntity>[].obs;
-  final _justificationFileNameController = TextEditingController();
-  final _justificationTitleController = TextEditingController();
-  final _justificationDescriptionController = TextEditingController();
+  final _waiverFileNameController = TextEditingController();
+  final _waiverTitleController = TextEditingController();
+  final _waiverDescriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   DateTimeRange? _selectedDateRange;
 
@@ -69,12 +69,11 @@ class ClassInfoController extends GetxController {
   String get userProfileImage => _appController.userProfileImage;
   bool get isProfessor =>
       Get.find<AppController>().userType == UserType.professor;
-  TextEditingController get justificationFileNameController =>
-      _justificationFileNameController;
-  TextEditingController get justificationTitleController =>
-      _justificationTitleController;
-  TextEditingController get justificationDescriptionController =>
-      _justificationDescriptionController;
+  TextEditingController get waiverFileNameController =>
+      _waiverFileNameController;
+  TextEditingController get waiverTitleController => _waiverTitleController;
+  TextEditingController get waiverDescriptionController =>
+      _waiverDescriptionController;
 
   set selectedDateRange(DateTimeRange? value) {
     _selectedDateRange = value;

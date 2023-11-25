@@ -37,14 +37,14 @@ class AttendanceDto extends AttendanceEntity {
   factory AttendanceDto.fromMap(Map<String, dynamic> map) {
     // Mapping Virtual Zone
     VirtualZoneDto? virtualZone;
-    if (map["virtualZoneDto"] != null) {
-      virtualZone = VirtualZoneDto.fromMap(map["virtualZoneDto"]);
+    if (map["virtualZone"] != null) {
+      virtualZone = VirtualZoneDto.fromMap(map["virtualZone"]);
     }
 
     // Mapping Classroom
     ClassroomDto? classroom;
-    if (map["classroomDto"] != null) {
-      classroom = ClassroomDto.fromMap(map["classroomDto"]);
+    if (map["classroom"] != null) {
+      classroom = ClassroomDto.fromMap(map["classroom"]);
     }
 
     return AttendanceDto(
@@ -83,8 +83,8 @@ class AttendanceDto extends AttendanceEntity {
       "duration": duration,
       "automatic": isAutomatic,
       "happening": isHappening,
-      "virtualZoneDto": virtualZoneAsMap,
-      "classroomDto": classroomAsMap,
+      "virtualZone": virtualZoneAsMap,
+      "classroom": classroomAsMap,
     };
   }
 

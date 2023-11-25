@@ -25,31 +25,39 @@ class CommentDto extends CommentEntity {
 
   factory CommentDto.fromMap(Map<String, dynamic> map) {
     // Mapping Comment
+    CommentDto? comment;
+    if (map["comment"] != null) {
+      comment = CommentDto.fromMap(map["comment"]);
+    }
 
     return CommentDto(
       id: map["id"],
       content: map["content"],
       personId: map["personId"],
-      comment:
-          map["comment"] != null ? CommentDto.fromMap(map["comment"]) : null,
+      comment: comment,
     );
   }
 
   Map<String, dynamic> toMap() {
-    final dynamic personAsMap;
+    final Map<String, dynamic> personAsMap;
     // Checking person type
     if (personId is ProfessorDto) {
-      personAsMap = ProfessorDto.fromEntity(personId as ProfessorEntity);
+      personAsMap =
+          ProfessorDto.fromEntity(personId as ProfessorEntity).toMap();
     } else {
-      personAsMap = StudentDto.fromEntity(personId as StudentEntity);
+      personAsMap = StudentDto.fromEntity(personId as StudentEntity).toMap();
+    }
+    // Mapping Comment
+    Map<String, dynamic>? commentAsMap;
+    if (comment != null) {
+      commentAsMap = CommentDto.fromEntity(comment!).toMap();
     }
 
     return {
       "id": id,
       "content": content,
       "personId": personAsMap,
-      "comment":
-          comment != null ? CommentDto.fromEntity(comment!).toMap() : null,
+      "comment": commentAsMap,
     };
   }
 

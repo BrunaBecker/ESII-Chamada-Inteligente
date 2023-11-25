@@ -67,15 +67,15 @@ class ProfessorDto extends ProfessorEntity {
 
   Map<String, dynamic> toMap() {
     // Mapping Setting
-    SettingDto? settingAsMap;
+    Map<String, dynamic>? settingAsMap;
     if (setting != null) {
-      settingAsMap = SettingDto.fromEntity(setting!);
+      settingAsMap = SettingDto.fromEntity(setting!).toMap();
     }
 
     // Mapping Profile Image
-    PictureDto? profileImageAsMap;
+    Map<String, dynamic>? profileImageAsMap;
     if (profileImage != null) {
-      profileImageAsMap = PictureDto.fromEntity(profileImage!);
+      profileImageAsMap = PictureDto.fromEntity(profileImage!).toMap();
     }
 
     return {
