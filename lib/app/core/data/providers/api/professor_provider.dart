@@ -148,7 +148,7 @@ class ProfessorProvider extends BaseProvider {
     }
   }
 
-  Future<ProfessorEntity> fetchByRegister(int identifier) async {
+  Future<ProfessorEntity> fetchByIdentifier(String identifier) async {
     try {
       final response = await http.get(
         '/professor/byIdentifier/$identifier',
