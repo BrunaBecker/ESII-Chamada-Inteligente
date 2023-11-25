@@ -340,7 +340,7 @@ class AttendanceStatusProvider extends BaseProvider {
     } on NoApiResponseException {
       rethrow;
     } catch (e) {
-      logContent(e.toString());
+      logError(e.toString());
       throw UnexpectedApiException();
     }
   }
@@ -402,7 +402,7 @@ class AttendanceStatusProvider extends BaseProvider {
     } on NoApiResponseException {
       rethrow;
     } catch (e) {
-      logContent(e.toString());
+      logError(e.toString());
       throw UnexpectedApiException();
     }
   }
