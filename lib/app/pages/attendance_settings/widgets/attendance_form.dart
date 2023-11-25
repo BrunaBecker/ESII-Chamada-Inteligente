@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/domain/entities/classroom_entity.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/app_date_utils.dart';
 import '../../../core/widgets/spacing.dart';
 import '../attendance_settings_controller.dart';
 import 'decorations/attendance_settings_input_decoration.dart';
@@ -24,19 +26,19 @@ class AttendanceForm extends StatelessWidget {
                   children: [
                     DropdownButtonFormField(
                       key: const Key('dropdown-class'),
-                      value: controller.selectedClass,
+                      value: controller.selectedClassroom,
                       isExpanded: true,
-                      items: controller.classList
+                      items: controller.classroomList
                           .map(
                             (item) => DropdownMenuItem(
                               key: const Key('dropdown-select'),
                               value: item,
-                              child: Text(item),
+                              child: Text(item.courseName),
                             ),
                           )
                           .toList(),
                       onChanged: (value) {
-                        controller.changeClass(value ?? "");
+                        controller.changeClassroom(value as ClassroomEntity);
                       },
                       decoration: AttendanceSettingsInputDecoration(
                         labelText: "Turma",
@@ -55,6 +57,9 @@ class AttendanceForm extends StatelessWidget {
                       readOnly: true,
                       decoration: AttendanceSettingsInputDecoration(
                         labelText: "Data",
+                        hintText: AppDateUtils.appDateFormat.format(
+                          DateTime.now(),
+                        ),
                         suffixIcon: IconButton(
                           key: const Key('date-edit-button'),
                           onPressed: () async {
@@ -101,7 +106,9 @@ class AttendanceForm extends StatelessWidget {
                       readOnly: true,
                       decoration: AttendanceSettingsInputDecoration(
                         labelText: "Início",
-                        hintText: "09:30",
+                        hintText: controller.parseHour(
+                          controller.selectedClassroom?.startHour ?? "",
+                        ),
                         suffixIcon: IconButton(
                           key: const Key('select start class button'),
                           onPressed: () async {
@@ -161,7 +168,9 @@ class AttendanceForm extends StatelessWidget {
                             readOnly: true,
                             decoration: AttendanceSettingsInputDecoration(
                               labelText: "Fim",
-                              hintText: "11:30",
+                              hintText: controller.parseHour(
+                                controller.selectedClassroom?.endHour ?? "",
+                              ),
                               suffixIcon: IconButton(
                                 key: const Key('select end class button'),
                                 onPressed: () async {

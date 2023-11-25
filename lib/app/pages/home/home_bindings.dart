@@ -9,12 +9,14 @@ import '../../core/data/providers/api/attendance_status_provider.dart';
 import '../../core/data/providers/api/location_provider.dart';
 import '../../core/data/repositories/create_student_attendance_status_repository.dart';
 import '../../core/data/repositories/get_location_by_id_repository.dart';
+import '../../core/data/repositories/get_professor_attendance_happening_repository.dart';
 import '../../core/data/repositories/get_student_attendance_status_by_attendance_repository.dart';
-import '../../core/data/repositories/get_student_attendances_repository.dart';
+import '../../core/data/repositories/get_student_attendance_happening_repository.dart';
 import '../../core/domain/usecases/create_student_attendance_status_usecase.dart';
 import '../../core/domain/usecases/get_location_by_id_usecase.dart';
+import '../../core/domain/usecases/get_professor_attendance_happening_usecase.dart';
 import '../../core/domain/usecases/get_student_attendance_status_by_attendance_usecase.dart';
-import '../../core/domain/usecases/get_student_attendances_usecase.dart';
+import '../../core/domain/usecases/get_student_attendance_happening_usecase.dart';
 import 'home_controller.dart';
 
 class HomeBindings extends Bindings {
@@ -37,15 +39,26 @@ class HomeBindings extends Bindings {
       ),
     );
 
-    // Get Student Attendances
+    // Get Professor Attendance Happening
     Get.lazyPut(
-      () => GetStudentAttendancesRepository(
+      () => GetProfessorAttendanceHappeningRepository(
         attendanceProvider: Get.find<AttendanceProvider>(),
       ),
     );
     Get.lazyPut(
-      () => GetStudentAttendancesUsecase(
-        Get.find<GetStudentAttendancesRepository>(),
+      () => GetProfessorAttendanceHappeningUsecase(
+        Get.find<GetProfessorAttendanceHappeningRepository>(),
+      ),
+    );
+    // Get Student Attendance Happening
+    Get.lazyPut(
+      () => GetStudentAttendanceHappeningRepository(
+        attendanceProvider: Get.find<AttendanceProvider>(),
+      ),
+    );
+    Get.lazyPut(
+      () => GetStudentAttendanceHappeningUsecase(
+        Get.find<GetStudentAttendanceHappeningRepository>(),
       ),
     );
     // Get Location By Id
@@ -88,7 +101,10 @@ class HomeBindings extends Bindings {
         appController: Get.find<AppController>(),
         validator: Get.find<ValidatorAdapter>(),
         locationUtils: Get.find<LocationAdapter>(),
-        getStudentAttendances: Get.find<GetStudentAttendancesUsecase>(),
+        getProfessorAttendanceHappening:
+            Get.find<GetProfessorAttendanceHappeningUsecase>(),
+        getStudentAttendanceHappening:
+            Get.find<GetStudentAttendanceHappeningUsecase>(),
         getLocationById: Get.find<GetLocationByIdUsecase>(),
         getStudentAttendanceStatusByAttendance:
             Get.find<GetStudentAttendanceStatusByAttendanceUsecase>(),

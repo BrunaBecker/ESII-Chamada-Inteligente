@@ -30,7 +30,7 @@ class CurrentAttendanceWidget extends StatelessWidget {
                         leading: Icon(
                           key: const Key('live icon'),
                           Icons.online_prediction_outlined,
-                          color: controller.currentAttendance["zone"] == null
+                          color: controller.virtualZone == null
                               ? AppColors.red1
                               : AppColors.green1,
                         ),
@@ -39,14 +39,13 @@ class CurrentAttendanceWidget extends StatelessWidget {
                             onPressed: () {
                               showModalBottomSheet(
                                 context: context,
-                                builder: (context) => controller
-                                            .currentAttendance["virtualZone"] ==
-                                        null
-                                    ? const CurrentAttendanceLocalSheet(
-                                        title: "Chamada local",
-                                      )
-                                    // TODO: virtual zone sheet
-                                    : const SizedBox.shrink(),
+                                builder: (context) =>
+                                    controller.virtualZone == null
+                                        ? const CurrentAttendanceLocalSheet(
+                                            title: "Chamada local",
+                                          )
+                                        // TODO: virtual zone sheet
+                                        : const SizedBox.shrink(),
                               );
                             },
                             icon: const Icon(
@@ -133,6 +132,7 @@ class CurrentAttendanceWidget extends StatelessWidget {
                                     "Essa ação realizará a criação de um aluno nessa chamada, você estará automaticamente marcando presença validada no mesmo.",
                                   ),
                                   const Spacing(8.0),
+                                  // TODO: remove student name field
                                   TextFormField(
                                     key: const Key('student name add form'),
                                     validator: (val) => controller.validator

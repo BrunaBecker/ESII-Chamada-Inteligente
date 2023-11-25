@@ -27,12 +27,6 @@ class CurrentAttendanceSearchBar extends StatelessWidget {
               child: TextFormField(
                 decoration: InputDecoration(
                   labelText: "Pesquise algum aluno",
-                  prefixIcon: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.menu_outlined,
-                    ),
-                  ),
                   suffixIcon: IconButton(
                     onPressed: () {},
                     icon: const Icon(
@@ -47,7 +41,7 @@ class CurrentAttendanceSearchBar extends StatelessWidget {
             ),
             Text(
               key: const Key('number of students answer'),
-              "De ${controller.totalStudents()} alunos, ${controller.answeredStudents()} responderam essa chamada",
+              "De ${controller.totalStudents} alunos, ${controller.totalAnsweredStudents} responderam essa chamada",
               style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
