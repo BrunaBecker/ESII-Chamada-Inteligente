@@ -24,19 +24,16 @@ class ProfilePicture extends StatelessWidget {
     }
 
     try {
-      return Image.network(
-        imageUrl,
-        fit: BoxFit.cover,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) {
-            return child;
-          }
-
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-        errorBuilder: (context, error, stackTrace) => errorIcon,
+      return Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          image: DecorationImage(
+            image: NetworkImage(
+              imageUrl,
+            ),
+            fit: BoxFit.cover,
+          ),
+        ),
       );
     } catch (_) {}
 

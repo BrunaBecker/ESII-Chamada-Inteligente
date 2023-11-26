@@ -85,6 +85,7 @@ class ProfileWidget extends StatelessWidget {
                                   fontSize: 32,
                                   fontWeight: FontWeight.w700,
                                 ),
+                                textAlign: TextAlign.center,
                               ),
                               Text(
                                 "${controller.isProfessor ? "SIAPE" : "Matrícula"}: ${controller.user!.register.identifier}",
