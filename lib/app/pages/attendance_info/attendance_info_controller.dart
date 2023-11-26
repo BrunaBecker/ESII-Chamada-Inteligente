@@ -5,6 +5,7 @@ import '../../core/domain/entities/attendance_entity.dart';
 import '../../core/domain/entities/attendance_status_entity.dart';
 import '../../core/domain/entities/student_entity.dart';
 import '../../core/domain/usecases/get_attendance_statuses_by_attendance_usecase.dart';
+import '../../core/domain/usecases/update_attendance_status_usecase.dart';
 import '../../core/enums/student_at_attendance_state.dart';
 import '../../core/enums/student_sort.dart';
 
@@ -12,10 +13,13 @@ class AttendanceInfoController extends GetxController {
   AttendanceInfoController({
     required GetAttendanceStatusesByAttendanceUsecase
         getAttendanceStatusesByAttendance,
-  }) : _getAttendanceStatusesByAttendance = getAttendanceStatusesByAttendance;
+    required UpdateAttendanceStatusUsecase updateAttendanceStatus,
+  })  : _getAttendanceStatusesByAttendance = getAttendanceStatusesByAttendance,
+        _updateAttendanceStatus = updateAttendanceStatus;
 
   final GetAttendanceStatusesByAttendanceUsecase
       _getAttendanceStatusesByAttendance;
+  final UpdateAttendanceStatusUsecase _updateAttendanceStatus;
 
   final _isLoading = true.obs;
   final _searchController = TextEditingController();
@@ -59,6 +63,7 @@ class AttendanceInfoController extends GetxController {
     });
     _allStudents.addAll(_selectedAttendance.classroom?.students ?? []);
     await fetch();
+    sortStudents();
     _filteredStudents.clear();
     _filteredStudents.addAll(_allStudents);
 
@@ -66,13 +71,20 @@ class AttendanceInfoController extends GetxController {
     super.onReady();
   }
 
-  void changeStudentPresence({
+  Future<bool> changeStudentPresence({
     required AttendanceStatusEntity attendanceStatus,
     required StudentAtAttendanceState presence,
-  }) {
+  }) async {
+    _isLoading.value = true;
     attendanceStatus.studentState = presence;
     attendanceStatus.validated = true;
+    attendanceStatus.studentHasResponded = true;
+    final result = await updateAttendanceStatus(
+      attendanceStatus: attendanceStatus,
+    );
     update();
+    _isLoading.value = false;
+    return result;
   }
 
   void toggleFilter({
@@ -207,5 +219,15 @@ class AttendanceInfoController extends GetxController {
           );
     }).toList());
     return result;
+  }
+
+  Future<bool> updateAttendanceStatus({
+    required AttendanceStatusEntity attendanceStatus,
+  }) async {
+    try {
+      await _updateAttendanceStatus(attendanceStatus: attendanceStatus);
+      return true;
+    } catch (_) {}
+    return false;
   }
 }

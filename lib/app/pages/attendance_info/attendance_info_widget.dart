@@ -109,12 +109,26 @@ class AttendanceInfoWidget extends StatelessWidget {
                                   ),
                                   itemBuilder: (context) => [
                                     PopupMenuItem(
-                                      onTap: () {
-                                        controller.changeStudentPresence(
+                                      onTap: () async {
+                                        final result = await controller
+                                            .changeStudentPresence(
                                           attendanceStatus: status,
                                           presence:
                                               StudentAtAttendanceState.present,
                                         );
+                                        if (result) {
+                                          Get.snackbar(
+                                            "Sucesso",
+                                            "Status alterado com sucesso!",
+                                            snackPosition: SnackPosition.BOTTOM,
+                                          );
+                                        } else {
+                                          Get.snackbar(
+                                            "Erro",
+                                            "Não foi possível alterar o status do aluno",
+                                            snackPosition: SnackPosition.BOTTOM,
+                                          );
+                                        }
                                       },
                                       child: const ListTile(
                                         leading: Icon(
@@ -126,12 +140,26 @@ class AttendanceInfoWidget extends StatelessWidget {
                                       ),
                                     ),
                                     PopupMenuItem(
-                                      onTap: () {
-                                        controller.changeStudentPresence(
+                                      onTap: () async {
+                                        final result = await controller
+                                            .changeStudentPresence(
                                           attendanceStatus: status,
                                           presence:
                                               StudentAtAttendanceState.absent,
                                         );
+                                        if (result) {
+                                          Get.snackbar(
+                                            "Sucesso",
+                                            "Status alterado com sucesso!",
+                                            snackPosition: SnackPosition.BOTTOM,
+                                          );
+                                        } else {
+                                          Get.snackbar(
+                                            "Erro",
+                                            "Não foi possível alterar o status do aluno",
+                                            snackPosition: SnackPosition.BOTTOM,
+                                          );
+                                        }
                                       },
                                       child: const ListTile(
                                         leading: Icon(
@@ -143,12 +171,26 @@ class AttendanceInfoWidget extends StatelessWidget {
                                       ),
                                     ),
                                     PopupMenuItem(
-                                      onTap: () {
-                                        controller.changeStudentPresence(
+                                      onTap: () async {
+                                        final result = await controller
+                                            .changeStudentPresence(
                                           attendanceStatus: status,
                                           presence: StudentAtAttendanceState
                                               .justified,
                                         );
+                                        if (result) {
+                                          Get.snackbar(
+                                            "Sucesso",
+                                            "Status alterado com sucesso!",
+                                            snackPosition: SnackPosition.BOTTOM,
+                                          );
+                                        } else {
+                                          Get.snackbar(
+                                            "Erro",
+                                            "Não foi possível alterar o status do aluno",
+                                            snackPosition: SnackPosition.BOTTOM,
+                                          );
+                                        }
                                       },
                                       child: const ListTile(
                                         leading: Icon(
