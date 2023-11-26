@@ -10,12 +10,14 @@ class AttendanceFilterItem extends StatelessWidget {
     this.leading,
     this.trailing,
     this.onTap,
+    this.initialTab = 0,
   });
 
   final String label;
   final IconData? leading;
   final IconData? trailing;
   final Function()? onTap;
+  final int initialTab;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,9 @@ class AttendanceFilterItem extends StatelessWidget {
             showModalBottomSheet(
               context: context,
               builder: (context) {
-                return const AttendanceInfoBottomSheet();
+                return AttendanceInfoBottomSheet(
+                  initialTab: initialTab,
+                );
               },
             );
           },
