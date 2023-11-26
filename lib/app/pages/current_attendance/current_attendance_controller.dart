@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/adapters/location_adapter.dart';
 import '../../core/adapters/mask_adapter.dart';
 import '../../core/adapters/validator_adapter.dart';
 import '../../core/domain/entities/attendance_entity.dart';
 import '../../core/domain/entities/attendance_status_entity.dart';
+import '../../core/domain/entities/coordinate_entity.dart';
 import '../../core/domain/entities/student_entity.dart';
 import '../../core/domain/entities/virtual_zone_entity.dart';
 import '../../core/domain/usecases/create_student_attendance_status_usecase.dart';
@@ -18,6 +20,7 @@ class CurrentAttendanceController extends GetxController {
   CurrentAttendanceController({
     required MaskAdapter mask,
     required ValidatorAdapter validator,
+    required LocationAdapter locationUtils,
     required GetAttendanceStatusesByAttendanceUsecase
         getAttendanceStatusesByAttendance,
     required CreateStudentAttendanceStatusUsecase createStudentAttendanceStatus,
@@ -26,6 +29,7 @@ class CurrentAttendanceController extends GetxController {
     required EndAttendanceUsecase endAttendance,
   })  : _mask = mask,
         _validator = validator,
+        _locationUtils = locationUtils,
         _getAttendanceStatusesByAttendance = getAttendanceStatusesByAttendance,
         _createStudentAttendanceStatus = createStudentAttendanceStatus,
         _getStudentByIdentifier = getStudentByIdentifier,
@@ -34,6 +38,7 @@ class CurrentAttendanceController extends GetxController {
 
   final MaskAdapter _mask;
   final ValidatorAdapter _validator;
+  final LocationAdapter _locationUtils;
   final GetAttendanceStatusesByAttendanceUsecase
       _getAttendanceStatusesByAttendance;
   final CreateStudentAttendanceStatusUsecase _createStudentAttendanceStatus;
@@ -46,6 +51,7 @@ class CurrentAttendanceController extends GetxController {
   final _attendanceStatuses = <AttendanceStatusEntity>[].obs;
   final _allStudents = <StudentEntity>[].obs;
   final _students = <StudentEntity>[].obs;
+  final _address = "".obs;
   final _formKey = GlobalKey<FormState>();
   final _searchController = TextEditingController();
   final _nameController = TextEditingController();
@@ -59,11 +65,13 @@ class CurrentAttendanceController extends GetxController {
   List<AttendanceStatusEntity> get attendanceStatuses => _attendanceStatuses;
   List<StudentEntity> get allStudents => _allStudents;
   List<StudentEntity> get students => _students;
+  String get address => _address.value;
   GlobalKey<FormState> get formKey => _formKey;
   TextEditingController get searchController => _searchController;
   TextEditingController get nameController => _nameController;
   TextEditingController get registrationController => _registrationController;
   VirtualZoneEntity? get virtualZone => currentAttendance.virtualZone;
+  CoordinateEntity? get coordinate => virtualZone?.location.coordinate;
   int get totalStudents => students.length;
   int get totalAnsweredStudents => _attendanceStatuses
       .where(
@@ -80,6 +88,11 @@ class CurrentAttendanceController extends GetxController {
     allStudents.addAll(currentAttendance.classroom?.students ?? []);
     await fetch();
     students.addAll(allStudents);
+    final coordinate = currentAttendance.virtualZone?.location.coordinate;
+    if (coordinate != null) {
+      _address.value =
+          await _locationUtils.getPlacemarkFromLocationData(coordinate) ?? "";
+    }
 
     _isLoading.value = false;
   }
@@ -190,5 +203,9 @@ class CurrentAttendanceController extends GetxController {
       _isLoading.value = false;
     }
     return true;
+  }
+
+  Future<String?> convertAddress(CoordinateEntity coordinate) async {
+    return _locationUtils.getPlacemarkFromLocationData(coordinate);
   }
 }

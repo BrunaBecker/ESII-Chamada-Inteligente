@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../core/adapters/http_adapter.dart';
+import '../../core/adapters/location_adapter.dart';
 import '../../core/adapters/mask_adapter.dart';
 import '../../core/adapters/validator_adapter.dart';
 import '../../core/data/providers/api/attendance_provider.dart';
@@ -21,6 +22,11 @@ import 'current_attendance_controller.dart';
 class CurrentAttendanceBindings extends Bindings {
   @override
   void dependencies() {
+    // Adapter
+    Get.lazyPut(
+      () => LocationAdapter(),
+    );
+
     // Providers
     Get.lazyPut(
       () => AttendanceStatusProvider(
@@ -99,6 +105,7 @@ class CurrentAttendanceBindings extends Bindings {
       () => CurrentAttendanceController(
         mask: Get.find<MaskAdapter>(),
         validator: Get.find<ValidatorAdapter>(),
+        locationUtils: Get.find<LocationAdapter>(),
         getAttendanceStatusesByAttendance:
             Get.find<GetAttendanceStatusesByAttendanceUsecase>(),
         createStudentAttendanceStatus:
