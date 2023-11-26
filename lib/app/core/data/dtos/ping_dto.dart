@@ -3,16 +3,18 @@ import 'dart:convert';
 import '../../domain/entities/ping_entity.dart';
 import '../../enums/status_ping.dart';
 import '../../utils/app_date_utils.dart';
+import 'attendance_status_dto.dart';
+import 'coordinate_dto.dart';
 
 class PingDto extends PingEntity {
   PingDto({
     super.id,
-    required super.ip,
+    super.ip,
     required super.date,
-    required super.status,
+    super.status,
     required super.isContinuous,
-    super.coordinateId,
-    super.attendanceStatusId,
+    super.coordinate,
+    required super.attendanceStatus,
   });
 
   factory PingDto.fromEntity(PingEntity entity) {
@@ -22,32 +24,55 @@ class PingDto extends PingEntity {
       date: entity.date,
       status: entity.status,
       isContinuous: entity.isContinuous,
-      coordinateId: entity.coordinateId,
-      attendanceStatusId: entity.attendanceStatusId,
+      coordinate: entity.coordinate,
+      attendanceStatus: entity.attendanceStatus,
     );
   }
 
   factory PingDto.fromMap(Map<String, dynamic> map) {
+    // Mapping Status
+    StatusPing? status;
+    if (map["status"] != null) {
+      status = StatusPing.fromText(map["status"]);
+    }
+    // Mapping Coordinate
+    CoordinateDto? coordinate;
+    if (map["coordinate"] != null) {
+      coordinate = CoordinateDto.fromMap(map["coordinate"]);
+    }
+
     return PingDto(
       id: map["id"],
       ip: map["ip"],
       date: AppDateUtils.storageDateFormat.parse(map["date"]),
-      status: StatusPing.fromText(map["status"]),
-      isContinuous: map["continuos"],
-      coordinateId: map["coordinateId"],
-      attendanceStatusId: map["attendanceStatusId"],
+      status: status,
+      isContinuous: map["isContinuos"],
+      coordinate: coordinate,
+      attendanceStatus: AttendanceStatusDto.fromMap(map["attendanceStatus"]),
     );
   }
 
   Map<String, dynamic> toMap() {
+    // Mapping Status
+    String? statusAsString;
+    if (status != null) {
+      statusAsString = status!.toText();
+    }
+    // Mapping Coordinate
+    Map<String, dynamic>? coordinateAsMap;
+    if (coordinate != null) {
+      coordinateAsMap = CoordinateDto.fromEntity(coordinate!).toMap();
+    }
+
     return {
       "id": id,
       "ip": ip,
       "date": AppDateUtils.storageDateFormat.format(date),
-      "status": status.toText(),
-      "continuos": isContinuous,
-      "coordinateId": coordinateId,
-      "attendanceStatusId": attendanceStatusId,
+      "status": statusAsString,
+      "isContinuos": isContinuous,
+      "coordinate": coordinateAsMap,
+      "attendanceStatus":
+          AttendanceStatusDto.fromEntity(attendanceStatus).toMap(),
     };
   }
 

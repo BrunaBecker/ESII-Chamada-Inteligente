@@ -1,9 +1,11 @@
+import 'location_entity.dart';
+
 class VirtualZoneEntity {
   VirtualZoneEntity({
     this.id,
-    required this.locationId,
+    required this.location,
   });
 
   int? id;
-  int locationId;
+  LocationEntity location;
 }
