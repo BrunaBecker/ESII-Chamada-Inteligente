@@ -44,8 +44,9 @@ class ClassInfoController extends GetxController {
   late final Rx<ClassroomEntity> _selectedClassroom;
   late final Rx<AttendanceEntity?> _currentAttendance;
   final _classrooms = <ClassroomEntity>[].obs;
-  final _attendances = <AttendanceEntity>[].obs;
+  final _allAttendances = <AttendanceEntity>[].obs;
   final _attendanceStatuses = <AttendanceStatusEntity>[].obs;
+  final _filteredAttendances = <AttendanceEntity>[].obs;
   final _waiverFileNameController = TextEditingController();
   final _waiverTitleController = TextEditingController();
   final _waiverDescriptionController = TextEditingController();
@@ -62,7 +63,8 @@ class ClassInfoController extends GetxController {
   ClassroomEntity get selectedClassroom => _selectedClassroom.value;
   AttendanceEntity? get currentAttendance => _currentAttendance.value;
   List<ClassroomEntity> get classrooms => _classrooms;
-  List<AttendanceEntity> get attendances => _attendances;
+  List<AttendanceEntity> get allAttendances => _allAttendances;
+  List<AttendanceEntity> get filteredAttendances => _filteredAttendances;
   List<AttendanceStatusEntity> get attendanceStatuses => _attendanceStatuses;
   DateTimeRange? get selectedDateRange => _selectedDateRange;
   PersonEntity get user => _appController.user!;
@@ -74,6 +76,8 @@ class ClassInfoController extends GetxController {
   TextEditingController get waiverTitleController => _waiverTitleController;
   TextEditingController get waiverDescriptionController =>
       _waiverDescriptionController;
+  int get totalAttendances => _allAttendances.length;
+  int get totalFilteredAttendances => _filteredAttendances.length;
 
   set selectedDateRange(DateTimeRange? value) {
     _selectedDateRange = value;
@@ -102,13 +106,19 @@ class ClassInfoController extends GetxController {
   }
 
   void filterAttendancesByDate(DateTime start, DateTime end) {
-    // TODO: filter attendances by date
+    filteredAttendances.clear();
+    end = end.add(const Duration(days: 1));
+    final result = allAttendances
+        .where((element) =>
+            element.date.isAfter(start) && element.date.isBefore(end))
+        .toList();
+    filteredAttendances.addAll(result);
     update();
   }
 
   Future<void> fetch() async {
     _isLoading.value = true;
-    attendances.clear();
+    allAttendances.clear();
     try {
       fetchAttendances();
       _classesController.fetch();
@@ -121,12 +131,14 @@ class ClassInfoController extends GetxController {
 
   Future<void> fetchAttendances() async {
     try {
-      attendances.clear();
       final attendancesResult = await _getClassroomAttendances(
         _selectedClassroom.value.id!,
       );
+      allAttendances.clear();
+      filteredAttendances.clear();
       if (attendancesResult != null) {
-        attendances.addAll(attendancesResult);
+        allAttendances.addAll(attendancesResult);
+        filteredAttendances.addAll(attendancesResult);
       }
     } catch (_) {}
   }

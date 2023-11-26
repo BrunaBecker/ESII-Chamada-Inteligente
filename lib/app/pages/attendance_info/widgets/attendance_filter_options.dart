@@ -13,16 +13,19 @@ class AttendanceFilterOptions extends StatelessWidget {
           label: "Filtrar",
           leading: Icons.filter_alt_outlined,
           onTap: () {},
+          initialTab: 0,
         ),
         AttendanceFilterItem(
           label: "Exportar",
           leading: Icons.download_outlined,
           onTap: () {},
+          initialTab: 1,
         ),
         AttendanceFilterItem(
           label: "Ordenar",
           leading: Icons.filter_alt_outlined,
           onTap: () {},
+          initialTab: 2,
         ),
       ],
     );
