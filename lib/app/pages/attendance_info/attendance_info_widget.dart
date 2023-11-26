@@ -19,7 +19,13 @@ class AttendanceInfoWidget extends StatelessWidget {
         init: Get.find<AttendanceInfoController>(),
         builder: (controller) => Obx(
           () => controller.isLoading
-              ? const CircularProgressIndicator()
+              ? Scaffold(
+                  appBar: AppBar(),
+                  body: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  bottomNavigationBar: const BottomNavBar(),
+                )
               : DefaultTabController(
                   length: 3,
                   child: Scaffold(
@@ -64,14 +70,12 @@ class AttendanceInfoWidget extends StatelessWidget {
                         const AttendanceFilterOptions(),
                         Expanded(
                           child: ListView.builder(
-                            itemCount: controller.totalStudents,
+                            itemCount: controller.totalFilteredStudents,
                             itemBuilder: (context, index) {
-                              final item = controller.selectedAttendance
-                                  .classroom!.students![index];
+                              final item = controller.filteredStudents[index];
                               final status = controller.getStudentStatus(
                                 item,
                               );
-
                               if (status == null) {
                                 return const SizedBox.shrink();
                               }

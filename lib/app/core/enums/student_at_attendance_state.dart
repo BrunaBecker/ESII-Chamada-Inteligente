@@ -50,4 +50,15 @@ enum StudentAtAttendanceState {
         return StudentAtAttendanceState.absent;
     }
   }
+
+  String toLongString() {
+    switch (this) {
+      case StudentAtAttendanceState.present:
+        return "Presença";
+      case StudentAtAttendanceState.absent:
+        return "Falta";
+      case StudentAtAttendanceState.justified:
+        return "Falta abonada";
+    }
+  }
 }

@@ -14,9 +14,6 @@ class AttendanceSearchForm extends StatelessWidget {
       builder: (controller) => TextFormField(
         decoration: InputDecoration(
           hintText: "Pesquise algum aluno",
-          prefixIcon: const Icon(
-            Icons.menu_outlined,
-          ),
           suffixIcon: IconButton(
             icon: const Icon(
               Icons.search_outlined,

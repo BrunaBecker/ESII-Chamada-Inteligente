@@ -8,9 +8,11 @@ class AttendanceInfoBottomSheet extends StatelessWidget {
   const AttendanceInfoBottomSheet({
     super.key,
     this.title = "",
+    this.initialTab = 0,
   });
 
   final String title;
+  final int initialTab;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class AttendanceInfoBottomSheet extends StatelessWidget {
         () => SizedBox(
           child: DefaultTabController(
             length: 3,
+            initialIndex: initialTab,
             child: Center(
               child: Column(
                 children: [
@@ -66,22 +69,17 @@ class AttendanceInfoBottomSheet extends StatelessWidget {
                           itemCount: controller.filters.length,
                           itemBuilder: (context, index) {
                             final key = controller.filters.keys.toList()[index];
-                            final value = controller.filters[key];
                             return ListTile(
                               leading: Checkbox(
                                 tristate: true,
-                                value: value == 1
-                                    ? true
-                                    : value == 2
-                                        ? null
-                                        : false,
+                                value: controller.filters[key],
                                 onChanged: (value) {
                                   controller.toggleFilter(
                                     filter: key,
                                   );
                                 },
                               ),
-                              title: Text(key),
+                              title: Text(key.toLongString()),
                               onTap: () {
                                 controller.toggleFilter(
                                   filter: key,
@@ -117,13 +115,13 @@ class AttendanceInfoBottomSheet extends StatelessWidget {
                             final sortOption = controller.sortOptions[index];
                             return ListTile(
                               leading: Icon(
-                                controller.sortMode == sortOption
+                                sortOption == controller.sortMode
                                     ? controller.isAscending
                                         ? Icons.arrow_upward_outlined
                                         : Icons.arrow_downward_outlined
                                     : null,
                               ),
-                              title: Text(sortOption),
+                              title: Text(sortOption.toLongString()),
                               onTap: () {
                                 controller.changeSortMode(
                                   sortMode: sortOption,
