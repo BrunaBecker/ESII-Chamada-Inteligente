@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/domain/entities/attendance_entity.dart';
@@ -17,6 +18,7 @@ class AttendanceInfoController extends GetxController {
       _getAttendanceStatusesByAttendance;
 
   final _isLoading = true.obs;
+  final _searchController = TextEditingController();
   late final AttendanceEntity _selectedAttendance;
   final _allStudents = <StudentEntity>[].obs;
   final _filteredStudents = <StudentEntity>[].obs;
@@ -27,6 +29,7 @@ class AttendanceInfoController extends GetxController {
   final _isAscending = true.obs;
 
   bool get isLoading => _isLoading.value;
+  TextEditingController get searchController => _searchController;
   AttendanceEntity get selectedAttendance => _selectedAttendance;
   List<StudentEntity> get allStudents => _allStudents;
   List<StudentEntity> get filteredStudents => _filteredStudents;
@@ -86,13 +89,14 @@ class AttendanceInfoController extends GetxController {
         _filters[newFilter] = false;
         break;
     }
-    filterStudents();
+    _filteredStudents.clear();
+    _filteredStudents.addAll(searchStudents());
     update();
   }
 
-  void filterStudents() {
-    _filteredStudents.clear();
-    _filteredStudents.addAll(_allStudents.where((element) {
+  List<StudentEntity> filterStudents() {
+    final result = <StudentEntity>[];
+    result.addAll(_allStudents.where((element) {
       final status = getStudentStatus(element);
       if (_filters.values.contains(true)) {
         return _filters[
@@ -106,6 +110,7 @@ class AttendanceInfoController extends GetxController {
       }
       return true;
     }).toList());
+    return result;
   }
 
   void changeSortMode({
@@ -118,7 +123,8 @@ class AttendanceInfoController extends GetxController {
       _isAscending.value = true;
     }
     sortStudents();
-    filterStudents();
+    _filteredStudents.clear();
+    _filteredStudents.addAll(searchStudents());
     update();
   }
 
@@ -184,5 +190,22 @@ class AttendanceInfoController extends GetxController {
         return element.student.id == student.id;
       },
     );
+  }
+
+  void search() {
+    _filteredStudents.clear();
+    _filteredStudents.addAll(searchStudents());
+    update();
+  }
+
+  List<StudentEntity> searchStudents() {
+    final filterResult = filterStudents();
+    final result = <StudentEntity>[];
+    result.addAll(filterResult.where((element) {
+      return element.name.toLowerCase().contains(
+            searchController.text.toLowerCase(),
+          );
+    }).toList());
+    return result;
   }
 }
