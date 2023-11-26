@@ -7,11 +7,14 @@ import '../../core/adapters/validator_adapter.dart';
 import '../../core/data/providers/api/attendance_provider.dart';
 import '../../core/data/providers/api/attendance_status_provider.dart';
 import '../../core/data/providers/api/location_provider.dart';
+import '../../core/data/providers/api/ping_provider.dart';
+import '../../core/data/repositories/create_ping_repository.dart';
 import '../../core/data/repositories/create_student_attendance_status_repository.dart';
 import '../../core/data/repositories/get_location_by_id_repository.dart';
 import '../../core/data/repositories/get_professor_attendance_happening_repository.dart';
 import '../../core/data/repositories/get_student_attendance_status_by_attendance_repository.dart';
 import '../../core/data/repositories/get_student_attendance_happening_repository.dart';
+import '../../core/domain/usecases/create_ping_usecase.dart';
 import '../../core/domain/usecases/create_student_attendance_status_usecase.dart';
 import '../../core/domain/usecases/get_location_by_id_usecase.dart';
 import '../../core/domain/usecases/get_professor_attendance_happening_usecase.dart';
@@ -35,6 +38,11 @@ class HomeBindings extends Bindings {
     );
     Get.lazyPut(
       () => AttendanceStatusProvider(
+        http: Get.find<Http>(),
+      ),
+    );
+    Get.lazyPut<PingProvider>(
+      () => PingProvider(
         http: Get.find<Http>(),
       ),
     );
@@ -94,6 +102,17 @@ class HomeBindings extends Bindings {
         Get.find<CreateStudentAttendanceStatusRepository>(),
       ),
     );
+    // Create Ping
+    Get.lazyPut(
+      () => CreatePingRepository(
+        pingProvider: Get.find<PingProvider>(),
+      ),
+    );
+    Get.lazyPut(
+      () => CreatePingUsecase(
+        Get.find<CreatePingRepository>(),
+      ),
+    );
 
     // Controller
     Get.lazyPut(
@@ -108,8 +127,7 @@ class HomeBindings extends Bindings {
         getLocationById: Get.find<GetLocationByIdUsecase>(),
         getStudentAttendanceStatusByAttendance:
             Get.find<GetStudentAttendanceStatusByAttendanceUsecase>(),
-        createStudentAttendanceStatus:
-            Get.find<CreateStudentAttendanceStatusUsecase>(),
+        createPing: Get.find<CreatePingUsecase>(),
       ),
     );
   }

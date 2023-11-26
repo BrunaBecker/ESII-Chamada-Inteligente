@@ -4,7 +4,6 @@ import '../../domain/entities/location_entity.dart';
 import 'classroom_dto.dart';
 import 'coordinate_dto.dart';
 import 'professor_dto.dart';
-import 'virtual_zone_dto.dart';
 
 class LocationDto extends LocationEntity {
   LocationDto({
@@ -14,7 +13,6 @@ class LocationDto extends LocationEntity {
     super.isActive = true,
     super.coordinate,
     super.professor,
-    super.virtualZones,
     super.classroom,
   });
 
@@ -26,7 +24,6 @@ class LocationDto extends LocationEntity {
       isActive: entity.isActive,
       coordinate: entity.coordinate,
       professor: entity.professor,
-      virtualZones: entity.virtualZones,
       classroom: entity.classroom,
     );
   }
@@ -43,15 +40,6 @@ class LocationDto extends LocationEntity {
       professor = ProfessorDto.fromMap(map["professor"]);
     }
 
-    // Mapping VirtualZones
-    List<VirtualZoneDto>? virtualZones;
-    if (map["virtualZones"] != null) {
-      virtualZones = [];
-      for (var virtualZoneMap in map["virtualZones"]) {
-        virtualZones.add(VirtualZoneDto.fromMap(virtualZoneMap));
-      }
-    }
-
     ClassroomDto? classroom;
     if (map["classroom"] != null) {
       classroom = ClassroomDto.fromMap(map["classroom"]);
@@ -64,7 +52,6 @@ class LocationDto extends LocationEntity {
       isActive: map["active"],
       coordinate: coordinate,
       professor: professor,
-      virtualZones: virtualZones,
       classroom: classroom,
     );
   }
@@ -82,15 +69,6 @@ class LocationDto extends LocationEntity {
       professorAsMap = ProfessorDto.fromEntity(professor!).toMap();
     }
 
-    // Mapping VirtualZones
-    List<Map<String, dynamic>>? virtualZonesAsMap;
-    if (virtualZones != null) {
-      virtualZonesAsMap = [];
-      for (var virtualZone in virtualZones!) {
-        virtualZonesAsMap.add(VirtualZoneDto.fromEntity(virtualZone).toMap());
-      }
-    }
-
     // Mapping Classroom
     Map<String, dynamic>? classroomAsMap;
     if (classroom != null) {
@@ -104,7 +82,6 @@ class LocationDto extends LocationEntity {
       "active": isActive,
       "coordinate": coordinateAsMap,
       "professor": professorAsMap,
-      "virtualZones": virtualZonesAsMap,
       "classroom": classroomAsMap,
     };
   }

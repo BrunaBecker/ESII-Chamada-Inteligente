@@ -30,7 +30,7 @@ class LocationAdapter {
     return true;
   }
 
-  Future<LocationData?> getCurrentLocation() async {
+  Future<CoordinateEntity?> getCurrentLocation() async {
     bool hasPermission = await checkLocationPermission();
     bool locationServiceEnabled = await isLocationServiceEnabled();
 
@@ -39,7 +39,16 @@ class LocationAdapter {
     }
 
     _locationData = await location.getLocation();
-    return _locationData;
+    if (_locationData == null ||
+        _locationData!.latitude == null ||
+        _locationData!.longitude == null) {
+      return null;
+    }
+
+    return CoordinateEntity(
+      latitude: _locationData!.latitude!,
+      longitude: _locationData!.longitude!,
+    );
   }
 
   // get placemark with geocoding

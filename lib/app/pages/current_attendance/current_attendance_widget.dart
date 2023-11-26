@@ -10,6 +10,7 @@ import 'widgets/current_attendance_local_sheet.dart';
 import 'widgets/current_attendance_search_bar.dart';
 import 'widgets/current_attendance_student_list.dart';
 import 'widgets/current_attendance_title_bar.dart';
+import 'widgets/current_attendance_virtual_zone_sheet.dart';
 
 class CurrentAttendanceWidget extends StatelessWidget {
   const CurrentAttendanceWidget({super.key});
@@ -41,11 +42,16 @@ class CurrentAttendanceWidget extends StatelessWidget {
                                 context: context,
                                 builder: (context) =>
                                     controller.virtualZone == null
-                                        ? const CurrentAttendanceLocalSheet(
-                                            title: "Chamada local",
+                                        ? CurrentAttendanceLocalSheet(
+                                            title: controller.currentAttendance
+                                                    .classroom?.courseName ??
+                                                "Chamada",
                                           )
-                                        // TODO: virtual zone sheet
-                                        : const SizedBox.shrink(),
+                                        : CurrentAttendanceVirtualZoneSheet(
+                                            title: controller.currentAttendance
+                                                    .classroom?.courseName ??
+                                                "Chamada",
+                                          ),
                               );
                             },
                             icon: const Icon(

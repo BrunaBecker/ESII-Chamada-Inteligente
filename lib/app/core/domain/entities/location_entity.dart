@@ -1,7 +1,6 @@
 import 'classroom_entity.dart';
 import 'coordinate_entity.dart';
 import 'professor_entity.dart';
-import 'virtual_zone_entity.dart';
 
 class LocationEntity {
   LocationEntity({
@@ -11,7 +10,6 @@ class LocationEntity {
     this.isActive = true,
     this.coordinate,
     this.professor,
-    this.virtualZones,
     this.classroom,
   });
 
@@ -21,6 +19,5 @@ class LocationEntity {
   bool isActive;
   CoordinateEntity? coordinate;
   ProfessorEntity? professor;
-  List<VirtualZoneEntity>? virtualZones;
   ClassroomEntity? classroom;
 }

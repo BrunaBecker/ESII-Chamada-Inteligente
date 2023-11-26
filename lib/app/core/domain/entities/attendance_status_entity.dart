@@ -1,6 +1,5 @@
 import '../../enums/student_at_attendance_state.dart';
 import 'attendance_entity.dart';
-import 'ping_entity.dart';
 import 'student_entity.dart';
 
 class AttendanceStatusEntity {
@@ -11,8 +10,6 @@ class AttendanceStatusEntity {
     this.validated = false,
     required this.student,
     required this.attendance,
-    this.successfulPings = const [],
-    this.unsuccessfulPings = const [],
   });
 
   int? id;
@@ -21,6 +18,4 @@ class AttendanceStatusEntity {
   bool validated;
   StudentEntity student;
   AttendanceEntity attendance;
-  List<PingEntity> successfulPings;
-  List<PingEntity> unsuccessfulPings;
 }

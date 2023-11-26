@@ -10,9 +10,10 @@ import '../../core/domain/entities/attendance_status_entity.dart';
 import '../../core/domain/entities/classroom_entity.dart';
 import '../../core/domain/entities/location_entity.dart';
 import '../../core/domain/entities/person_entity.dart';
+import '../../core/domain/entities/ping_entity.dart';
 import '../../core/domain/entities/student_entity.dart';
 import '../../core/domain/entities/virtual_zone_entity.dart';
-import '../../core/domain/usecases/create_student_attendance_status_usecase.dart';
+import '../../core/domain/usecases/create_ping_usecase.dart';
 import '../../core/domain/usecases/get_location_by_id_usecase.dart';
 import '../../core/domain/usecases/get_professor_attendance_happening_usecase.dart';
 import '../../core/domain/usecases/get_student_attendance_happening_usecase.dart';
@@ -31,7 +32,7 @@ class HomeController extends GetxController {
     required GetLocationByIdUsecase getLocationById,
     required GetStudentAttendanceStatusByAttendanceUsecase
         getStudentAttendanceStatusByAttendance,
-    required CreateStudentAttendanceStatusUsecase createStudentAttendanceStatus,
+    required CreatePingUsecase createPing,
   })  : _appController = appController,
         _validator = validator,
         _locationUtils = locationUtils,
@@ -40,7 +41,7 @@ class HomeController extends GetxController {
         _getLocationById = getLocationById,
         _getStudentAttendanceStatusByAttendance =
             getStudentAttendanceStatusByAttendance,
-        _createStudentAttendanceStatus = createStudentAttendanceStatus;
+        _createPing = createPing;
 
   final AppController _appController;
   final ValidatorAdapter _validator;
@@ -50,7 +51,7 @@ class HomeController extends GetxController {
   final GetLocationByIdUsecase _getLocationById;
   final GetStudentAttendanceStatusByAttendanceUsecase
       _getStudentAttendanceStatusByAttendance;
-  final CreateStudentAttendanceStatusUsecase _createStudentAttendanceStatus;
+  final CreatePingUsecase _createPing;
 
   final _isLoading = true.obs;
   final _attendance = Rx<AttendanceEntity?>(null);
@@ -126,7 +127,7 @@ class HomeController extends GetxController {
     try {
       if (virtualZone != null) {
         final locationResult = await _getLocationById(
-          id: virtualZone!.locationId,
+          id: virtualZone!.location.id!,
         );
         _location.value = locationResult;
       }
@@ -162,14 +163,28 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<void> createAttendanceStatus(StudentAtAttendanceState state) async {
-    _attendanceStatus.value = await _createStudentAttendanceStatus(
-      attendanceStatus: AttendanceStatusEntity(
-        attendance: attendance!,
-        student: user as StudentEntity,
-        studentState: state,
-        studentHasResponded: true,
-      ),
+  Future<bool> createAttendanceStatus(StudentAtAttendanceState state) async {
+    final coordinate = await _locationUtils.getCurrentLocation();
+    final newAttendanceStatus = AttendanceStatusEntity(
+      attendance: attendance!,
+      student: user as StudentEntity,
+      studentState: state,
+      studentHasResponded: true,
     );
+    try {
+      final ping = await _createPing(
+        ping: PingEntity(
+          ip: "127.0.0.1",
+          date: DateTime.now(),
+          isContinuous: true,
+          attendanceStatus: newAttendanceStatus,
+          coordinate: coordinate,
+        ),
+      );
+      _attendanceStatus.value = ping.attendanceStatus;
+    } catch (_) {
+      return false;
+    }
+    return true;
   }
 }

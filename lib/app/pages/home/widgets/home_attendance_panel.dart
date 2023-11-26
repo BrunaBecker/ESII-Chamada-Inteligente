@@ -84,6 +84,10 @@ class HomeAttendancePanel extends StatelessWidget {
   }
 
   List<Widget>? buildActions(HomeController controller) {
+    if (controller.attendance?.virtualZone == null) {
+      return null;
+    }
+
     final status = controller.attendanceStatus;
     IconData answerIcon = Icons.check_outlined;
     String answerText = "";
@@ -150,10 +154,18 @@ class HomeAttendancePanel extends StatelessWidget {
             ),
             FilledButton(
               onPressed: () async {
-                await controller.createAttendanceStatus(
+                final result = await controller.createAttendanceStatus(
                   StudentAtAttendanceState.present,
                 );
-                Get.back();
+                if (result) {
+                  Get.back();
+                } else {
+                  Get.snackbar(
+                    "Erro",
+                    "Não foi possível registrar seu status.",
+                    snackPosition: SnackPosition.BOTTOM,
+                  );
+                }
               },
               style: OutlinedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),

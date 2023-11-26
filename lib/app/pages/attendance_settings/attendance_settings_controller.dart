@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app_controller.dart';
+import '../../core/adapters/location_adapter.dart';
 import '../../core/adapters/mask_adapter.dart';
 import '../../core/adapters/validator_adapter.dart';
 import '../../core/domain/entities/attendance_entity.dart';
 import '../../core/domain/entities/classroom_entity.dart';
+import '../../core/domain/entities/location_entity.dart';
 import '../../core/domain/entities/professor_entity.dart';
 import '../../core/domain/entities/virtual_zone_entity.dart';
 import '../../core/domain/usecases/create_attendance_usecase.dart';
+import '../../core/domain/usecases/create_location_usecase.dart';
+import '../../core/domain/usecases/create_virtual_zone_usecase.dart';
 import '../../core/domain/usecases/get_classrooms_by_professor_identifier_usecase.dart';
 import '../../core/utils/app_date_utils.dart';
 
@@ -17,21 +21,30 @@ class AttendanceSettingsController extends GetxController {
     required appController,
     required mask,
     required validator,
+    required location,
     required getClassroomsByProfessorIdentifier,
     required createAttendance,
+    required createVirtualZone,
+    required createLocation,
   })  : _appController = appController,
         _mask = mask,
         _validator = validator,
+        _location = location,
         _getClassroomsByProfessorIdentifier =
             getClassroomsByProfessorIdentifier,
-        _createAttendance = createAttendance;
+        _createAttendance = createAttendance,
+        _createVirtualZone = createVirtualZone,
+        _createLocation = createLocation;
 
   final AppController _appController;
   final MaskAdapter _mask;
   final ValidatorAdapter _validator;
+  final LocationAdapter _location;
   final GetClassroomsByProfessorIdentifierUsecase
       _getClassroomsByProfessorIdentifier;
   final CreateAttendanceUsecase _createAttendance;
+  final CreateVirtualZoneUsecase _createVirtualZone;
+  final CreateLocationUsecase _createLocation;
 
   final _isLoading = true.obs;
   final _isStartingAttendance = false.obs;
@@ -65,21 +78,9 @@ class AttendanceSettingsController extends GetxController {
 
   @override
   void onReady() async {
+    _isLoading.value = true;
     super.onReady();
 
-    // TODO: get classes
-    // await Future.delayed(const Duration(seconds: 1));
-    // _allClassList.addAll([
-    //   "ENGENHARIA DE SOFTWARE II - A1",
-    //   "PROGRAMAÇÃO I - A1",
-    //   "PROGRAMAÇÃO I - B1",
-    //   "PROGRAMAÇÃO I - C1",
-    //   "PROGRAMAÇÃO ORIENTADA A OBJETOS - A1",
-    //   "PROGRAMAÇÃO ORIENTADA A OBJETOS - B1",
-    //   "PROGRAMAÇÃO ORIENTADA A OBJETOS - C1",
-    //   "ESTRUTURAS DE DADOS E SEUS ALGORITMOS - A1",
-    //   "ESTRUTURAS DE DADOS E SEUS ALGORITMOS - B1",
-    // ]);
     final classroomsResult = await _getClassroomsByProfessorIdentifier(
       professor.register.identifier,
     );
@@ -129,11 +130,34 @@ class AttendanceSettingsController extends GetxController {
   Future<AttendanceEntity?> startAttendance() async {
     _isStartingAttendance.value = true;
     // TODO: get location
-    final virtualZone = selectedClassroom!.defaultLocation != null
-        ? VirtualZoneEntity(
-            locationId: selectedClassroom!.defaultLocation!.id!,
-          )
-        : null;
+    LocationEntity? location;
+    VirtualZoneEntity? virtualZone;
+    if (selectedClassroom!.defaultLocation != null) {
+      VirtualZoneEntity(
+        location: selectedClassroom!.defaultLocation!,
+      );
+    } else {
+      try {
+        final coordinate = await _location.getCurrentLocation();
+        if (coordinate != null) {
+          location = LocationEntity(
+            title: "Localização para ${selectedClassroom!.courseName}",
+            description:
+                "Localização criada para ${selectedClassroom!.courseName} em ${AppDateUtils.appDateFormat.format(DateTime.now())}",
+            coordinate: coordinate,
+            professor: _appController.user as ProfessorEntity,
+            classroom: selectedClassroom,
+          );
+          location = await _createLocation(location: location);
+          virtualZone = VirtualZoneEntity(
+            location: location,
+          );
+          virtualZone = await _createVirtualZone(virtualZone: virtualZone);
+        }
+      } catch (_) {
+        return null;
+      }
+    }
 
     try {
       final attendance = await _createAttendance(
