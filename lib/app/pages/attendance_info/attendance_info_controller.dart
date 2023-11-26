@@ -73,18 +73,17 @@ class AttendanceInfoController extends GetxController {
   }
 
   void toggleFilter({
-    required StudentAtAttendanceState filter,
+    required StudentAtAttendanceState newFilter,
   }) {
-    // TODO: implement filter
-    switch (_filters[filter]) {
+    switch (_filters[newFilter]) {
       case false:
-        _filters[filter] = true;
+        _filters[newFilter] = true;
         break;
       case true:
-        _filters[filter] = null;
+        _filters[newFilter] = null;
         break;
       case null:
-        _filters[filter] = false;
+        _filters[newFilter] = false;
         break;
     }
     filterStudents();
@@ -92,12 +91,6 @@ class AttendanceInfoController extends GetxController {
   }
 
   void filterStudents() {
-    if (_sortMode.value == sortMode) {
-      _isAscending.value = !_isAscending.value;
-    } else {
-      _sortMode.value = sortMode;
-      _isAscending.value = true;
-    }
     _filteredStudents.clear();
     _filteredStudents.addAll(_allStudents.where((element) {
       final status = getStudentStatus(element);
@@ -116,13 +109,12 @@ class AttendanceInfoController extends GetxController {
   }
 
   void changeSortMode({
-    required StudentSort sortMode,
+    required StudentSort newSortMode,
   }) {
-    // TODO: implement sort
-    if (_sortMode.value == sortMode) {
-      _isAscending.value = !_isAscending.value;
+    if (sortMode == newSortMode) {
+      _isAscending.value = !isAscending;
     } else {
-      _sortMode.value = sortMode;
+      _sortMode.value = newSortMode;
       _isAscending.value = true;
     }
     sortStudents();
@@ -137,24 +129,25 @@ class AttendanceInfoController extends GetxController {
       if (statusA == null || statusB == null) {
         return 0;
       }
-      if (_isAscending.value) {
-        switch (_sortMode.value) {
-          case StudentSort.alphabetical:
-            return a.name.compareTo(b.name);
-          default:
-            return statusA.studentState.toInt().compareTo(
-                  statusB.studentState.toInt(),
-                );
-        }
-      } else {
-        switch (_sortMode.value) {
-          case StudentSort.alphabetical:
-            return b.name.compareTo(a.name);
-          default:
-            return statusB.studentState.toInt().compareTo(
-                  statusA.studentState.toInt(),
-                );
-        }
+      switch (sortMode) {
+        case StudentSort.alphabetical:
+          return (isAscending ? 1 : -1) * a.name.compareTo(b.name);
+        default:
+          final sortState = () {
+            switch (sortMode) {
+              case StudentSort.presence:
+                return StudentAtAttendanceState.present;
+              case StudentSort.absence:
+                return StudentAtAttendanceState.absent;
+              case StudentSort.justification:
+                return StudentAtAttendanceState.justified;
+              default:
+                return StudentAtAttendanceState.absent;
+            }
+          }();
+          final valueA = statusA.studentState == sortState ? 0 : -1;
+          final valueB = statusB.studentState == sortState ? 0 : -1;
+          return (isAscending ? 1 : -1) * valueB.compareTo(valueA);
       }
     });
   }

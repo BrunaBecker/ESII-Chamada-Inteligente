@@ -75,14 +75,14 @@ class AttendanceInfoBottomSheet extends StatelessWidget {
                                 value: controller.filters[key],
                                 onChanged: (value) {
                                   controller.toggleFilter(
-                                    filter: key,
+                                    newFilter: key,
                                   );
                                 },
                               ),
                               title: Text(key.toLongString()),
                               onTap: () {
                                 controller.toggleFilter(
-                                  filter: key,
+                                  newFilter: key,
                                 );
                               },
                             );
@@ -124,7 +124,7 @@ class AttendanceInfoBottomSheet extends StatelessWidget {
                               title: Text(sortOption.toLongString()),
                               onTap: () {
                                 controller.changeSortMode(
-                                  sortMode: sortOption,
+                                  newSortMode: sortOption,
                                 );
                               },
                             );
