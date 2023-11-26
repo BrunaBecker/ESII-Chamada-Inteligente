@@ -34,12 +34,20 @@ class AttendancesProfessorTab extends StatelessWidget {
                         child: FilledButton.icon(
                           key: const Key('filter by date button'),
                           onPressed: () async {
-                            // TODO: refactor dates
                             controller.selectedDateRange =
                                 await showDateRangePicker(
                               context: context,
                               firstDate: DateTime(2023, 11, 1),
                               lastDate: DateTime.now(),
+                            );
+
+                            if (controller.selectedDateRange == null) {
+                              return;
+                            }
+
+                            controller.filterAttendancesByDate(
+                              controller.selectedDateRange!.start,
+                              controller.selectedDateRange!.end,
                             );
                           },
                           icon: const Icon(Icons.date_range_outlined),
@@ -50,7 +58,7 @@ class AttendancesProfessorTab extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          "Total de chamadas: ${controller.attendances.length}",
+                          "Total de chamadas: ${controller.totalFilteredAttendances}",
                           style: const TextStyle(
                             color: AppColors.black,
                             fontWeight: FontWeight.w500,
@@ -59,9 +67,9 @@ class AttendancesProfessorTab extends StatelessWidget {
                       ),
                       Expanded(
                         child: ListView.separated(
-                          itemCount: controller.attendances.length,
+                          itemCount: controller.totalFilteredAttendances,
                           itemBuilder: (context, index) {
-                            final item = controller.attendances[index];
+                            final item = controller.filteredAttendances[index];
                             return ListTile(
                               title: Text(
                                 AppDateUtils.appDateFormat.format(item.date),

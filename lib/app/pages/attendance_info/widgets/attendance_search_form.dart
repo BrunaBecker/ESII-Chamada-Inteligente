@@ -12,16 +12,19 @@ class AttendanceSearchForm extends StatelessWidget {
     return GetBuilder(
       init: Get.find<AttendanceInfoController>(),
       builder: (controller) => TextFormField(
+        onChanged: (_) {
+          controller.search();
+        },
+        controller: controller.searchController,
         decoration: InputDecoration(
           hintText: "Pesquise algum aluno",
-          prefixIcon: const Icon(
-            Icons.menu_outlined,
-          ),
           suffixIcon: IconButton(
             icon: const Icon(
               Icons.search_outlined,
             ),
-            onPressed: () {},
+            onPressed: () {
+              controller.search();
+            },
           ),
           filled: true,
           fillColor: AppColors.surfaceContainerHigh,

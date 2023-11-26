@@ -48,7 +48,7 @@ class StatsStudentTab extends StatelessWidget {
                           top: 128.0,
                         ),
                         child: controller.chart.createAttendanceChart(
-                          data: controller.attendances,
+                          data: controller.allAttendances,
                         ),
                       ),
                     ],
