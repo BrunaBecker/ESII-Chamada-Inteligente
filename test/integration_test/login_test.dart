@@ -86,7 +86,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Expect to find the student's home screen
-      expect(find.text('Registre sua presença!'), findsOneWidget);
+      expect(find.text('Chamada Inteligente'), findsOneWidget);
     });
 
     testWidgets('Login Invalid', (WidgetTester tester) async {

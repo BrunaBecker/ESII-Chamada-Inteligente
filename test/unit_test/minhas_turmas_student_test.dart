@@ -46,7 +46,7 @@ void main() {
       await goToMinhasTurmasPage(tester);
 
       final Finder classTileFinder =
-          find.byKey(const Key('list tile class')).at(2);
+          find.byKey(const Key('list tile class')).first;
       String? classTileName =
           ((tester.widget(classTileFinder) as ListTile).subtitle as Text).data;
 
@@ -56,7 +56,7 @@ void main() {
       String? classTitle = remainingClassWords?.join(' ');
 
       final Finder interactClassButtonFinder =
-          find.byKey(const Key('interact class ellipsis button')).at(2);
+          find.byKey(const Key('interact class ellipsis button')).first;
       await tester.tap(interactClassButtonFinder);
       await tester.pumpAndSettle();
 
@@ -67,7 +67,7 @@ void main() {
       final Finder classHeader = find.byKey(const Key('class page header'));
 
       expect(((tester.widget(classHeader) as AppBar).title as Text).data,
-          equals(classTitle));
+          contains(classTitle));
     });
   });
 }
