@@ -21,7 +21,7 @@ class StudentAttendanceTrailing extends StatelessWidget {
     return GetBuilder<ClassInfoController>(
       init: Get.find<ClassInfoController>(),
       builder: (controller) {
-        final color = isVerified ? AppColors.onSurfaceVariant : null;
+        final color = isVerified ? null : AppColors.onSurfaceVariant;
 
         if (status == StudentAtAttendanceState.absent) {
           return PopupMenuButton(
