@@ -18,6 +18,7 @@ import '../../core/domain/usecases/get_location_by_id_usecase.dart';
 import '../../core/domain/usecases/get_professor_attendance_happening_usecase.dart';
 import '../../core/domain/usecases/get_student_attendance_happening_usecase.dart';
 import '../../core/domain/usecases/get_student_attendance_status_by_attendance_usecase.dart';
+import '../../core/enums/status_ping.dart';
 import '../../core/enums/student_at_attendance_state.dart';
 import '../notifications/notifications_controller.dart';
 
@@ -58,6 +59,7 @@ class HomeController extends GetxController {
   final _attendanceStatus = Rx<AttendanceStatusEntity?>(null);
   final _location = Rx<LocationEntity?>(null);
   final _address = "".obs;
+  final _lastPing = Rx<PingEntity?>(null);
   final _waiverFileNameController = TextEditingController();
   final _waiverTitleController = TextEditingController();
   final _waiverDescriptionController = TextEditingController();
@@ -74,6 +76,7 @@ class HomeController extends GetxController {
   ClassroomEntity? get classroom => attendance?.classroom;
   VirtualZoneEntity? get virtualZone => attendance?.virtualZone;
   String? get address => _address.value;
+  PingEntity? get lastPing => _lastPing.value;
   TextEditingController get waiverFileNameController =>
       _waiverFileNameController;
   TextEditingController get waiverTitleController => _waiverTitleController;
@@ -181,10 +184,29 @@ class HomeController extends GetxController {
           coordinate: coordinate,
         ),
       );
+      _lastPing.value = ping;
       _attendanceStatus.value = ping.attendanceStatus;
+      if (ping.status == StatusPing.successful) {
+        Get.snackbar(
+          "Sucesso",
+          "Presença marcada com sucesso",
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        return true;
+      } else {
+        Get.snackbar(
+          "Erro",
+          "Não foi possível marcar presença",
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        return false;
+      }
     } catch (_) {
       return false;
     }
-    return true;
+  }
+
+  bool checkPing() {
+    return lastPing?.status == StatusPing.successful;
   }
 }

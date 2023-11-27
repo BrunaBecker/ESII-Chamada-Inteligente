@@ -14,10 +14,17 @@ class StatisticsProvider extends BaseProvider {
   StatisticsProvider({required this.http});
 
   // localhost:8080/statistic?idClassroom=1&idStudent=1
-  Future<StatisticsEntity> fetchByClassroomAndStudent(int idClassroom, int idStudent) async {
+  Future<StatisticsEntity> fetchByClassroomAndStudent(
+    int idClassroom,
+    int idStudent,
+  ) async {
     try {
       final response = await http.get(
-        '/statistics?idClassroom=$idClassroom&idStudent=$idStudent',
+        "/statistic",
+        query: {
+          "idClassroom": idClassroom,
+          "idStudent": idStudent,
+        },
       );
 
       validateResponse(
