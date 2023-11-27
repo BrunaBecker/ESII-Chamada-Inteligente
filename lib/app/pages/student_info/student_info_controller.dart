@@ -1,13 +1,8 @@
-import 'dart:math';
-
 import 'package:get/get.dart';
 
 import '../../core/domain/entities/classroom_entity.dart';
 import '../../core/domain/entities/statistics_entity.dart';
 import '../../core/domain/entities/student_entity.dart';
-import '../../core/domain/entities/waiver_entity.dart';
-import '../../core/enums/student_at_attendance_state.dart';
-import '../../core/utils/app_date_utils.dart';
 
 class StudentInfoController extends GetxController {
   final _isLoading = true.obs;
