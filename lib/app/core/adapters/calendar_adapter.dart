@@ -60,7 +60,8 @@ class CalendarAdapter extends StatelessWidget {
             context: context,
             builder: (context) => EventInfoDialog(
               title: appointment.classroom.courseName,
-              description: "$startTime - $endTime",
+              description:
+                  "${AppDateUtils.storageToAppHour(startTime)} - ${AppDateUtils.storageToAppHour(endTime)}",
               status: appointment.status,
               center: true,
             ),

@@ -56,48 +56,69 @@ class EventFormDialog extends StatelessWidget {
                           key: controller.formKey,
                           child: Column(
                             children: [
-                              TextFormField(
-                                validator: (val) => controller.validator
-                                    .validateNotNullInput(val),
-                                controller: controller.classNameController,
-                                decoration: LoginInputDecoration(
-                                  labelText: "Turma",
-                                  hintText: "Informe a turma",
-                                ),
-                              ),
-                              const Spacing(8.0),
-                              SizedBox(
-                                child: DropdownButtonFormField(
-                                  validator: (val) => controller.validator
-                                      .validateNotNullEvent(val),
-                                  onChanged: (value) {
-                                    controller.eventController.text =
-                                        value!.toLongText();
-                                  },
-                                  items: List.generate(
-                                    EventStatus.values.length,
-                                    (index) => DropdownMenuItem(
-                                      value: EventStatus.values[index],
+                              DropdownButtonFormField(
+                                validator: (val) =>
+                                    controller.validator.validateNotNull(val),
+                                onChanged: (value) {
+                                  controller.selectedClassroom = value;
+                                },
+                                items: List.generate(
+                                  controller.professorClassrooms.length,
+                                  (index) {
+                                    final classroom =
+                                        controller.professorClassrooms[index];
+                                    return DropdownMenuItem(
+                                      value: classroom,
                                       child: SizedBox(
                                         width: 200,
                                         child: Text(
-                                          EventStatus.values[index]
-                                              .toLongText(),
+                                          "${classroom.courseName} - ${classroom.className}",
                                           style: const TextStyle(
                                             fontSize: 14,
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
                                       ),
+                                    );
+                                  },
+                                ),
+                                icon: const SizedBox.shrink(),
+                                decoration: LoginInputDecoration(
+                                  labelText: "Turma",
+                                  hintText: "Informe a turma",
+                                  suffixIcon: const Icon(
+                                      Icons.arrow_drop_down_outlined),
+                                ),
+                              ),
+                              const Spacing(8.0),
+                              DropdownButtonFormField(
+                                validator: (val) =>
+                                    controller.validator.validateNotNull(val),
+                                onChanged: (value) {
+                                  controller.selectedEventStatus = value;
+                                },
+                                items: List.generate(
+                                  EventStatus.values.length,
+                                  (index) => DropdownMenuItem(
+                                    value: EventStatus.values[index],
+                                    child: SizedBox(
+                                      width: 200,
+                                      child: Text(
+                                        EventStatus.values[index].toLongText(),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  icon: const SizedBox.shrink(),
-                                  decoration: LoginInputDecoration(
-                                    labelText: "Tipo de Evento",
-                                    hintText: "Informe o tipo de evento",
-                                    suffixIcon: const Icon(
-                                        Icons.arrow_drop_down_outlined),
-                                  ),
+                                ),
+                                icon: const SizedBox.shrink(),
+                                decoration: LoginInputDecoration(
+                                  labelText: "Tipo de Evento",
+                                  hintText: "Informe o tipo de evento",
+                                  suffixIcon: const Icon(
+                                      Icons.arrow_drop_down_outlined),
                                 ),
                               ),
                               const Spacing(8.0),
@@ -123,10 +144,21 @@ class EventFormDialog extends StatelessWidget {
                     child: const Text("Cancelar"),
                   ),
                   TextButton(
-                    onPressed: () {
-                      if (!controller.formKey.currentState!.validate()) return;
-                      controller.saveEvent();
-                      Get.back();
+                    onPressed: () async {
+                      if (await controller.saveEvent()) {
+                        Get.back();
+                        Get.snackbar(
+                          "Sucesso",
+                          "Evento criado com sucesso.",
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      } else {
+                        Get.snackbar(
+                          "Erro",
+                          "Não foi possível criar o evento.",
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      }
                     },
                     child: const Text("Confirmar"),
                   ),

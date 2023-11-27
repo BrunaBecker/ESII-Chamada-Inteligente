@@ -107,7 +107,7 @@ abstract class AppDateUtils {
   }
 
   static String storageToAppHour(String hour) {
-    if (hour.length == 8) {
+    if (hour.length > 5) {
       return hour.substring(0, 5);
     }
     return hour;

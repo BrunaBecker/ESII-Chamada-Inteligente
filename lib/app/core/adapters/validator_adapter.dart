@@ -1,5 +1,3 @@
-import '../enums/event_status.dart';
-
 class ValidatorAdapter {
   String? validateNotNullInput(String? value) {
     if (value == null || value.isEmpty) {
@@ -9,7 +7,7 @@ class ValidatorAdapter {
     return null;
   }
 
-  String? validateNotNullEvent(EventStatus? value) {
+  String? validateNotNull(dynamic value) {
     if (value == null) {
       return "O campo é obrigatório";
     }
