@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app_controller.dart';
-import '../../core/adapters/log_adapter.dart';
 import '../../core/adapters/validator_adapter.dart';
 import '../../core/domain/entities/classroom_entity.dart';
 import '../../core/domain/entities/event_entity.dart';
@@ -83,11 +82,6 @@ class CalendarController extends GetxController {
     if (_formKey.currentState?.validate() != true) return false;
 
     try {
-      appLog(selectedClassroom.toString());
-      appLog(selectedEventStatus.toString());
-      appLog(selectedDate.toString());
-      appLog(commentController.text);
-      appLog("Creating");
       final newEvent = await _createEvent(
         event: EventEntity(
           name:
@@ -98,8 +92,8 @@ class CalendarController extends GetxController {
           status: selectedEventStatus!,
         ),
       );
-      appLog("Created");
-      _events.add(newEvent);
+      events.add(newEvent);
+      selectedDayEvents.add(newEvent);
       _selectedClassroom.value = null;
       _selectedEventStatus.value = null;
       commentController.clear();
@@ -144,6 +138,18 @@ class CalendarController extends GetxController {
               end: end,
             ),
     );
+    if (selectedDate != null) {
+      selectedDayEvents.clear();
+      selectedDayEvents.addAll(
+        events.where(
+          (event) {
+            return event.date.day == selectedDate!.day &&
+                event.date.month == selectedDate!.month &&
+                event.date.year == selectedDate!.year;
+          },
+        ),
+      );
+    }
     update();
   }
 
