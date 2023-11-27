@@ -7,9 +7,12 @@ import '../../core/adapters/validator_adapter.dart';
 import '../../core/data/providers/api/attendance_provider.dart';
 import '../../core/data/providers/api/attendance_status_provider.dart';
 import '../../core/data/providers/api/classroom_provider.dart';
+import '../../core/data/providers/api/statistics_provider.dart';
 import '../../core/data/repositories/get_classroom_attendances_repository.dart';
+import '../../core/data/repositories/get_statistics_by_classroom_student_repository.dart';
 import '../../core/data/repositories/get_student_attendance_statuses_by_classroom_repository.dart';
 import '../../core/domain/usecases/get_classroom_attendances_usecase.dart';
+import '../../core/domain/usecases/get_statistics_by_classroom_student_usecase.dart';
 import '../../core/domain/usecases/get_student_attendance_statuses_by_classroom_usecase.dart';
 import '../classes/classes_controller.dart';
 import 'class_info_controller.dart';
@@ -38,6 +41,11 @@ class ClassInfoBindings extends Bindings {
         http: Get.find<Http>(),
       ),
     );
+    Get.lazyPut(
+      () => StatisticsProvider(
+        http: Get.find<Http>(),
+      ),
+    );
 
     // Get Classroom Attendances
     Get.lazyPut(
@@ -50,7 +58,6 @@ class ClassInfoBindings extends Bindings {
         Get.find<GetClassroomAttendancesRepository>(),
       ),
     );
-
     // Get Student Attendance Statuses By Classroom
     Get.lazyPut(
       () => GetStudentAttendanceStatusesByClassroomRepository(
@@ -60,6 +67,17 @@ class ClassInfoBindings extends Bindings {
     Get.lazyPut(
       () => GetStudentAttendanceStatusesByClassroomUsecase(
         Get.find<GetStudentAttendanceStatusesByClassroomRepository>(),
+      ),
+    );
+    // Get Statistics
+    Get.lazyPut(
+      () => GetStatisticsRepository(
+        statisticsProvider: Get.find<StatisticsProvider>(),
+      ),
+    );
+    Get.lazyPut(
+      () => GetStatisticsUseCase(
+        Get.find<GetStatisticsRepository>(),
       ),
     );
 
@@ -73,6 +91,7 @@ class ClassInfoBindings extends Bindings {
         getClassroomAttendances: Get.find<GetClassroomAttendancesUsecase>(),
         getStudentAttendanceStatusesByClassroomUsecase:
             Get.find<GetStudentAttendanceStatusesByClassroomUsecase>(),
+        getStatistics: Get.find<GetStatisticsUseCase>(),
       ),
     );
   }
