@@ -45,5 +45,8 @@ Contém desde o figma até a documentação do Projeto.
 
 ## Release
 
+Nesse repositório, é tratado a aplicação Mobile do MAC-FI. Para ela funcionar, necessário utilizar a seguinte API feita em Spring. 
+[API MACFI](https://github.com/BrunaBecker/ESII-API-Macfi)
+
 [1.0.0](https://github.com/BrunaBecker/ESII-Chamada-Inteligente/releases)
 
