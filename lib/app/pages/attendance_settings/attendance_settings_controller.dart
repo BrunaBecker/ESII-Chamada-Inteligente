@@ -129,13 +129,13 @@ class AttendanceSettingsController extends GetxController {
 
   Future<AttendanceEntity?> startAttendance() async {
     _isStartingAttendance.value = true;
-    // TODO: get location
     LocationEntity? location;
     VirtualZoneEntity? virtualZone;
     if (selectedClassroom!.defaultLocation != null) {
-      VirtualZoneEntity(
+      virtualZone = VirtualZoneEntity(
         location: selectedClassroom!.defaultLocation!,
       );
+      virtualZone = await _createVirtualZone(virtualZone: virtualZone);
     } else {
       try {
         final coordinate = await _location.getCurrentLocation();
