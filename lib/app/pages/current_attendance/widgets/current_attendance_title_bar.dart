@@ -14,10 +14,15 @@ class CurrentAttendanceTitleBar extends StatelessWidget {
       builder: (controller) => SliverAppBar(
         flexibleSpace: Column(
           children: [
-            Text(
-              "CH - ${controller.currentAttendance.classroom?.courseName ?? ""} - ${controller.currentAttendance.classroom?.id ?? ""}",
-              style: const TextStyle(
-                fontSize: 22,
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                "CH - ${controller.currentAttendance.classroom?.courseName ?? ""} - ${controller.currentAttendance.classroom?.id ?? ""}",
+                style: const TextStyle(
+                  fontSize: 22,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             const Spacing(8.0),

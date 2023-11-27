@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app_controller.dart';
+import '../../core/adapters/log_adapter.dart';
 import '../../core/adapters/validator_adapter.dart';
+import '../../core/domain/entities/classroom_entity.dart';
 import '../../core/domain/entities/event_entity.dart';
+import '../../core/domain/usecases/create_event_usecase.dart';
+import '../../core/domain/usecases/get_professor_classrooms_usecase.dart';
 import '../../core/domain/usecases/get_professor_events_between_dates_usecase.dart';
 import '../../core/domain/usecases/get_students_event_between_dates_usecase.dart';
+import '../../core/enums/event_status.dart';
 
 class CalendarController extends GetxController {
   CalendarController({
@@ -14,20 +19,27 @@ class CalendarController extends GetxController {
     required GetProfessorEventsBetweenDatesUsecase
         getProfessorEventsBetweenDates,
     required GetStudentEventsBetweenDatesUsecase getStudentEventsBetweenDates,
+    required GetProfessorClassroomsUsecase getProfessorClassrooms,
+    required CreateEventUsecase createEvent,
   })  : _appController = appController,
         _validator = validator,
         _getProfessorEventsBetweenDates = getProfessorEventsBetweenDates,
-        _getStudentEventsBetweenDates = getStudentEventsBetweenDates;
+        _getStudentEventsBetweenDates = getStudentEventsBetweenDates,
+        _getProfessorClassrooms = getProfessorClassrooms,
+        _createEvent = createEvent;
 
   final AppController _appController;
   final ValidatorAdapter _validator;
   final GetProfessorEventsBetweenDatesUsecase _getProfessorEventsBetweenDates;
   final GetStudentEventsBetweenDatesUsecase _getStudentEventsBetweenDates;
+  final GetProfessorClassroomsUsecase _getProfessorClassrooms;
+  final CreateEventUsecase _createEvent;
 
   final _isLoading = true.obs;
   final _formKey = GlobalKey<FormState>();
-  final _classNameController = TextEditingController();
-  final _eventController = TextEditingController();
+  final _professorClassrooms = <ClassroomEntity>[].obs;
+  final _selectedClassroom = Rx<ClassroomEntity?>(null);
+  final _selectedEventStatus = Rx<EventStatus?>(null);
   final _commentController = TextEditingController();
   final _selectedDate = Rx<DateTime?>(null);
   final _events = <EventEntity>[].obs;
@@ -39,12 +51,18 @@ class CalendarController extends GetxController {
 
   bool get isLoading => _isLoading.value;
   GlobalKey<FormState> get formKey => _formKey;
-  TextEditingController get classNameController => _classNameController;
-  TextEditingController get eventController => _eventController;
+  List<ClassroomEntity> get professorClassrooms => _professorClassrooms;
+  ClassroomEntity? get selectedClassroom => _selectedClassroom.value;
+  EventStatus? get selectedEventStatus => _selectedEventStatus.value;
   TextEditingController get commentController => _commentController;
   DateTime? get selectedDate => _selectedDate.value;
   List<EventEntity> get events => _events;
   List<EventEntity> get selectedDayEvents => _selectedDayEvents;
+
+  set selectedClassroom(ClassroomEntity? value) =>
+      _selectedClassroom.value = value;
+  set selectedEventStatus(EventStatus? value) =>
+      _selectedEventStatus.value = value;
 
   @override
   void onReady() async {
@@ -56,15 +74,40 @@ class CalendarController extends GetxController {
       start: DateTime.now().subtract(const Duration(days: 30)),
       end: DateTime.now().add(const Duration(days: 30)),
     );
+    await fetchProfessorClassrooms();
 
     _isLoading.value = false;
   }
 
-  void saveEvent() {
-    // TODO: save event
-    classNameController.clear();
-    eventController.clear();
-    commentController.clear();
+  Future<bool> saveEvent() async {
+    if (_formKey.currentState?.validate() != true) return false;
+
+    try {
+      appLog(selectedClassroom.toString());
+      appLog(selectedEventStatus.toString());
+      appLog(selectedDate.toString());
+      appLog(commentController.text);
+      appLog("Creating");
+      final newEvent = await _createEvent(
+        event: EventEntity(
+          name:
+              "${selectedClassroom!.courseName} - ${selectedClassroom!.className}",
+          date: selectedDate!,
+          description: commentController.text,
+          classroom: selectedClassroom!,
+          status: selectedEventStatus!,
+        ),
+      );
+      appLog("Created");
+      _events.add(newEvent);
+      _selectedClassroom.value = null;
+      _selectedEventStatus.value = null;
+      commentController.clear();
+      update();
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 
   void changeDate(DateTime? date) {
@@ -101,6 +144,18 @@ class CalendarController extends GetxController {
               end: end,
             ),
     );
+    update();
+  }
+
+  Future<void> fetchProfessorClassrooms() async {
+    if (_appController.isProfessor) {
+      _professorClassrooms.clear();
+      try {
+        final classroomsResult = await _getProfessorClassrooms(
+            _appController.user!.register.identifier) as List<ClassroomEntity>;
+        _professorClassrooms.addAll(classroomsResult);
+      } catch (_) {}
+    }
     update();
   }
 }

@@ -17,8 +17,12 @@ class ClassesWidget extends StatelessWidget {
       init: Get.find<ClassesController>(),
       builder: (controller) => Obx(
         () => controller.isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
+            ? Scaffold(
+                appBar: AppBar(),
+                body: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                bottomNavigationBar: const BottomNavBar(),
               )
             : Scaffold(
                 drawer: ClassesDrawer(
