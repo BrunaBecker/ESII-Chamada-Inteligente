@@ -107,12 +107,17 @@ class StudentsProfessorTab extends StatelessWidget {
                                 key: const Key(
                                     'go to student information button'),
                                 icon: const Icon(Icons.arrow_right_outlined),
-                                onPressed: () {
+                                onPressed: () async {
+                                  await controller.fetchStatistics(
+                                    student: item,
+                                  );
                                   Get.toNamed(
                                     "/student-info",
                                     arguments: {
                                       "studentInfo": item,
                                       "classInfo": controller.selectedClassroom,
+                                      "statistics":
+                                          controller.studentStatistics,
                                     },
                                   );
                                 },

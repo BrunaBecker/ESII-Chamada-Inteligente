@@ -23,7 +23,7 @@ class StudentInfoWidget extends StatelessWidget {
                 : AppBar(
                     backgroundColor: AppColors.surfaceContainer,
                     title: Text(
-                      "${controller.selectedClass["name"]}",
+                      controller.selectedClass.courseName,
                       style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
@@ -46,7 +46,7 @@ class StudentInfoWidget extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                controller.selectedStudent["name"],
+                                controller.selectedStudent.name,
                                 style: const TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.w700,
@@ -54,7 +54,7 @@ class StudentInfoWidget extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                controller.selectedStudent["registration"],
+                                controller.selectedStudent.register.identifier,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: AppColors.onSurfaceVariant,
@@ -67,26 +67,25 @@ class StudentInfoWidget extends StatelessWidget {
                           thickness: 4,
                           color: AppColors.primary,
                         ),
-                        // TODO: add real presence values
-                        const Padding(
-                          padding: EdgeInsets.all(16.0),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
                           child: Column(
                             children: [
                               StudentInfoLine(
                                 label: "Presença",
-                                value: "15",
+                                value: controller.statistics.presences,
                               ),
                               StudentInfoLine(
                                 label: "Faltas",
-                                value: "3",
+                                value: controller.statistics.absences,
                               ),
                               StudentInfoLine(
                                 label: "Faltas Abonadas",
-                                value: "2",
+                                value: controller.statistics.justifications,
                               ),
                               StudentInfoLine(
                                 label: "Total de chamadas da disciplina",
-                                value: "18",
+                                value: controller.statistics.allAttendances,
                               ),
                             ],
                           ),
@@ -97,9 +96,9 @@ class StudentInfoWidget extends StatelessWidget {
                             bottom: 8.0,
                           ),
                           alignment: Alignment.centerRight,
-                          child: const Text(
-                            "95%",
-                            style: TextStyle(
+                          child: Text(
+                            "${controller.statistics.frequency}%",
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                               color: AppColors.green1,
@@ -128,13 +127,12 @@ class StudentInfoWidget extends StatelessWidget {
                         ),
                         Expanded(
                           child: ListView.builder(
-                            itemCount: controller
-                                .selectedStudent["justifications"].length,
+                            itemCount: controller.waivers.length,
                             itemBuilder: (context, index) {
-                              final justification = controller
-                                  .selectedStudent["justifications"][index];
+                              final justification = controller.waivers[index];
                               return StudentInfoJustification(
-                                  justification: justification);
+                                justification: justification,
+                              );
                             },
                           ),
                         ),

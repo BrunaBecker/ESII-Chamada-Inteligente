@@ -51,25 +51,25 @@ class StudentInfoTab extends StatelessWidget {
                       color: AppColors.primary,
                     ),
                     // TODO: add real presence values
-                    const Padding(
-                      padding: EdgeInsets.all(16.0),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
                       child: Column(
                         children: [
                           StudentInfoLine(
                             label: "Presença",
-                            value: "15",
+                            value: controller.studentStatistics.presences,
                           ),
                           StudentInfoLine(
                             label: "Faltas",
-                            value: "3",
+                            value: controller.studentStatistics.absences,
                           ),
                           StudentInfoLine(
                             label: "Faltas Abonadas",
-                            value: "2",
+                            value: controller.studentStatistics.justifications,
                           ),
                           StudentInfoLine(
                             label: "Total de chamadas da disciplina",
-                            value: "18",
+                            value: controller.studentStatistics.allAttendances,
                           ),
                         ],
                       ),
@@ -80,9 +80,9 @@ class StudentInfoTab extends StatelessWidget {
                         bottom: 8.0,
                       ),
                       alignment: Alignment.centerRight,
-                      child: const Text(
-                        "95%",
-                        style: TextStyle(
+                      child: Text(
+                        "${controller.studentStatistics.frequency}%",
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                           color: AppColors.green1,

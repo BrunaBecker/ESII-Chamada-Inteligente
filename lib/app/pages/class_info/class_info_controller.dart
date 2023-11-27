@@ -8,8 +8,10 @@ import '../../core/domain/entities/attendance_entity.dart';
 import '../../core/domain/entities/attendance_status_entity.dart';
 import '../../core/domain/entities/classroom_entity.dart';
 import '../../core/domain/entities/person_entity.dart';
+import '../../core/domain/entities/statistics_entity.dart';
 import '../../core/domain/entities/student_entity.dart';
 import '../../core/domain/usecases/get_classroom_attendances_usecase.dart';
+import '../../core/domain/usecases/get_statistics_by_classroom_student_usecase.dart';
 import '../../core/domain/usecases/get_student_attendance_statuses_by_classroom_usecase.dart';
 import '../../core/enums/student_at_attendance_state.dart';
 import '../classes/classes_controller.dart';
@@ -23,13 +25,15 @@ class ClassInfoController extends GetxController {
     required GetClassroomAttendancesUsecase getClassroomAttendances,
     required GetStudentAttendanceStatusesByClassroomUsecase
         getStudentAttendanceStatusesByClassroomUsecase,
+    required GetStatisticsUseCase getStatistics,
   })  : _appController = appController,
         _classesController = classesController,
         _chart = chart,
         _validator = validator,
         _getClassroomAttendances = getClassroomAttendances,
         _getStudentAttendanceStatusesByClassroomUsecase =
-            getStudentAttendanceStatusesByClassroomUsecase;
+            getStudentAttendanceStatusesByClassroomUsecase,
+        _getStatistics = getStatistics;
 
   final AppController _appController;
   final ClassesController _classesController;
@@ -38,10 +42,12 @@ class ClassInfoController extends GetxController {
   final GetClassroomAttendancesUsecase _getClassroomAttendances;
   final GetStudentAttendanceStatusesByClassroomUsecase
       _getStudentAttendanceStatusesByClassroomUsecase;
+  final GetStatisticsUseCase _getStatistics;
 
   final _isLoading = true.obs;
   late final Rx<StudentEntity> _selectedStudent;
   late final Rx<ClassroomEntity> _selectedClassroom;
+  late final Rx<StatisticsEntity> _studentStatistics;
   late final Rx<AttendanceEntity?> _currentAttendance;
   final _classrooms = <ClassroomEntity>[].obs;
   final _allAttendances = <AttendanceEntity>[].obs;
@@ -61,6 +67,7 @@ class ClassInfoController extends GetxController {
 
   StudentEntity get selectedStudent => _selectedStudent.value;
   ClassroomEntity get selectedClassroom => _selectedClassroom.value;
+  StatisticsEntity get studentStatistics => _studentStatistics.value;
   AttendanceEntity? get currentAttendance => _currentAttendance.value;
   List<ClassroomEntity> get classrooms => _classrooms;
   List<AttendanceEntity> get allAttendances => _allAttendances;
@@ -100,6 +107,9 @@ class ClassInfoController extends GetxController {
     _classrooms.addAll(Get.arguments["classrooms"]);
     await fetchAttendances();
     await fetchAttendanceStatuses();
+    if (!_appController.isProfessor) {
+      await fetchStatistics();
+    }
 
     _isLoading.value = false;
     super.onReady();
@@ -155,6 +165,18 @@ class ClassInfoController extends GetxController {
       if (attendanceStatusesResult != null) {
         attendanceStatuses.addAll(attendanceStatusesResult);
       }
+    } catch (_) {}
+  }
+
+  Future<void> fetchStatistics({
+    StudentEntity? student,
+  }) async {
+    try {
+      final statisticResult = await _getStatistics(
+        selectedClassroom.id!,
+        student?.id ?? selectedStudent.id!,
+      );
+      _studentStatistics = statisticResult.obs;
     } catch (_) {}
   }
 
