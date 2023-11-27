@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import '../../app_controller.dart';
 import '../../core/adapters/http_adapter.dart';
+import '../../core/adapters/storage_adapter.dart';
 import '../../core/data/providers/api/professor_provider.dart';
 import '../../core/data/providers/api/student_provider.dart';
 import '../../core/data/repositories/get_professor_by_id_repository.dart';
@@ -53,6 +54,7 @@ class ProfileBindings extends Bindings {
     Get.lazyPut(
       () => ProfileController(
         appController: Get.find<AppController>(),
+        storage: Get.find<StorageAdapter>(),
         getProfessorById: Get.find<GetProfessorByIdUsecase>(),
         getStudentById: Get.find<GetStudentByIdUsecase>(),
       ),
