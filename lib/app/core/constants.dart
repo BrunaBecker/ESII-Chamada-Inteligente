@@ -12,3 +12,5 @@ const retryDelay = 1000;
 const httpUnauthorizedErrorMessage = "Unauthorized access error";
 const httpServerErrorMessage = "Server error";
 const httpNoConnectionErrorMessage = "No internet connection";
+
+const storageKey = "macfiKey";

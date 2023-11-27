@@ -4,6 +4,7 @@ import 'app_controller.dart';
 import 'core/adapters/http_adapter.dart';
 import 'core/adapters/location_adapter.dart';
 import 'core/adapters/mask_adapter.dart';
+import 'core/adapters/storage_adapter.dart';
 import 'core/adapters/validator_adapter.dart';
 import 'core/data/providers/api/notification_provider.dart';
 import 'core/data/repositories/delete_person_notification_repository.dart';
@@ -47,6 +48,9 @@ class AppBindings extends Bindings {
     );
     Get.put<LocationAdapter>(
       LocationAdapter(),
+    );
+    Get.put<StorageAdapter>(
+      StorageAdapter.getInstance(),
     );
 
     // Providers

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../app_controller.dart';
+import '../../core/adapters/storage_adapter.dart';
 import '../../core/domain/entities/person_entity.dart';
 import '../../core/domain/usecases/get_professor_by_id_usecase.dart';
 import '../../core/domain/usecases/get_student_by_id_usecase.dart';
@@ -8,13 +9,16 @@ import '../../core/domain/usecases/get_student_by_id_usecase.dart';
 class ProfileController extends GetxController {
   ProfileController({
     required appController,
+    required StorageAdapter storage,
     required getProfessorById,
     required getStudentById,
   })  : _appController = appController,
+        _storage = storage,
         _getProfessorById = getProfessorById,
         _getStudentById = getStudentById;
 
   final AppController _appController;
+  final StorageAdapter _storage;
   final GetProfessorByIdUsecase _getProfessorById;
   final GetStudentByIdUsecase _getStudentById;
 
@@ -45,5 +49,6 @@ class ProfileController extends GetxController {
     _isLoading.value = true;
     _appController.user = null;
     _appController.userType = null;
+    _storage.deleteAuthData();
   }
 }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../app_controller.dart';
 import '../../core/adapters/http_adapter.dart';
 import '../../core/adapters/mask_adapter.dart';
+import '../../core/adapters/storage_adapter.dart';
 import '../../core/adapters/validator_adapter.dart';
 import '../../core/data/providers/api/auth_provider.dart';
 import '../../core/data/repositories/login_professor_repository.dart';
@@ -51,6 +52,7 @@ class LoginBindings extends Bindings {
         appController: Get.find<AppController>(),
         mask: Get.find<MaskAdapter>(),
         validator: Get.find<ValidatorAdapter>(),
+        storage: Get.find<StorageAdapter>(),
         loginProfessor: Get.find<LoginProfessorUsecase>(),
         loginStudent: Get.find<LoginStudentUsecase>(),
       ),
